@@ -507,6 +507,18 @@ button ruby{
   .stats.stats-three{grid-template-columns:1fr}
 }
 
+
+#write #wHint{
+  max-width:560px;
+  margin-left:auto;
+  margin-right:auto;
+  padding:8px 10px;
+  border-radius:10px;
+  background:#f7f8fb;
+  color:var(--ink);
+  line-height:1.5;
+}
+
 </style>
 </head>
 <body>
@@ -656,8 +668,15 @@ button ruby{
             <option value="random">ランダム</option>
           </select>
         </label>
+        <label><ruby>意味<rt>いみ</rt></ruby>ヒント：
+          <select id="writeHintLang" style="padding:7px 9px;border:1px solid var(--line);border-radius:8px">
+            <option value="en">English</option>
+            <option value="ko">한국어</option>
+            <option value="pt">Português</option>
+          </select>
+        </label>
       </div>
-      <div class="label">PCに入力せず、紙やノートに日本語の漢字で書いてください。</div>
+      <div class="label"><ruby>読<rt>よ</rt></ruby>みと<ruby>意味<rt>いみ</rt></ruby>ヒントを<ruby>見<rt>み</rt></ruby>て、PCに<ruby>入力<rt>にゅうりょく</rt></ruby>せず、<ruby>紙<rt>かみ</rt></ruby>やノートに<ruby>漢字<rt>かんじ</rt></ruby>で<ruby>書<rt>か</rt></ruby>いてください。</div>
       <div class="progress" id="writeProgress"></div>
       <div id="wNo" class="label" style="text-align:center;font-size:.9rem;font-weight:700"></div>
       <div class="question" id="wReading"></div>
@@ -1078,33 +1097,32 @@ document.addEventListener("keydown",e=>{
 readOrder.onchange=()=>{ resetReadDeck(); newRead(); };
 
 // 書き：一巡するまで重複なし
-const WRITE_HINTS={
-  "象":{ja:"大きくて鼻が長い動物",en:"elephant",zh:"大象",ko:"코끼리",pt:"elefante"},
-  "像":{ja:"人や物の形・イメージ",en:"image / statue",zh:"形象／雕像",ko:"형상／조각상",pt:"imagem / estátua"}
-};
 function buildWriteWords(){
   const unique=new Map();
   DATA.filter(d=>selected.has(d.kanji)).forEach(d=>{
     d.words.forEach(w=>{
       const key=w[0]+"\u0000"+w[1];
+      const tr=w[w.length-1];
+      const translations=(tr && typeof tr==="object" && !Array.isArray(tr)) ? tr : {};
       if(!unique.has(key)){
-        unique.set(key,{kanji:d.kanji,kanjiList:[d.kanji],word:w[0],reading:w[1]});
+        unique.set(key,{
+          kanji:d.kanji,
+          kanjiList:[d.kanji],
+          word:w[0],
+          reading:w[1],
+          translations:{...translations}
+        });
       }else{
         const item=unique.get(key);
         if(!item.kanjiList.includes(d.kanji)) item.kanjiList.push(d.kanji);
+        // 重複語では、欠けている訳があれば補う。
+        Object.keys(translations).forEach(lang=>{
+          if(!item.translations[lang]) item.translations[lang]=translations[lang];
+        });
       }
     });
   });
-  const items=[...unique.values()];
-  const byReading=new Map();
-  items.forEach(item=>{
-    if(!byReading.has(item.reading)) byReading.set(item.reading,new Set());
-    byReading.get(item.reading).add(item.word);
-  });
-  items.forEach(item=>{
-    item.needsHint=(byReading.get(item.reading)?.size||0)>1;
-  });
-  return items;
+  return [...unique.values()];
 }
 let writeDeck=[], writePos=0, currentWrite=null, writeJudged=false, writeDirty=false;
 function resetWriteDeck(){
@@ -1113,6 +1131,24 @@ function resetWriteDeck(){
   writePos=0;
   writeDirty=false;
 }
+function renderWriteHint(){
+  if(!currentWrite){
+    wHint.textContent="";
+    wHint.classList.add("hidden");
+    return;
+  }
+  const lang=writeHintLang.value||"en";
+  const hint=(currentWrite.translations||{})[lang] || (currentWrite.translations||{}).en || "";
+  if(hint){
+    wHint.textContent="意味ヒント：" + hint;
+    wHint.lang=lang==="ko" ? "ko" : lang==="pt" ? "pt-BR" : "en";
+    wHint.classList.remove("hidden");
+  }else{
+    wHint.textContent="";
+    wHint.classList.add("hidden");
+  }
+}
+
 function newWrite(){
   if(writePos>=writeDeck.length) resetWriteDeck();
   if(!writeDeck.length){
@@ -1136,21 +1172,7 @@ function newWrite(){
     .map(d=>d.no);
   wNo.textContent=targetNos.length ? "教科書 No."+targetNos.join("・") : "";
   wReading.textContent=currentWrite.reading;
-  if(currentWrite.needsHint){
-    const lang=meaningLang.value||"ja";
-    const hint=WRITE_HINTS[currentWrite.word];
-    if(hint){
-      wHint.textContent="ヒント：" + (hint[lang]||hint.ja);
-      wHint.lang=lang==="zh" ? "zh-CN" : lang==="ko" ? "ko" : lang==="pt" ? "pt-BR" : lang==="en" ? "en" : "ja";
-      wHint.classList.remove("hidden");
-    }else{
-      wHint.textContent="";
-      wHint.classList.add("hidden");
-    }
-  }else{
-    wHint.textContent="";
-    wHint.classList.add("hidden");
-  }
+  renderWriteHint();
   wAnswer.textContent=currentWrite.word;
   wAnswer.classList.add("hidden");
   showWrite.classList.remove("hidden");
@@ -1188,6 +1210,10 @@ writeGood.onclick=()=>{
   newWrite();
 };
 writeOrder.onchange=()=>{ resetWriteDeck(); newWrite(); };
+writeHintLang.onchange=()=>{
+  safeStorageSet("kanjiWriteHintLang",writeHintLang.value);
+  renderWriteHint();
+};
 
 // 字体比較：一覧表示
 let zhDiffOnly=true;
@@ -1347,6 +1373,10 @@ document.querySelectorAll(".tabs button").forEach(b=>b.onclick=()=>{
 {
   const savedLang=safeStorageGet("kanjiMeaningLang")||"ja";
   meaningLang.value=["ja","en","zh","ko","pt"].includes(savedLang) ? savedLang : "ja";
+}
+{
+  const savedWriteHintLang=safeStorageGet("kanjiWriteHintLang")||"en";
+  writeHintLang.value=["en","ko","pt"].includes(savedWriteHintLang) ? savedWriteHintLang : "en";
 }
 meaningLang.onchange=renderMeaning;
 
