@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<!-- v39: 代表語の訳をスマホでも右側表示＋TOP導線 -->
+<!-- v45 unified: 第4課を第3課v45の体裁へ統一 -->
 <title>第4課 漢字自習ツール</title>
 <!-- 学生試用統一版：第4課。第4課 v38 の共通仕様に統一 -->
 
@@ -501,58 +501,87 @@ button ruby{
   justify-content:center;
 }
 
-/* v34: 書き練習の答えで、この課の漢字だけ色を変える */
+/* v45 unified: 書き練習の答えを「初級・既習 / 第4課 / 未習」で見分ける */
 .target-kanji{
   color:var(--accent);
-  border-bottom:3px solid #b9c9f2;
+  border-bottom:3px solid #8fa8ee;
 }
-
-/* v34: データ自己点検（?check=1 のときだけ表示） */
-#dataCheck{
-  margin-top:14px;
-  border:1px solid #f0b6ae;
-  background:#fff5f4;
-  border-radius:10px;
-  padding:11px 13px;
-  font-size:.85rem;
-  line-height:1.6;
-}
-#dataCheck ul{margin:6px 0 0;padding-left:1.2em}
-#dataCheck.ok{border-color:#a8ddc0;background:#f1fbf6}
-
-.inline-msg{
-  margin-top:10px;
-  color:var(--bad);
-  font-weight:700;
-}
-
-
-#write #wHint{
-  max-width:560px;
-  margin-left:auto;
-  margin-right:auto;
-  padding:8px 10px;
-  border-radius:10px;
-  background:#f7f8fb;
+.known-kanji{
   color:var(--ink);
-  line-height:1.5;
+  border-bottom:2px solid #aab2c0;
+}
+.unlearned-kanji{
+  color:var(--ink);
+  border-bottom:2px dotted #8f98a8;
+}
+.write-kanji-legend{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:8px 14px;
+  margin:10px 0 3px;
+  font-size:.82rem;
+  color:var(--muted);
+}
+.write-legend-item{
+  display:inline-flex;
+  align-items:center;
+  gap:5px;
+  white-space:nowrap;
+}
+.write-legend-line{
+  display:inline-block;
+  width:22px;
+  height:.8em;
+  border-bottom:2px solid #aab2c0;
+}
+.write-legend-line.target{border-bottom:3px solid #8fa8ee}
+.write-legend-line.unlearned{border-bottom:2px dotted #8f98a8}
+.write-level-note{
+  max-width:650px;
+  margin:2px auto 8px;
+  text-align:center;
+  line-height:1.55;
 }
 
-
+/* 読み→ヒント→正答の視線移動を短くする */
+#write #wReading{
+  line-height:1.6;
+  margin:18px 0 6px;
+}
+#write .write-hint-actions{
+  justify-content:center;
+  margin:0 0 2px !important;
+}
 #write #showWriteHint{
   min-height:38px;
   padding-top:7px;
   padding-bottom:7px;
 }
-#write #wReading{
-  line-height:1.6;
+
+
+/* v44: 使い分けは訓読みとセットで見せ、少しだけ強調 */
+#flash .iji-inline{
+  margin-top:10px;
+  padding:9px 10px 8px;
+  border-left:4px solid #6f88d8;
+  border-radius:8px;
+  background:#f3f6ff;
 }
-
-
-/* v27: 異字同訓の使い分け */
-#flash #fIjiBox{
-  border-color:#cfd8e6;
-  background:#f7f9fc;
+#flash .iji-inline-head{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  flex-wrap:wrap;
+}
+#flash .iji-badge{
+  display:inline-block;
+  padding:3px 8px;
+  border-radius:999px;
+  background:#e5ecff;
+  color:#27479f;
+  font-size:.82rem;
+  font-weight:800;
 }
 #flash .iji-text{
   margin-top:6px;
@@ -561,13 +590,41 @@ button ruby{
 }
 #flash .source-mini{
   display:inline-block;
-  margin-left:6px;
   padding:2px 6px;
   border-radius:999px;
   background:#eef1f5;
   font-size:.7rem;
   font-weight:600;
   color:#596273;
+}
+
+/* 基本範囲と発展学習の境界を、価値判断をせずに視覚化 */
+#flash .further-divider{
+  display:grid;
+  grid-template-columns:1fr auto 1fr;
+  align-items:center;
+  gap:10px;
+  margin:16px 2px 10px;
+  color:#667085;
+  font-size:.82rem;
+  letter-spacing:.02em;
+}
+#flash .further-divider span{
+  height:1px;
+  background:#cfd6e3;
+}
+#flash .further-divider b{
+  font-weight:800;
+  white-space:nowrap;
+}
+#flash .extra-box{
+  margin-top:0;
+  border-style:dashed;
+  background:#f8fafc;
+}
+#flash .art-extra-box{
+  margin-top:12px;
+  background:#fffaf1;
 }
 
 
@@ -716,6 +773,53 @@ button ruby{
   .top-link{padding:8px 10px;font-size:.86rem}
 }
 
+
+/* v41: 書き練習の問題・ヒント・正答を同じ視線エリアにまとめる */
+#write #wReading.question{
+  margin:16px 0 4px !important;
+}
+#write .write-hint-actions{
+  margin:0 !important;
+}
+#write #wHint{
+  max-width:560px;
+  margin:3px auto 3px !important;
+  padding:7px 10px;
+  border-radius:10px;
+  background:#f7f8fb;
+  color:var(--ink);
+  line-height:1.45;
+}
+#write #wAnswer.question{
+  margin:2px 0 8px !important;
+  line-height:1.25;
+}
+#write .write-hint-actions:has(#showWriteHint.hidden){
+  display:none;
+}
+#write .write-quiet-notes{
+  max-width:700px;
+  margin:14px auto 0;
+  padding-top:10px;
+  border-top:1px solid var(--line);
+  display:grid;
+  gap:5px;
+  font-size:.82rem;
+  line-height:1.45;
+}
+#write .write-quiet-notes .note{
+  font-size:.82rem;
+}
+
+
+#write .write-quiet-notes .note{
+  margin:0;
+  width:100%;
+  text-align:left;
+  font-size:.82rem;
+  line-height:1.45;
+}
+
 </style>
 </head>
 <body>
@@ -746,7 +850,7 @@ button ruby{
         <button class="secondary" id="selectAll"><ruby>全部<rt>ぜんぶ</rt></ruby><ruby>選<rt>えら</rt></ruby>ぶ</button>
         <button class="secondary" id="clearAll"><ruby>全部<rt>ぜんぶ</rt></ruby><ruby>解除<rt>かいじょ</rt></ruby></button>
         <button class="secondary" id="selectHard">★ <ruby>復習<rt>ふくしゅう</rt></ruby>リストから<ruby>選<rt>えら</rt></ruby>ぶ</button>
-        <span class="selected-count">選択中：<span id="selCount">0</span>字</span>
+        <span class="selected-count"><ruby>選択中<rt>せんたくちゅう</rt></ruby>：<span id="selCount">0</span><ruby>字<rt>じ</rt></ruby></span>
       </div>
       <div class="note selection-guide" style="margin:8px 0 12px">
         <ruby>最初<rt>さいしょ</rt></ruby>はすべての<ruby>漢字<rt>かんじ</rt></ruby>が<ruby>選<rt>えら</rt></ruby>ばれています。<ruby>練習<rt>れんしゅう</rt></ruby>しない<ruby>漢字<rt>かんじ</rt></ruby>は、クリックして<ruby>選択<rt>せんたく</rt></ruby>を<ruby>解除<rt>かいじょ</rt></ruby>してください。
@@ -756,7 +860,7 @@ button ruby{
         <button class="primary" id="startSelected"><ruby>選<rt>えら</rt></ruby>んだ<ruby>字<rt>じ</rt></ruby>をカードで<ruby>確認<rt>かくにん</rt></ruby></button>
       </div>
       <div id="selectMsg" class="note inline-msg hidden" role="status"></div>
-      <p class="note">※ 学習する漢字は、利用できる環境では教科書体を優先し、利用できない場合は手書きに近い Klee One で表示します。</p>
+      <p class="note">※ <ruby>学習<rt>がくしゅう</rt></ruby>する<ruby>漢字<rt>かんじ</rt></ruby>は、<ruby>利用<rt>りよう</rt></ruby>できる<ruby>環境<rt>かんきょう</rt></ruby>では<ruby>教科書体<rt>きょうかしょたい</rt></ruby>を<ruby>優先<rt>ゆうせん</rt></ruby>し、<ruby>利用<rt>りよう</rt></ruby>できない<ruby>場合<rt>ばあい</rt></ruby>は<ruby>手書<rt>てが</rt></ruby>きに<ruby>近<rt>ちか</rt></ruby>い Klee One で<ruby>表示<rt>ひょうじ</rt></ruby>します。</p>
     </div>
   </section>
 
@@ -765,7 +869,7 @@ button ruby{
       <div class="toptools" style="justify-content:center">
         <label>カード順：
           <select id="cardOrder" style="padding:7px 9px;border:1px solid var(--line);border-radius:8px">
-            <option value="textbook">教科書順</option>
+            <option value="textbook">教科書順（きょうかしょじゅん）</option>
             <option value="random">ランダム</option>
           </select>
         </label>
@@ -787,7 +891,7 @@ button ruby{
       <div id="fHidden" class="hidden">
         <div class="box" style="margin-bottom:12px;background:#f8fbff">
           <div style="display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap">
-            <div class="label" style="margin:0">意味</div>
+            <div class="label" style="margin:0"><ruby>意味<rt>いみ</rt></ruby></div>
             <select id="meaningLang" style="padding:6px 8px;border:1px solid var(--line);border-radius:8px">
               <option value="ja">やさしい日本語</option>
               <option value="en">English</option>
@@ -797,7 +901,7 @@ button ruby{
             </select>
           </div>
           <div class="note lang-help" id="langHelp" style="margin-top:7px">
-            日本語以外を選ぶと、漢字の意味だけでなく、教科書の語彙・発展語彙の訳も表示されます。
+            <ruby>日本語<rt>にほんご</rt></ruby><ruby>以外<rt>いがい</rt></ruby>を<ruby>選<rt>えら</rt></ruby>ぶと、<ruby>漢字<rt>かんじ</rt></ruby>の<ruby>意味<rt>いみ</rt></ruby>だけでなく、<ruby>教科書<rt>きょうかしょ</rt></ruby>の<ruby>語彙<rt>ごい</rt></ruby>・<ruby>発展語彙<rt>はってんごい</rt></ruby>の<ruby>訳<rt>やく</rt></ruby>も<ruby>表示<rt>ひょうじ</rt></ruby>されます。
           </div>
           <div id="meaningJa" style="margin-top:7px;line-height:1.7">
             <b id="fMeaningWord" style="font-size:1.05rem"></b>
@@ -806,23 +910,37 @@ button ruby{
           <div id="meaningOther" class="hidden" style="margin-top:7px;font-size:1.05rem;font-weight:700;line-height:1.7"></div>
         </div>
         <div class="meta">
-          <div class="box"><div class="label">常用漢字表・音読み</div><b id="fOn"></b></div>
-          <div class="box"><div class="label">常用漢字表・訓読み</div><b id="fKun"></b></div>
+          <div class="box">
+            <div class="label"><ruby>常用漢字表<rt>じょうようかんじひょう</rt></ruby>・<ruby>音読<rt>おんよ</rt></ruby>み</div>
+            <b id="fOn"></b>
+          </div>
+          <div class="box">
+            <div class="label"><ruby>常用漢字表<rt>じょうようかんじひょう</rt></ruby>・<ruby>訓読<rt>くんよ</rt></ruby>み</div>
+            <b id="fKun"></b>
+            <div class="hidden iji-inline" id="fIjiBox">
+              <div class="iji-inline-head">
+                <span class="iji-badge"><ruby>使<rt>つか</rt></ruby>い<ruby>分<rt>わ</rt></ruby>け</span>
+                <span class="source-mini"><ruby>文化庁資料<rt>ぶんかちょうしりょう</rt></ruby>を<ruby>参考<rt>さんこう</rt></ruby></span>
+              </div>
+              <div id="fIjiText" class="iji-text"></div>
+            </div>
+          </div>
         </div>
         <div class="box" style="margin-top:12px">
-          <div class="label">第4課の語彙</div><div class="words" id="fWords"></div>
+          <div class="label"><ruby>第<rt>だい</rt></ruby>4<ruby>課<rt>か</rt></ruby>の<ruby>語彙<rt>ごい</rt></ruby></div><div class="words" id="fWords"></div>
         </div>
-        <div class="box" style="margin-top:12px;border-style:dashed">
-          <div class="label">もう少し勉強したい人へ｜よく使う発展語彙</div>
+        <div class="further-divider" aria-label="さらに学ぶ">
+          <span></span>
+          <b>さらに<ruby>学<rt>まな</rt></ruby>ぶ</b>
+          <span></span>
+        </div>
+        <div class="box extra-box">
+          <div class="label">よく<ruby>使<rt>つか</rt></ruby>う<ruby>発展語彙<rt>はってんごい</rt></ruby></div>
           <div class="words" id="fExtra"></div>
         </div>
-        <div class="box hidden" id="fSpecialBox" style="margin-top:12px;border-style:dashed;background:#fffaf1">
-          <div class="label">美術・デザイン関連の発展語彙</div>
+        <div class="box hidden extra-box art-extra-box" id="fSpecialBox">
+          <div class="label"><ruby>美術<rt>びじゅつ</rt></ruby>・デザイン<ruby>関連<rt>かんれん</rt></ruby>の<ruby>発展語彙<rt>はってんごい</rt></ruby></div>
           <div class="words" id="fSpecial"></div>
-        </div>
-        <div class="box hidden" id="fIjiBox" style="margin-top:12px">
-          <div class="label"><ruby>使<rt>つか</rt></ruby>い<ruby>分<rt>わ</rt></ruby>け <span class="source-mini">文化庁資料を参考</span></div>
-          <div id="fIjiText" class="iji-text"></div>
         </div>
       </div>
 
@@ -835,13 +953,13 @@ button ruby{
       <div class="toptools">
         <label>出題順：
           <select id="readOrder" style="padding:7px 9px;border:1px solid var(--line);border-radius:8px">
-            <option value="textbook">教科書順</option>
+            <option value="textbook">教科書順（きょうかしょじゅん）</option>
             <option value="random">ランダム</option>
           </select>
         </label>
       </div>
       <div id="readQuizArea">
-        <div class="label">下の語の読みを、ひらがなで入力してください。</div>
+        <div class="label"><ruby>下<rt>した</rt></ruby>の<ruby>語<rt>ご</rt></ruby>の<ruby>読<rt>よ</rt></ruby>みを、ひらがなで<ruby>入力<rt>にゅうりょく</rt></ruby>してください。</div>
         <div class="progress" id="readProgress"></div>
         <div id="rNo" class="label" style="text-align:center;font-size:.9rem;font-weight:700"></div>
         <div class="question jp-kanji" id="rWord"></div><div id="rGloss" class="note hidden" style="text-align:center;font-size:1rem"></div>
@@ -865,15 +983,15 @@ button ruby{
           <button type="button" class="secondary" id="restartRead"><ruby>最初<rt>さいしょ</rt></ruby>からもう<ruby>一度<rt>いちど</rt></ruby></button>
         </div>
       </div>
-      <p class="note">※ 選んだ漢字の教科書語彙だけを出題します。「する動詞」は「する」を、「な形容詞」は「な」を除いた形で出題します（例：散歩する→散歩、派手な→派手）。「速い」「遅れる」などの送り仮名は残します。同じ表記で読み方が迷いやすい語には、短い日本語の文脈ヒントを表示します。PCでは Enter で解答し、結果を確認してもう一度 Enter で次へ進めます。</p>
+      <p class="note">※ <ruby>選<rt>えら</rt></ruby>んだ<ruby>漢字<rt>かんじ</rt></ruby>の<ruby>教科書語彙<rt>きょうかしょごい</rt></ruby>だけを<ruby>出題<rt>しゅつだい</rt></ruby>します。「する<ruby>動詞<rt>どうし</rt></ruby>」は「する」を、「な<ruby>形容詞<rt>けいようし</rt></ruby>」は「な」を<ruby>除<rt>のぞ</rt></ruby>いた<ruby>形<rt>かたち</rt></ruby>で<ruby>出題<rt>しゅつだい</rt></ruby>します（<ruby>例<rt>れい</rt></ruby>：<ruby>散歩<rt>さんぽ</rt></ruby>する→<ruby>散歩<rt>さんぽ</rt></ruby>、<ruby>派手<rt>はで</rt></ruby>な→<ruby>派手<rt>はで</rt></ruby>）。「<ruby>速<rt>はや</rt></ruby>い」「<ruby>遅<rt>おく</rt></ruby>れる」などの<ruby>送<rt>おく</rt></ruby>り<ruby>仮名<rt>がな</rt></ruby>は<ruby>残<rt>のこ</rt></ruby>します。<ruby>同<rt>おな</rt></ruby>じ<ruby>表記<rt>ひょうき</rt></ruby>で<ruby>読<rt>よ</rt></ruby>み<ruby>方<rt>かた</rt></ruby>が<ruby>迷<rt>まよ</rt></ruby>いやすい<ruby>語<rt>ご</rt></ruby>には、<ruby>短<rt>みじか</rt></ruby>い<ruby>日本語<rt>にほんご</rt></ruby>の<ruby>文脈<rt>ぶんみゃく</rt></ruby>ヒントを<ruby>表示<rt>ひょうじ</rt></ruby>します。PCでは Enter で<ruby>解答<rt>かいとう</rt></ruby>し、<ruby>結果<rt>けっか</rt></ruby>を<ruby>確認<rt>かくにん</rt></ruby>してもう<ruby>一度<rt>いちど</rt></ruby> Enter で<ruby>次<rt>つぎ</rt></ruby>へ<ruby>進<rt>すす</rt></ruby>めます。</p>
       <div style="border-top:1px solid var(--line);margin-top:18px;padding-top:14px">
-        <div class="label" style="font-weight:700">読みクイズの成績</div>
+        <div class="label" style="font-weight:700"><ruby>読<rt>よ</rt></ruby>みクイズの<ruby>成績<rt>せいせき</rt></ruby></div>
         <div class="stats stats-three">
-          <div class="stat"><b id="sAnswered">0</b>解答数</div>
-          <div class="stat"><b id="sCorrect">0</b>正解数</div>
-          <div class="stat"><b id="sRate">—</b>正答率</div>
+          <div class="stat"><b id="sAnswered">0</b><ruby>解答数<rt>かいとうすう</rt></ruby></div>
+          <div class="stat"><b id="sCorrect">0</b><ruby>正解数<rt>せいかいすう</rt></ruby></div>
+          <div class="stat"><b id="sRate">—</b><ruby>正答率<rt>せいとうりつ</rt></ruby></div>
         </div>
-        <div class="actions"><button type="button" class="secondary" id="resetReadStats" onclick="resetReadStatsNow(this)">読みの成績をリセット</button></div>
+        <div class="actions"><button type="button" class="secondary" id="resetReadStats" onclick="resetReadStatsNow(this)"><ruby>読<rt>よ</rt></ruby>みの<ruby>成績<rt>せいせき</rt></ruby>をリセット</button></div>
       </div>
     </div>
   </section>
@@ -881,9 +999,9 @@ button ruby{
   <section id="write" class="panel" role="tabpanel" aria-labelledby="tab-write">
     <div class="card">
       <div class="toptools">
-        <label>出題順：
+        <label><ruby>出題順<rt>しゅつだいじゅん</rt></ruby>：
           <select id="writeOrder" style="padding:7px 9px;border:1px solid var(--line);border-radius:8px">
-            <option value="textbook">教科書順</option>
+            <option value="textbook">教科書順（きょうかしょじゅん）</option>
             <option value="random">ランダム</option>
           </select>
         </label>
@@ -895,24 +1013,30 @@ button ruby{
           </select>
         </label>
       </div>
-      <div class="note" style="margin:6px 0 0">※ <ruby>中国語<rt>ちゅうごくご</rt></ruby>の<ruby>訳<rt>やく</rt></ruby>は<ruby>答<rt>こた</rt></ruby>えの<ruby>漢字<rt>かんじ</rt></ruby>そのものになることが<ruby>多<rt>おお</rt></ruby>いので、ここでは<ruby>選<rt>えら</rt></ruby>べません。</div>
       <div id="writeQuizArea">
         <div class="label"><ruby>読<rt>よ</rt></ruby>みと、<ruby>必要<rt>ひつよう</rt></ruby>なときは<ruby>短<rt>みじか</rt></ruby>い<ruby>文脈<rt>ぶんみゃく</rt></ruby>ヒントを<ruby>見<rt>み</rt></ruby>て、<ruby>紙<rt>かみ</rt></ruby>やノートに<ruby>漢字<rt>かんじ</rt></ruby>で<ruby>書<rt>か</rt></ruby>いてください。</div>
+        <div class="write-kanji-legend" aria-label="答えの漢字の分類">
+          <span class="write-legend-item"><span class="write-legend-line target" aria-hidden="true"></span><span><ruby>第<rt>だい</rt></ruby>4<ruby>課<rt>か</rt></ruby></span></span>
+          <span class="write-legend-item"><span class="write-legend-line" aria-hidden="true"></span><span><ruby>初級<rt>しょきゅう</rt></ruby>・<ruby>既習<rt>きしゅう</rt></ruby></span></span>
+          <span class="write-legend-item"><span class="write-legend-line unlearned" aria-hidden="true"></span><span><ruby>未習<rt>みしゅう</rt></ruby></span></span>
+        </div>
         <div class="progress" id="writeProgress"></div>
         <div id="wNo" class="label" style="text-align:center;font-size:.9rem;font-weight:700"></div>
         <div class="question" id="wReading"></div>
-        <div class="actions" style="justify-content:center;margin-top:4px">
+        <div class="actions write-hint-actions">
           <button type="button" class="secondary" id="showWriteHint"><ruby>外国語<rt>がいこくご</rt></ruby>ヒントを<ruby>見<rt>み</rt></ruby>る</button>
         </div>
         <div id="wHint" class="note hidden" style="text-align:center;font-size:1rem;margin-top:-6px"></div>
         <div id="wAnswer" class="question jp-kanji hidden"></div>
-        <div id="wAnswerLegend" class="note hidden" style="text-align:center;margin-top:-10px">
-          <span class="target-kanji">青い字</span>が<ruby>第<rt>だい</rt></ruby>3<ruby>課<rt>か</rt></ruby>の<ruby>漢字<rt>かんじ</rt></ruby>です
-        </div>
         <div class="actions" style="justify-content:center">
           <button class="primary" id="showWrite"><ruby>答<rt>こた</rt></ruby>えを<ruby>見<rt>み</rt></ruby>る</button>
           <button class="bad hidden" id="writeBad"><ruby>書<rt>か</rt></ruby>けなかった</button>
           <button class="good hidden" id="writeGood"><ruby>書<rt>か</rt></ruby>けた</button>
+        </div>
+        <div class="write-quiet-notes">
+          <div class="note">※ <ruby>中国語<rt>ちゅうごくご</rt></ruby>の<ruby>訳<rt>やく</rt></ruby>は<ruby>答<rt>こた</rt></ruby>えの<ruby>漢字<rt>かんじ</rt></ruby>そのものになることが<ruby>多<rt>おお</rt></ruby>いので、ここでは<ruby>選<rt>えら</rt></ruby>べません。</div>
+          <div class="note">※「<ruby>初級<rt>しょきゅう</rt></ruby>・<ruby>既習<rt>きしゅう</rt></ruby>」には、<ruby>初級<rt>しょきゅう</rt></ruby>レベルの<ruby>漢字<rt>かんじ</rt></ruby>300<ruby>字<rt>じ</rt></ruby>と、この<ruby>授業<rt>じゅぎょう</rt></ruby>でこれまでに<ruby>学習<rt>がくしゅう</rt></ruby>した<ruby>漢字<rt>かんじ</rt></ruby>を<ruby>含<rt>ふく</rt></ruby>みます。<ruby>初級<rt>しょきゅう</rt></ruby>300<ruby>字<rt>じ</rt></ruby>は、この<ruby>授業<rt>じゅぎょう</rt></ruby>で<ruby>扱<rt>あつか</rt></ruby>った<ruby>漢字<rt>かんじ</rt></ruby>とは<ruby>限<rt>かぎ</rt></ruby>りません。</div>
+          <div class="note">※ 「<ruby>漢字<rt>かんじ</rt></ruby>を<ruby>選<rt>えら</rt></ruby>ぶ」で<ruby>選<rt>えら</rt></ruby>んだ<ruby>漢字<rt>かんじ</rt></ruby>の<ruby>教科書語彙<rt>きょうかしょごい</rt></ruby>だけを<ruby>出題<rt>しゅつだい</rt></ruby>します。<ruby>書<rt>か</rt></ruby>き<ruby>分<rt>わ</rt></ruby>けが<ruby>必要<rt>ひつよう</rt></ruby>な<ruby>語<rt>ご</rt></ruby>には<ruby>短<rt>みじか</rt></ruby>い<ruby>日本語<rt>にほんご</rt></ruby>の<ruby>文脈<rt>ぶんみゃく</rt></ruby>を<ruby>付<rt>つ</rt></ruby>けています。<ruby>分<rt>わ</rt></ruby>からないときは<ruby>外国語<rt>がいこくご</rt></ruby>ヒントも<ruby>使<rt>つか</rt></ruby>えます。</div>
         </div>
       </div>
 
@@ -925,51 +1049,50 @@ button ruby{
           <button type="button" class="secondary" id="restartWrite"><ruby>最初<rt>さいしょ</rt></ruby>からもう<ruby>一度<rt>いちど</rt></ruby></button>
         </div>
       </div>
-      <p class="note">※ 「漢字を選ぶ」で選んだ漢字の教科書語彙だけを出題します。書き分けが必要な語には短い日本語の文脈を付けています。分からないときは外国語ヒントも使えます。</p>
       <div style="border-top:1px solid var(--line);margin-top:18px;padding-top:14px">
-        <div class="label" style="font-weight:700">書き取りの自己採点</div>
+        <div class="label" style="font-weight:700"><ruby>書<rt>か</rt></ruby>き<ruby>取<rt>と</rt></ruby>りの<ruby>自己採点<rt>じこさいてん</rt></ruby></div>
         <div class="stats stats-three">
-          <div class="stat"><b id="sWriteTotal">0</b>回答数</div>
+          <div class="stat"><b id="sWriteTotal">0</b><ruby>回答数<rt>かいとうすう</rt></ruby></div>
           <div class="stat"><b id="sWriteGood">0</b>書けた</div>
           <div class="stat"><b id="sWriteBad">0</b>書けなかった</div>
         </div>
-        <div class="actions"><button type="button" class="secondary" id="resetWriteStats" onclick="resetWriteStatsNow(this)">書きの成績をリセット</button></div>
+        <div class="actions"><button type="button" class="secondary" id="resetWriteStats" onclick="resetWriteStatsNow(this)"><ruby>書<rt>か</rt></ruby>きの<ruby>成績<rt>せいせき</rt></ruby>をリセット</button></div>
       </div>
     </div>
   </section>
 
   <section id="zh" class="panel" role="tabpanel" aria-labelledby="tab-zh">
     <div class="card">
-      <div class="label">日本語・簡体字・繁体字の字体を一覧で比較します。</div>
+      <div class="label"><ruby>日本語<rt>にほんご</rt></ruby>・<ruby>簡体字<rt>かんたいじ</rt></ruby>・<ruby>繁体字<rt>はんたいじ</rt></ruby>の<ruby>字体<rt>じたい</rt></ruby>を<ruby>一覧<rt>いちらん</rt></ruby>で<ruby>比較<rt>ひかく</rt></ruby>します。</div>
       <div id="zhCount" style="font-weight:700;margin:10px 0"></div>
       <div class="toptools">
-        <button class="primary" id="onlyDiff">差がある字だけ</button>
-        <button class="secondary" id="showAllZh">全20字</button>
+        <button class="primary" id="onlyDiff"><ruby>差<rt>さ</rt></ruby>がある<ruby>字<rt>じ</rt></ruby>だけ</button>
+        <button class="secondary" id="showAllZh"><ruby>全<rt>ぜん</rt></ruby>20<ruby>字<rt>じ</rt></ruby></button>
       </div>
       <div class="zh-table-wrap" style="margin-top:12px">
         <table class="list" id="zhTable">
-          <thead><tr><th>No.</th><th>日本語</th><th>簡体字</th><th>繁体字</th></tr></thead>
+          <thead><tr><th>No.</th><th><ruby>日本語<rt>にほんご</rt></ruby></th><th><ruby>簡体字<rt>かんたいじ</rt></ruby></th><th><ruby>繁体字<rt>はんたいじ</rt></ruby></th></tr></thead>
           <tbody id="zhBody"></tbody>
         </table>
       </div>
-      <p class="note">※ 日本語は教科書体を優先し、簡体字・繁体字はそれぞれの中国語フォントで表示します。「差がある字だけ」には、文字自体が異なる字に加え、日中漢字の研究・公的資料等で学習上確認する価値がある字も表示します。</p>
+      <p class="note">※ <ruby>日本語<rt>にほんご</rt></ruby>は<ruby>教科書体<rt>きょうかしょたい</rt></ruby>を<ruby>優先<rt>ゆうせん</rt></ruby>し、<ruby>簡体字<rt>かんたいじ</rt></ruby>・<ruby>繁体字<rt>はんたいじ</rt></ruby>はそれぞれの<ruby>中国語<rt>ちゅうごくご</rt></ruby>フォントで<ruby>表示<rt>ひょうじ</rt></ruby>します。「<ruby>差<rt>さ</rt></ruby>がある<ruby>字<rt>じ</rt></ruby>だけ」には、<ruby>文字自体<rt>もじじたい</rt></ruby>が<ruby>異<rt>こと</rt></ruby>なる<ruby>字<rt>じ</rt></ruby>に<ruby>加<rt>くわ</rt></ruby>え、<ruby>日中漢字<rt>にっちゅうかんじ</rt></ruby>の<ruby>研究<rt>けんきゅう</rt></ruby>・<ruby>公的資料等<rt>こうてきしりょうとう</rt></ruby>で<ruby>学習上<rt>がくしゅうじょう</rt></ruby><ruby>確認<rt>かくにん</rt></ruby>する<ruby>価値<rt>かち</rt></ruby>がある<ruby>字<rt>じ</rt></ruby>も<ruby>表示<rt>ひょうじ</rt></ruby>します。</p>
     </div>
   </section>
 
   <section id="stats" class="panel" role="tabpanel" aria-labelledby="tab-stats">
     <div class="card">
-      <h2 style="margin-top:0;font-size:1.05rem">★ 復習する漢字</h2>
-      <p class="note">カードで「★ 復習する」を押した字、読みを間違えた字、書けなかった字が入ります。もう大丈夫な字は「復習リストから外す」で削除できます。</p>
-      <div class="stat" style="max-width:180px;margin-bottom:12px"><b id="sHard">0</b>復習する漢字</div>
+      <h2 style="margin-top:0;font-size:1.05rem">★ <ruby>復習<rt>ふくしゅう</rt></ruby>する<ruby>漢字<rt>かんじ</rt></ruby></h2>
+      <p class="note">カードで「★ <ruby>復習<rt>ふくしゅう</rt></ruby>する」を<ruby>押<rt>お</rt></ruby>した<ruby>字<rt>じ</rt></ruby>、<ruby>読<rt>よ</rt></ruby>みを<ruby>間違<rt>まちが</rt></ruby>えた<ruby>字<rt>じ</rt></ruby>、<ruby>書<rt>か</rt></ruby>けなかった<ruby>字<rt>じ</rt></ruby>が<ruby>入<rt>はい</rt></ruby>ります。もう<ruby>大丈夫<rt>だいじょうぶ</rt></ruby>な<ruby>字<rt>じ</rt></ruby>は「<ruby>復習<rt>ふくしゅう</rt></ruby>リストから<ruby>外<rt>はず</rt></ruby>す」で<ruby>削除<rt>さくじょ</rt></ruby>できます。</p>
+      <div class="stat" style="max-width:180px;margin-bottom:12px"><b id="sHard">0</b><ruby>復習<rt>ふくしゅう</rt></ruby>する<ruby>漢字<rt>かんじ</rt></ruby></div>
       <div class="table-scroll">
         <table class="list">
-          <thead><tr><th>No.・漢字</th><th>復習理由</th><th>操作</th></tr></thead>
+          <thead><tr><th>No.・<ruby>漢字<rt>かんじ</rt></ruby></th><th><ruby>復習理由<rt>ふくしゅうりゆう</rt></ruby></th><th><ruby>操作<rt>そうさ</rt></ruby></th></tr></thead>
           <tbody id="hardList"></tbody>
         </table>
       </div>
       <div class="actions">
-        <button type="button" class="secondary" id="resetReviewList" onclick="resetReviewListNow(this)">復習リストをリセット</button>
-        <button type="button" class="bad" id="resetStats" onclick="resetAllStatsNow(this)">すべての学習記録をリセット</button>
+        <button type="button" class="secondary" id="resetReviewList" onclick="resetReviewListNow(this)"><ruby>復習<rt>ふくしゅう</rt></ruby>リストをリセット</button>
+        <button type="button" class="bad" id="resetStats" onclick="resetAllStatsNow(this)">すべての<ruby>学習記録<rt>がくしゅうきろく</rt></ruby>をリセット</button>
       </div>
       <div id="dataCheck" class="hidden"></div>
     </div>
@@ -1066,7 +1189,7 @@ function resetFlashPool(){
 }
 
 
-const IJI_DOKUN = {"舟":{"ja":"舟＝比較的小さいふね・文学的な表記にも使う　／　船＝一般的なふね、特に大きなものにも使う","en":"舟 = relatively small boat, also literary / 船 = general word for a vessel, including larger ships","zh":"舟＝较小的船，也用于文学性表达 ／ 船＝一般的船，也可指较大的船只","ko":"舟＝비교적 작은 배·문학적 표현 ／ 船＝일반적인 배, 큰 선박에도 사용","pt":"舟 = barco relativamente pequeno, também literário / 船 = termo geral para embarcação, inclusive navios maiores"},"油":{"ja":"油＝常温で液体のあぶらを中心に使う　／　脂＝動物の脂肪など、固体・半固体のあぶらに使うことが多い","en":"油 = mainly liquid oil / 脂 = mainly animal fat or solid/semi-solid grease","zh":"油＝主要指常温下液态的油 ／ 脂＝多指动物脂肪等固态、半固态的油脂","ko":"油＝주로 상온에서 액체인 기름 ／ 脂＝동물성 지방 등 고체·반고체 지방","pt":"油 = principalmente óleo líquido / 脂 = principalmente gordura animal ou gordura sólida/semi-sólida"}};
+const IJI_DOKUN = {"舟":{"ja":"舟（ふね）＝比較的小さいふね・文学的な表記にも使う　／　船（ふね）＝一般的なふね、特に大きなものにも使う","en":"舟（ふね） = relatively small boat, also literary / 船（ふね） = general word for a vessel, including larger ships","zh":"舟（ふね）＝较小的船，也用于文学性表达 ／ 船（ふね）＝一般的船，也可指较大的船只","ko":"舟（ふね）＝비교적 작은 배·문학적 표현 ／ 船（ふね）＝일반적인 배, 큰 선박에도 사용","pt":"舟（ふね） = barco relativamente pequeno, também literário / 船（ふね） = termo geral para embarcação, inclusive navios maiores"},"油":{"ja":"油（あぶら）＝常温で液体のあぶらを中心に使う　／　脂（あぶら）＝動物の脂肪など、固体・半固体のあぶらに使うことが多い","en":"油（あぶら） = mainly liquid oil / 脂（あぶら） = mainly animal fat or solid/semi-solid grease","zh":"油（あぶら）＝主要指常温下液态的油 ／ 脂（あぶら）＝多指动物脂肪等固态、半固态的油脂","ko":"油（あぶら）＝주로 상온에서 액체인 기름 ／ 脂（あぶら）＝동물성 지방 등 고체·반고체 지방","pt":"油（あぶら） = principalmente óleo líquido / 脂（あぶら） = principalmente gordura animal ou gordura sólida/semi-sólida"}};
 const READING_EXAMPLES = {"馬":{"on":{"バ":"乗馬（じょうば）"},"kun":{"うま":"馬（うま）","ま":"馬子（まご）"}},"象":{"on":{"ショウ":"気象（きしょう）","ゾウ":"象（ぞう）"},"kun":{}},"竹":{"on":{"チク":"竹林（ちくりん）"},"kun":{"たけ":"竹（たけ）"}},"糸":{"on":{"シ":"製糸（せいし）"},"kun":{"いと":"糸（いと）"}},"貝":{"on":{},"kun":{"かい":"貝（かい）"}},"毛":{"on":{"モウ":"羊毛（ようもう）"},"kun":{"け":"毛（け）"}},"舟":{"on":{"シュウ":"舟運（しゅううん）"},"kun":{"ふね":"舟（ふね）","ふな":"舟形（ふながた）"}},"石":{"on":{"セキ":"石油（せきゆ）","シャク":"磁石（じしゃく）","コク":"石高（こくだか）"},"kun":{"いし":"石（いし）"}},"岩":{"on":{"ガン":"溶岩（ようがん）"},"kun":{"いわ":"岩（いわ）"}},"畑":{"on":{},"kun":{"はた":"畑作（はたさく）","はたけ":"畑（はたけ）"}},"由":{"on":{"ユ":"経由（けいゆ）","ユウ":"理由（りゆう）","ユイ":"由緒（ゆいしょ）"},"kun":{"よし":"由（よし）"}},"油":{"on":{"ユ":"石油（せきゆ）"},"kun":{"あぶら":"油（あぶら）"}},"官":{"on":{"カン":"官庁（かんちょう）"},"kun":{}},"管":{"on":{"カン":"管理（かんり）"},"kun":{"くだ":"管（くだ）"}},"島":{"on":{"トウ":"半島（はんとう）"},"kun":{"しま":"島（しま）"}},"若":{"on":{"ジャク":"若干（じゃっかん）","ニャク":"老若（ろうにゃく）"},"kun":{"わかい":"若い","もしくは":"若しくは"}},"苦":{"on":{"ク":"苦労（くろう）"},"kun":{"くるしい":"苦しい","くるしむ":"苦しむ","くるしめる":"苦しめる","にがい":"苦い","にがる":"苦り切る（にがりきる）［参考］"}},"向":{"on":{"コウ":"方向（ほうこう）"},"kun":{"むく":"向く","むける":"向ける","むかう":"向かう","むこう":"向こう"}},"老":{"on":{"ロウ":"老人（ろうじん）"},"kun":{"おいる":"老いる","ふける":"老ける"}},"像":{"on":{"ゾウ":"肖像（しょうぞう）"},"kun":{}}};
 const READING_EXAMPLE_GLOSS = {"馬|on|バ":{"ja":"乗馬","en":"horse riding","zh":"骑马","ko":"승마","pt":"equitação"},"馬|kun|うま":{"ja":"動物の馬","en":"horse","zh":"马","ko":"말","pt":"cavalo"},"馬|kun|ま":{"ja":"馬を扱う人","en":"packhorse driver","zh":"马夫","ko":"마부","pt":"condutor de cavalo"},"象|on|ショウ":{"ja":"気象","en":"weather; meteorological phenomena","zh":"气象","ko":"기상","pt":"meteorologia; fenômenos atmosféricos"},"象|on|ゾウ":{"ja":"象","en":"elephant","zh":"象；大象","ko":"코끼리","pt":"elefante"},"竹|on|チク":{"ja":"竹林","en":"bamboo grove","zh":"竹林","ko":"죽림","pt":"bosque de bambu"},"竹|kun|たけ":{"ja":"植物の竹","en":"bamboo","zh":"竹子","ko":"대나무","pt":"bambu"},"糸|on|シ":{"ja":"製糸","en":"silk reeling; thread production","zh":"制丝","ko":"제사; 실 생산","pt":"fiação; produção de fio"},"糸|kun|いと":{"ja":"細く長い繊維","en":"thread; string","zh":"线；丝","ko":"실","pt":"fio; linha"},"貝|kun|かい":{"ja":"貝","en":"shellfish; shell","zh":"贝；贝壳","ko":"조개","pt":"molusco; concha"},"毛|on|モウ":{"ja":"羊毛","en":"wool","zh":"羊毛","ko":"양모","pt":"lã"},"毛|kun|け":{"ja":"体や動物に生える毛","en":"hair; fur","zh":"毛；毛发","ko":"털","pt":"pelo; pelagem"},"舟|on|シュウ":{"ja":"舟運","en":"water transport; shipping","zh":"水运","ko":"주운; 수운","pt":"transporte fluvial"},"舟|kun|ふね":{"ja":"小さな船・舟","en":"boat","zh":"舟；小船","ko":"배; 작은 배","pt":"barco"},"舟|kun|ふな":{"ja":"舟の形","en":"boat-shaped","zh":"舟形；船形","ko":"배 모양","pt":"em forma de barco"},"石|on|セキ":{"ja":"石油","en":"petroleum; oil","zh":"石油","ko":"석유","pt":"petróleo"},"石|on|シャク":{"ja":"磁石","en":"magnet","zh":"磁铁","ko":"자석","pt":"ímã"},"石|on|コク":{"ja":"石高","en":"rice yield assessed in koku","zh":"石高；按石计的产量","ko":"고쿠다카; 석고","pt":"produção avaliada em koku"},"石|kun|いし":{"ja":"石","en":"stone","zh":"石头","ko":"돌","pt":"pedra"},"岩|on|ガン":{"ja":"溶岩","en":"lava","zh":"熔岩","ko":"용암","pt":"lava"},"岩|kun|いわ":{"ja":"大きな石・岩","en":"rock; boulder","zh":"岩石；大石头","ko":"바위","pt":"rocha; rochedo"},"畑|kun|はた":{"ja":"畑で作物を作ること","en":"dry-field cultivation","zh":"旱田耕作","ko":"밭농사","pt":"cultivo em campo seco"},"畑|kun|はたけ":{"ja":"野菜などを作る土地","en":"field; vegetable plot","zh":"旱田；菜地","ko":"밭","pt":"campo; horta"},"由|on|ユ":{"ja":"経由","en":"via; by way of","zh":"经由","ko":"경유","pt":"via; por meio de"},"由|on|ユウ":{"ja":"理由","en":"reason","zh":"理由","ko":"이유","pt":"razão"},"由|on|ユイ":{"ja":"由緒","en":"history; pedigree; origin","zh":"由来；来历","ko":"유서; 내력","pt":"história; origem; tradição"},"由|kun|よし":{"ja":"理由・方法","en":"reason; means","zh":"理由；方法","ko":"이유; 방법","pt":"razão; meio"},"油|on|ユ":{"ja":"石油","en":"petroleum; oil","zh":"石油","ko":"석유","pt":"petróleo"},"油|kun|あぶら":{"ja":"液体の油","en":"oil","zh":"油","ko":"기름","pt":"óleo"},"官|on|カン":{"ja":"官庁","en":"government office","zh":"政府机关","ko":"관청","pt":"órgão público"},"管|on|カン":{"ja":"管理","en":"management","zh":"管理","ko":"관리","pt":"gestão"},"管|kun|くだ":{"ja":"細長く中が空いているもの","en":"tube; pipe","zh":"管子","ko":"관; 파이프","pt":"tubo; cano"},"島|on|トウ":{"ja":"半島","en":"peninsula","zh":"半岛","ko":"반도","pt":"península"},"島|kun|しま":{"ja":"海などに囲まれた土地","en":"island","zh":"岛","ko":"섬","pt":"ilha"},"若|on|ジャク":{"ja":"若干","en":"some; a few","zh":"若干","ko":"약간","pt":"alguns; certa quantidade"},"若|on|ニャク":{"ja":"老若","en":"old and young","zh":"老少","ko":"노약; 남녀노소","pt":"velhos e jovens"},"若|kun|わかい":{"ja":"年齢が少ない","en":"young","zh":"年轻","ko":"젊다","pt":"jovem"},"若|kun|もしくは":{"ja":"または","en":"or; alternatively","zh":"或者","ko":"또는","pt":"ou; alternativamente"},"苦|on|ク":{"ja":"苦労","en":"hardship; trouble","zh":"辛苦；劳苦","ko":"고생","pt":"dificuldade; esforço"},"苦|kun|くるしい":{"ja":"つらくて楽ではない","en":"painful; difficult","zh":"痛苦；难受","ko":"괴롭다","pt":"doloroso; difícil"},"苦|kun|くるしむ":{"ja":"苦しい状態になる","en":"to suffer","zh":"受苦","ko":"괴로워하다","pt":"sofrer"},"苦|kun|くるしめる":{"ja":"相手を苦しい状態にする","en":"to torment; cause suffering","zh":"使痛苦","ko":"괴롭히다","pt":"atormentar; causar sofrimento"},"苦|kun|にがい":{"ja":"味が苦い","en":"bitter","zh":"苦的","ko":"쓰다","pt":"amargo"},"苦|kun|にがる":{"ja":"いやな気持ちを顔に出す［参考］","en":"to look displeased [reference]","zh":"露出不快神色［参考］","ko":"언짢은 표정을 짓다 [참고]","pt":"mostrar desagrado [referência]"},"向|on|コウ":{"ja":"方向","en":"direction","zh":"方向","ko":"방향","pt":"direção"},"向|kun|むく":{"ja":"ある方向を向く","en":"to face; turn toward","zh":"朝向","ko":"향하다","pt":"virar-se para; estar voltado"},"向|kun|むける":{"ja":"ある方向へ向かせる","en":"to turn/direct toward","zh":"使朝向","ko":"향하게 하다","pt":"virar; direcionar"},"向|kun|むかう":{"ja":"ある場所・方向へ進む","en":"to head toward","zh":"前往；朝向","ko":"향해 가다","pt":"dirigir-se a"},"向|kun|むこう":{"ja":"反対側・あちら","en":"the other side; over there","zh":"对面；那边","ko":"저쪽; 맞은편","pt":"o outro lado; lá"},"老|on|ロウ":{"ja":"老人","en":"elderly person","zh":"老人","ko":"노인","pt":"idoso"},"老|kun|おいる":{"ja":"年を取る","en":"to grow old","zh":"衰老；上年纪","ko":"늙다","pt":"envelhecer"},"老|kun|ふける":{"ja":"年齢より年を取って見える","en":"to look older; age","zh":"显老；衰老","ko":"늙어 보이다","pt":"envelhecer; parecer mais velho"},"像|on|ゾウ":{"ja":"肖像","en":"portrait; image","zh":"肖像","ko":"초상","pt":"retrato; imagem"}};
 const KUN_PARTS = {"うま":["うま",""],"ま":["ま",""],"たけ":["たけ",""],"いと":["いと",""],"かい":["かい",""],"け":["け",""],"ふね":["ふね",""],"ふな":["ふな",""],"いし":["いし",""],"いわ":["いわ",""],"はた":["はた",""],"はたけ":["はたけ",""],"よし":["よし",""],"あぶら":["あぶら",""],"くだ":["くだ",""],"しま":["しま",""],"わかい":["わか","い"],"もしくは":["も","しくは"],"くるしい":["くる","しい"],"くるしむ":["くる","しむ"],"くるしめる":["くる","しめる"],"にがい":["にが","い"],"にがる":["にが","る"],"むく":["む","く"],"むける":["む","ける"],"むかう":["む","かう"],"むこう":["む","こう"],"おいる":["お","いる"],"ふける":["ふ","ける"]};
@@ -1208,17 +1331,31 @@ function switchTab(id){
 function escapeHtml(s){
   return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 }
-// 答えの中で、この課で練習している漢字だけ色を変える。
-function highlightTargets(word,kanjiList){
-  const set=new Set(kanjiList||[]);
-  return [...String(word)].map(ch=>set.has(ch)
-    ? `<span class="target-kanji">${escapeHtml(ch)}</span>`
-    : escapeHtml(ch)).join("");
+// 書き練習の答えを、学習段階で見分ける。
+const BEGINNER_300=new Set([..."安一飲右雨駅円下何火花会外学間気休魚金九空月見言古五午後語口校行高国今左三山四子時耳七社車手週十出書女小少上食新人水生西先千川前足多大男中長天店電土東道読南二日入年買白八半百父分聞母北本毎万名木目友来立六話県悪暗以意医員引院運映英遠屋音夏家歌画回海界開楽寒漢館顔帰起急究牛去京強教業近銀区兄計軽建犬研験元好工広考合黒菜作仕使始姉市思止死私紙試事字持自室質写者借弱主首秋終習集住重春所暑乗場色心森真親図世正声青赤切説洗早走送族村体待貸代台題短知地池茶着昼注朝町鳥通低弟転田都度冬答頭働動同堂特肉売発飯病品不風服物文別便勉歩方妹味明問門夜野薬有夕曜洋用理旅料力林黄座濯奥押降号取酒寝全鉄内晩番府部閉米利和"]);
+const PRIOR_LESSON_KANJI=new Set([..."級予定表授宿復辞初第課練科参忘覚組席欠板解筆違消次線最適当選例形変式直記点机数余速遅易単簡難細太狭浅深静涼暖冷温熱困球化"]);
+const CURRENT_LESSON_KANJI=new Set(DATA.map(d=>d.kanji));
+const HAN_RE=/\p{Script=Han}/u;
+
+function highlightTargets(word){
+  return [...String(word)].map(ch=>{
+    const safe=escapeHtml(ch);
+    if(CURRENT_LESSON_KANJI.has(ch)){
+      return `<span class="target-kanji" title="第4課">${safe}</span>`;
+    }
+    if(BEGINNER_300.has(ch) || PRIOR_LESSON_KANJI.has(ch)){
+      return `<span class="known-kanji" title="初級・既習">${safe}</span>`;
+    }
+    if(HAN_RE.test(ch)){
+      return `<span class="unlearned-kanji" title="未習">${safe}</span>`;
+    }
+    return safe;
+  }).join("");
 }
 
 let selectMsgTimer=null;
 function showSelectMsg(text){
-  selectMsg.textContent=text;
+  selectMsg.innerHTML=text;
   selectMsg.classList.remove("hidden");
   clearTimeout(selectMsgTimer);
   selectMsgTimer=setTimeout(()=>selectMsg.classList.add("hidden"),5000);
@@ -1270,7 +1407,7 @@ selectHard.onclick=()=>{
   renderGrid();
 };
 startSelected.onclick=()=>{
-  if(!selected.size){showSelectMsg("練習する漢字を1字以上選んでください。");return;}
+  if(!selected.size){showSelectMsg("<ruby>練習<rt>れんしゅう</rt></ruby>する<ruby>漢字<rt>かんじ</rt></ruby>を1<ruby>字以上<rt>じいじょう</rt></ruby><ruby>選<rt>えら</rt></ruby>んでください。");return;}
   resetFlashPool();
   showFlash();
   switchTab("flash");
@@ -1420,7 +1557,7 @@ function newRead(){
   rWord.textContent=currentRead.word;
   const readContext=READ_CONTEXTS[(currentRead.sourceWord||currentRead.word)+"\u0000"+(currentRead.sourceReading||currentRead.reading)]||"";
   if(readContext){
-    rGloss.textContent="文脈ヒント："+readContext;
+    rGloss.innerHTML="<ruby>文脈<rt>ぶんみゃく</rt></ruby>ヒント："+escapeHtml(readContext);
     rGloss.lang="ja";
     rGloss.classList.remove("hidden");
   }else{
@@ -1456,7 +1593,7 @@ checkRead.onclick=()=>{
       s.items[k].review=true;
     });
     rFeedback.className="feedback reading-feedback-inline ng";
-    rFeedback.innerHTML=`❌ ちがいます<span class="mobile-break"><br></span><span class="desktop-gap">　</span><span class="answer-unit">正解：<b>${currentRead.reading}</b></span>`;
+    rFeedback.innerHTML=`❌ ちがいます<span class="mobile-break"><br></span><span class="desktop-gap">　</span><span class="answer-unit"><ruby>正解<rt>せいかい</rt></ruby>：<b>${currentRead.reading}</b></span>`;
   }
   statsSave(s); renderStats();
   // スマホでは入力欄を無効化するとソフトキーボードが閉じて
@@ -1610,9 +1747,8 @@ function newWrite(){
   showWriteHint.classList.remove("hidden");
   wHint.textContent="";
   wHint.classList.add("hidden");
-  wAnswer.innerHTML=highlightTargets(currentWrite.word,targetKanji);
+  wAnswer.innerHTML=highlightTargets(currentWrite.word);
   wAnswer.classList.add("hidden");
-  wAnswerLegend.classList.add("hidden");
   showWrite.classList.remove("hidden");
   writeBad.classList.add("hidden"); writeGood.classList.add("hidden");
   writeProgress.textContent=`${writePos+1} / ${writeDeck.length}`;
@@ -1620,7 +1756,6 @@ function newWrite(){
 }
 showWrite.onclick=()=>{
   wAnswer.classList.remove("hidden");
-  wAnswerLegend.classList.remove("hidden");
   showWrite.classList.add("hidden");
   showWriteHint.classList.add("hidden");
   writeBad.classList.remove("hidden"); writeGood.classList.remove("hidden");
@@ -1673,9 +1808,9 @@ function renderZh(){
   const hasStudyValue=d=>d.kanji!==d.simp||d.kanji!==d.trad||!!RESEARCH_GLYPH_DIFFS[d.kanji];
   const rows = zhDiffOnly ? DATA.filter(hasStudyValue) : DATA;
   const diffCount = DATA.filter(hasStudyValue).length;
-  zhCount.textContent = zhDiffOnly
-    ? `字体に差がある字：${diffCount}字 / 20字`
-    : `全20字（うち字体に差がある字：${diffCount}字）`;
+  zhCount.innerHTML = zhDiffOnly
+    ? `<ruby>字体<rt>じたい</rt></ruby>に<ruby>差<rt>さ</rt></ruby>がある<ruby>字<rt>じ</rt></ruby>：${diffCount}<ruby>字<rt>じ</rt></ruby> / 20<ruby>字<rt>じ</rt></ruby>`
+    : `<ruby>全<rt>ぜん</rt></ruby>20<ruby>字<rt>じ</rt></ruby>（うち<ruby>字体<rt>じたい</rt></ruby>に<ruby>差<rt>さ</rt></ruby>がある<ruby>字<rt>じ</rt></ruby>：${diffCount}<ruby>字<rt>じ</rt></ruby>）`;
   zhBody.innerHTML = rows.map(d=>`<tr>
       <td style="font-size:.85rem;font-weight:700">${d.no}</td>
       <td class="jp-kanji" lang="ja" style="font-size:2rem">${d.kanji}</td>
@@ -1707,24 +1842,24 @@ function renderStats(){
   hardList.innerHTML=arr.length
     ?arr.map(x=>{
        const reasons=[];
-       if(x.hard) reasons.push(`カード・書き：${x.hard}回`);
-       if(x.wrong) reasons.push(`読み間違い：${x.wrong}回`);
-       if(!reasons.length) reasons.push("復習指定");
+       if(x.hard) reasons.push(`カード・<ruby>書<rt>か</rt></ruby>き：${x.hard}<ruby>回<rt>かい</rt></ruby>`);
+       if(x.wrong) reasons.push(`<ruby>読<rt>よ</rt></ruby>み<ruby>間違<rt>まちが</rt></ruby>い：${x.wrong}<ruby>回<rt>かい</rt></ruby>`);
+       if(!reasons.length) reasons.push("<ruby>復習指定<rt>ふくしゅうしてい</rt></ruby>");
        return `<tr>
          <td class="jp-kanji" style="font-size:1.5rem">No.${x.no}　${x.k}</td>
          <td>${reasons.join("／")}</td>
-         <td><button class="secondary" onclick="removeReview('${x.k}')">復習リストから外す</button></td>
+         <td><button class="secondary" onclick="removeReview('${x.k}')"><ruby>復習<rt>ふくしゅう</rt></ruby>リストから<ruby>外<rt>はず</rt></ruby>す</button></td>
        </tr>`;
      }).join("")
-    :`<tr><td colspan="3">復習リストはまだ空です。</td></tr>`;
+    :`<tr><td colspan="3"><ruby>復習<rt>ふくしゅう</rt></ruby>リストはまだ<ruby>空<rt>から</rt></ruby>です。</td></tr>`;
 }
 
-function flashResetDone(btn, originalText){
+function flashResetDone(btn, originalHtml){
   if(!btn) return;
-  btn.textContent="リセットしました";
+  btn.innerHTML="リセットしました";
   btn.disabled=true;
   window.setTimeout(()=>{
-    btn.textContent=originalText;
+    btn.innerHTML=originalHtml;
     btn.disabled=false;
   },900);
 }
@@ -1741,7 +1876,7 @@ function resetReadStatsNow(btn){
   sRate.textContent="—";
   renderStats();
 
-  flashResetDone(btn,"読みの成績をリセット");
+  flashResetDone(btn,"<ruby>読<rt>よ</rt></ruby>みの<ruby>成績<rt>せいせき</rt></ruby>をリセット");
 }
 
 function resetWriteStatsNow(btn){
@@ -1756,7 +1891,7 @@ function resetWriteStatsNow(btn){
   sWriteTotal.textContent="0";
   renderStats();
 
-  flashResetDone(btn,"書きの成績をリセット");
+  flashResetDone(btn,"<ruby>書<rt>か</rt></ruby>きの<ruby>成績<rt>せいせき</rt></ruby>をリセット");
 }
 
 function resetReviewListNow(btn){
@@ -1770,10 +1905,10 @@ function resetReviewListNow(btn){
 
   // 保存結果をその場で確実に反映
   sHard.textContent="0";
-  hardList.innerHTML='<tr><td colspan="3">復習リストはまだ空です。</td></tr>';
+  hardList.innerHTML='<tr><td colspan="3"><ruby>復習<rt>ふくしゅう</rt></ruby>リストはまだ<ruby>空<rt>から</rt></ruby>です。</td></tr>';
   renderStats();
 
-  flashResetDone(btn,"復習リストをリセット");
+  flashResetDone(btn,"<ruby>復習<rt>ふくしゅう</rt></ruby>リストをリセット");
 }
 
 let resetAllArmed=false;
@@ -1781,11 +1916,11 @@ let resetAllTimer=null;
 function resetAllStatsNow(btn){
   if(!resetAllArmed){
     resetAllArmed=true;
-    btn.textContent="もう一度押すとすべてリセット";
+    btn.innerHTML="もう<ruby>一度<rt>いちど</rt></ruby><ruby>押<rt>お</rt></ruby>すとすべてリセット";
     clearTimeout(resetAllTimer);
     resetAllTimer=setTimeout(()=>{
       resetAllArmed=false;
-      btn.textContent="すべての学習記録をリセット";
+      btn.innerHTML="すべての<ruby>学習記録<rt>がくしゅうきろく</rt></ruby>をリセット";
     },3500);
     return;
   }
@@ -1802,7 +1937,7 @@ document.querySelectorAll(".tabs button").forEach(b=>b.onclick=()=>{
   if(tab==="flash"){
     if(!selected.size){
       switchTab("select");
-      showSelectMsg("練習する漢字を1字以上選んでください。");
+      showSelectMsg("<ruby>練習<rt>れんしゅう</rt></ruby>する<ruby>漢字<rt>かんじ</rt></ruby>を1<ruby>字以上<rt>じいじょう</rt></ruby><ruby>選<rt>えら</rt></ruby>んでください。");
       return;
     }
     if(flashDirty) resetFlashPool();
