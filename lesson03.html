@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <!-- v45: 「さらに学ぶ」と重複するため、一般発展語彙見出しを「よく使う発展語彙」に簡略化 -->
 <!-- v49 unified: 第3課 漢字自習ツール の漢字選択UIを凡例＋左上○✓方式に統一 -->
+<!-- v49.1: 第1・3・4課に欠けていた○✓凡例を追加 -->
 <title>第3課 漢字自習ツール</title>
 <!-- 学生試用統一版：第3課。第3課 v38 の共通仕様に統一 -->
 
@@ -924,6 +925,16 @@ button ruby{
       </div>
       <div class="note selection-guide" style="margin:8px 0 12px">
         <ruby>最初<rt>さいしょ</rt></ruby>はすべての<ruby>漢字<rt>かんじ</rt></ruby>が<ruby>選<rt>えら</rt></ruby>ばれています。<ruby>練習<rt>れんしゅう</rt></ruby>しない<ruby>漢字<rt>かんじ</rt></ruby>は、クリックして<ruby>選択<rt>せんたく</rt></ruby>を<ruby>解除<rt>かいじょ</rt></ruby>してください。
+      </div>
+      <div class="selection-state-legend" aria-label="漢字の選択状態の見方">
+        <span class="selection-state-item">
+          <span class="selection-state-swatch selected" aria-hidden="true"><span class="legend-check">✓</span></span>
+          <span><ruby>練習<rt>れんしゅう</rt></ruby>する</span>
+        </span>
+        <span class="selection-state-item">
+          <span class="selection-state-swatch" aria-hidden="true"></span>
+          <span><ruby>選<rt>えら</rt></ruby>ばない</span>
+        </span>
       </div>
       <div class="kanji-grid" id="kanjiGrid"></div>
       <div class="actions">
