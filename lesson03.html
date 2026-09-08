@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <!-- v45: 「さらに学ぶ」と重複するため、一般発展語彙見出しを「よく使う発展語彙」に簡略化 -->
+<!-- v49 unified: 第3課 漢字自習ツール の漢字選択UIを凡例＋左上○✓方式に統一 -->
 <title>第3課 漢字自習ツール</title>
 <!-- 学生試用統一版：第3課。第3課 v38 の共通仕様に統一 -->
 
@@ -14,7 +15,7 @@
 <style>
 :root {
   --bg:#f5f7fb; --card:#fff; --ink:#172033; --muted:#667085;
-  --accent:#3157c8; --ok:#16794a; --bad:#b42318; --line:#d9dfeb;
+  --accent:#3157c8; --accent-soft:#dfe8ff; --ok:#16794a; --bad:#b42318; --line:#d9dfeb;
   --sel:#e8eeff; --selborder:#3157c8;
 }
 *{box-sizing:border-box}
@@ -50,12 +51,81 @@ main{max-width:980px;margin:0 auto;padding:18px}
  display:grid;grid-template-columns:repeat(10,1fr);gap:8px;margin:14px 0;
 }
 .kanji-tile{
- border:2px solid var(--line);background:#fff;border-radius:12px;padding:10px 4px;
+ border:2px solid var(--line);background:#fff;border-radius:12px;padding:8px 6px 10px;
  cursor:pointer;text-align:center;transition:.12s;
 }
-.kanji-tile .k{font-size:2.35rem;line-height:1.15}
-.kanji-tile .small{font-size:.72rem;color:var(--muted);margin-top:3px}
+.kanji-tile .k{font-size:2.35rem;line-height:1.15;margin-top:4px}
+.kanji-tile .small{font-size:.72rem;color:var(--muted);margin-top:2px}
 .kanji-tile.selected{background:var(--sel);border-color:var(--selborder)}
+.kanji-tile .tile-meta{
+  display:flex;
+  align-items:center;
+  justify-content:flex-start;
+  gap:6px;
+  min-height:1.15rem;
+}
+.kanji-tile .tile-check-slot{
+  width:18px;
+  flex:0 0 18px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+.kanji-tile .tile-check{
+  width:17px;height:17px;border-radius:999px;
+  background:var(--accent-soft);
+  color:var(--accent);font-size:.72rem;font-weight:900;line-height:1;
+  display:inline-flex;align-items:center;justify-content:center;
+  border:1.5px solid rgba(49,87,200,.58);
+  box-shadow:0 0 0 1px rgba(255,255,255,.85) inset;
+}
+.kanji-tile .tile-no{
+  font-size:.72rem;
+  color:var(--muted);
+  font-weight:700;
+  line-height:1.1;
+  white-space:nowrap;
+}
+
+/* v49: 選択状態は凡例＋左上の○✓で表示 */
+.selection-state-legend{
+  display:flex;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:8px 16px;
+  margin:2px 0 10px;
+  font-size:.82rem;
+  color:var(--muted);
+}
+.selection-state-item{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  white-space:nowrap;
+}
+.selection-state-swatch{
+  width:30px;
+  height:24px;
+  border:2px solid var(--line);
+  border-radius:8px;
+  background:#fff;
+  position:relative;
+  flex:0 0 auto;
+}
+.selection-state-swatch.selected{
+  background:var(--sel);
+  border-color:var(--selborder);
+}
+.selection-state-swatch .legend-check{
+  position:absolute;
+  top:3px;
+  left:4px;
+  width:14px;height:14px;border-radius:999px;
+  background:var(--accent-soft);color:var(--accent);
+  border:1.5px solid rgba(49,87,200,.58);
+  font-size:.63rem;font-weight:900;line-height:1;
+  display:flex;align-items:center;justify-content:center;
+}
 
 .bigkanji{font-size:8rem;line-height:1;text-align:center;margin:12px 0 18px}
 .meta{display:grid;grid-template-columns:1fr 1fr;gap:12px}
@@ -1378,10 +1448,16 @@ function loadSelected(){
 
 function renderGrid(){
   kanjiGrid.innerHTML=DATA.map(d=>`
-    <button type="button" class="kanji-tile ${selected.has(d.kanji)?'selected':''}" data-k="${d.kanji}" aria-pressed="${selected.has(d.kanji)}">
-      <div class="small" style="font-weight:700">No.${d.no}</div>
+    <button type="button"
+      class="kanji-tile ${selected.has(d.kanji)?'selected':''}"
+      data-k="${d.kanji}"
+      aria-pressed="${selected.has(d.kanji)}"
+      aria-label="No.${d.no} ${d.kanji}：${selected.has(d.kanji)?'練習する':'選ばない'}">
+      <div class="tile-meta">
+        <div class="tile-check-slot">${selected.has(d.kanji)?'<span class="tile-check" aria-hidden="true">✓</span>':''}</div>
+        <div class="tile-no">No.${d.no}</div>
+      </div>
       <div class="k jp-kanji">${d.kanji}</div>
-      <div class="small">${selected.has(d.kanji)?'練習する':'選ばない'}</div>
     </button>`).join("");
   kanjiGrid.querySelectorAll(".kanji-tile").forEach(btn=>btn.onclick=()=>{
     const k=btn.dataset.k;
