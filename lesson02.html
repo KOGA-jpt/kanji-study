@@ -7,6 +7,8 @@
 <!-- v46: 第2課試作。漢字選択を凡例＋チェック方式へ簡略化し、「変」のかえる使い分けを追加 -->
 <!-- v47: 左上に○✓＋No.の専用上段を設け、教科書番号と重ならない選択UI試作 -->
 <!-- v49: ○✓の薄い塗りは維持し、外枠だけ少し濃い青にして輪郭を見やすく調整 -->
+<!-- v51 unified: 第2課。用法が限られる読みは※＋下部注記で表示 -->
+<!-- v52: 第2課。常用音訓・※基準・使い分け・自己点検を再監査 -->
 <title>第2課 漢字自習ツール</title>
 <!-- 学生試用統一版：第2課。第2課 v38 の共通仕様に統一 -->
 
@@ -892,6 +894,25 @@ button ruby{
   line-height:1.45;
 }
 
+
+/* v51: 用法が限られる読みは行内では ※ のみ。説明は音訓ボックス下部にまとめる */
+#flash .reading-ref-mark{
+  margin-left:.12em;
+  color:#667085;
+  font-family:"Yu Gothic","YuGothic","Hiragino Sans","Meiryo",sans-serif;
+  font-size:.72em;
+  font-weight:800;
+  vertical-align:super;
+}
+#flash .reading-ref-note{
+  margin-top:7px;
+  padding-top:6px;
+  border-top:1px dotted #d5dbe6;
+  color:#667085;
+  font-size:.74rem;
+  line-height:1.45;
+}
+
 </style>
 </head>
 <body>
@@ -994,11 +1015,11 @@ button ruby{
         <div class="meta">
           <div class="box">
             <div class="label"><ruby>常用漢字表<rt>じょうようかんじひょう</rt></ruby>・<ruby>音読<rt>おんよ</rt></ruby>み</div>
-            <b id="fOn"></b>
+            <b id="fOn"></b><div id="fOnRefNote" class="reading-ref-note hidden">※ <ruby>用法<rt>ようほう</rt></ruby>が<ruby>限<rt>かぎ</rt></ruby>られる<ruby>読<rt>よ</rt></ruby>み</div>
           </div>
           <div class="box">
             <div class="label"><ruby>常用漢字表<rt>じょうようかんじひょう</rt></ruby>・<ruby>訓読<rt>くんよ</rt></ruby>み</div>
-            <b id="fKun"></b>
+            <b id="fKun"></b><div id="fKunRefNote" class="reading-ref-note hidden">※ <ruby>用法<rt>ようほう</rt></ruby>が<ruby>限<rt>かぎ</rt></ruby>られる<ruby>読<rt>よ</rt></ruby>み</div>
             <div class="hidden iji-inline" id="fIjiBox">
               <div class="iji-inline-head">
                 <span class="iji-badge"><ruby>使<rt>つか</rt></ruby>い<ruby>分<rt>わ</rt></ruby>け</span>
@@ -1271,14 +1292,10 @@ function resetFlashPool(){
 }
 
 
-const IJI_DOKUN = {"解":{"ja":"解く（とく）＝問題・結び目などを解く　／　溶く（とく）＝物を液体にまぜる　／　説く（とく）＝説明したり主張したりする","en":"解く（とく） = solve/untie / 溶く（とく） = dissolve or mix into liquid / 説く（とく） = explain or advocate","zh":"解く（とく）＝解题、解开结 ／ 溶く（とく）＝溶解、调入液体 ／ 説く（とく）＝说明、阐述","ko":"解く（とく）＝문제를 풀다·매듭을 풀다 ／ 溶く（とく）＝액체에 풀다 ／ 説く（とく）＝설명하다·주장하다","pt":"解く（とく） = resolver/desatar / 溶く（とく） = dissolver ou misturar em líquido / 説く（とく） = explicar ou defender uma ideia"},"直":{"ja":"直す（なおす）＝物・間違いなどを正しい状態にする　／　治す（なおす）＝病気・けがを治療する","en":"直す（なおす） = fix/correct an object or mistake / 治す（なおす） = cure an illness or injury","zh":"直す（なおす）＝修理物品、改正错误 ／ 治す（なおす）＝治疗疾病或受伤","ko":"直す（なおす）＝물건·오류를 고치다 ／ 治す（なおす）＝병·상처를 치료하다","pt":"直す（なおす） = consertar/corrigir objetos ou erros / 治す（なおす） = curar doença ou ferimento"},"変":{
-"ja":"変える（かえる）＝前と違う状態にする　／　換える（かえる）＝別の物と交換する　／　替える（かえる）＝今の物を別の新しい物にする　／　代える（かえる）＝人・物の役割を別の人・物にさせる",
-"en":"変える（かえる） = change a state or condition / 換える（かえる） = exchange one thing for another / 替える（かえる） = replace with a new or different one / 代える（かえる） = substitute a person or thing in a role",
-"zh":"変える（かえる）＝改变状态、情况 ／ 換える（かえる）＝把一种东西换成另一种 ／ 替える（かえる）＝换成新的或别的东西 ／ 代える（かえる）＝让别的人或物代替原来的角色",
-"ko":"変える（かえる）＝상태·상황을 바꾸다 ／ 換える（かえる）＝다른 물건과 교환하다 ／ 替える（かえる）＝새것이나 다른 것으로 갈아 바꾸다 ／ 代える（かえる）＝사람·물건의 역할을 다른 사람·물건으로 대신하게 하다",
-"pt":"変える（かえる） = mudar um estado ou condição / 換える（かえる） = trocar uma coisa por outra / 替える（かえる） = substituir por algo novo ou diferente / 代える（かえる） = substituir uma pessoa ou coisa em uma função"
-}};
-const READING_EXAMPLES = {"解":{"on":{"カイ":"理解（りかい）","ゲ":"解毒（げどく）"},"kun":{"とく":"解く","とかす":"髪を解かす（かみをとかす）","とける":"解ける"}},"筆":{"on":{"ヒツ":"鉛筆（えんぴつ）"},"kun":{"ふで":"筆（ふで）"}},"違":{"on":{"イ":"違反（いはん）"},"kun":{"ちがう":"違う","ちがえる":"間違える（まちがえる）"}},"消":{"on":{"ショウ":"消毒（しょうどく）"},"kun":{"きえる":"消える","けす":"消す"}},"次":{"on":{"ジ":"目次（もくじ）","シ":"次第（しだい）"},"kun":{"つぐ":"次ぐ","つぎ":"次（つぎ）"}},"線":{"on":{"セン":"線画（せんが）"},"kun":{}},"最":{"on":{"サイ":"最近（さいきん）"},"kun":{"もっとも":"最も"}},"適":{"on":{"テキ":"適切（てきせつ）"},"kun":{}},"当":{"on":{"トウ":"適当（てきとう）"},"kun":{"あたる":"当たる","あてる":"当てる"}},"選":{"on":{"セン":"選手（せんしゅ）"},"kun":{"えらぶ":"選ぶ"}},"例":{"on":{"レイ":"例（れい）"},"kun":{"たとえる":"例える"}},"形":{"on":{"ケイ":"形容詞（けいようし）","ギョウ":"人形（にんぎょう）"},"kun":{"かた":"形見（かたみ）","かたち":"形（かたち）"}},"変":{"on":{"ヘン":"変化（へんか）"},"kun":{"かわる":"変わる","かえる":"変える"}},"式":{"on":{"シキ":"形式（けいしき）"},"kun":{}},"直":{"on":{"チョク":"直通（ちょくつう）","ジキ":"正直（しょうじき）"},"kun":{"ただちに":"直ちに","なおす":"直す","なおる":"直る"}},"記":{"on":{"キ":"記号（きごう）"},"kun":{"しるす":"記す"}},"点":{"on":{"テン":"点描（てんびょう）"},"kun":{}},"机":{"on":{"キ":"机上（きじょう）"},"kun":{"つくえ":"机（つくえ）"}},"数":{"on":{"スウ":"数字（すうじ）","ス":"数寄屋（すきや）"},"kun":{"かず":"数（かず）","かぞえる":"数える"}},"余":{"on":{"ヨ":"余白（よはく）"},"kun":{"あまる":"余る","あます":"余す"}}};
+// 常用漢字表で音訓が1字下げされる「特別なもの又は用法のごく狭いもの」を共通管理する。
+const LIMITED_USE_JOYO_READINGS = new Set(["数|on|ス","静|on|ジョウ","馬|kun|ま","舟|kun|ふな","石|on|シャク","石|on|コク","由|on|ユイ","若|on|ニャク","留|on|ル","供|on|ク","緒|on|チョ","夫|on|フウ","児|on|ニ","庫|on|ク","流|on|ル"]);
+const IJI_DOKUN = {"解":{"ja":"解く（とく）＝問題・結び目などを解く　／　溶く（とく）＝物を液体にまぜる　／　説く（とく）＝説明したり主張したりする","en":"解く（とく） = solve/untie / 溶く（とく） = dissolve or mix into liquid / 説く（とく） = explain or advocate","zh":"解く（とく）＝解题、解开结 ／ 溶く（とく）＝溶解、调入液体 ／ 説く（とく）＝说明、阐述","ko":"解く（とく）＝문제를 풀다·매듭을 풀다 ／ 溶く（とく）＝액체에 풀다 ／ 説く（とく）＝설명하다·주장하다","pt":"解く（とく） = resolver/desatar / 溶く（とく） = dissolver ou misturar em líquido / 説く（とく） = explicar ou defender uma ideia"},"直":{"ja":"直す（なおす）＝物・間違いなどを正しい状態にする　／　治す（なおす）＝病気・けがを治療する","en":"直す（なおす） = fix/correct an object or mistake / 治す（なおす） = cure an illness or injury","zh":"直す（なおす）＝修理物品、改正错误 ／ 治す（なおす）＝治疗疾病或受伤","ko":"直す（なおす）＝물건·오류를 고치다 ／ 治す（なおす）＝병·상처를 치료하다","pt":"直す（なおす） = consertar/corrigir objetos ou erros / 治す（なおす） = curar doença ou ferimento"},"変":{"ja":"変える（かえる）＝前と違う状態にする　／　換える（かえる）＝別の物と交換する　／　替える（かえる）＝今の物を別の新しい物にする　／　代える（かえる）＝人・物の役割を別の人・物にさせる","en":"変える（かえる） = change a state or condition / 換える（かえる） = exchange one thing for another / 替える（かえる） = replace with a new or different one / 代える（かえる） = substitute a person or thing in a role","zh":"変える（かえる）＝改变状态、情况 ／ 換える（かえる）＝把一种东西换成另一种 ／ 替える（かえる）＝换成新的或别的东西 ／ 代える（かえる）＝让别的人或物代替原来的角色","ko":"変える（かえる）＝상태·상황을 바꾸다 ／ 換える（かえる）＝다른 물건과 교환하다 ／ 替える（かえる）＝새것이나 다른 것으로 갈아 바꾸다 ／ 代える（かえる）＝사람·물건의 역할을 다른 사람·물건으로 대신하게 하다","pt":"変える（かえる） = mudar um estado ou condição / 換える（かえる） = trocar uma coisa por outra / 替える（かえる） = substituir por algo novo ou diferente / 代える（かえる） = substituir uma pessoa ou coisa em uma função"}};
+const READING_EXAMPLES = {"解":{"on":{"カイ":"理解（りかい）","ゲ":"解毒（げどく）"},"kun":{"とく":"解く","とかす":"髪を解かす（かみをとかす）","とける":"解ける"}},"筆":{"on":{"ヒツ":"鉛筆（えんぴつ）"},"kun":{"ふで":"筆（ふで）"}},"違":{"on":{"イ":"違反（いはん）"},"kun":{"ちがう":"違う","ちがえる":"間違える（まちがえる）"}},"消":{"on":{"ショウ":"消毒（しょうどく）"},"kun":{"きえる":"消える","けす":"消す"}},"次":{"on":{"ジ":"目次（もくじ）","シ":"次第（しだい）"},"kun":{"つぐ":"次ぐ","つぎ":"次（つぎ）"}},"線":{"on":{"セン":"線画（せんが）"},"kun":{}},"最":{"on":{"サイ":"最近（さいきん）"},"kun":{"もっとも":"最も"}},"適":{"on":{"テキ":"適切（てきせつ）"},"kun":{}},"当":{"on":{"トウ":"適当（てきとう）"},"kun":{"あたる":"当たる","あてる":"当てる"}},"選":{"on":{"セン":"選手（せんしゅ）"},"kun":{"えらぶ":"選ぶ"}},"例":{"on":{"レイ":"例（れい）"},"kun":{"たとえる":"例える"}},"形":{"on":{"ケイ":"形容詞（けいようし）","ギョウ":"人形（にんぎょう）"},"kun":{"かた":"形見（かたみ）","かたち":"形（かたち）"}},"変":{"on":{"ヘン":"変化（へんか）"},"kun":{"かわる":"変わる","かえる":"変える"}},"式":{"on":{"シキ":"形式（けいしき）"},"kun":{}},"直":{"on":{"チョク":"直通（ちょくつう）","ジキ":"正直（しょうじき）"},"kun":{"ただちに":"直ちに","なおす":"直す","なおる":"直る"}},"記":{"on":{"キ":"記号（きごう）"},"kun":{"しるす":"記す"}},"点":{"on":{"テン":"点描（てんびょう）"},"kun":{}},"机":{"on":{"キ":"机上（きじょう）"},"kun":{"つくえ":"机（つくえ）"}},"数":{"on":{"スウ":"数字（すうじ）","ス":"数寄屋（すきや）［参考］"},"kun":{"かず":"数（かず）","かぞえる":"数える"}},"余":{"on":{"ヨ":"余白（よはく）"},"kun":{"あまる":"余る","あます":"余す"}}};
 const READING_EXAMPLE_GLOSS = {"解|on|カイ":{"ja":"理解","en":"understanding","zh":"理解","ko":"이해","pt":"compreensão"},"解|on|ゲ":{"ja":"解毒","en":"detoxification","zh":"解毒","ko":"해독","pt":"desintoxicação"},"解|kun|とく":{"ja":"問題・結び目などを解決する","en":"to solve; untie","zh":"解答；解开","ko":"풀다","pt":"resolver; desatar"},"解|kun|とかす":{"ja":"からんだ髪などをほどく","en":"to loosen/untangle hair","zh":"梳开；解开头发","ko":"머리를 풀다","pt":"desembaraçar; soltar o cabelo"},"解|kun|とける":{"ja":"問題などの答えが分かる","en":"to be solved","zh":"解开；得到解答","ko":"풀리다","pt":"ser resolvido"},"筆|on|ヒツ":{"ja":"鉛筆","en":"pencil","zh":"铅笔","ko":"연필","pt":"lápis"},"筆|kun|ふで":{"ja":"文字や絵を書く道具","en":"brush","zh":"毛笔；画笔","ko":"붓","pt":"pincel"},"違|on|イ":{"ja":"違反","en":"violation","zh":"违反","ko":"위반","pt":"violação"},"違|kun|ちがう":{"ja":"同じではない","en":"to differ; be wrong","zh":"不同；不对","ko":"다르다; 틀리다","pt":"ser diferente; estar errado"},"違|kun|ちがえる":{"ja":"違う状態にする","en":"to make different; make a mistake","zh":"弄错；使不同","ko":"틀리게 하다","pt":"diferenciar; errar"},"消|on|ショウ":{"ja":"消毒","en":"disinfection","zh":"消毒","ko":"소독","pt":"desinfecção"},"消|kun|きえる":{"ja":"見えなくなる・なくなる","en":"to disappear; go out","zh":"消失；熄灭","ko":"사라지다; 꺼지다","pt":"desaparecer; apagar-se"},"消|kun|けす":{"ja":"見えなくする・なくす","en":"to erase; turn off","zh":"擦掉；关闭","ko":"지우다; 끄다","pt":"apagar; desligar"},"次|on|ジ":{"ja":"目次","en":"table of contents","zh":"目录","ko":"목차","pt":"sumário"},"次|on|シ":{"ja":"次第","en":"depending on; order","zh":"次第；取决于","ko":"차례; ~에 따라","pt":"ordem; dependendo de"},"次|kun|つぐ":{"ja":"すぐあとに続く","en":"to follow; rank next","zh":"继；次于","ko":"뒤를 잇다","pt":"seguir; vir depois"},"次|kun|つぎ":{"ja":"あとに続くもの","en":"next","zh":"下一个","ko":"다음","pt":"próximo"},"線|on|セン":{"ja":"線画","en":"line drawing","zh":"线描；线稿","ko":"선화","pt":"desenho de linhas"},"最|on|サイ":{"ja":"最近","en":"recently; recent","zh":"最近","ko":"최근","pt":"recentemente; recente"},"最|kun|もっとも":{"ja":"いちばん","en":"most","zh":"最；最为","ko":"가장","pt":"mais; o mais"},"適|on|テキ":{"ja":"適切","en":"appropriate","zh":"适当；恰当","ko":"적절","pt":"adequado"},"当|on|トウ":{"ja":"適当","en":"appropriate; suitable","zh":"适当","ko":"적당","pt":"adequado"},"当|kun|あたる":{"ja":"命中する・一致する","en":"to hit; be correct","zh":"击中；猜中","ko":"맞다; 해당하다","pt":"acertar; corresponder"},"当|kun|あてる":{"ja":"命中させる・対応させる","en":"to hit; apply; guess","zh":"击中；应用；猜","ko":"맞히다; 대다","pt":"acertar; aplicar"},"選|on|セン":{"ja":"選手","en":"athlete; player","zh":"选手","ko":"선수","pt":"atleta; jogador"},"選|kun|えらぶ":{"ja":"いくつかから決める","en":"to choose","zh":"选择","ko":"고르다","pt":"escolher"},"例|on|レイ":{"ja":"例","en":"example","zh":"例子","ko":"예","pt":"exemplo"},"例|kun|たとえる":{"ja":"似たものを使って説明する","en":"to compare; liken","zh":"比喻；比作","ko":"비유하다","pt":"comparar; fazer analogia"},"形|on|ケイ":{"ja":"形容詞","en":"adjective","zh":"形容词","ko":"형용사","pt":"adjetivo"},"形|on|ギョウ":{"ja":"人形","en":"doll; figure","zh":"人偶；娃娃","ko":"인형","pt":"boneco; figura"},"形|kun|かた":{"ja":"形見","en":"keepsake; memento","zh":"遗物；纪念物","ko":"유품","pt":"lembrança; recordação"},"形|kun|かたち":{"ja":"外から見える形","en":"shape; form","zh":"形状；形态","ko":"모양; 형태","pt":"forma"},"変|on|ヘン":{"ja":"変化","en":"change; transformation","zh":"变化","ko":"변화","pt":"mudança; transformação"},"変|kun|かわる":{"ja":"前と違う状態になる","en":"to change","zh":"变化","ko":"변하다","pt":"mudar"},"変|kun|かえる":{"ja":"違う状態にする","en":"to change something","zh":"改变","ko":"바꾸다","pt":"mudar; alterar"},"式|on|シキ":{"ja":"形式","en":"form; format","zh":"形式","ko":"형식","pt":"forma; formato"},"直|on|チョク":{"ja":"直通","en":"direct; through service","zh":"直达；直通","ko":"직통","pt":"direto"},"直|on|ジキ":{"ja":"正直","en":"honest","zh":"诚实","ko":"정직","pt":"honesto"},"直|kun|ただちに":{"ja":"すぐに","en":"immediately","zh":"立即","ko":"즉시","pt":"imediatamente"},"直|kun|なおす":{"ja":"正しい状態にする","en":"to fix; correct","zh":"修好；改正","ko":"고치다","pt":"consertar; corrigir"},"直|kun|なおる":{"ja":"正しい状態に戻る","en":"to be fixed; recover","zh":"修好；恢复","ko":"고쳐지다","pt":"ser consertado; melhorar"},"記|on|キ":{"ja":"記号","en":"symbol; sign","zh":"符号；记号","ko":"기호","pt":"símbolo; sinal"},"記|kun|しるす":{"ja":"文字などで書き残す","en":"to record; write down","zh":"记下；记录","ko":"기록하다","pt":"registrar; anotar"},"点|on|テン":{"ja":"点描","en":"stippling; pointillism","zh":"点描","ko":"점묘","pt":"pontilhismo; pontilhado"},"机|on|キ":{"ja":"机上","en":"on a desk; theoretical","zh":"桌上；纸上","ko":"책상 위; 탁상","pt":"sobre a mesa; teórico"},"机|kun|つくえ":{"ja":"勉強・仕事をする台","en":"desk","zh":"桌子；书桌","ko":"책상","pt":"mesa; escrivaninha"},"数|on|スウ":{"ja":"数字","en":"number; numeral","zh":"数字","ko":"숫자","pt":"número; algarismo"},"数|on|ス":{"ja":"数寄屋","en":"sukiya-style architecture/tea-room style","zh":"数寄屋；茶室风格建筑","ko":"스키야 양식","pt":"arquitetura sukiya"},"数|kun|かず":{"ja":"数量","en":"number; quantity","zh":"数量","ko":"수; 개수","pt":"número; quantidade"},"数|kun|かぞえる":{"ja":"一つずつ数を確認する","en":"to count","zh":"数；计数","ko":"세다","pt":"contar"},"余|on|ヨ":{"ja":"余白","en":"margin; blank space","zh":"留白；空白","ko":"여백","pt":"margem; espaço em branco"},"余|kun|あまる":{"ja":"必要な量より多く残る","en":"to remain; be left over","zh":"剩余","ko":"남다","pt":"sobrar"},"余|kun|あます":{"ja":"残す","en":"to leave over","zh":"剩下；留余","ko":"남기다","pt":"deixar sobrar"}};
 const KUN_PARTS = {"とく":["と","く"],"とかす":["と","かす"],"とける":["と","ける"],"ふで":["ふで",""],"ちがう":["ちが","う"],"ちがえる":["ちが","える"],"きえる":["き","える"],"けす":["け","す"],"つぐ":["つ","ぐ"],"つぎ":["つぎ",""],"もっとも":["もっとも",""],"あたる":["あ","たる"],"あてる":["あ","てる"],"えらぶ":["えら","ぶ"],"たとえる":["たと","える"],"かた":["かた",""],"かたち":["かたち",""],"かわる":["か","わる"],"かえる":["か","える"],"ただちに":["ただ","ちに"],"なおす":["なお","す"],"なおる":["なお","る"],"しるす":["しる","す"],"つくえ":["つくえ",""],"かず":["かず",""],"かぞえる":["かぞ","える"],"あまる":["あま","る"],"あます":["あま","す"]};
 function formatKun(readings){
@@ -1297,9 +1314,12 @@ function renderReadingExamples(d){
 
   const makeRow=(type,r,word)=>{
     const gloss=READING_EXAMPLE_GLOSS[d.kanji+"|"+type+"|"+r]?.[lang]||"";
+    const isReference=word.endsWith("［参考］");
+    const displayWord=isReference ? word.slice(0,-4) : word;
+    const refMark=isReference ? `<sup class="reading-ref-mark">※</sup>` : "";
     return `<span class="reading-example-row">
       <span class="reading-key">${type==="kun" ? formatKun([r]) : r}</span>
-      ${word?`<span class="reading-arrow">→</span><span class="reading-word jp-kanji">${word}</span>`:""}
+      ${word?`<span class="reading-arrow">→</span><span class="reading-word jp-kanji">${displayWord}${refMark}</span>`:""}
       ${gloss?`<small class="reading-gloss" lang="${langAttr}">${gloss}</small>`:""}
     </span>`;
   };
@@ -1315,6 +1335,11 @@ function renderReadingExamples(d){
   }else{
     fKun.textContent="—";
   }
+
+  const onHasReference=(d.on||[]).some(r=>(ex.on?.[r]||"").endsWith("［参考］"));
+  const kunHasReference=(d.kun||[]).some(r=>(ex.kun?.[r]||"").endsWith("［参考］"));
+  fOnRefNote.classList.toggle("hidden",!onHasReference);
+  fKunRefNote.classList.toggle("hidden",!kunHasReference);
 }
 
 function shuffle(a){
@@ -1896,7 +1921,7 @@ writeHintLang.onchange=()=>{
 // 加えて、日中漢字の字形研究・公的資料・地域別CJKフォント資料で
 // 学習上確認する価値がある同一コード字を、共通マスターから自動で拾う。
 // 課ごとに手作業で追加しない。
-const RESEARCH_GLYPH_DIFFS = {"化":{"reason":"JP/SCで地域別字形が明確に異なるため比較対象にする","source":"文化庁「常用漢字表の字体・字形に関する指針」等の日中字形研究・地域別CJKフォント資料"}};
+const RESEARCH_GLYPH_DIFFS = {"化":{"reason":"同一Unicodeでも日本語字形と中国語字形で学習上確認しやすい地域差があるため比較対象にする","source":"文化庁の字体・字形資料および地域別CJK標準字形資料"},"器":{"reason":"同一Unicodeでも日本語字形と中国語字形で中央部分に学習上確認しやすい地域差があるため比較対象にする","source":"地域別CJK標準字形資料"}};
 let zhDiffOnly=true;
 function renderZh(){
   const hasStudyValue=d=>d.kanji!==d.simp||d.kanji!==d.trad||!!RESEARCH_GLYPH_DIFFS[d.kanji];
@@ -2076,6 +2101,12 @@ function runDataCheck(){
       d[type].forEach(r=>{
         const word=(ex[type]||{})[r];
         if(!word) problems.push(`${d.kanji}（${type==="on"?"音":"訓"}「${r}」）：代表例がありません`);
+        const limitedKey=`${d.kanji}|${type}|${r}`;
+        const shouldBeLimited=LIMITED_USE_JOYO_READINGS.has(limitedKey);
+        const isMarkedLimited=String(word||"").endsWith("［参考］");
+        if(shouldBeLimited!==isMarkedLimited){
+          problems.push(`${d.kanji}（${type==="on"?"音":"訓"}「${r}」）：※「用法が限られる読み」の指定が常用漢字表の基準と一致していません`);
+        }
         const g=READING_EXAMPLE_GLOSS[`${d.kanji}|${type}|${r}`];
         if(!g){
           problems.push(`${d.kanji}（${type==="on"?"音":"訓"}「${r}」）：意味データがありません`);
@@ -2123,16 +2154,46 @@ function runDataCheck(){
   return problems;
 }
 
+
+function runDataWarnings(){
+  const warnings=[];
+  const quizForms=new Map();
+  DATA.forEach(d=>d.words.forEach(w=>{
+    const q=toReadingQuizForm(w[0],w[1]);
+    const key=q.word+"\u0000"+q.reading;
+    if(!quizForms.has(key)) quizForms.set(key,new Set());
+    quizForms.get(key).add(w[0]+"／"+w[1]);
+  }));
+  quizForms.forEach((sources,key)=>{
+    if(sources.size>1){
+      const [word,reading]=key.split("\u0000");
+      warnings.push(`読みクイズ変換後：「${word}／${reading}」に ${[...sources].join("・")} が統合されます`);
+    }
+  });
+  Object.entries(RESEARCH_GLYPH_DIFFS).forEach(([k,v])=>{
+    if(!v || typeof v!=="object" || !v.reason){
+      warnings.push(`RESEARCH_GLYPH_DIFFS「${k}」：reason がありません`);
+    }
+  });
+  return warnings;
+}
+
 {
   const problems=runDataCheck();
+  const warnings=runDataWarnings();
   if(problems.length) console.warn("[教材データの点検] "+problems.length+"件:\n- "+problems.join("\n- "));
   else console.info("[教材データの点検] 問題は見つかりませんでした。");
+  if(warnings.length) console.info("[教材データの確認事項] "+warnings.length+"件:\n- "+warnings.join("\n- "));
   if(/[?&]check=1/.test(location.search)){
     dataCheck.classList.remove("hidden");
     dataCheck.classList.toggle("ok",problems.length===0);
-    dataCheck.innerHTML = problems.length
+    const problemHtml=problems.length
       ? "<b>教材データの点検："+problems.length+"件</b><ul>"+problems.map(p=>"<li>"+escapeHtml(p)+"</li>").join("")+"</ul>"
       : "<b>教材データの点検：問題は見つかりませんでした。</b>";
+    const warningHtml=warnings.length
+      ? "<div style=\"margin-top:8px\"><b>確認事項："+warnings.length+"件</b><ul>"+warnings.map(p=>"<li>"+escapeHtml(p)+"</li>").join("")+"</ul></div>"
+      : "";
+    dataCheck.innerHTML=problemHtml+warningHtml;
   }
 }
 
