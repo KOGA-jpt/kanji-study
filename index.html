@@ -14,7 +14,7 @@ a{color:inherit}.top-head{display:block;margin-bottom:20px}.top-head h1{margin:0
 /* v8: フル学習3課ごとの小さなボーナス★ */
 .top-main{min-width:0}.top-actions{display:flex;align-items:center;gap:10px;margin-top:12px;flex-wrap:wrap}
 .bonus-stars{display:inline-flex;align-items:center;gap:1px;white-space:nowrap;font-size:.82rem;line-height:1;color:#c6ccd6;letter-spacing:.01em}
-.bonus-stars .earned{color:#b8860b}
+.bonus-stars .earned{color:#c58b00;font-weight:900}
 .bonus-stars .finish-badge{margin-left:6px;padding:3px 7px;border-radius:999px;background:#fff7dd;border:1px solid #e4c45f;color:#7d6200;font-size:.74rem;font-weight:800}
 @media(max-width:720px){.top-actions{margin-top:10px;gap:8px}.top-actions .record-link{margin-top:0}.bonus-stars{font-size:.8rem}}
 .status-legend{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center;margin:14px 0 18px;padding:12px 14px;border:1px solid var(--line);background:#fff;border-radius:13px;color:var(--muted);font-size:.9rem}.legend-item{display:inline-flex;align-items:center;gap:6px}
@@ -93,11 +93,12 @@ function isFullLesson(meta){
 function renderBonusStars(){
   const fullCount=LESSONS.filter(isFullLesson).length;
   const earned=Math.min(10,Math.floor(fullCount/3));
-  const stars="★".repeat(earned)+"☆".repeat(10-earned);
+  const earnedStars="★".repeat(earned);
+  const unearnedStars="☆".repeat(10-earned);
   const box=document.getElementById("bonusStars");
   if(!box) return;
   const finish=fullCount>=32 ? '<span class="finish-badge">🏆 32課完走</span>' : '';
-  box.innerHTML=`<span aria-hidden="true">${stars}</span>${finish}`;
+  box.innerHTML=`<span class="earned" aria-hidden="true">${earnedStars}</span><span class="unearned" aria-hidden="true">${unearnedStars}</span>${finish}`;
   box.setAttribute("aria-label",`フル学習${fullCount}課。ボーナス星${earned}個／10個`);
 }
 function defaultProgress(){

@@ -27,7 +27,7 @@ a{color:inherit}.top-head{display:flex;align-items:flex-start;justify-content:sp
 
 
 .record-bonus-stars{display:inline-flex;align-items:center;gap:1px;margin-top:6px;font-size:.84rem;line-height:1;color:#c6ccd6;letter-spacing:.01em;white-space:nowrap}
-.record-bonus-stars .earned{color:#b8860b}
+.record-bonus-stars .earned{color:#c58b00;font-weight:900}
 .record-bonus-stars .finish-badge{margin-left:6px;padding:3px 7px;border-radius:999px;background:#fff7dd;border:1px solid #e4c45f;color:#7d6200;font-size:.74rem;font-weight:800}
 .record-intro{margin:0 0 16px;padding:12px 14px;background:#fff;border:1px solid var(--line);border-radius:13px;color:var(--muted);line-height:1.65;font-size:.91rem}
 .records-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;align-items:start;padding:12px;border-top:1px solid var(--line);background:#fbfcfe}
@@ -46,6 +46,9 @@ a{color:inherit}.top-head{display:flex;align-items:flex-start;justify-content:sp
 .progress-inline .metric{white-space:nowrap}
 .progress-inline .metric:not(:last-child)::after{content:"｜";color:#b4bdc9;margin:0 .5em;font-weight:400}
 .progress-label-inline{font-weight:650;color:var(--muted);margin-right:.25em}
+.full-mark{display:none;margin-left:.45em;color:#c58b00;font-size:.95em;font-weight:900;line-height:1;align-self:center}
+.full-mark.show{display:inline-flex}
+
 .score-details{border-top:1px solid var(--line)}
 .score-details summary{cursor:pointer;padding:9px 14px;font-weight:700;color:#455a78;font-size:.86rem;list-style:none}
 .score-details summary::-webkit-details-marker{display:none}
@@ -65,7 +68,7 @@ a{color:inherit}.top-head{display:flex;align-items:flex-start;justify-content:sp
   .record-head .start-btn{grid-column:2;justify-self:start}
 }
 </style></head><body><main><header class="top-head"><div><h1><ruby>学習記録<rt>がくしゅうきろく</rt></ruby></h1><div class="record-bonus-stars" id="recordBonusStars" aria-label="フル学習ボーナス：まだ星はありません" title="カード・読み・書きを全部1回以上取り組んだ課を3課達成すると★が1つ増えます"><span aria-hidden="true">☆☆☆☆☆☆☆☆☆☆</span></div></div><a class="back-link" href="index.html">← TOP</a></header>
-<div class="record-intro">カード・<ruby>読<rt>よ</rt></ruby>み・<ruby>書<rt>か</rt></ruby>きの<ruby>数字<rt>すうじ</rt></ruby>は、<b><ruby>一度以上<rt>いちどいじょう</rt></ruby><ruby>取<rt>と</rt></ruby>り<ruby>組<rt>く</rt></ruby>んだ<ruby>項目<rt>こうもく</rt></ruby>の<ruby>数<rt>かず</rt></ruby></b>です。<ruby>同<rt>おな</rt></ruby>じ<ruby>問題<rt>もんだい</rt></ruby>を<ruby>繰<rt>く</rt></ruby>り<ruby>返<rt>かえ</rt></ruby>しても<ruby>増<rt>ふ</rt></ruby>えません。<ruby>成績<rt>せいせき</rt></ruby>は、その<ruby>下<rt>した</rt></ruby>に<ruby>累計<rt>るいけい</rt></ruby>で<ruby>表示<rt>ひょうじ</rt></ruby>します。<br><small>※ <ruby>課<rt>か</rt></ruby>によって、<ruby>読<rt>よ</rt></ruby>みと<ruby>書<rt>か</rt></ruby>きの<ruby>問題数<rt>もんだいすう</rt></ruby>が<ruby>異<rt>こと</rt></ruby>なる<ruby>場合<rt>ばあい</rt></ruby>があります。</small><br><small>★ カード・<ruby>読<rt>よ</rt></ruby>み・<ruby>書<rt>か</rt></ruby>きをすべて1<ruby>回以上<rt>かいいじょう</rt></ruby><ruby>学習<rt>がくしゅう</rt></ruby>した<ruby>課<rt>か</rt></ruby>が3<ruby>課<rt>か</rt></ruby>たまるごとに、TOPの☆が★に1つ<ruby>変<rt>か</rt></ruby>わります。<ruby>正答率<rt>せいとうりつ</rt></ruby>は<ruby>条件<rt>じょうけん</rt></ruby>に<ruby>含<rt>ふく</rt></ruby>みません。</small></div>
+<div class="record-intro">カード・<ruby>読<rt>よ</rt></ruby>み・<ruby>書<rt>か</rt></ruby>きの<ruby>数字<rt>すうじ</rt></ruby>は、<b><ruby>一度以上<rt>いちどいじょう</rt></ruby><ruby>取<rt>と</rt></ruby>り<ruby>組<rt>く</rt></ruby>んだ<ruby>項目<rt>こうもく</rt></ruby>の<ruby>数<rt>かず</rt></ruby></b>です。<ruby>同<rt>おな</rt></ruby>じ<ruby>問題<rt>もんだい</rt></ruby>を<ruby>繰<rt>く</rt></ruby>り<ruby>返<rt>かえ</rt></ruby>しても<ruby>増<rt>ふ</rt></ruby>えません。<ruby>成績<rt>せいせき</rt></ruby>は、その<ruby>下<rt>した</rt></ruby>に<ruby>累計<rt>るいけい</rt></ruby>で<ruby>表示<rt>ひょうじ</rt></ruby>します。<br><small>※ <ruby>課<rt>か</rt></ruby>によって、<ruby>読<rt>よ</rt></ruby>みと<ruby>書<rt>か</rt></ruby>きの<ruby>問題数<rt>もんだいすう</rt></ruby>が<ruby>異<rt>こと</rt></ruby>なる<ruby>場合<rt>ばあい</rt></ruby>があります。</small><br><small>✦ は、その<ruby>課<rt>か</rt></ruby>のカード・<ruby>読<rt>よ</rt></ruby>み・<ruby>書<rt>か</rt></ruby>きをすべて1<ruby>回以上<rt>かいいじょう</rt></ruby><ruby>学習<rt>がくしゅう</rt></ruby>した<ruby>印<rt>しるし</rt></ruby>です。✦が3<ruby>課<rt>か</rt></ruby>たまるごとに、☆が★に1つ<ruby>変<rt>か</rt></ruby>わります。<ruby>正答率<rt>せいとうりつ</rt></ruby>は<ruby>条件<rt>じょうけん</rt></ruby>に<ruby>含<rt>ふく</rt></ruby>みません。</small></div>
 
 <details class="group record-group" data-start="1" data-end="8" open>
   <summary>
@@ -124,11 +127,12 @@ function isFullLesson(meta){
 function renderRecordBonusStars(){
   const fullCount=LESSONS.filter(isFullLesson).length;
   const earned=Math.min(10,Math.floor(fullCount/3));
-  const stars="★".repeat(earned)+"☆".repeat(10-earned);
+  const earnedStars="★".repeat(earned);
+  const unearnedStars="☆".repeat(10-earned);
   const box=document.getElementById("recordBonusStars");
   if(!box) return;
   const finish=fullCount>=32 ? '<span class="finish-badge">🏆 32課完走</span>' : '';
-  box.innerHTML=`<span aria-hidden="true">${stars}</span>${finish}`;
+  box.innerHTML=`<span class="earned" aria-hidden="true">${earnedStars}</span><span class="unearned" aria-hidden="true">${unearnedStars}</span>${finish}`;
   box.setAttribute("aria-label",`フル学習${fullCount}課。ボーナス星${earned}個／10個`);
 }
 function defaultProgress(){
@@ -257,6 +261,18 @@ function render(){
     document.querySelector(`[data-read="${n}"]`).textContent=Math.min(m.readTotal,countMap(p.read));
     document.querySelector(`[data-write="${n}"]`).textContent=Math.min(m.writeTotal,countMap(p.write));
     document.querySelector(`[data-last="${n}"]`).textContent=formatLastStudy(p);
+
+    const progressLine=document.querySelector(`[data-record="${n}"] .progress-inline`);
+    let fullMark=progressLine ? progressLine.querySelector(".full-mark") : null;
+    if(progressLine && !fullMark){
+      fullMark=document.createElement("span");
+      fullMark.className="full-mark";
+      fullMark.textContent="✦";
+      fullMark.title="この課をフル学習";
+      fullMark.setAttribute("aria-label","この課をフル学習");
+      progressLine.appendChild(fullMark);
+    }
+    if(fullMark) fullMark.classList.toggle("show",isFullLesson(m));
 
     const answered=Number(s.answered)||0;
     const correct=Number(s.correct)||0;
