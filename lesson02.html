@@ -1490,6 +1490,14 @@ function recordUniqueProgress(kind,key){
   p.legacyOnly=false;
   progressSave(p);
 }
+function recordStudyActivity(){
+  const p=progressLoad();
+  if(p.status!=="done") p.status="learning";
+  // 「答えを見る」は学習開始として扱うが、書き進捗はまだ増やさない。
+  p.lastActivity=Date.now();
+  p.legacyOnly=false;
+  progressSave(p);
+}
 function mark(k,field,add=1){
   const s=statsLoad();
   if(!s.items[k]) s.items[k]={hard:0,wrong:0,review:false};
@@ -1947,6 +1955,7 @@ function newWrite(){
   writeJudged=false;
 }
 showWrite.onclick=()=>{
+  recordStudyActivity();
   wAnswer.classList.remove("hidden");
   showWrite.classList.add("hidden");
   showWriteHint.classList.add("hidden");
