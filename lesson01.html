@@ -1799,7 +1799,7 @@ cardOrder.onchange=()=>{
   if(flashPool.length) showFlash();
 };
 
-const READ_CONTEXTS = {"表\u0000おもて":"裏の反対"};
+const READ_CONTEXTS = {"表\u0000おもて":"ものの まえがわ・そとがわ"};
 
 // 読み：「漢字を選ぶ」で選んだ漢字の教科書語彙。同じ語・同じ読みは1回だけ。
 function buildReadingWords(){
@@ -1970,7 +1970,7 @@ document.addEventListener("keydown",e=>{
 });
 readOrder.onchange=()=>{ clearReadResume(); resetReadDeck(); newRead(); };
 
-const WRITE_CONTEXTS = {"表\u0000おもて":"（裏の反対）おもて"};
+const WRITE_CONTEXTS = {"表\u0000おもて":"おもて（うらの はんたい）","表す\u0000あらわす":"（きもちを ことばで） あらわす","辞める\u0000やめる":"（しごとを） やめる","課\u0000か":"か（じゅぎょうの ひとつの くぎり）","感覚\u0000かんかく":"かんかく（からだで かんじる もの）","組む\u0000くむ":"（チームを） くむ","席\u0000せき":"せき（すわる ばしょ）","欠ける\u0000かける":"（さらの いちぶが） かける"};
 
 // 書き：一巡するまで重複なし
 function buildWriteWords(){
