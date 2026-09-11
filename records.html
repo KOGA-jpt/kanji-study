@@ -1,0 +1,291 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>学習記録｜漢字自習ツール</title><style>
+:root{--bg:#f5f8fc;--card:#fff;--text:#1f2937;--muted:#667085;--line:#d9e2ec;--primary:#1769d2;--green:#dff4e7;--green-border:#70b98a;--pink:#f9e1e8;--pink-border:#d7869d;--gray:#cbd3dd}
+*{box-sizing:border-box} ruby{ruby-position:over} rt{font-size:.52em;color:var(--muted)}
+/* v5: 短いUI文言の高さ合わせ。かな・カタカナには見えないルビ領域だけを確保 */
+.ui-ruby-blank rt{visibility:hidden}
+.ui-ruby-line{white-space:nowrap}
+/* v6: 濃い青ボタン内のルビは白系にしてスマホでも読みやすくする */
+.start-btn rt{color:rgba(255,255,255,.92);font-size:.58em;font-weight:700}
+.start-btn .ui-ruby-blank rt,.record-link .ui-ruby-blank rt{visibility:hidden}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans JP","Yu Gothic UI","Yu Gothic",sans-serif;color:var(--text);background:var(--bg)}
+main{width:min(940px,calc(100% - 28px));margin:0 auto;padding:34px 0 60px}
+a{color:inherit}.top-head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:20px}.top-head h1{margin:0 0 8px;font-size:clamp(1.65rem,5vw,2.25rem)}.subtitle{margin:0;color:var(--muted);line-height:1.7}
+.record-link,.back-link{flex:0 0 auto;display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:10px 14px;border-radius:11px;border:1px solid var(--line);background:#fff;text-decoration:none;font-weight:700;color:#315a9d}.record-link:hover,.back-link:hover{background:#f8fbff}
+.status-legend{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center;margin:14px 0 18px;padding:12px 14px;border:1px solid var(--line);background:#fff;border-radius:13px;color:var(--muted);font-size:.9rem}.legend-item{display:inline-flex;align-items:center;gap:6px}
+.status-dot{width:24px;height:24px;border-radius:50%;border:2px solid var(--gray);background:#fff;display:inline-flex;align-items:center;justify-content:center;font-weight:900;line-height:1;cursor:pointer;flex:0 0 auto}.status-dot.learning{background:var(--green);border-color:var(--green-border)}.status-dot.done{background:var(--pink);border-color:var(--pink-border);color:#a33d5d}.status-dot.small{width:18px;height:18px;cursor:default;font-size:.72rem}
+/* v4: 見た目の丸は小さいまま、操作領域だけ44pxにする */
+.status-dot:not(.small){width:44px;height:44px;border:0;background:transparent;position:relative;display:inline-flex;align-items:center;justify-content:center;padding:0;font-size:.78rem;isolation:isolate}
+.status-dot:not(.small)::before{content:"";position:absolute;z-index:-1;width:24px;height:24px;border-radius:50%;border:2px solid var(--gray);background:#fff}
+.status-dot:not(.small).learning,.status-dot:not(.small).done{background:transparent;border:0}
+.status-dot:not(.small).learning::before{background:var(--green);border-color:var(--green-border)}
+.status-dot:not(.small).done::before{background:var(--pink);border-color:var(--pink-border)}
+.status-dot:not(.small).done{color:#a33d5d}
+.status-dot:not(.small):disabled{cursor:default;opacity:1}
+.group{border:1px solid var(--line);border-radius:16px;background:#fff;margin:12px 0;overflow:hidden}.group>summary{list-style:none;cursor:pointer;padding:16px 18px;font-weight:800;display:flex;align-items:center;justify-content:space-between;gap:12px}.group>summary::-webkit-details-marker{display:none}.group>summary::before{content:"▶";font-size:.8rem;color:var(--muted);transition:transform .15s}.group[open]>summary::before{transform:rotate(90deg)}.group-title{display:flex;align-items:center;gap:10px;flex:1}.group-note{font-size:.82rem;color:var(--muted);font-weight:600}
+.lesson-list{border-top:1px solid var(--line)}.lesson-row{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:14px;padding:15px 18px;border-bottom:1px solid #edf1f5}.lesson-row:last-child{border-bottom:0}.lesson-main{min-width:0}.lesson-title{font-weight:800;font-size:1.03rem}.lesson-range{margin-top:3px;color:var(--muted);font-size:.82rem}.start-btn{display:inline-flex;align-items:center;justify-content:center;min-height:42px;padding:9px 13px;border-radius:10px;background:var(--primary);color:#fff;text-decoration:none;font-weight:800;white-space:nowrap}.helper{padding:12px 18px;border-top:1px solid var(--line);color:var(--muted);font-size:.84rem;line-height:1.65;background:#fbfcfe}.placeholder{padding:12px 18px 18px;color:var(--muted);border-top:1px solid var(--line)}
+@media(max-width:620px){main{padding-top:24px}.top-head{display:block}.record-link,.back-link{margin-top:14px}.lesson-row{grid-template-columns:auto minmax(0,1fr);gap:10px 12px}.start-btn{grid-column:2;width:100%;margin-top:1px}.group>summary{padding:15px 14px}.lesson-row{padding:14px}.helper{padding:11px 14px}}
+
+
+.record-bonus-stars{display:inline-flex;align-items:center;gap:1px;margin-top:6px;font-size:.84rem;line-height:1;color:#c6ccd6;letter-spacing:.01em;white-space:nowrap}
+.record-bonus-stars .earned{color:#b8860b}
+.record-bonus-stars .finish-badge{margin-left:6px;padding:3px 7px;border-radius:999px;background:#fff7dd;border:1px solid #e4c45f;color:#7d6200;font-size:.74rem;font-weight:800}
+.record-intro{margin:0 0 16px;padding:12px 14px;background:#fff;border:1px solid var(--line);border-radius:13px;color:var(--muted);line-height:1.65;font-size:.91rem}
+.records-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;align-items:start;padding:12px;border-top:1px solid var(--line);background:#fbfcfe}
+.record-group{margin:12px 0}
+.record-group .placeholder{background:#fbfcfe}
+.record-card{background:#fff;border:1px solid var(--line);border-left:4px solid #8fa8ee;border-radius:14px;overflow:hidden}
+.record-head{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:10px 11px;align-items:start;padding:14px 14px 10px}
+.record-head .status-dot{margin-top:2px}
+.record-head .lesson-main{min-width:0}
+.record-head .lesson-title{font-weight:800;font-size:1rem;line-height:1.5}
+.record-head .lesson-range{margin-top:2px;color:var(--muted);font-size:.78rem}
+.record-head .start-btn{grid-column:auto;min-height:34px;padding:6px 9px;border-radius:9px;font-size:.78rem;margin:0;align-self:start}
+
+.last-study{margin-top:4px;color:var(--muted);font-size:.78rem;line-height:1.4}
+.progress-inline{display:flex;flex-wrap:wrap;gap:4px 0;padding:0 14px 12px;font-size:.9rem;font-weight:750;line-height:1.55}
+.progress-inline .metric{white-space:nowrap}
+.progress-inline .metric:not(:last-child)::after{content:"｜";color:#b4bdc9;margin:0 .5em;font-weight:400}
+.progress-label-inline{font-weight:650;color:var(--muted);margin-right:.25em}
+.score-details{border-top:1px solid var(--line)}
+.score-details summary{cursor:pointer;padding:9px 14px;font-weight:700;color:#455a78;font-size:.86rem;list-style:none}
+.score-details summary::-webkit-details-marker{display:none}
+.score-details summary::before{content:"▶";display:inline-block;margin-right:.45em;font-size:.68rem;transition:transform .15s}
+.score-details[open] summary::before{transform:rotate(90deg)}
+.score-box{padding:0 14px 12px;display:grid;grid-template-columns:1fr;gap:7px}
+.score-line{background:#fbfcfe;border:1px solid #edf1f5;border-radius:9px;padding:8px 10px;line-height:1.55;font-size:.84rem}
+.empty-note{color:var(--muted)}
+@media(max-width:720px){
+  .records-grid{grid-template-columns:1fr}
+  .record-head{grid-template-columns:auto minmax(0,1fr) auto;padding:13px 12px 9px}
+  .record-head .start-btn{font-size:.76rem}
+  .progress-inline{padding:0 12px 11px;font-size:.86rem}
+}
+@media(max-width:430px){
+  .record-head{grid-template-columns:auto minmax(0,1fr)}
+  .record-head .start-btn{grid-column:2;justify-self:start}
+}
+</style></head><body><main><header class="top-head"><div><h1><ruby>学習記録<rt>がくしゅうきろく</rt></ruby></h1><div class="record-bonus-stars" id="recordBonusStars" aria-label="フル学習ボーナス：まだ星はありません" title="カード・読み・書きを全部1回以上取り組んだ課を3課達成すると★が1つ増えます"><span aria-hidden="true">☆☆☆☆☆☆☆☆☆☆</span></div></div><a class="back-link" href="index.html">← TOP</a></header>
+<div class="record-intro">カード・<ruby>読<rt>よ</rt></ruby>み・<ruby>書<rt>か</rt></ruby>きの<ruby>数字<rt>すうじ</rt></ruby>は、<b><ruby>一度以上<rt>いちどいじょう</rt></ruby><ruby>取<rt>と</rt></ruby>り<ruby>組<rt>く</rt></ruby>んだ<ruby>項目<rt>こうもく</rt></ruby>の<ruby>数<rt>かず</rt></ruby></b>です。<ruby>同<rt>おな</rt></ruby>じ<ruby>問題<rt>もんだい</rt></ruby>を<ruby>繰<rt>く</rt></ruby>り<ruby>返<rt>かえ</rt></ruby>しても<ruby>増<rt>ふ</rt></ruby>えません。<ruby>成績<rt>せいせき</rt></ruby>は、その<ruby>下<rt>した</rt></ruby>に<ruby>累計<rt>るいけい</rt></ruby>で<ruby>表示<rt>ひょうじ</rt></ruby>します。<br><small>※ <ruby>課<rt>か</rt></ruby>によって、<ruby>読<rt>よ</rt></ruby>みと<ruby>書<rt>か</rt></ruby>きの<ruby>問題数<rt>もんだいすう</rt></ruby>が<ruby>異<rt>こと</rt></ruby>なる<ruby>場合<rt>ばあい</rt></ruby>があります。</small><br><small>★ カード・<ruby>読<rt>よ</rt></ruby>み・<ruby>書<rt>か</rt></ruby>きをすべて1<ruby>回以上<rt>かいいじょう</rt></ruby><ruby>学習<rt>がくしゅう</rt></ruby>した<ruby>課<rt>か</rt></ruby>が3<ruby>課<rt>か</rt></ruby>たまるごとに、TOPの☆が★に1つ<ruby>変<rt>か</rt></ruby>わります。<ruby>正答率<rt>せいとうりつ</rt></ruby>は<ruby>条件<rt>じょうけん</rt></ruby>に<ruby>含<rt>ふく</rt></ruby>みません。</small></div>
+
+<details class="group record-group" data-start="1" data-end="8" open>
+  <summary>
+    <span class="group-title">第1〜8<ruby>課<rt>か</rt></ruby></span>
+    <span class="group-note"><ruby>現在<rt>げんざい</rt></ruby>の<ruby>範囲<rt>はんい</rt></ruby></span>
+  </summary>
+  <div class="records-grid"><section class="record-card" data-record="1"><div class="record-head"><button class="status-dot" type="button" data-status-for="1" aria-label="第1課の学習状態を変更"></button><div class="lesson-main"><div class="lesson-title">第1課　<ruby>教室<rt>きょうしつ</rt></ruby></div><div class="lesson-range">No.301〜320</div><div class="last-study"><ruby>最終<rt>さいしゅう</rt></ruby><ruby>学習<rt>がくしゅう</rt></ruby>：<span data-last="1">—</span></div></div><a class="start-btn" href="lesson01.html"><span class="ui-ruby-line"><ruby class="ui-ruby-blank">この<rt aria-hidden="true">&nbsp;</rt></ruby><ruby>課<rt>か</rt></ruby><ruby class="ui-ruby-blank">を<rt aria-hidden="true">&nbsp;</rt></ruby><ruby>練習<rt>れんしゅう</rt></ruby><ruby class="ui-ruby-blank">する<rt aria-hidden="true">&nbsp;</rt></ruby></span></a></div><div class="progress-inline"><span class="metric"><span class="progress-label-inline"><ruby class="ui-ruby-blank">カード<rt aria-hidden="true">&nbsp;</rt></ruby></span><span data-cards="1">0</span>/20</span><span class="metric"><span class="progress-label-inline"><ruby>読<rt>よ</rt></ruby><ruby class="ui-ruby-blank">み<rt aria-hidden="true">&nbsp;</rt></ruby></span><span data-read="1">0</span>/47</span><span class="metric"><span class="progress-label-inline"><ruby>書<rt>か</rt></ruby><ruby class="ui-ruby-blank">き<rt aria-hidden="true">&nbsp;</rt></ruby></span><span data-write="1">0</span>/47</span></div><details class="score-details"><summary><ruby>成績<rt>せいせき</rt></ruby>を<ruby>見<rt>み</rt></ruby>る</summary><div class="score-box"><div class="score-line" data-readscore="1"></div><div class="score-line" data-writescore="1"></div></div></details></section><section class="record-card" data-record="2"><div class="record-head"><button class="status-dot" type="button" data-status-for="2" aria-label="第2課の学習状態を変更"></button><div class="lesson-main"><div class="lesson-title">第2課　テスト</div><div class="lesson-range">No.321〜340</div><div class="last-study"><ruby>最終<rt>さいしゅう</rt></ruby><ruby>学習<rt>がくしゅう</rt></ruby>：<span data-last="2">—</span></div></div><a class="start-btn" href="lesson02.html"><span class="ui-ruby-line"><ruby class="ui-ruby-blank">この<rt aria-hidden="true">&nbsp;</rt></ruby><ruby>課<rt>か</rt></ruby><ruby class="ui-ruby-blank">を<rt aria-hidden="true">&nbsp;</rt></ruby><ruby>練習<rt>れんしゅう</rt></ruby><ruby class="ui-ruby-blank">する<rt aria-hidden="true">&nbsp;</rt></ruby></span></a></div><div class="progress-inline"><span class="metric"><span class="progress-label-inline"><ruby class="ui-ruby-blank">カード<rt aria-hidden="true">&nbsp;</rt></ruby></span><span data-cards="2">0</span>/20</span><span class="metric"><span class="progress-label-inline"><ruby>読<rt>よ</rt></ruby><ruby class="ui-ruby-blank">み<rt aria-hidden="true">&nbsp;</rt></ruby></span><span data-read="2">0</span>/65</span><span class="metric"><span class="progress-label-inline"><ruby>書<rt>か</rt></ruby><ruby class="ui-ruby-blank">き<rt aria-hidden="true">&nbsp;</rt></ruby></span><span data-write="2">0</span>/65</span></div><details class="score-details"><summary><ruby>成績<rt>せいせき</rt></ruby>を<ruby>見<rt>み</rt></ruby>る</summary><div class="score-box"><div class="score-line" data-readscore="2"></div><div class="score-line" data-writescore="2"></div></div></details></section><section class="record-card" data-record="3"><div class="record-head"><button class="status-dot" type="button" data-status-for="3" aria-label="第3課の学習状態を変更"></button><div class="lesson-main"><div class="lesson-title">第3課　<ruby>形容詞<rt>けいようし</rt></ruby></div><div class="lesson-range">No.341〜360</div><div class="last-study"><ruby>最終<rt>さいしゅう</rt></ruby><ruby>学習<rt>がくしゅう</rt></ruby>：<span data-last="3">—</span></div></div><a class="start-btn" href="lesson03.html"><span class="ui-ruby-line"><ruby class="ui-ruby-blank">この<rt aria-hidden="true">&nbsp;</rt></ruby><ruby>課<rt>か</rt></ruby><ruby class="ui-ruby-blank">を<rt aria-hidden="true">&nbsp;</rt></ruby><ruby>練習<rt>れんしゅう</rt></ruby><ruby class="ui-ruby-blank">する<rt aria-hidden="true">&nbsp;</rt></ruby></span></a></div><div class="progress-inline"><span class="metric"><span class="progress-label-inline"><ruby class="ui-ruby-blank">カード<rt aria-hidden="true">&nbsp;</rt></ruby></span><span data-cards="3">0</span>/20</span><span class="metric"><span class="progress-label-inline"><ruby>読<rt>よ</rt></ruby><ruby class="ui-ruby-blank">み<rt aria-hidden="true">&nbsp;</rt></ruby></span><span data-read="3">0</span>/46</span><span class="metric"><span class="progress-label-inline"><ruby>書<rt>か</rt></ruby><ruby class="ui-ruby-blank">き<rt aria-hidden="true">&nbsp;</rt></ruby></span><span data-write="3">0</span>/46</span></div><details class="score-details"><summary><ruby>成績<rt>せいせき</rt></ruby>を<ruby>見<rt>み</rt></ruby>る</summary><div class="score-box"><div class="score-line" data-readscore="3"></div><div class="score-line" data-writescore="3"></div></div></details></section><section class="record-card" data-record="4"><div class="record-head"><button class="status-dot" type="button" data-status-for="4" aria-label="第4課の学習状態を変更"></button><div class="lesson-main"><div class="lesson-title">第4課　<ruby>漢字<rt>かんじ</rt></ruby></div><div class="lesson-range">No.361〜380</div><div class="last-study"><ruby>最終<rt>さいしゅう</rt></ruby><ruby>学習<rt>がくしゅう</rt></ruby>：<span data-last="4">—</span></div></div><a class="start-btn" href="lesson04.html"><span class="ui-ruby-line"><ruby class="ui-ruby-blank">この<rt aria-hidden="true">&nbsp;</rt></ruby><ruby>課<rt>か</rt></ruby><ruby class="ui-ruby-blank">を<rt aria-hidden="true">&nbsp;</rt></ruby><ruby>練習<rt>れんしゅう</rt></ruby><ruby class="ui-ruby-blank">する<rt aria-hidden="true">&nbsp;</rt></ruby></span></a></div><div class="progress-inline"><span class="metric"><span class="progress-label-inline"><ruby class="ui-ruby-blank">カード<rt aria-hidden="true">&nbsp;</rt></ruby></span><span data-cards="4">0</span>/20</span><span class="metric"><span class="progress-label-inline"><ruby>読<rt>よ</rt></ruby><ruby class="ui-ruby-blank">み<rt aria-hidden="true">&nbsp;</rt></ruby></span><span data-read="4">0</span>/43</span><span class="metric"><span class="progress-label-inline"><ruby>書<rt>か</rt></ruby><ruby class="ui-ruby-blank">き<rt aria-hidden="true">&nbsp;</rt></ruby></span><span data-write="4">0</span>/43</span></div><details class="score-details"><summary><ruby>成績<rt>せいせき</rt></ruby>を<ruby>見<rt>み</rt></ruby>る</summary><div class="score-box"><div class="score-line" data-readscore="4"></div><div class="score-line" data-writescore="4"></div></div></details></section><section class="record-card" data-record="5"><div class="record-head"><button class="status-dot" type="button" data-status-for="5" aria-label="第5課の学習状態を変更"></button><div class="lesson-main"><div class="lesson-title">第5課　<ruby>自己紹介<rt>じこしょうかい</rt></ruby></div><div class="lesson-range">No.381〜400</div><div class="last-study"><ruby>最終<rt>さいしゅう</rt></ruby><ruby>学習<rt>がくしゅう</rt></ruby>：<span data-last="5">—</span></div></div><a class="start-btn" href="lesson05.html"><span class="ui-ruby-line"><ruby class="ui-ruby-blank">この<rt aria-hidden="true">&nbsp;</rt></ruby><ruby>課<rt>か</rt></ruby><ruby class="ui-ruby-blank">を<rt aria-hidden="true">&nbsp;</rt></ruby><ruby>練習<rt>れんしゅう</rt></ruby><ruby class="ui-ruby-blank">する<rt aria-hidden="true">&nbsp;</rt></ruby></span></a></div><div class="progress-inline"><span class="metric"><span class="progress-label-inline"><ruby class="ui-ruby-blank">カード<rt aria-hidden="true">&nbsp;</rt></ruby></span><span data-cards="5">0</span>/20</span><span class="metric"><span class="progress-label-inline"><ruby>読<rt>よ</rt></ruby><ruby class="ui-ruby-blank">み<rt aria-hidden="true">&nbsp;</rt></ruby></span><span data-read="5">0</span>/44</span><span class="metric"><span class="progress-label-inline"><ruby>書<rt>か</rt></ruby><ruby class="ui-ruby-blank">き<rt aria-hidden="true">&nbsp;</rt></ruby></span><span data-write="5">0</span>/45</span></div><details class="score-details"><summary><ruby>成績<rt>せいせき</rt></ruby>を<ruby>見<rt>み</rt></ruby>る</summary><div class="score-box"><div class="score-line" data-readscore="5"></div><div class="score-line" data-writescore="5"></div></div></details></section><section class="record-card" data-record="6"><div class="record-head"><button class="status-dot" type="button" data-status-for="6" aria-label="第6課の学習状態を変更"></button><div class="lesson-main"><div class="lesson-title">第6課　<ruby>私<rt>わたし</rt></ruby>の<ruby>部屋<rt>へや</rt></ruby></div><div class="lesson-range">No.401〜420</div><div class="last-study"><ruby>最終<rt>さいしゅう</rt></ruby><ruby>学習<rt>がくしゅう</rt></ruby>：<span data-last="6">—</span></div></div><a class="start-btn" href="lesson06.html"><span class="ui-ruby-line"><ruby class="ui-ruby-blank">この<rt aria-hidden="true">&nbsp;</rt></ruby><ruby>課<rt>か</rt></ruby><ruby class="ui-ruby-blank">を<rt aria-hidden="true">&nbsp;</rt></ruby><ruby>練習<rt>れんしゅう</rt></ruby><ruby class="ui-ruby-blank">する<rt aria-hidden="true">&nbsp;</rt></ruby></span></a></div><div class="progress-inline"><span class="metric"><span class="progress-label-inline"><ruby class="ui-ruby-blank">カード<rt aria-hidden="true">&nbsp;</rt></ruby></span><span data-cards="6">0</span>/20</span><span class="metric"><span class="progress-label-inline"><ruby>読<rt>よ</rt></ruby><ruby class="ui-ruby-blank">み<rt aria-hidden="true">&nbsp;</rt></ruby></span><span data-read="6">0</span>/34</span><span class="metric"><span class="progress-label-inline"><ruby>書<rt>か</rt></ruby><ruby class="ui-ruby-blank">き<rt aria-hidden="true">&nbsp;</rt></ruby></span><span data-write="6">0</span>/34</span></div><details class="score-details"><summary><ruby>成績<rt>せいせき</rt></ruby>を<ruby>見<rt>み</rt></ruby>る</summary><div class="score-box"><div class="score-line" data-readscore="6"></div><div class="score-line" data-writescore="6"></div></div></details></section><section class="record-card" data-record="7"><div class="record-head"><button class="status-dot" type="button" data-status-for="7" aria-label="第7課の学習状態を変更"></button><div class="lesson-main"><div class="lesson-title">第7課　<ruby>自動詞<rt>じどうし</rt></ruby>・<ruby>他動詞<rt>たどうし</rt></ruby></div><div class="lesson-range">No.421〜440</div><div class="last-study"><ruby>最終<rt>さいしゅう</rt></ruby><ruby>学習<rt>がくしゅう</rt></ruby>：<span data-last="7">—</span></div></div><a class="start-btn" href="lesson07.html"><span class="ui-ruby-line"><ruby class="ui-ruby-blank">この<rt aria-hidden="true">&nbsp;</rt></ruby><ruby>課<rt>か</rt></ruby><ruby class="ui-ruby-blank">を<rt aria-hidden="true">&nbsp;</rt></ruby><ruby>練習<rt>れんしゅう</rt></ruby><ruby class="ui-ruby-blank">する<rt aria-hidden="true">&nbsp;</rt></ruby></span></a></div><div class="progress-inline"><span class="metric"><span class="progress-label-inline"><ruby class="ui-ruby-blank">カード<rt aria-hidden="true">&nbsp;</rt></ruby></span><span data-cards="7">0</span>/20</span><span class="metric"><span class="progress-label-inline"><ruby>読<rt>よ</rt></ruby><ruby class="ui-ruby-blank">み<rt aria-hidden="true">&nbsp;</rt></ruby></span><span data-read="7">0</span>/70</span><span class="metric"><span class="progress-label-inline"><ruby>書<rt>か</rt></ruby><ruby class="ui-ruby-blank">き<rt aria-hidden="true">&nbsp;</rt></ruby></span><span data-write="7">0</span>/70</span></div><details class="score-details"><summary><ruby>成績<rt>せいせき</rt></ruby>を<ruby>見<rt>み</rt></ruby>る</summary><div class="score-box"><div class="score-line" data-readscore="7"></div><div class="score-line" data-writescore="7"></div></div></details></section><section class="record-card" data-record="8"><div class="record-head"><button class="status-dot" type="button" data-status-for="8" aria-label="第8課の学習状態を変更"></button><div class="lesson-main"><div class="lesson-title">第8課　<ruby>私<rt>わたし</rt></ruby>の<ruby>町<rt>まち</rt></ruby></div><div class="lesson-range">No.441〜460</div><div class="last-study"><ruby>最終<rt>さいしゅう</rt></ruby><ruby>学習<rt>がくしゅう</rt></ruby>：<span data-last="8">—</span></div></div><a class="start-btn" href="lesson08.html"><span class="ui-ruby-line"><ruby class="ui-ruby-blank">この<rt aria-hidden="true">&nbsp;</rt></ruby><ruby>課<rt>か</rt></ruby><ruby class="ui-ruby-blank">を<rt aria-hidden="true">&nbsp;</rt></ruby><ruby>練習<rt>れんしゅう</rt></ruby><ruby class="ui-ruby-blank">する<rt aria-hidden="true">&nbsp;</rt></ruby></span></a></div><div class="progress-inline"><span class="metric"><span class="progress-label-inline"><ruby class="ui-ruby-blank">カード<rt aria-hidden="true">&nbsp;</rt></ruby></span><span data-cards="8">0</span>/20</span><span class="metric"><span class="progress-label-inline"><ruby>読<rt>よ</rt></ruby><ruby class="ui-ruby-blank">み<rt aria-hidden="true">&nbsp;</rt></ruby></span><span data-read="8">0</span>/51</span><span class="metric"><span class="progress-label-inline"><ruby>書<rt>か</rt></ruby><ruby class="ui-ruby-blank">き<rt aria-hidden="true">&nbsp;</rt></ruby></span><span data-write="8">0</span>/51</span></div><details class="score-details"><summary><ruby>成績<rt>せいせき</rt></ruby>を<ruby>見<rt>み</rt></ruby>る</summary><div class="score-box"><div class="score-line" data-readscore="8"></div><div class="score-line" data-writescore="8"></div></div></details></section>
+</div>
+</details>
+
+<details class="group record-group" data-start="9" data-end="16">
+  <summary>
+    <span class="group-title">第9〜16<ruby>課<rt>か</rt></ruby></span>
+    <span class="group-note"><ruby>準備中<rt>じゅんびちゅう</rt></ruby></span>
+  </summary>
+  <div class="placeholder">第9〜16課の<ruby>学習記録<rt>がくしゅうきろく</rt></ruby>は、<ruby>課<rt>か</rt></ruby>の<ruby>追加後<rt>ついかご</rt></ruby>にここへ<ruby>表示<rt>ひょうじ</rt></ruby>されます。</div>
+</details>
+
+<details class="group record-group" data-start="17" data-end="24">
+  <summary>
+    <span class="group-title">第17〜24<ruby>課<rt>か</rt></ruby></span>
+    <span class="group-note"><ruby>準備中<rt>じゅんびちゅう</rt></ruby></span>
+  </summary>
+  <div class="placeholder">第17〜24課の<ruby>学習記録<rt>がくしゅうきろく</rt></ruby>は、<ruby>課<rt>か</rt></ruby>の<ruby>追加後<rt>ついかご</rt></ruby>にここへ<ruby>表示<rt>ひょうじ</rt></ruby>されます。</div>
+</details>
+
+<details class="group record-group" data-start="25" data-end="32">
+  <summary>
+    <span class="group-title">第25〜32<ruby>課<rt>か</rt></ruby></span>
+    <span class="group-note"><ruby>準備中<rt>じゅんびちゅう</rt></ruby></span>
+  </summary>
+  <div class="placeholder">第25〜32課の<ruby>学習記録<rt>がくしゅうきろく</rt></ruby>は、<ruby>課<rt>か</rt></ruby>の<ruby>追加後<rt>ついかご</rt></ruby>にここへ<ruby>表示<rt>ひょうじ</rt></ruby>されます。</div>
+</details>
+<div class="record-intro"><ruby>各課<rt>かくか</rt></ruby>の「<ruby>読<rt>よ</rt></ruby>みの<ruby>成績<rt>せいせき</rt></ruby>をリセット」「<ruby>書<rt>か</rt></ruby>きの<ruby>成績<rt>せいせき</rt></ruby>をリセット」では、<ruby>上<rt>うえ</rt></ruby>の<ruby>進捗<rt>しんちょく</rt></ruby>は<ruby>残<rt>のこ</rt></ruby>ります。「すべての<ruby>学習記録<rt>がくしゅうきろく</rt></ruby>をリセット」したときだけ、その<ruby>課<rt>か</rt></ruby>の<ruby>進捗<rt>しんちょく</rt></ruby>と<ruby>状態<rt>じょうたい</rt></ruby>も<ruby>未習<rt>みしゅう</rt></ruby>に<ruby>戻<rt>もど</rt></ruby>ります。</div>
+</main><script>
+const LESSONS=[{"n": 1, "title": "教室", "titleHtml": "<ruby>教室<rt>きょうしつ</rt></ruby>", "cardTotal": 20, "readTotal": 47, "writeTotal": 47, "range": "301〜320"}, {"n": 2, "title": "テスト", "titleHtml": "テスト", "cardTotal": 20, "readTotal": 65, "writeTotal": 65, "range": "321〜340"}, {"n": 3, "title": "形容詞", "titleHtml": "<ruby>形容詞<rt>けいようし</rt></ruby>", "cardTotal": 20, "readTotal": 46, "writeTotal": 46, "range": "341〜360"}, {"n": 4, "title": "漢字", "titleHtml": "<ruby>漢字<rt>かんじ</rt></ruby>", "cardTotal": 20, "readTotal": 43, "writeTotal": 43, "range": "361〜380"}, {"n": 5, "title": "自己紹介", "titleHtml": "<ruby>自己紹介<rt>じこしょうかい</rt></ruby>", "cardTotal": 20, "readTotal": 44, "writeTotal": 45, "range": "381〜400"}, {"n": 6, "title": "私の部屋", "titleHtml": "<ruby>私<rt>わたし</rt></ruby>の<ruby>部屋<rt>へや</rt></ruby>", "cardTotal": 20, "readTotal": 34, "writeTotal": 34, "range": "401〜420"}, {"n": 7, "title": "自動詞・他動詞", "titleHtml": "<ruby>自動詞<rt>じどうし</rt></ruby>・<ruby>他動詞<rt>たどうし</rt></ruby>", "cardTotal": 20, "readTotal": 70, "writeTotal": 70, "range": "421〜440"}, {"n": 8, "title": "私の町", "titleHtml": "<ruby>私<rt>わたし</rt></ruby>の<ruby>町<rt>まち</rt></ruby>", "cardTotal": 20, "readTotal": 51, "writeTotal": 51, "range": "441〜460"}];
+
+function readJSON(key){
+  try{
+    const raw=localStorage.getItem(key);
+    return raw ? JSON.parse(raw) : null;
+  }catch(e){ return null; }
+}
+function writeJSON(key,v){
+  try{ localStorage.setItem(key,JSON.stringify(v)); }catch(e){}
+}
+function countMap(x){
+  return x && typeof x==="object" && !Array.isArray(x) ? Object.keys(x).length : 0;
+}
+function isFullLesson(meta){
+  const p=loadProgress(meta.n);
+  return countMap(p.cards)>=meta.cardTotal &&
+         countMap(p.read)>=meta.readTotal &&
+         countMap(p.write)>=meta.writeTotal;
+}
+function renderRecordBonusStars(){
+  const fullCount=LESSONS.filter(isFullLesson).length;
+  const earned=Math.min(10,Math.floor(fullCount/3));
+  const stars="★".repeat(earned)+"☆".repeat(10-earned);
+  const box=document.getElementById("recordBonusStars");
+  if(!box) return;
+  const finish=fullCount>=32 ? '<span class="finish-badge">🏆 32課完走</span>' : '';
+  box.innerHTML=`<span aria-hidden="true">${stars}</span>${finish}`;
+  box.setAttribute("aria-label",`フル学習${fullCount}課。ボーナス星${earned}個／10個`);
+}
+function defaultProgress(){
+  return {cards:{},read:{},write:{},status:"",lastActivity:0,legacyOnly:false};
+}
+function normalizeProgress(p){
+  if(!p || typeof p!=="object" || Array.isArray(p)) p=defaultProgress();
+  ["cards","read","write"].forEach(k=>{
+    if(!p[k] || typeof p[k]!=="object" || Array.isArray(p[k])) p[k]={};
+  });
+  if(!["","learning","done"].includes(p.status)) p.status="";
+  p.lastActivity=Number.isFinite(Number(p.lastActivity)) ? Number(p.lastActivity) : 0;
+  p.legacyOnly=!!p.legacyOnly;
+  return p;
+}
+function hasAnyProgress(p){
+  return !!p && ["cards","read","write"].some(k=>countMap(p[k])>0);
+}
+function hasLegacyStats(n){
+  const s=readJSON(`kanjiL${n}StatsV1`);
+  return !!s && (
+    (Number(s.answered)||0)>0 ||
+    (Number(s.writeGood)||0)>0 ||
+    (Number(s.writeBad)||0)>0 ||
+    Object.keys(s.items||{}).length>0
+  );
+}
+function loadProgress(n){
+  const newKey=`kanjiL${n}ProgressV2`;
+  const existing=readJSON(newKey);
+  if(existing) return normalizeProgress(existing);
+
+  const old=normalizeProgress(readJSON(`kanjiL${n}ProgressV1`)||defaultProgress());
+  const p=defaultProgress();
+  p.cards={...old.cards};
+  p.read={...old.read};
+  p.write={...old.write};
+  p.status=old.status;
+
+  const legacyStats=hasLegacyStats(n);
+  const hadOldSignal=old.status || hasAnyProgress(old) || old.lastActivity>0;
+  if(!p.status && (hasAnyProgress(p) || legacyStats)) p.status="learning";
+
+  // V1's timestamp is not reliable enough to label as a study time.
+  if(hadOldSignal || legacyStats){
+    p.legacyOnly=true;
+    p.lastActivity=0;
+    writeJSON(newKey,p);
+  }
+  return p;
+}
+function getStatus(n){
+  const p=loadProgress(n);
+  const hasStudyEvidence=hasAnyProgress(p) || hasLegacyStats(n);
+  // 未習→学習中は手動ではなく、実際の学習記録だけで決める。
+  // 旧パイロットで誤って状態だけ変更した記録も、学習実績がなければ未習として扱う。
+  if(!hasStudyEvidence) return "unlearned";
+  if(p.status==="done") return "done";
+  return "learning";
+}
+function saveStatus(n,status){
+  const key=`kanjiL${n}ProgressV2`;
+  const p=loadProgress(n);
+  p.status=status;
+  // Manual status changes do not count as studying.
+  writeJSON(key,p);
+}
+function paintStatus(btn,n){
+  const s=getStatus(n);
+  btn.className="status-dot "+(s==="learning"?"learning":s==="done"?"done":"");
+  btn.textContent=s==="done"?"✓":"";
+  btn.title=s==="unlearned"?"未習":s==="learning"?"学習中":"済み";
+  btn.disabled=(s==="unlearned");
+  btn.setAttribute("aria-label",s==="unlearned"
+    ? `第${n}課：未習。学習すると自動で学習中になります`
+    : `第${n}課：${btn.title}。タップして学習中と済みを切り替え`);
+}
+function formatLastStudy(p){
+  if(p.lastActivity>0){
+    const d=new Date(p.lastActivity);
+    if(!Number.isNaN(d.getTime())){
+      const now=new Date();
+      const hm=`${String(d.getHours()).padStart(2,"0")}:${String(d.getMinutes()).padStart(2,"0")}`;
+      if(d.getFullYear()===now.getFullYear()){
+        return `${d.getMonth()+1}月${d.getDate()}日 ${hm}`;
+      }
+      return `${d.getFullYear()}年${d.getMonth()+1}月${d.getDate()}日 ${hm}`;
+    }
+  }
+  if(p.legacyOnly) return "以前の記録（日時不明）";
+  return "—";
+}
+function openLatestStudyGroup(){
+  let latestLesson=0;
+  let latestTime=0;
+
+  LESSONS.forEach(m=>{
+    const p=loadProgress(m.n);
+    if(p.lastActivity>latestTime){
+      latestTime=p.lastActivity;
+      latestLesson=m.n;
+    }
+  });
+
+  // 正確な日時がない旧記録だけの場合は、第1〜8課を既定で開く。
+  if(!latestLesson) latestLesson=1;
+
+  const groups=[...document.querySelectorAll(".record-group")];
+  let target=null;
+  groups.forEach(g=>{
+    const from=Number(g.dataset.start);
+    const to=Number(g.dataset.end);
+    if(latestLesson>=from && latestLesson<=to) target=g;
+  });
+
+  if(target){
+    groups.forEach(g=>g.open=(g===target));
+  }
+}
+function render(){
+  LESSONS.forEach(m=>{
+    const n=m.n;
+    const p=loadProgress(n);
+    const s=readJSON(`kanjiL${n}StatsV1`)||{};
+    document.querySelector(`[data-cards="${n}"]`).textContent=Math.min(m.cardTotal,countMap(p.cards));
+    document.querySelector(`[data-read="${n}"]`).textContent=Math.min(m.readTotal,countMap(p.read));
+    document.querySelector(`[data-write="${n}"]`).textContent=Math.min(m.writeTotal,countMap(p.write));
+    document.querySelector(`[data-last="${n}"]`).textContent=formatLastStudy(p);
+
+    const answered=Number(s.answered)||0;
+    const correct=Number(s.correct)||0;
+    const wg=Number(s.writeGood)||0;
+    const wb=Number(s.writeBad)||0;
+    document.querySelector(`[data-readscore="${n}"]`).innerHTML=
+      `<b>読み</b><br>解答 ${answered}問 ／ 正解 ${correct}問 ／ 正答率 ${answered?Math.round(correct/answered*100)+"%":"—"}`;
+    document.querySelector(`[data-writescore="${n}"]`).innerHTML=
+      `<b>書き</b><br>回答 ${wg+wb}問 ／ 書けた ${wg} ／ 書けなかった ${wb}`;
+  });
+  document.querySelectorAll('[data-status-for]').forEach(btn=>paintStatus(btn,Number(btn.dataset.statusFor)));
+  renderRecordBonusStars();
+}
+document.querySelectorAll('[data-status-for]').forEach(btn=>{
+  const n=Number(btn.dataset.statusFor);
+  btn.addEventListener('click',()=>{
+    const s=getStatus(n);
+    if(s==="unlearned") return;
+    saveStatus(n,s==="done"?"learning":"done");
+    render();
+  });
+});
+render();
+openLatestStudyGroup();
+window.addEventListener('pageshow',()=>{
+  render();
+  openLatestStudyGroup();
+});
+window.addEventListener('storage',e=>{
+  if(!e.key || /^kanjiL\d+(ProgressV2|StatsV1)$/.test(e.key)) render();
+});
+</script></body></html>

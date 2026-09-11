@@ -913,6 +913,7 @@ button ruby{
 }
 
 </style>
+<!-- progress-pilot v2: unique progress + real study timestamp, Lesson 4 -->
 </head>
 <body>
 <header>
@@ -1418,6 +1419,76 @@ function statsLoad(){
   return s;
 }
 function statsSave(s){safeStorageSet("kanjiL4StatsV1",JSON.stringify(s));}
+
+// ---- 第1〜8課 学習記録パイロット v2：進捗と「実際に学習した日時」を分けて保存 ----
+const PROGRESS_KEY="kanjiL4ProgressV2";
+const LEGACY_PROGRESS_KEY="kanjiL4ProgressV1";
+
+function defaultProgress(){
+  return {cards:{},read:{},write:{},status:"",lastActivity:0,legacyOnly:false};
+}
+function normalizeProgress(p){
+  if(!p || typeof p!=="object" || Array.isArray(p)) p=defaultProgress();
+  ["cards","read","write"].forEach(k=>{
+    if(!p[k] || typeof p[k]!=="object" || Array.isArray(p[k])) p[k]={};
+  });
+  if(!["","learning","done"].includes(p.status)) p.status="";
+  p.lastActivity=Number.isFinite(Number(p.lastActivity)) ? Number(p.lastActivity) : 0;
+  p.legacyOnly=!!p.legacyOnly;
+  return p;
+}
+function hasProgressItems(p){
+  return ["cards","read","write"].some(k=>Object.keys(p[k]||{}).length>0);
+}
+function progressLoad(){
+  let p;
+  try{
+    const raw=safeStorageGet(PROGRESS_KEY);
+    if(raw) return normalizeProgress(JSON.parse(raw));
+  }catch(e){}
+
+  // V1の日時は、旧成績の移行や状態変更でも更新され得たため
+  // 「学習した日時」としては引き継がない。進捗・状態だけを引き継ぐ。
+  p=defaultProgress();
+  let old=null;
+  try{
+    const rawOld=safeStorageGet(LEGACY_PROGRESS_KEY);
+    old=rawOld ? normalizeProgress(JSON.parse(rawOld)) : null;
+  }catch(e){ old=null; }
+
+  if(old){
+    p.cards={...old.cards};
+    p.read={...old.read};
+    p.write={...old.write};
+    p.status=old.status;
+  }
+
+  const s=statsLoad();
+  const hasLegacy=(s.answered||0)>0 || (s.writeGood||0)>0 || (s.writeBad||0)>0 || Object.keys(s.items||{}).length>0;
+  const hadOldSignal=!!old && (old.status || hasProgressItems(old) || old.lastActivity>0);
+
+  if(!p.status && (hasProgressItems(p) || hasLegacy)) p.status="learning";
+  if(hadOldSignal || hasLegacy){
+    p.legacyOnly=true;
+    p.lastActivity=0;
+    progressSave(p);
+  }
+  return p;
+}
+function progressSave(p){
+  safeStorageSet(PROGRESS_KEY,JSON.stringify(normalizeProgress(p)));
+}
+function recordUniqueProgress(kind,key){
+  if(!kind || !key) return;
+  const p=progressLoad();
+  if(!p[kind]) p[kind]={};
+  p[kind][key]=true;
+  if(p.status!=="done") p.status="learning";
+  // Only a real learning action updates the study time.
+  p.lastActivity=Date.now();
+  p.legacyOnly=false;
+  progressSave(p);
+}
 function mark(k,field,add=1){
   const s=statsLoad();
   if(!s.items[k]) s.items[k]={hard:0,wrong:0,review:false};
@@ -1563,6 +1634,7 @@ prevFlash.onclick=()=>{
   showFlash();
 };
 revealBtn.onclick=()=>{
+  if(flashPool[flashIndex]) recordUniqueProgress("cards",flashPool[flashIndex].kanji);
   fHidden.classList.remove("hidden"); revealBtn.classList.add("hidden");
   hardBtn.classList.remove("hidden");
 };
@@ -1693,6 +1765,7 @@ function newRead(){
 }
 checkRead.onclick=()=>{
   if(readLocked)return;
+  recordUniqueProgress("read",currentRead.word+"\u0000"+currentRead.reading);
   const ok=answerMatches(rInput.value,currentRead.reading);
   const s=statsLoad(); s.answered++;
   if(ok){
@@ -1880,6 +1953,7 @@ showWrite.onclick=()=>{
 };
 writeBad.onclick=()=>{
   if(writeJudged)return;
+  recordUniqueProgress("write",currentWrite.word+"\u0000"+currentWrite.reading);
   writeJudged=true;
   const s=statsLoad();
   s.writeBad++;
@@ -1897,6 +1971,7 @@ writeBad.onclick=()=>{
 };
 writeGood.onclick=()=>{
   if(writeJudged)return;
+  recordUniqueProgress("write",currentWrite.word+"\u0000"+currentWrite.reading);
   writeJudged=true;
   const s=statsLoad();
   s.writeGood++;
@@ -2046,6 +2121,8 @@ function resetAllStatsNow(btn){
   clearTimeout(resetAllTimer);
   resetAllArmed=false;
   safeStorageRemove("kanjiL4StatsV1");
+  safeStorageRemove(PROGRESS_KEY);
+  safeStorageRemove(LEGACY_PROGRESS_KEY);
   renderStats();
   flashResetDone(btn,"すべての学習記録をリセット");
 }

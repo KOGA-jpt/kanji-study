@@ -1,55 +1,196 @@
-<!doctype html>
-<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<!-- v52 TOP: 第1〜7課対応 -->
-<title>漢字自習ツール｜第1〜7課</title>
-<style>
-:root{--bg:#f5f8fc;--card:#fff;--text:#1f2937;--muted:#667085;--line:#d9e2ec;--primary:#1769d2}
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>漢字自習ツール｜第1〜8課</title><style>
+:root{--bg:#f5f8fc;--card:#fff;--text:#1f2937;--muted:#667085;--line:#d9e2ec;--primary:#1769d2;--green:#dff4e7;--green-border:#70b98a;--pink:#f9e1e8;--pink-border:#d7869d;--gray:#cbd3dd}
 *{box-sizing:border-box} ruby{ruby-position:over} rt{font-size:.52em;color:var(--muted)}
+/* v5: 短いUI文言の高さ合わせ。かな・カタカナには見えないルビ領域だけを確保 */
+.ui-ruby-blank rt{visibility:hidden}
+.ui-ruby-line{white-space:nowrap}
+/* v6: 濃い青ボタン内のルビは白系にしてスマホでも読みやすくする */
+.start-btn rt{color:rgba(255,255,255,.92);font-size:.58em;font-weight:700}
+.start-btn .ui-ruby-blank rt,.record-link .ui-ruby-blank rt{visibility:hidden}
 body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans JP","Yu Gothic UI","Yu Gothic",sans-serif;color:var(--text);background:var(--bg)}
-main{width:min(920px,calc(100% - 28px));margin:0 auto;padding:42px 0 60px} h1{margin:0 0 8px;font-size:clamp(1.7rem,5vw,2.35rem)}
-.subtitle{margin:0;color:var(--muted);line-height:1.7} .badge{display:inline-block;margin-top:12px;padding:5px 10px;border:1px solid var(--line);border-radius:999px;background:#fff;color:var(--muted);font-size:.9rem}
-.lesson-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:24px} .lesson-card{display:block;padding:20px;border:1px solid var(--line);border-radius:16px;background:var(--card);color:inherit;text-decoration:none;box-shadow:0 2px 8px rgba(15,23,42,.04)}
-.lesson-number{font-size:1.25rem;font-weight:700;margin-bottom:8px} .lesson-kanji{color:var(--muted);margin-bottom:16px;letter-spacing:.08em} .start{display:inline-block;background:var(--primary);color:#fff;font-weight:700;padding:10px 16px;border-radius:10px}
-.note{margin-top:28px;padding:14px 16px;border-radius:12px;background:#fff;border:1px solid var(--line);color:var(--muted);line-height:1.65;font-size:.93rem}
-@media(max-width:560px){main{padding-top:28px}.lesson-grid{grid-template-columns:1fr}.lesson-card{padding:18px}}
-</style></head><body><main><header><h1><ruby>漢字<rt>かんじ</rt></ruby><ruby>自習<rt>じしゅう</rt></ruby>ツール</h1><p class="subtitle"><ruby>勉強<rt>べんきょう</rt></ruby>する<ruby>課<rt>か</rt></ruby>を<ruby>選<rt>えら</rt></ruby>んでください。</p><span class="badge">第1〜7課</span></header>
-<div class="lesson-grid">
-    <a class="lesson-card" href="lesson01.html">
-      <div class="lesson-number"><ruby>第<rt>だい</rt></ruby>1<ruby>課<rt>か</rt></ruby></div>
-      <div class="lesson-kanji">級・予・定・表・授・宿…</div>
-      <span class="start"><ruby>第<rt>だい</rt></ruby>1<ruby>課<rt>か</rt></ruby>を<ruby>練習<rt>れんしゅう</rt></ruby>する</span>
-    </a>
-    <a class="lesson-card" href="lesson02.html">
-      <div class="lesson-number"><ruby>第<rt>だい</rt></ruby>2<ruby>課<rt>か</rt></ruby></div>
-      <div class="lesson-kanji">解・筆・違・消・次・線…</div>
-      <span class="start"><ruby>第<rt>だい</rt></ruby>2<ruby>課<rt>か</rt></ruby>を<ruby>練習<rt>れんしゅう</rt></ruby>する</span>
-    </a>
-    <a class="lesson-card" href="lesson03.html">
-      <div class="lesson-number"><ruby>第<rt>だい</rt></ruby>3<ruby>課<rt>か</rt></ruby></div>
-      <div class="lesson-kanji">速・遅・易・単・簡・難…</div>
-      <span class="start"><ruby>第<rt>だい</rt></ruby>3<ruby>課<rt>か</rt></ruby>を<ruby>練習<rt>れんしゅう</rt></ruby>する</span>
-    </a>
-    <a class="lesson-card" href="lesson04.html">
-      <div class="lesson-number"><ruby>第<rt>だい</rt></ruby>4<ruby>課<rt>か</rt></ruby></div>
-      <div class="lesson-kanji">馬・象・竹・糸・貝・毛…</div>
-      <span class="start"><ruby>第<rt>だい</rt></ruby>4<ruby>課<rt>か</rt></ruby>を<ruby>練習<rt>れんしゅう</rt></ruby>する</span>
-    </a>
+main{width:min(940px,calc(100% - 28px));margin:0 auto;padding:34px 0 60px}
+a{color:inherit}.top-head{display:block;margin-bottom:20px}.top-head h1{margin:0 0 8px;font-size:clamp(1.65rem,5vw,2.25rem)}.subtitle{margin:0;color:var(--muted);line-height:1.7}
+.record-link,.back-link{flex:0 0 auto;display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:10px 14px;border-radius:11px;border:1px solid var(--line);background:#fff;text-decoration:none;font-weight:700;color:#315a9d}.record-link:hover,.back-link:hover{background:#f8fbff}
+/* v8: フル学習3課ごとの小さなボーナス★ */
+.top-main{min-width:0}.top-actions{display:flex;align-items:center;gap:10px;margin-top:12px;flex-wrap:wrap}
+.bonus-stars{display:inline-flex;align-items:center;gap:1px;white-space:nowrap;font-size:.82rem;line-height:1;color:#c6ccd6;letter-spacing:.01em}
+.bonus-stars .earned{color:#b8860b}
+.bonus-stars .finish-badge{margin-left:6px;padding:3px 7px;border-radius:999px;background:#fff7dd;border:1px solid #e4c45f;color:#7d6200;font-size:.74rem;font-weight:800}
+@media(max-width:720px){.top-actions{margin-top:10px;gap:8px}.top-actions .record-link{margin-top:0}.bonus-stars{font-size:.8rem}}
+.status-legend{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center;margin:14px 0 18px;padding:12px 14px;border:1px solid var(--line);background:#fff;border-radius:13px;color:var(--muted);font-size:.9rem}.legend-item{display:inline-flex;align-items:center;gap:6px}
+.status-dot{width:24px;height:24px;border-radius:50%;border:2px solid var(--gray);background:#fff;display:inline-flex;align-items:center;justify-content:center;font-weight:900;line-height:1;cursor:pointer;flex:0 0 auto}.status-dot.learning{background:var(--green);border-color:var(--green-border)}.status-dot.done{background:var(--pink);border-color:var(--pink-border);color:#a33d5d}.status-dot.small{width:18px;height:18px;cursor:default;font-size:.72rem}
+/* v4: 見た目の丸は小さいまま、操作領域だけ44pxにする */
+.status-dot:not(.small){width:44px;height:44px;border:0;background:transparent;position:relative;display:inline-flex;align-items:center;justify-content:center;padding:0;font-size:.78rem;isolation:isolate}
+.status-dot:not(.small)::before{content:"";position:absolute;z-index:-1;width:24px;height:24px;border-radius:50%;border:2px solid var(--gray);background:#fff}
+.status-dot:not(.small).learning,.status-dot:not(.small).done{background:transparent;border:0}
+.status-dot:not(.small).learning::before{background:var(--green);border-color:var(--green-border)}
+.status-dot:not(.small).done::before{background:var(--pink);border-color:var(--pink-border)}
+.status-dot:not(.small).done{color:#a33d5d}
+.status-dot:not(.small):disabled{cursor:default;opacity:1}
+.group{border:1px solid var(--line);border-radius:16px;background:#fff;margin:12px 0;overflow:hidden}.group>summary{list-style:none;cursor:pointer;padding:16px 18px;font-weight:800;display:flex;align-items:center;justify-content:space-between;gap:12px}.group>summary::-webkit-details-marker{display:none}.group>summary::before{content:"▶";font-size:.8rem;color:var(--muted);transition:transform .15s}.group[open]>summary::before{transform:rotate(90deg)}.group-title{display:flex;align-items:center;gap:10px;flex:1}.group-note{font-size:.82rem;color:var(--muted);font-weight:600}
+.lesson-list{border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;padding:14px}.lesson-row{display:grid;grid-template-columns:auto minmax(0,1fr);align-items:start;gap:10px 12px;padding:15px;border:1px solid #e4e9f0;border-radius:14px;background:#fff}.lesson-row:last-child{border-bottom:1px solid #e4e9f0}.lesson-main{min-width:0;padding-top:1px}.lesson-title{font-weight:800;font-size:1.03rem}.lesson-range{margin-top:3px;color:var(--muted);font-size:.82rem}.start-btn{grid-column:2;display:inline-flex;align-items:center;justify-content:center;min-height:42px;padding:9px 13px;border-radius:10px;background:var(--primary);color:#fff;text-decoration:none;font-weight:800;white-space:nowrap;margin-top:2px}.helper{padding:12px 18px;border-top:1px solid var(--line);color:var(--muted);font-size:.84rem;line-height:1.65;background:#fbfcfe}.placeholder{padding:12px 18px 18px;color:var(--muted);border-top:1px solid var(--line)}
+@media(max-width:720px){main{padding-top:24px}.top-head{display:block}.record-link,.back-link{margin-top:14px}.lesson-list{grid-template-columns:1fr;padding:10px}.lesson-row{grid-template-columns:auto minmax(0,1fr);gap:10px 12px;padding:14px}.start-btn{grid-column:2;width:100%;margin-top:1px}.group>summary{padding:15px 14px}.helper{padding:11px 14px}}
+</style></head><body><main>
+<header class="top-head"><div class="top-main"><h1><ruby>漢字<rt>かんじ</rt></ruby><ruby>自習<rt>じしゅう</rt></ruby>ツール</h1><p class="subtitle"><ruby>勉強<rt>べんきょう</rt></ruby>する<ruby>課<rt>か</rt></ruby>を<ruby>選<rt>えら</rt></ruby>んでください。</p><div class="top-actions"><a class="record-link" href="records.html"><span class="ui-ruby-line"><ruby>学習<rt>がくしゅう</rt></ruby><ruby class="ui-ruby-blank">の<rt aria-hidden="true">&nbsp;</rt></ruby><ruby>記録<rt>きろく</rt></ruby><ruby class="ui-ruby-blank">を<rt aria-hidden="true">&nbsp;</rt></ruby><ruby>見<rt>み</rt></ruby><ruby class="ui-ruby-blank">る<rt aria-hidden="true">&nbsp;</rt></ruby></span></a><div class="bonus-stars" id="bonusStars" aria-label="フル学習ボーナス：まだ星はありません" title="カード・読み・書きを全部1回以上取り組んだ課を3課達成すると★が1つ増えます"><span aria-hidden="true">☆☆☆☆☆☆☆☆☆☆</span></div></div></div></header>
+<div class="status-legend"><span class="legend-item"><span class="status-dot small"></span><ruby>未習<rt>みしゅう</rt></ruby></span><span class="legend-item"><span class="status-dot small learning"></span><ruby>学習中<rt>がくしゅうちゅう</rt></ruby></span><span class="legend-item"><span class="status-dot small done">✓</span><ruby>済<rt>す</rt></ruby><ruby class="ui-ruby-blank">み<rt aria-hidden="true">&nbsp;</rt></ruby></span></div>
+<details class="group" open><summary><span class="group-title">第1〜8<ruby>課<rt>か</rt></ruby></span><span class="group-note"><ruby>現在<rt>げんざい</rt></ruby>の<ruby>範囲<rt>はんい</rt></ruby></span></summary><div class="lesson-list"><div class="lesson-row" data-lesson="1">
+      <button class="status-dot" type="button" data-status-for="1" aria-label="第1課の学習状態を変更"></button>
+      <div class="lesson-main"><div class="lesson-title">第1課　<ruby>教室<rt>きょうしつ</rt></ruby></div><div class="lesson-range">No.301〜320</div></div>
+      <a class="start-btn" href="lesson01.html"><span class="ui-ruby-line"><ruby class="ui-ruby-blank">この<rt aria-hidden="true">&nbsp;</rt></ruby><ruby>課<rt>か</rt></ruby><ruby class="ui-ruby-blank">を<rt aria-hidden="true">&nbsp;</rt></ruby><ruby>練習<rt>れんしゅう</rt></ruby><ruby class="ui-ruby-blank">する<rt aria-hidden="true">&nbsp;</rt></ruby></span></a>
+    </div><div class="lesson-row" data-lesson="2">
+      <button class="status-dot" type="button" data-status-for="2" aria-label="第2課の学習状態を変更"></button>
+      <div class="lesson-main"><div class="lesson-title">第2課　テスト</div><div class="lesson-range">No.321〜340</div></div>
+      <a class="start-btn" href="lesson02.html"><span class="ui-ruby-line"><ruby class="ui-ruby-blank">この<rt aria-hidden="true">&nbsp;</rt></ruby><ruby>課<rt>か</rt></ruby><ruby class="ui-ruby-blank">を<rt aria-hidden="true">&nbsp;</rt></ruby><ruby>練習<rt>れんしゅう</rt></ruby><ruby class="ui-ruby-blank">する<rt aria-hidden="true">&nbsp;</rt></ruby></span></a>
+    </div><div class="lesson-row" data-lesson="3">
+      <button class="status-dot" type="button" data-status-for="3" aria-label="第3課の学習状態を変更"></button>
+      <div class="lesson-main"><div class="lesson-title">第3課　<ruby>形容詞<rt>けいようし</rt></ruby></div><div class="lesson-range">No.341〜360</div></div>
+      <a class="start-btn" href="lesson03.html"><span class="ui-ruby-line"><ruby class="ui-ruby-blank">この<rt aria-hidden="true">&nbsp;</rt></ruby><ruby>課<rt>か</rt></ruby><ruby class="ui-ruby-blank">を<rt aria-hidden="true">&nbsp;</rt></ruby><ruby>練習<rt>れんしゅう</rt></ruby><ruby class="ui-ruby-blank">する<rt aria-hidden="true">&nbsp;</rt></ruby></span></a>
+    </div><div class="lesson-row" data-lesson="4">
+      <button class="status-dot" type="button" data-status-for="4" aria-label="第4課の学習状態を変更"></button>
+      <div class="lesson-main"><div class="lesson-title">第4課　<ruby>漢字<rt>かんじ</rt></ruby></div><div class="lesson-range">No.361〜380</div></div>
+      <a class="start-btn" href="lesson04.html"><span class="ui-ruby-line"><ruby class="ui-ruby-blank">この<rt aria-hidden="true">&nbsp;</rt></ruby><ruby>課<rt>か</rt></ruby><ruby class="ui-ruby-blank">を<rt aria-hidden="true">&nbsp;</rt></ruby><ruby>練習<rt>れんしゅう</rt></ruby><ruby class="ui-ruby-blank">する<rt aria-hidden="true">&nbsp;</rt></ruby></span></a>
+    </div><div class="lesson-row" data-lesson="5">
+      <button class="status-dot" type="button" data-status-for="5" aria-label="第5課の学習状態を変更"></button>
+      <div class="lesson-main"><div class="lesson-title">第5課　<ruby>自己紹介<rt>じこしょうかい</rt></ruby></div><div class="lesson-range">No.381〜400</div></div>
+      <a class="start-btn" href="lesson05.html"><span class="ui-ruby-line"><ruby class="ui-ruby-blank">この<rt aria-hidden="true">&nbsp;</rt></ruby><ruby>課<rt>か</rt></ruby><ruby class="ui-ruby-blank">を<rt aria-hidden="true">&nbsp;</rt></ruby><ruby>練習<rt>れんしゅう</rt></ruby><ruby class="ui-ruby-blank">する<rt aria-hidden="true">&nbsp;</rt></ruby></span></a>
+    </div><div class="lesson-row" data-lesson="6">
+      <button class="status-dot" type="button" data-status-for="6" aria-label="第6課の学習状態を変更"></button>
+      <div class="lesson-main"><div class="lesson-title">第6課　<ruby>私<rt>わたし</rt></ruby>の<ruby>部屋<rt>へや</rt></ruby></div><div class="lesson-range">No.401〜420</div></div>
+      <a class="start-btn" href="lesson06.html"><span class="ui-ruby-line"><ruby class="ui-ruby-blank">この<rt aria-hidden="true">&nbsp;</rt></ruby><ruby>課<rt>か</rt></ruby><ruby class="ui-ruby-blank">を<rt aria-hidden="true">&nbsp;</rt></ruby><ruby>練習<rt>れんしゅう</rt></ruby><ruby class="ui-ruby-blank">する<rt aria-hidden="true">&nbsp;</rt></ruby></span></a>
+    </div><div class="lesson-row" data-lesson="7">
+      <button class="status-dot" type="button" data-status-for="7" aria-label="第7課の学習状態を変更"></button>
+      <div class="lesson-main"><div class="lesson-title">第7課　<ruby>自動詞<rt>じどうし</rt></ruby>・<ruby>他動詞<rt>たどうし</rt></ruby></div><div class="lesson-range">No.421〜440</div></div>
+      <a class="start-btn" href="lesson07.html"><span class="ui-ruby-line"><ruby class="ui-ruby-blank">この<rt aria-hidden="true">&nbsp;</rt></ruby><ruby>課<rt>か</rt></ruby><ruby class="ui-ruby-blank">を<rt aria-hidden="true">&nbsp;</rt></ruby><ruby>練習<rt>れんしゅう</rt></ruby><ruby class="ui-ruby-blank">する<rt aria-hidden="true">&nbsp;</rt></ruby></span></a>
+    </div><div class="lesson-row" data-lesson="8">
+      <button class="status-dot" type="button" data-status-for="8" aria-label="第8課の学習状態を変更"></button>
+      <div class="lesson-main"><div class="lesson-title">第8課　<ruby>私<rt>わたし</rt></ruby>の<ruby>町<rt>まち</rt></ruby></div><div class="lesson-range">No.441〜460</div></div>
+      <a class="start-btn" href="lesson08.html"><span class="ui-ruby-line"><ruby class="ui-ruby-blank">この<rt aria-hidden="true">&nbsp;</rt></ruby><ruby>課<rt>か</rt></ruby><ruby class="ui-ruby-blank">を<rt aria-hidden="true">&nbsp;</rt></ruby><ruby>練習<rt>れんしゅう</rt></ruby><ruby class="ui-ruby-blank">する<rt aria-hidden="true">&nbsp;</rt></ruby></span></a>
+    </div></div><div class="helper"><ruby>実際<rt>じっさい</rt></ruby>に<ruby>学習<rt>がくしゅう</rt></ruby>を<ruby>始<rt>はじ</rt></ruby>めると、<ruby>自動<rt>じどう</rt></ruby>で「<ruby>学習中<rt>がくしゅうちゅう</rt></ruby>」になります。<ruby>学習中<rt>がくしゅうちゅう</rt></ruby>になった<ruby>後<rt>あと</rt></ruby>は、○をタップして「<ruby>学習中<rt>がくしゅうちゅう</rt></ruby>」と「<ruby>済<rt>す</rt></ruby><ruby class="ui-ruby-blank">み<rt aria-hidden="true">&nbsp;</rt></ruby>」を<ruby>切<rt>き</rt></ruby>り<ruby>替<rt>か</rt></ruby>えられます。<ruby>未習<rt>みしゅう</rt></ruby>の○はタップしても<ruby>変<rt>か</rt></ruby>わりません。</div></details>
+<details class="group"><summary><span class="group-title">第9〜16<ruby>課<rt>か</rt></ruby></span><span class="group-note"><ruby>準備中<rt>じゅんびちゅう</rt></ruby></span></summary><div class="placeholder">このグループはまだ<ruby>準備中<rt>じゅんびちゅう</rt></ruby>です。</div></details>
+<details class="group"><summary><span class="group-title">第17〜24<ruby>課<rt>か</rt></ruby></span><span class="group-note"><ruby>準備中<rt>じゅんびちゅう</rt></ruby></span></summary><div class="placeholder">このグループはまだ<ruby>準備中<rt>じゅんびちゅう</rt></ruby>です。</div></details>
+<details class="group"><summary><span class="group-title">第25〜32<ruby>課<rt>か</rt></ruby></span><span class="group-note"><ruby>準備中<rt>じゅんびちゅう</rt></ruby></span></summary><div class="placeholder">このグループはまだ<ruby>準備中<rt>じゅんびちゅう</rt></ruby>です。</div></details>
+</main><script>
+const LESSONS=[{"n":1,"cardTotal":20,"readTotal":47,"writeTotal":47},{"n":2,"cardTotal":20,"readTotal":65,"writeTotal":65},{"n":3,"cardTotal":20,"readTotal":46,"writeTotal":46},{"n":4,"cardTotal":20,"readTotal":43,"writeTotal":43},{"n":5,"cardTotal":20,"readTotal":44,"writeTotal":45},{"n":6,"cardTotal":20,"readTotal":34,"writeTotal":34},{"n":7,"cardTotal":20,"readTotal":70,"writeTotal":70},{"n":8,"cardTotal":20,"readTotal":51,"writeTotal":51}];
 
-    <a class="lesson-card" href="lesson05.html">
-      <div class="lesson-number"><ruby>第<rt>だい</rt></ruby>5<ruby>課<rt>か</rt></ruby></div>
-      <div class="lesson-kanji">紹・介・留・的・術・技…</div>
-      <span class="start"><ruby>第<rt>だい</rt></ruby>5<ruby>課<rt>か</rt></ruby>を<ruby>練習<rt>れんしゅう</rt></ruby>する</span>
-    </a>
-    <a class="lesson-card" href="lesson06.html">
-      <div class="lesson-number"><ruby>第<rt>だい</rt></ruby>6<ruby>課<rt>か</rt></ruby></div>
-      <div class="lesson-kanji">畳・具・雑・誌・童・児…</div>
-      <span class="start"><ruby>第<rt>だい</rt></ruby>6<ruby>課<rt>か</rt></ruby>を<ruby>練習<rt>れんしゅう</rt></ruby>する</span>
-    </a>
-    <a class="lesson-card" href="lesson07.html">
-      <div class="lesson-number"><ruby>第<rt>だい</rt></ruby>7<ruby>課<rt>か</rt></ruby></div>
-      <div class="lesson-kanji">落・並・決・折・続・割…</div>
-      <span class="start"><ruby>第<rt>だい</rt></ruby>7<ruby>課<rt>か</rt></ruby>を<ruby>練習<rt>れんしゅう</rt></ruby>する</span>
-    </a>
-</div>
-<div class="note"><ruby>学習<rt>がくしゅう</rt></ruby><ruby>記録<rt>きろく</rt></ruby>は、この<ruby>端末<rt>たんまつ</rt></ruby>のブラウザに<ruby>保存<rt>ほぞん</rt></ruby>されます。<ruby>別<rt>べつ</rt></ruby>の<ruby>端末<rt>たんまつ</rt></ruby>や<ruby>別<rt>べつ</rt></ruby>のブラウザには<ruby>自動<rt>じどう</rt></ruby>で<ruby>引<rt>ひ</rt></ruby>き<ruby>継<rt>つ</rt></ruby>がれません。</div>
-</main></body></html>
+function readJSON(key){
+  try{
+    const raw=localStorage.getItem(key);
+    return raw ? JSON.parse(raw) : null;
+  }catch(e){ return null; }
+}
+function writeJSON(key,v){
+  try{ localStorage.setItem(key,JSON.stringify(v)); }catch(e){}
+}
+function countMap(x){
+  return x && typeof x==="object" && !Array.isArray(x) ? Object.keys(x).length : 0;
+}
+function isFullLesson(meta){
+  const p=loadProgress(meta.n);
+  return countMap(p.cards)>=meta.cardTotal &&
+         countMap(p.read)>=meta.readTotal &&
+         countMap(p.write)>=meta.writeTotal;
+}
+function renderBonusStars(){
+  const fullCount=LESSONS.filter(isFullLesson).length;
+  const earned=Math.min(10,Math.floor(fullCount/3));
+  const stars="★".repeat(earned)+"☆".repeat(10-earned);
+  const box=document.getElementById("bonusStars");
+  if(!box) return;
+  const finish=fullCount>=32 ? '<span class="finish-badge">🏆 32課完走</span>' : '';
+  box.innerHTML=`<span aria-hidden="true">${stars}</span>${finish}`;
+  box.setAttribute("aria-label",`フル学習${fullCount}課。ボーナス星${earned}個／10個`);
+}
+function defaultProgress(){
+  return {cards:{},read:{},write:{},status:"",lastActivity:0,legacyOnly:false};
+}
+function normalizeProgress(p){
+  if(!p || typeof p!=="object" || Array.isArray(p)) p=defaultProgress();
+  ["cards","read","write"].forEach(k=>{
+    if(!p[k] || typeof p[k]!=="object" || Array.isArray(p[k])) p[k]={};
+  });
+  if(!["","learning","done"].includes(p.status)) p.status="";
+  p.lastActivity=Number.isFinite(Number(p.lastActivity)) ? Number(p.lastActivity) : 0;
+  p.legacyOnly=!!p.legacyOnly;
+  return p;
+}
+function hasAnyProgress(p){
+  return !!p && ["cards","read","write"].some(k=>countMap(p[k])>0);
+}
+function hasLegacyStats(n){
+  const s=readJSON(`kanjiL${n}StatsV1`);
+  return !!s && (
+    (Number(s.answered)||0)>0 ||
+    (Number(s.writeGood)||0)>0 ||
+    (Number(s.writeBad)||0)>0 ||
+    Object.keys(s.items||{}).length>0
+  );
+}
+function loadProgress(n){
+  const newKey=`kanjiL${n}ProgressV2`;
+  const existing=readJSON(newKey);
+  if(existing) return normalizeProgress(existing);
+
+  // V1 was the first pilot. Its lastActivity could also have been written by
+  // migration/status changes, so it is deliberately NOT trusted as a study time.
+  const old=normalizeProgress(readJSON(`kanjiL${n}ProgressV1`)||defaultProgress());
+  const p=defaultProgress();
+  p.cards={...old.cards};
+  p.read={...old.read};
+  p.write={...old.write};
+  p.status=old.status;
+  const legacyStats=hasLegacyStats(n);
+  const hadOldSignal=old.status || hasAnyProgress(old) || old.lastActivity>0;
+  if(!p.status && (hasAnyProgress(p) || legacyStats)) p.status="learning";
+  if(hadOldSignal || legacyStats){
+    p.legacyOnly=true;
+    p.lastActivity=0;
+    writeJSON(newKey,p);
+  }
+  return p;
+}
+function getStatus(n){
+  const p=loadProgress(n);
+  const hasStudyEvidence=hasAnyProgress(p) || hasLegacyStats(n);
+  // 未習→学習中は手動ではなく、実際の学習記録だけで決める。
+  // 旧パイロットで誤って状態だけ変更した記録も、学習実績がなければ未習として扱う。
+  if(!hasStudyEvidence) return "unlearned";
+  if(p.status==="done") return "done";
+  return "learning";
+}
+function saveStatus(n,status){
+  const key=`kanjiL${n}ProgressV2`;
+  const p=loadProgress(n);
+  p.status=status;
+  // Changing the learner's status is not a study action.
+  writeJSON(key,p);
+}
+function paint(btn,n){
+  const s=getStatus(n);
+  btn.className="status-dot "+(s==="learning"?"learning":s==="done"?"done":"");
+  btn.textContent=s==="done"?"✓":"";
+  btn.title=s==="unlearned"?"未習":s==="learning"?"学習中":"済み";
+  btn.disabled=(s==="unlearned");
+  btn.setAttribute("aria-label",s==="unlearned"
+    ? `第${n}課：未習。学習すると自動で学習中になります`
+    : `第${n}課：${btn.title}。タップして学習中と済みを切り替え`);
+}
+document.querySelectorAll('[data-status-for]').forEach(btn=>{
+  const n=Number(btn.dataset.statusFor);
+  paint(btn,n);
+  btn.addEventListener('click',()=>{
+    const s=getStatus(n);
+    if(s==="unlearned") return;
+    saveStatus(n,s==="done"?"learning":"done");
+    paint(btn,n);
+  });
+});
+function repaintAllStatuses(){
+  document.querySelectorAll('[data-status-for]').forEach(btn=>paint(btn,Number(btn.dataset.statusFor)));
+  renderBonusStars();
+}
+window.addEventListener('pageshow',repaintAllStatuses);
+window.addEventListener('storage',e=>{
+  if(!e.key || /^kanjiL\d+(ProgressV2|StatsV1)$/.test(e.key)) repaintAllStatuses();
+});
+renderBonusStars();
+</script></body></html>
