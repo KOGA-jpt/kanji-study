@@ -1553,6 +1553,140 @@ function showSelectMsg(text){
 }
 
 const SELECTED_KEY="kanjiL3SelectedV1";
+const CARD_RESUME_KEY="kanjiL3CardResumeV1";
+const READ_RESUME_KEY="kanjiL3ReadResumeV1";
+const WRITE_RESUME_KEY="kanjiL3WriteResumeV1";
+
+function selectionSignature(){
+  return DATA.filter(d=>selected.has(d.kanji)).map(d=>d.kanji).join("\u0001");
+}
+function loadResumeObject(key){
+  try{
+    const raw=safeStorageGet(key);
+    if(!raw) return null;
+    const obj=JSON.parse(raw);
+    return obj && typeof obj==="object" ? obj : null;
+  }catch(e){ return null; }
+}
+function clearCardResume(){ safeStorageRemove(CARD_RESUME_KEY); }
+function clearReadResume(){ safeStorageRemove(READ_RESUME_KEY); }
+function clearWriteResume(){ safeStorageRemove(WRITE_RESUME_KEY); }
+function clearAllResume(){
+  clearCardResume();
+  clearReadResume();
+  clearWriteResume();
+}
+function quizItemKey(x){
+  return x ? String(x.word)+"\u0000"+String(x.reading) : "";
+}
+
+function saveFlashResume(){
+  if(!flashPool.length){ clearCardResume(); return; }
+  safeStorageSet(CARD_RESUME_KEY,JSON.stringify({
+    sig:selectionSignature(),
+    order:cardOrder.value,
+    keys:flashPool.map(d=>d.kanji),
+    pos:flashIndex
+  }));
+}
+function restoreFlashResume(){
+  const s=loadResumeObject(CARD_RESUME_KEY);
+  if(!s || s.sig!==selectionSignature() || !Array.isArray(s.keys) || !s.keys.length){
+    if(s) clearCardResume();
+    return false;
+  }
+  const pool=DATA.filter(d=>selected.has(d.kanji));
+  const byKey=new Map(pool.map(d=>[d.kanji,d]));
+  const deck=s.keys.map(k=>byKey.get(k)).filter(Boolean);
+  if(deck.length!==s.keys.length){
+    clearCardResume();
+    return false;
+  }
+  cardOrder.value=s.order==="random" ? "random" : "textbook";
+  flashPool=deck;
+  const p=Number(s.pos);
+  flashIndex=Number.isFinite(p) ? Math.max(0,Math.min(Math.trunc(p),deck.length-1)) : 0;
+  flashDirty=false;
+  return true;
+}
+
+function saveReadResume(pos=readPos){
+  if(!readDeck.length){ clearReadResume(); return; }
+  safeStorageSet(READ_RESUME_KEY,JSON.stringify({
+    sig:selectionSignature(),
+    order:readOrder.value,
+    keys:readDeck.map(quizItemKey),
+    pos:Math.max(0,Math.min(Number(pos)||0,readDeck.length)),
+    total:readRound.total,
+    correct:readRound.correct,
+    wrong:(readRound.wrong||[]).map(quizItemKey)
+  }));
+}
+function restoreReadResume(){
+  const s=loadResumeObject(READ_RESUME_KEY);
+  if(!s || s.sig!==selectionSignature() || !Array.isArray(s.keys) || !s.keys.length){
+    if(s) clearReadResume();
+    return false;
+  }
+  const universe=buildReadingWords();
+  const byKey=new Map(universe.map(x=>[quizItemKey(x),x]));
+  const deck=s.keys.map(k=>byKey.get(k)).filter(Boolean);
+  if(deck.length!==s.keys.length){
+    clearReadResume();
+    return false;
+  }
+  readOrder.value=s.order==="random" ? "random" : "textbook";
+  readDeck=deck;
+  const p=Number(s.pos);
+  readPos=Number.isFinite(p) ? Math.max(0,Math.min(Math.trunc(p),deck.length)) : 0;
+  const wrongKeys=Array.isArray(s.wrong) ? s.wrong : [];
+  readRound={
+    total:deck.length,
+    correct:Math.max(0,Number(s.correct)||0),
+    wrong:wrongKeys.map(k=>byKey.get(k)).filter(Boolean)
+  };
+  readDirty=false;
+  return true;
+}
+
+function saveWriteResume(pos=writePos){
+  if(!writeDeck.length){ clearWriteResume(); return; }
+  safeStorageSet(WRITE_RESUME_KEY,JSON.stringify({
+    sig:selectionSignature(),
+    order:writeOrder.value,
+    keys:writeDeck.map(quizItemKey),
+    pos:Math.max(0,Math.min(Number(pos)||0,writeDeck.length)),
+    total:writeRound.total,
+    good:writeRound.good,
+    bad:(writeRound.bad||[]).map(quizItemKey)
+  }));
+}
+function restoreWriteResume(){
+  const s=loadResumeObject(WRITE_RESUME_KEY);
+  if(!s || s.sig!==selectionSignature() || !Array.isArray(s.keys) || !s.keys.length){
+    if(s) clearWriteResume();
+    return false;
+  }
+  const universe=buildWriteWords();
+  const byKey=new Map(universe.map(x=>[quizItemKey(x),x]));
+  const deck=s.keys.map(k=>byKey.get(k)).filter(Boolean);
+  if(deck.length!==s.keys.length){
+    clearWriteResume();
+    return false;
+  }
+  writeOrder.value=s.order==="random" ? "random" : "textbook";
+  writeDeck=deck;
+  const p=Number(s.pos);
+  writePos=Number.isFinite(p) ? Math.max(0,Math.min(Math.trunc(p),deck.length)) : 0;
+  const badKeys=Array.isArray(s.bad) ? s.bad : [];
+  writeRound={
+    total:deck.length,
+    good:Math.max(0,Number(s.good)||0),
+    bad:badKeys.map(k=>byKey.get(k)).filter(Boolean)
+  };
+  writeDirty=false;
+  return true;
+}
 function saveSelected(){
   safeStorageSet(SELECTED_KEY,JSON.stringify([...selected]));
 }
@@ -1583,6 +1717,7 @@ function renderGrid(){
   kanjiGrid.querySelectorAll(".kanji-tile").forEach(btn=>btn.onclick=()=>{
     const k=btn.dataset.k;
     selected.has(k)?selected.delete(k):selected.add(k);
+    clearAllResume();
     readDeck=[]; readPos=0; currentRead=null; readDirty=true;
     writeDeck=[]; writePos=0; currentWrite=null; writeDirty=true;
     flashDirty=true;
@@ -1591,9 +1726,10 @@ function renderGrid(){
   selCount.textContent=selected.size;
   saveSelected();
 }
-selectAll.onclick=()=>{selected=new Set(DATA.map(d=>d.kanji));readDeck=[];writeDeck=[];currentRead=null;currentWrite=null;readDirty=true;writeDirty=true;flashDirty=true;renderGrid()};
-clearAll.onclick=()=>{selected.clear();readDeck=[];writeDeck=[];currentRead=null;currentWrite=null;readDirty=true;writeDirty=true;flashDirty=true;renderGrid()};
+selectAll.onclick=()=>{clearAllResume();selected=new Set(DATA.map(d=>d.kanji));readDeck=[];writeDeck=[];currentRead=null;currentWrite=null;readDirty=true;writeDirty=true;flashDirty=true;renderGrid()};
+clearAll.onclick=()=>{clearAllResume();selected.clear();readDeck=[];writeDeck=[];currentRead=null;currentWrite=null;readDirty=true;writeDirty=true;flashDirty=true;renderGrid()};
 selectHard.onclick=()=>{
+  clearAllResume();
   const s=statsLoad();
   selected=new Set(DATA.filter(d=>{
     const x=s.items[d.kanji];
@@ -1605,7 +1741,7 @@ selectHard.onclick=()=>{
 };
 startSelected.onclick=()=>{
   if(!selected.size){showSelectMsg("<ruby>練習<rt>れんしゅう</rt></ruby>する<ruby>漢字<rt>かんじ</rt></ruby>を1<ruby>字以上<rt>じいじょう</rt></ruby><ruby>選<rt>えら</rt></ruby>んでください。");return;}
-  resetFlashPool();
+  if(flashDirty || !flashPool.length) resetFlashPool();
   showFlash();
   switchTab("flash");
 };
@@ -1635,6 +1771,7 @@ function showFlash(){
     hardBtn.disabled=false;
   }
   flashProgress.textContent=`${flashIndex+1} / ${flashPool.length}`;
+  saveFlashResume();
 }
 prevFlash.onclick=()=>{
   if(!flashPool.length) return;
@@ -1657,6 +1794,7 @@ hardBtn.onclick=()=>{
 };
 nextFlash.onclick=()=>{flashIndex++;showFlash()};
 cardOrder.onchange=()=>{
+  clearCardResume();
   resetFlashPool();
   if(flashPool.length) showFlash();
 };
@@ -1706,6 +1844,7 @@ function startReadDeck(pool){
 function resetReadDeck(){ startReadDeck(buildReadingWords()); }
 
 function showReadSummary(){
+  clearReadResume();
   readQuizArea.classList.add("hidden");
   readSummary.classList.remove("hidden");
   readSummaryScore.textContent=readRound.correct;
@@ -1770,6 +1909,7 @@ function newRead(){
   checkRead.classList.remove("hidden"); nextRead.classList.add("hidden");
   readLocked=false;
   readProgress.textContent=`${readPos+1} / ${readDeck.length}`;
+  saveReadResume(readPos);
 }
 checkRead.onclick=()=>{
   if(readLocked)return;
@@ -1795,6 +1935,8 @@ checkRead.onclick=()=>{
     rFeedback.innerHTML=`❌ ちがいます<span class="mobile-break"><br></span><span class="desktop-gap">　</span><span class="answer-unit"><ruby>正解<rt>せいかい</rt></ruby>：<b>${currentRead.reading}</b></span>`;
   }
   statsSave(s); renderStats();
+  // 解答済みなら、再訪時は次の問題から再開する。
+  saveReadResume(Math.min(readPos+1,readDeck.length));
   // スマホでは入力欄を無効化するとソフトキーボードが閉じて
   // 画面が大きく動くため、入力欄はフォーカスしたままにする。
   readLocked=true;
@@ -1826,7 +1968,7 @@ document.addEventListener("keydown",e=>{
     nextRead.click();
   }
 });
-readOrder.onchange=()=>{ resetReadDeck(); newRead(); };
+readOrder.onchange=()=>{ clearReadResume(); resetReadDeck(); newRead(); };
 
 const WRITE_CONTEXTS = {"高速\u0000こうそく":"こうそく（で移動する）","速い\u0000はやい":"（スピードが）はやい","遅刻する\u0000ちこくする":"（学校に）ちこくする","遅れる\u0000おくれる":"（時間に）おくれる","安易な\u0000あんいな":"（考え方が）あんいな","易しい\u0000やさしい":"（問題が）やさしい","～難い\u0000がたい":"（信じ）がたい","暖かい\u0000あたたかい":"（部屋が）あたたかい","温かい\u0000あたたかい":"あたたかい（飲み物）","熱い\u0000あつい":"（お茶が）あつい","球\u0000たま":"（スポーツで使う）たま","深い\u0000ふかい":"（海が）ふかい","化粧\u0000けしょう":"けしょう（メイク）"};
 
@@ -1870,6 +2012,7 @@ function startWriteDeck(pool){
 function resetWriteDeck(){ startWriteDeck(buildWriteWords()); }
 
 function showWriteSummary(){
+  clearWriteResume();
   writeQuizArea.classList.add("hidden");
   writeSummary.classList.remove("hidden");
   writeSummaryScore.textContent=writeRound.good;
@@ -1952,6 +2095,7 @@ function newWrite(){
   writeBad.classList.add("hidden"); writeGood.classList.add("hidden");
   writeProgress.textContent=`${writePos+1} / ${writeDeck.length}`;
   writeJudged=false;
+  saveWriteResume(writePos);
 }
 showWrite.onclick=()=>{
   recordStudyActivity();
@@ -1988,7 +2132,7 @@ writeGood.onclick=()=>{
   statsSave(s); renderStats();
   advanceWrite();
 };
-writeOrder.onchange=()=>{ resetWriteDeck(); newWrite(); };
+writeOrder.onchange=()=>{ clearWriteResume(); resetWriteDeck(); newWrite(); };
 showWriteHint.onclick=()=>{
   writeHintVisible=true;
   renderWriteHint();
@@ -2067,6 +2211,8 @@ function flashResetDone(btn, originalHtml){
 }
 
 function resetReadStatsNow(btn){
+  clearReadResume();
+  readDeck=[]; readPos=0; currentRead=null; readDirty=true;
   const s=statsLoad();
   s.answered=0;
   s.correct=0;
@@ -2082,6 +2228,8 @@ function resetReadStatsNow(btn){
 }
 
 function resetWriteStatsNow(btn){
+  clearWriteResume();
+  writeDeck=[]; writePos=0; currentWrite=null; writeDirty=true;
   const s=statsLoad();
   s.writeGood=0;
   s.writeBad=0;
@@ -2132,6 +2280,10 @@ function resetAllStatsNow(btn){
   safeStorageRemove("kanjiL3StatsV1");
   safeStorageRemove(PROGRESS_KEY);
   safeStorageRemove(LEGACY_PROGRESS_KEY);
+  clearAllResume();
+  flashPool=[]; flashIndex=0; flashDirty=true;
+  readDeck=[]; readPos=0; currentRead=null; readDirty=true;
+  writeDeck=[]; writePos=0; currentWrite=null; writeDirty=true;
   renderStats();
   flashResetDone(btn,"すべての学習記録をリセット");
 }
@@ -2300,9 +2452,18 @@ meaningLang.onchange=()=>{
 };
 
 renderGrid();
+
+if(!restoreFlashResume()) resetFlashPool();
 showFlash();
-resetReadDeck(); newRead();
-resetWriteDeck(); newWrite();
+
+if(!restoreReadResume()) resetReadDeck();
+if(readDeck.length && readPos>=readDeck.length) showReadSummary();
+else newRead();
+
+if(!restoreWriteResume()) resetWriteDeck();
+if(writeDeck.length && writePos>=writeDeck.length) showWriteSummary();
+else newWrite();
+
 renderZh();
 renderStats();
 </script>
