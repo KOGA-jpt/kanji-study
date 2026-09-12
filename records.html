@@ -285,9 +285,9 @@ function render(){
     const wg=Number(s.writeGood)||0;
     const wb=Number(s.writeBad)||0;
     document.querySelector(`[data-readscore="${n}"]`).innerHTML=
-      `<b>読み</b><br>解答 ${answered}問 ／ 正解 ${correct}問 ／ 正答率 ${answered?Math.round(correct/answered*100)+"%":"—"}`;
+      `<b><ruby>読<rt>よ</rt></ruby>み</b><br><ruby>解答<rt>かいとう</rt></ruby> ${answered}<ruby>問<rt>もん</rt></ruby> ／ <ruby>正解<rt>せいかい</rt></ruby> ${correct}<ruby>問<rt>もん</rt></ruby> ／ <ruby>正答率<rt>せいとうりつ</rt></ruby> ${answered?Math.round(correct/answered*100)+"%":"—"}`;
     document.querySelector(`[data-writescore="${n}"]`).innerHTML=
-      `<b>書き</b><br>回答 ${wg+wb}問 ／ 書けた ${wg} ／ 書けなかった ${wb}`;
+      `<b><ruby>書<rt>か</rt></ruby>き</b><br><ruby>解答<rt>かいとう</rt></ruby> ${wg+wb}<ruby>問<rt>もん</rt></ruby> ／ <ruby>書<rt>か</rt></ruby>けた ${wg} ／ <ruby>書<rt>か</rt></ruby>けなかった ${wb}`;
 
     const reviewBox=document.querySelector(`[data-reviewlist="${n}"]`);
     if(reviewBox){
