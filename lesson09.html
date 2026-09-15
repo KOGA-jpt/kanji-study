@@ -1,0 +1,2474 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<!-- v45: 「さらに学ぶ」と重複するため、一般発展語彙見出しを「よく使う発展語彙」に簡略化 -->
+<!-- v49 unified: 第9課 漢字自習ツール の漢字選択UIを凡例＋左上○✓方式に統一 -->
+<!-- v49.1: 第1・3・4課に欠けていた○✓凡例を追加 -->
+<!-- v51 unified: 第9課。用法が限られる読みは※＋下部注記で表示 -->
+<!-- v52: 第9課。常用音訓・※基準・使い分け・自己点検を再監査 -->
+<title>第9課 漢字自習ツール</title>
+<!-- 学生試用統一版：第9課。第9課 v38 の共通仕様に統一 -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=BIZ+UDPMincho&family=Klee+One:wght@400;600&family=Noto+Sans+SC:wght@400&family=Noto+Sans+TC:wght@400&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --bg:#f5f7fb; --card:#fff; --ink:#172033; --muted:#667085;
+  --accent:#3157c8; --accent-soft:#dfe8ff; --ok:#16794a; --bad:#b42318; --line:#d9dfeb;
+  --sel:#e8eeff; --selborder:#3157c8;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;background:var(--bg);color:var(--ink);
+  font-family:"Yu Gothic","YuGothic","Hiragino Sans","Meiryo","Noto Sans JP",sans-serif;
+}
+.jp-kanji{
+  font-family:
+    "UD Digi Kyokasho N-R",
+    "UD Digi Kyokasho NK-R",
+    "UD デジタル 教科書体 N-R",
+    "UDデジタル教科書体 N-R",
+    "YuKyokasho",
+    "Yu Kyokasho",
+    "Klee One",
+    "BIZ UDPMincho",
+    serif;
+  font-weight:400;
+}
+button,input{font:inherit}
+header{background:#172033;color:#fff;padding:18px 20px}
+header h1{margin:0;font-size:1.25rem}
+header p{margin:.35rem 0 0;color:#dbe4ff;font-size:.9rem}
+main{max-width:980px;margin:0 auto;padding:18px}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.tabs button{border:1px solid var(--line);background:#fff;padding:10px 14px;border-radius:10px;cursor:pointer}
+.tabs button.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+.panel{display:none} .panel.active{display:block}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px;box-shadow:0 4px 18px rgba(25,40,80,.06)}
+
+.kanji-grid{
+ display:grid;grid-template-columns:repeat(10,1fr);gap:8px;margin:14px 0;
+}
+.kanji-tile{
+ border:2px solid var(--line);background:#fff;border-radius:12px;padding:8px 6px 10px;
+ cursor:pointer;text-align:center;transition:.12s;
+}
+.kanji-tile .k{font-size:2.35rem;line-height:1.15;margin-top:4px}
+.kanji-tile .small{font-size:.72rem;color:var(--muted);margin-top:2px}
+.kanji-tile.selected{background:var(--sel);border-color:var(--selborder)}
+.kanji-tile .tile-meta{
+  display:flex;
+  align-items:center;
+  justify-content:flex-start;
+  gap:6px;
+  min-height:1.15rem;
+}
+.kanji-tile .tile-check-slot{
+  width:18px;
+  flex:0 0 18px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+.kanji-tile .tile-check{
+  width:17px;height:17px;border-radius:999px;
+  background:var(--accent-soft);
+  color:var(--accent);font-size:.72rem;font-weight:900;line-height:1;
+  display:inline-flex;align-items:center;justify-content:center;
+  border:1.5px solid rgba(49,87,200,.58);
+  box-shadow:0 0 0 1px rgba(255,255,255,.85) inset;
+}
+.kanji-tile .tile-no{
+  font-size:.72rem;
+  color:var(--muted);
+  font-weight:700;
+  line-height:1.1;
+  white-space:nowrap;
+}
+
+/* v49: 選択状態は凡例＋左上の○✓で表示 */
+.selection-state-legend{
+  display:flex;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:8px 16px;
+  margin:2px 0 10px;
+  font-size:.82rem;
+  color:var(--muted);
+}
+.selection-state-item{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  white-space:nowrap;
+}
+.selection-state-swatch{
+  width:30px;
+  height:24px;
+  border:2px solid var(--line);
+  border-radius:8px;
+  background:#fff;
+  position:relative;
+  flex:0 0 auto;
+}
+.selection-state-swatch.selected{
+  background:var(--sel);
+  border-color:var(--selborder);
+}
+.selection-state-swatch .legend-check{
+  position:absolute;
+  top:3px;
+  left:4px;
+  width:14px;height:14px;border-radius:999px;
+  background:var(--accent-soft);color:var(--accent);
+  border:1.5px solid rgba(49,87,200,.58);
+  font-size:.63rem;font-weight:900;line-height:1;
+  display:flex;align-items:center;justify-content:center;
+}
+
+.bigkanji{font-size:8rem;line-height:1;text-align:center;margin:12px 0 18px}
+.meta{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.box{border:1px solid var(--line);border-radius:12px;padding:12px;background:#fafbfe}
+.label{font-size:.8rem;color:var(--muted);margin-bottom:4px}
+.kun-stem{font-weight:700}
+.okuri{font-weight:400;color:var(--muted);font-size:.88em}
+.words{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.pill{background:#eef2ff;border-radius:999px;padding:6px 10px}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+.primary,.secondary,.good,.bad{border:0;border-radius:10px;padding:10px 14px;cursor:pointer}
+.primary{background:var(--accent);color:#fff}
+.secondary{background:#e9edf6;color:#172033}
+.good{background:#e7f6ee;color:var(--ok)}
+.bad{background:#fdebea;color:var(--bad)}
+.question{font-size:2.2rem;text-align:center;margin:28px 0 18px}
+.reading-input{width:100%;max-width:440px;display:block;margin:0 auto;padding:12px 14px;border:2px solid var(--line);border-radius:10px;font-size:1.2rem}
+.feedback{min-height:4rem;text-align:center;font-weight:700;margin:12px 0;padding:8px}
+.feedback.ok{background:#eef9f3;border-radius:10px;color:var(--ok)}
+.feedback.ng{background:#fff0ef;border-radius:10px;color:var(--bad)}
+.note{font-size:.9rem;color:var(--muted)}
+.progress{text-align:center;color:var(--muted);font-size:.9rem;margin-top:8px}
+.zh-cn,[lang="zh-CN"]{font-family:"Noto Sans SC","Microsoft YaHei","PingFang SC",sans-serif}
+.zh-tw,[lang="zh-TW"]{font-family:"Noto Sans TC","Microsoft JhengHei","PingFang TC",sans-serif}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.stat{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px;text-align:center}
+.stat b{font-size:1.5rem;display:block}
+.list{margin-top:14px;border-collapse:collapse;width:100%;background:#fff}
+.list th,.list td{padding:8px;border-bottom:1px solid var(--line);text-align:left}
+.table-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.toptools{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.selected-count{font-weight:700}
+.hidden{display:none!important}
+@media(max-width:760px){
+ .kanji-grid{grid-template-columns:repeat(5,1fr)}
+}
+@media(max-width:650px){
+ .meta,.stats{grid-template-columns:1fr}
+ .bigkanji{font-size:6rem}
+ .question{font-size:1.8rem}
+}
+
+/* ===== Responsive improvements ===== */
+html { -webkit-text-size-adjust: 100%; }
+body { overflow-x:hidden; }
+
+main{
+  width:min(100%, 980px);
+}
+
+.tabs{
+  position:sticky;
+  top:0;
+  z-index:10;
+  background:var(--bg);
+  padding:6px 0;
+}
+
+.tabs button{
+  flex:0 0 auto;
+}
+
+.card{
+  overflow:hidden;
+}
+
+.actions button,
+.toptools button,
+.toptools select{
+  min-height:44px;
+}
+
+.reading-input{
+  font-size:16px; /* prevent iOS zoom */
+}
+
+.list{
+  min-width:620px;
+}
+
+#zhTable{
+  min-width:700px;
+}
+
+@media (max-width: 760px){
+  main{padding:12px}
+  header{padding:14px 16px}
+  header h1{font-size:1.08rem}
+  header p{font-size:.82rem}
+
+  .tabs{
+    overflow-x:auto;
+    flex-wrap:nowrap;
+    -webkit-overflow-scrolling:touch;
+    scrollbar-width:thin;
+    padding-bottom:8px;
+  }
+  .tabs button{
+    white-space:nowrap;
+    padding:9px 12px;
+    font-size:.92rem;
+  }
+
+  .card{
+    padding:16px;
+    border-radius:14px;
+  }
+
+  .toptools{
+    align-items:stretch;
+  }
+  .toptools label{
+    width:100%;
+  }
+  .toptools select{
+    width:100%;
+    margin-top:4px;
+  }
+
+  .kanji-grid{
+    grid-template-columns:repeat(5,1fr);
+    gap:6px;
+  }
+  .kanji-tile{
+    padding:8px 2px;
+  }
+  .kanji-tile .k{
+    font-size:2rem;
+  }
+
+  .bigkanji{
+    font-size:6.2rem;
+    margin:10px 0 14px;
+  }
+
+  .question{
+    font-size:1.8rem;
+    margin:20px 0 14px;
+    word-break:keep-all;
+  }
+
+  .meta{
+    grid-template-columns:1fr;
+  }
+
+  .words{
+    gap:6px;
+  }
+  .pill{
+    padding:6px 9px;
+    line-height:1.45;
+  }
+
+  .actions{
+    gap:8px;
+  }
+  .actions button{
+    flex:1 1 auto;
+  }
+
+  /* Card navigation: keep three actions readable */
+  #flash .flash-card-nav{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+  }
+  #flash #hardBtn{
+    grid-column:1 / -1;
+    order:3;
+  }
+
+  .stats{
+    grid-template-columns:repeat(3,1fr);
+    gap:6px;
+  }
+  .stat{
+    padding:10px 6px;
+    font-size:.82rem;
+  }
+  .stat b{
+    font-size:1.25rem;
+  }
+
+
+  .list{
+    font-size:.88rem;
+  }
+  .list th,.list td{
+    padding:7px 6px;
+  }
+}
+
+@media (max-width: 480px){
+  main{padding:8px}
+  .card{padding:13px}
+  .kanji-grid{
+    grid-template-columns:repeat(4,1fr);
+  }
+  .kanji-tile .k{
+    font-size:1.85rem;
+  }
+  .bigkanji{
+    font-size:5.2rem;
+  }
+  .question{
+    font-size:1.55rem;
+  }
+  .stats{
+    grid-template-columns:1fr;
+  }
+  .stat{
+    text-align:left;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+  }
+  .stat b{
+    display:inline;
+    margin-right:8px;
+  }
+
+  #read .actions,
+  #write .actions{
+    display:flex;
+    flex-direction:column;
+  }
+
+  #flash .flash-card-nav{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .reading-input{
+    width:100%;
+  }
+}
+
+
+/* Fixed card controls: back | reveal/review | next */
+#flash .flash-card-nav{
+  display:grid !important;
+  grid-template-columns:1fr minmax(160px,1.25fr) 1fr !important;
+  gap:10px !important;
+  align-items:stretch;
+}
+#flash .flash-card-nav #prevFlash{grid-column:1}
+#flash .flash-card-nav #revealBtn,
+#flash .flash-card-nav #hardBtn{grid-column:2;grid-row:1}
+#flash .flash-card-nav #nextFlash{grid-column:3}
+#flash .flash-card-nav button{width:100%;min-height:44px}
+@media (max-width:480px){
+  #flash .flash-card-nav{
+    grid-template-columns:1fr minmax(115px,1.35fr) 1fr !important;
+    gap:6px !important;
+  }
+  #flash .flash-card-nav button{
+    padding-left:6px;
+    padding-right:6px;
+    font-size:.84rem;
+  }
+}
+
+
+ruby rt{
+  font-size:.55em;
+  font-weight:400;
+  line-height:1;
+}
+button ruby{
+  ruby-position:over;
+}
+
+#flash .vocab-tr{
+  display:block;
+  margin-top:3px;
+  font-weight:500;
+  opacity:.82;
+  line-height:1.35;
+}
+
+/* Reading quiz: Answer / Next use the same visual slot */
+#read .read-action-slot{
+  display:grid;
+  grid-template-columns:minmax(150px,240px);
+  justify-content:center;
+}
+#read .read-action-slot button{
+  grid-column:1;
+  grid-row:1;
+  width:100%;
+}
+.lang-help{
+  font-size:.82rem;
+}
+@media(max-width:480px){
+  #read .read-action-slot{
+    grid-template-columns:1fr;
+  }
+  #read .read-action-slot button{
+    min-height:48px;
+  }
+}
+
+
+
+
+
+#read .reading-input-wrap{
+  position:relative;
+  width:100%;
+  margin:0;
+}
+#read .reading-input-wrap .reading-input{
+  width:100%;
+  padding-right:10.5rem;
+}
+#read .reading-feedback-inline{
+  position:absolute;
+  right:14px;
+  top:50%;
+  transform:translateY(-50%);
+  margin:0;
+  padding:0;
+  min-height:0;
+  width:auto;
+  max-width:46%;
+  background:transparent;
+  border:0;
+  box-shadow:none;
+  font-size:1rem;
+  line-height:1.2;
+  text-align:right;
+  pointer-events:none;
+  white-space:normal;
+}
+#read .reading-feedback-inline.ok,
+#read .reading-feedback-inline.bad{
+  background:transparent;
+}
+/* PC: 判定結果は入力欄の直下に表示 */
+@media (min-width: 481px){
+  #read .reading-input-wrap{
+    max-width:460px;
+    margin-left:auto;
+    margin-right:auto;
+  }
+  #read .reading-input-wrap .reading-input{
+    padding-right:18px;
+  }
+  #read .reading-feedback-inline{
+    position:static;
+    transform:none;
+    margin:7px 0 0;
+    padding:0 2px;
+    width:auto;
+    max-width:none;
+    text-align:left;
+    font-size:1rem;
+    line-height:1.35;
+    pointer-events:none;
+  }
+}
+
+/* Mobile: 判定結果は入力欄内右側のまま */
+@media (max-width: 480px){
+  #read .reading-input-wrap{
+    position:relative;
+    width:100%;
+  }
+  #read .reading-input-wrap .reading-input{
+    width:100%;
+    padding-right:9.2rem;
+  }
+  #read .reading-feedback-inline{
+    position:absolute;
+    right:10px;
+    top:50%;
+    transform:translateY(-50%);
+    margin:0;
+    padding:0;
+    width:auto;
+    max-width:46%;
+    text-align:right;
+    font-size:.95rem;
+    line-height:1.2;
+    pointer-events:none;
+  }
+}
+
+
+#read .mobile-break{display:none;}
+#read .desktop-gap{display:inline;}
+#read .answer-unit{white-space:nowrap;}
+
+@media (max-width:480px){
+  #read .mobile-break{display:inline;}
+  #read .desktop-gap{display:none;}
+}
+
+
+.stats.stats-three{grid-template-columns:repeat(3,1fr)}
+.special-reading-tag{
+  display:inline-block;
+  margin-left:6px;
+  padding:2px 6px;
+  border:1px solid #d7b56d;
+  border-radius:999px;
+  background:#fff8e8;
+  color:#7a5a16;
+  font-size:.72rem;
+  font-weight:700;
+  vertical-align:middle;
+}
+@media(max-width:480px){
+  .stats.stats-three{grid-template-columns:1fr}
+}
+
+/* v34: 1周おわりの画面 */
+.summary-box{
+  text-align:center;
+  padding:26px 12px 8px;
+}
+.summary-title{
+  font-size:1.15rem;
+  font-weight:700;
+  margin-bottom:10px;
+}
+.summary-score{
+  font-size:2.6rem;
+  font-weight:800;
+  color:var(--accent);
+  line-height:1.15;
+}
+.summary-score .of{
+  font-size:1.1rem;
+  font-weight:700;
+  color:var(--muted);
+  margin-left:.35em;
+}
+.summary-note{
+  margin-top:10px;
+  line-height:1.6;
+}
+.summary-box .actions{
+  justify-content:center;
+}
+
+/* v40: 書き練習の答えを「初級・既習 / 第9課 / 未習」で見分ける */
+.target-kanji{
+  color:var(--accent);
+  border-bottom:3px solid #8fa8ee;
+}
+.known-kanji{
+  color:var(--ink);
+  border-bottom:2px solid #aab2c0;
+}
+.unlearned-kanji{
+  color:var(--ink);
+  border-bottom:2px dotted #8f98a8;
+}
+.write-kanji-legend{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:8px 14px;
+  margin:10px 0 3px;
+  font-size:.82rem;
+  color:var(--muted);
+}
+.write-legend-item{
+  display:inline-flex;
+  align-items:center;
+  gap:5px;
+  white-space:nowrap;
+}
+.write-legend-line{
+  display:inline-block;
+  width:22px;
+  height:.8em;
+  border-bottom:2px solid #aab2c0;
+}
+.write-legend-line.target{border-bottom:3px solid #8fa8ee}
+.write-legend-line.unlearned{border-bottom:2px dotted #8f98a8}
+.write-level-note{
+  max-width:650px;
+  margin:2px auto 8px;
+  text-align:center;
+  line-height:1.55;
+}
+
+/* 読み→ヒント→正答の視線移動を短くする */
+#write #wReading{
+  line-height:1.6;
+  margin:18px 0 6px;
+}
+#write .write-hint-actions{
+  justify-content:center;
+  margin:0 0 2px !important;
+}
+#write #showWriteHint{
+  min-height:38px;
+  padding-top:7px;
+  padding-bottom:7px;
+}
+
+
+/* v44: 使い分けは訓読みとセットで見せ、少しだけ強調 */
+#flash .iji-inline{
+  margin-top:10px;
+  padding:9px 10px 8px;
+  border-left:4px solid #6f88d8;
+  border-radius:8px;
+  background:#f3f6ff;
+}
+#flash .iji-inline-head{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  flex-wrap:wrap;
+}
+#flash .iji-badge{
+  display:inline-block;
+  padding:3px 8px;
+  border-radius:999px;
+  background:#e5ecff;
+  color:#27479f;
+  font-size:.82rem;
+  font-weight:800;
+}
+#flash .iji-text{
+  margin-top:6px;
+  line-height:1.65;
+  font-weight:600;
+}
+#flash .source-mini{
+  display:inline-block;
+  padding:2px 6px;
+  border-radius:999px;
+  background:#eef1f5;
+  font-size:.7rem;
+  font-weight:600;
+  color:#596273;
+}
+
+/* 基本範囲と発展学習の境界を、価値判断をせずに視覚化 */
+#flash .further-divider{
+  display:grid;
+  grid-template-columns:1fr auto 1fr;
+  align-items:center;
+  gap:10px;
+  margin:16px 2px 10px;
+  color:#667085;
+  font-size:.82rem;
+  letter-spacing:.02em;
+}
+#flash .further-divider span{
+  height:1px;
+  background:#cfd6e3;
+}
+#flash .further-divider b{
+  font-weight:800;
+  white-space:nowrap;
+}
+#flash .extra-box{
+  margin-top:0;
+  border-style:dashed;
+  background:#f8fafc;
+}
+#flash .art-extra-box{
+  margin-top:12px;
+  background:#fffaf1;
+}
+
+
+/* v29: 常用音訓の代表例を横並びに */
+#flash .reading-example-row{
+  display:grid;
+  grid-template-columns:minmax(4.8em,auto) auto max-content minmax(0,1fr);
+  align-items:baseline;
+  column-gap:.45em;
+  row-gap:0;
+  padding:4px 0;
+  line-height:1.45;
+}
+#flash .reading-example-row + .reading-example-row{
+  border-top:1px dotted #dde2ea;
+}
+#flash .reading-key{
+  font-weight:800;
+  white-space:nowrap;
+}
+#flash .reading-arrow{
+  opacity:.55;
+}
+#flash .reading-word{
+  font-weight:600;
+  white-space:nowrap;
+}
+#flash .reading-gloss{
+  margin-left:.35em;
+  font-size:.78rem;
+  font-weight:500;
+  line-height:1.35;
+  color:#667085;
+  min-width:0;
+}
+@media(max-width:480px){
+  /* v39: スマホでも「代表語｜訳」を左右に保つ */
+  #flash .reading-example-row{
+    grid-template-columns:minmax(3.6em,auto) auto minmax(0,1.35fr) minmax(0,1fr);
+    column-gap:.28em;
+    row-gap:2px;
+    align-items:start;
+  }
+  #flash .reading-key{
+    font-size:.92rem;
+  }
+  #flash .reading-word{
+    white-space:normal;
+    font-size:.88rem;
+    line-height:1.35;
+    overflow-wrap:anywhere;
+  }
+  #flash .reading-gloss{
+    grid-column:auto;
+    margin-left:.15em;
+    font-size:.70rem;
+    line-height:1.3;
+    overflow-wrap:anywhere;
+  }
+}
+
+/* v32: 日・中・台比較をスマホでも横スクロールなしに */
+#zh .zh-table-wrap{
+  display:flex;
+  justify-content:center;
+  width:100%;
+  overflow-x:visible;
+}
+#zh #zhTable.list{
+  width:auto;
+  min-width:0 !important;   /* 共通 .list の min-width:620px を解除 */
+  max-width:100%;
+  table-layout:auto;
+  margin:0 auto;
+  border-collapse:collapse;
+}
+#zh #zhTable th,
+#zh #zhTable td{
+  box-sizing:border-box;
+  padding:7px 6px;
+  text-align:center;
+  white-space:nowrap;
+}
+#zh #zhTable th:first-child,
+#zh #zhTable td:first-child{
+  width:2.7em;
+  min-width:2.7em;
+}
+#zh #zhTable th:nth-child(2),
+#zh #zhTable th:nth-child(3),
+#zh #zhTable th:nth-child(4),
+#zh #zhTable td:nth-child(2),
+#zh #zhTable td:nth-child(3),
+#zh #zhTable td:nth-child(4){
+  width:3.7em;
+  min-width:3.7em;
+}
+@media(max-width:480px){
+  #zh #zhTable th,
+  #zh #zhTable td{
+    padding-left:4px;
+    padding-right:4px;
+  }
+  #zh #zhTable th:first-child,
+  #zh #zhTable td:first-child{
+    width:2.4em;
+    min-width:2.4em;
+  }
+  #zh #zhTable th:nth-child(2),
+  #zh #zhTable th:nth-child(3),
+  #zh #zhTable th:nth-child(4),
+  #zh #zhTable td:nth-child(2),
+  #zh #zhTable td:nth-child(3),
+  #zh #zhTable td:nth-child(4){
+    width:3.25em;
+    min-width:3.25em;
+  }
+}
+
+/* v39: 各課からTOPへ戻る導線 */
+.lesson-header-inner{
+  max-width:980px;
+  margin:0 auto;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+}
+.lesson-header-text{min-width:0}
+.top-link{
+  flex:0 0 auto;
+  min-height:44px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:9px 13px;
+  border:1px solid rgba(255,255,255,.55);
+  border-radius:10px;
+  color:#fff;
+  text-decoration:none;
+  font-weight:700;
+  white-space:nowrap;
+}
+.top-link:hover{background:rgba(255,255,255,.12)}
+@media(max-width:480px){
+  .top-link{padding:8px 10px;font-size:.86rem}
+}
+
+
+/* v41: 書き練習の問題・ヒント・正答を同じ視線エリアにまとめる */
+#write #wReading.question{
+  margin:16px 0 4px !important;
+}
+#write .write-hint-actions{
+  margin:0 !important;
+}
+#write #wHint{
+  max-width:560px;
+  margin:3px auto 3px !important;
+  padding:7px 10px;
+  border-radius:10px;
+  background:#f7f8fb;
+  color:var(--ink);
+  line-height:1.45;
+}
+#write #wAnswer.question{
+  margin:2px 0 8px !important;
+  line-height:1.25;
+}
+#write .write-hint-actions:has(#showWriteHint.hidden){
+  display:none;
+}
+#write .write-quiet-notes{
+  max-width:700px;
+  margin:14px auto 0;
+  padding-top:10px;
+  border-top:1px solid var(--line);
+  display:grid;
+  gap:5px;
+  font-size:.82rem;
+  line-height:1.45;
+}
+#write .write-quiet-notes .note{
+  font-size:.82rem;
+}
+
+
+#write .write-quiet-notes .note{
+  margin:0;
+  width:100%;
+  text-align:left;
+  font-size:.82rem;
+  line-height:1.45;
+}
+
+
+/* v51: 用法が限られる読みは行内では ※ のみ。説明は音訓ボックス下部にまとめる */
+#flash .reading-ref-mark{
+  margin-left:.12em;
+  color:#667085;
+  font-family:"Yu Gothic","YuGothic","Hiragino Sans","Meiryo",sans-serif;
+  font-size:.72em;
+  font-weight:800;
+  vertical-align:super;
+}
+#flash .reading-ref-note{
+  margin-top:7px;
+  padding-top:6px;
+  border-top:1px dotted #d5dbe6;
+  color:#667085;
+  font-size:.74rem;
+  line-height:1.45;
+}
+
+</style>
+<!-- progress-pilot v2: unique progress + real study timestamp, Lesson 9 -->
+<!-- 第9課：ProgressV2対応。第1〜8課の学習記録方式を継承。 -->
+</head>
+<body>
+<header>
+  <div class="lesson-header-inner">
+    <div class="lesson-header-text">
+      <h1>第9課 漢字自習ツール</h1>
+      <p>461〜490｜30字</p>
+    </div>
+    <a class="top-link" href="index.html" aria-label="TOPページへ戻る">← TOP</a>
+  </div>
+</header>
+<main>
+
+  <div class="tabs" role="tablist" aria-label="学習メニュー">
+    <button type="button" role="tab" id="tab-select" aria-controls="select" aria-selected="true" class="active" data-tab="select"><ruby>漢字<rt>かんじ</rt></ruby>を<ruby>選<rt>えら</rt></ruby>ぶ</button>
+    <button type="button" role="tab" id="tab-flash" aria-controls="flash" aria-selected="false" data-tab="flash">🃏 <ruby>漢字<rt>かんじ</rt></ruby>カード</button>
+    <button type="button" role="tab" id="tab-read" aria-controls="read" aria-selected="false" data-tab="read">📖 <ruby>読<rt>よ</rt></ruby>みクイズ</button>
+    <button type="button" role="tab" id="tab-write" aria-controls="write" aria-selected="false" data-tab="write">✍️ <ruby>書<rt>か</rt></ruby>き<ruby>練習<rt>れんしゅう</rt></ruby></button>
+    <button type="button" role="tab" id="tab-zh" aria-controls="zh" aria-selected="false" data-tab="zh"><ruby>日<rt>にち</rt></ruby>・<ruby>中<rt>ちゅう</rt></ruby>・<ruby>台<rt>たい</rt></ruby> <ruby>字体<rt>じたい</rt></ruby><ruby>比較<rt>ひかく</rt></ruby></button>
+    <button type="button" role="tab" id="tab-stats" aria-controls="stats" aria-selected="false" data-tab="stats">★ <ruby>復習<rt>ふくしゅう</rt></ruby>リスト</button>
+  </div>
+
+  <section id="select" class="panel active" role="tabpanel" aria-labelledby="tab-select">
+    <div class="card">
+      <div class="label"></div>
+      <div class="toptools">
+        <button class="secondary" id="selectAll"><ruby>全部<rt>ぜんぶ</rt></ruby><ruby>選<rt>えら</rt></ruby>ぶ</button>
+        <button class="secondary" id="clearAll"><ruby>全部<rt>ぜんぶ</rt></ruby><ruby>解除<rt>かいじょ</rt></ruby></button>
+        <button class="secondary" id="selectHard">★ <ruby>復習<rt>ふくしゅう</rt></ruby>リストから<ruby>選<rt>えら</rt></ruby>ぶ</button>
+        <span class="selected-count"><ruby>選択中<rt>せんたくちゅう</rt></ruby>：<span id="selCount">0</span><ruby>字<rt>じ</rt></ruby></span>
+      </div>
+      <div class="note selection-guide" style="margin:8px 0 12px">
+        <ruby>最初<rt>さいしょ</rt></ruby>はすべての<ruby>漢字<rt>かんじ</rt></ruby>が<ruby>選<rt>えら</rt></ruby>ばれています。<ruby>練習<rt>れんしゅう</rt></ruby>しない<ruby>漢字<rt>かんじ</rt></ruby>は、クリックして<ruby>選択<rt>せんたく</rt></ruby>を<ruby>解除<rt>かいじょ</rt></ruby>してください。
+      </div>
+      <div class="selection-state-legend" aria-label="漢字の選択状態の見方">
+        <span class="selection-state-item">
+          <span class="selection-state-swatch selected" aria-hidden="true"><span class="legend-check">✓</span></span>
+          <span><ruby>練習<rt>れんしゅう</rt></ruby>する</span>
+        </span>
+        <span class="selection-state-item">
+          <span class="selection-state-swatch" aria-hidden="true"></span>
+          <span><ruby>選<rt>えら</rt></ruby>ばない</span>
+        </span>
+      </div>
+      <div class="kanji-grid" id="kanjiGrid"></div>
+      <div class="actions">
+        <button class="primary" id="startSelected"><ruby>選<rt>えら</rt></ruby>んだ<ruby>字<rt>じ</rt></ruby>をカードで<ruby>確認<rt>かくにん</rt></ruby></button>
+      </div>
+      <div id="selectMsg" class="note inline-msg hidden" role="status"></div>
+      <p class="note">※ <ruby>学習<rt>がくしゅう</rt></ruby>する<ruby>漢字<rt>かんじ</rt></ruby>は、<ruby>利用<rt>りよう</rt></ruby>できる<ruby>環境<rt>かんきょう</rt></ruby>では<ruby>教科書体<rt>きょうかしょたい</rt></ruby>を<ruby>優先<rt>ゆうせん</rt></ruby>し、<ruby>利用<rt>りよう</rt></ruby>できない<ruby>場合<rt>ばあい</rt></ruby>は<ruby>手書<rt>てが</rt></ruby>きに<ruby>近<rt>ちか</rt></ruby>い Klee One で<ruby>表示<rt>ひょうじ</rt></ruby>します。</p>
+    </div>
+  </section>
+
+  <section id="flash" class="panel" role="tabpanel" aria-labelledby="tab-flash">
+    <div class="card">
+      <div class="toptools" style="justify-content:center">
+        <label>カード順：
+          <select id="cardOrder" style="padding:7px 9px;border:1px solid var(--line);border-radius:8px">
+            <option value="textbook">教科書順（きょうかしょじゅん）</option>
+            <option value="random">ランダム</option>
+          </select>
+        </label>
+      </div>
+
+      <div class="progress" id="flashProgress"></div>
+      <div id="fNo" class="label" style="text-align:center;font-size:.95rem;font-weight:700"></div>
+      <div class="bigkanji jp-kanji" id="fKanji"></div>
+
+      <div class="actions flash-card-nav" style="margin:4px 0 12px">
+        <button class="secondary" id="prevFlash">← <ruby>戻<rt>もど</rt></ruby>る</button>
+        <button class="primary" id="revealBtn"><ruby>読<rt>よ</rt></ruby>み・<ruby>語彙<rt>ごい</rt></ruby>を<ruby>見<rt>み</rt></ruby>る</button>
+        <button class="bad hidden" id="hardBtn">★ <ruby>復習<rt>ふくしゅう</rt></ruby>する</button>
+        <button class="secondary" id="nextFlash"><ruby>次<rt>つぎ</rt></ruby>へ →</button>
+      </div>
+
+      
+
+      <div id="fHidden" class="hidden">
+        <div class="box" style="margin-bottom:12px;background:#f8fbff">
+          <div style="display:flex;justify-content:space-between;gap:10px;align-items:center;flex-wrap:wrap">
+            <div class="label" style="margin:0"><ruby>意味<rt>いみ</rt></ruby></div>
+            <select id="meaningLang" style="padding:6px 8px;border:1px solid var(--line);border-radius:8px">
+              <option value="ja">やさしい日本語</option>
+              <option value="en">English</option>
+              <option value="zh">中文</option>
+              <option value="ko">한국어</option>
+              <option value="pt">Português</option>
+              <option value="th">ไทย</option>
+            </select>
+          </div>
+          <div class="note lang-help" id="langHelp" style="margin-top:7px">
+            <ruby>日本語<rt>にほんご</rt></ruby><ruby>以外<rt>いがい</rt></ruby>を<ruby>選<rt>えら</rt></ruby>ぶと、<ruby>漢字<rt>かんじ</rt></ruby>の<ruby>意味<rt>いみ</rt></ruby>だけでなく、<ruby>教科書<rt>きょうかしょ</rt></ruby>の<ruby>語彙<rt>ごい</rt></ruby>・<ruby>発展語彙<rt>はってんごい</rt></ruby>の<ruby>訳<rt>やく</rt></ruby>も<ruby>表示<rt>ひょうじ</rt></ruby>されます。
+          </div>
+          <div id="meaningJa" style="margin-top:7px;line-height:1.7">
+            <b id="fMeaningWord" style="font-size:1.05rem"></b>
+            <span id="fMeaningEasy" style="margin-left:.45em"></span>
+          </div>
+          <div id="meaningOther" class="hidden" style="margin-top:7px;font-size:1.05rem;font-weight:700;line-height:1.7"></div>
+        </div>
+        <div class="meta">
+          <div class="box">
+            <div class="label"><ruby>常用漢字表<rt>じょうようかんじひょう</rt></ruby>・<ruby>音読<rt>おんよ</rt></ruby>み</div>
+            <b id="fOn"></b><div id="fOnRefNote" class="reading-ref-note hidden">※ <ruby>用法<rt>ようほう</rt></ruby>が<ruby>限<rt>かぎ</rt></ruby>られる<ruby>読<rt>よ</rt></ruby>み</div>
+          </div>
+          <div class="box">
+            <div class="label"><ruby>常用漢字表<rt>じょうようかんじひょう</rt></ruby>・<ruby>訓読<rt>くんよ</rt></ruby>み</div>
+            <b id="fKun"></b><div id="fKunRefNote" class="reading-ref-note hidden">※ <ruby>用法<rt>ようほう</rt></ruby>が<ruby>限<rt>かぎ</rt></ruby>られる<ruby>読<rt>よ</rt></ruby>み</div>
+            <div class="hidden iji-inline" id="fIjiBox">
+              <div class="iji-inline-head">
+                <span class="iji-badge"><ruby>使<rt>つか</rt></ruby>い<ruby>分<rt>わ</rt></ruby>け</span>
+                <span class="source-mini"><ruby>文化庁資料<rt>ぶんかちょうしりょう</rt></ruby>を<ruby>参考<rt>さんこう</rt></ruby></span>
+              </div>
+              <div id="fIjiText" class="iji-text"></div>
+            </div>
+          </div>
+        </div>
+        <div class="box" style="margin-top:12px">
+          <div class="label"><ruby>第<rt>だい</rt></ruby>3<ruby>課<rt>か</rt></ruby>の<ruby>語彙<rt>ごい</rt></ruby></div><div class="words" id="fWords"></div>
+        </div>
+        <div class="further-divider" aria-label="さらに学ぶ">
+          <span></span>
+          <b>さらに<ruby>学<rt>まな</rt></ruby>ぶ</b>
+          <span></span>
+        </div>
+        <div class="box extra-box">
+          <div class="label">よく<ruby>使<rt>つか</rt></ruby>う<ruby>発展語彙<rt>はってんごい</rt></ruby></div>
+          <div class="words" id="fExtra"></div>
+        </div>
+        <div class="box hidden extra-box art-extra-box" id="fSpecialBox">
+          <div class="label"><ruby>美術<rt>びじゅつ</rt></ruby>・デザイン<ruby>関連<rt>かんれん</rt></ruby>の<ruby>発展語彙<rt>はってんごい</rt></ruby></div>
+          <div class="words" id="fSpecial"></div>
+        </div>
+      </div>
+
+      
+    </div>
+  </section>
+
+  <section id="read" class="panel" role="tabpanel" aria-labelledby="tab-read">
+    <div class="card">
+      <div class="toptools">
+        <label><ruby>出題順<rt>しゅつだいじゅん</rt></ruby>：
+          <select id="readOrder" style="padding:7px 9px;border:1px solid var(--line);border-radius:8px">
+            <option value="textbook">教科書順（きょうかしょじゅん）</option>
+            <option value="random">ランダム</option>
+          </select>
+        </label>
+      </div>
+      <div id="readQuizArea">
+        <div class="label"><ruby>下<rt>した</rt></ruby>の<ruby>語<rt>ご</rt></ruby>の<ruby>読<rt>よ</rt></ruby>みを、ひらがなで<ruby>入力<rt>にゅうりょく</rt></ruby>してください。</div>
+        <div class="progress" id="readProgress"></div>
+        <div id="rNo" class="label" style="text-align:center;font-size:.9rem;font-weight:700"></div>
+        <div class="question jp-kanji" id="rWord"></div><div id="rGloss" class="note hidden" style="text-align:center;font-size:1rem"></div>
+        <div class="reading-input-wrap">
+          <input id="rInput" class="reading-input" inputmode="text" enterkeyhint="done" autocomplete="off" autocapitalize="none" placeholder="よみを入力">
+          <div class="feedback hidden reading-feedback-inline" id="rFeedback" role="status" aria-live="polite"></div>
+        </div>
+
+        <div class="actions read-action-slot" style="justify-content:center">
+          <button class="primary" id="checkRead"><ruby>答<rt>こた</rt></ruby>える</button>
+          <button class="primary hidden" id="nextRead"><ruby>次<rt>つぎ</rt></ruby>の<ruby>問題<rt>もんだい</rt></ruby></button>
+        </div>
+      </div>
+
+      <div id="readSummary" class="summary-box hidden" role="status">
+        <div class="summary-title"><ruby>一周<rt>いっしゅう</rt></ruby>おわりました</div>
+        <div class="summary-score"><span id="readSummaryScore">0</span><span class="of">/ <span id="readSummaryTotal">0</span> <ruby>正解<rt>せいかい</rt></ruby></span></div>
+        <div class="note summary-note" id="readSummaryNote"></div>
+        <div class="actions">
+          <button type="button" class="primary hidden" id="retryWrongRead"></button>
+          <button type="button" class="secondary" id="restartRead"><ruby>最初<rt>さいしょ</rt></ruby>からもう<ruby>一度<rt>いちど</rt></ruby></button>
+        </div>
+      </div>
+      <p class="note">※ <ruby>選<rt>えら</rt></ruby>んだ<ruby>漢字<rt>かんじ</rt></ruby>の<ruby>教科書語彙<rt>きょうかしょごい</rt></ruby>だけを<ruby>出題<rt>しゅつだい</rt></ruby>します。「する<ruby>動詞<rt>どうし</rt></ruby>」は「する」を、「な<ruby>形容詞<rt>けいようし</rt></ruby>」は「な」を<ruby>除<rt>のぞ</rt></ruby>いた<ruby>形<rt>かたち</rt></ruby>で<ruby>出題<rt>しゅつだい</rt></ruby>します（<ruby>例<rt>れい</rt></ruby>：<ruby>散歩<rt>さんぽ</rt></ruby>する→<ruby>散歩<rt>さんぽ</rt></ruby>、<ruby>派手<rt>はで</rt></ruby>な→<ruby>派手<rt>はで</rt></ruby>）。「<ruby>速<rt>はや</rt></ruby>い」「<ruby>遅<rt>おく</rt></ruby>れる」などの<ruby>送<rt>おく</rt></ruby>り<ruby>仮名<rt>がな</rt></ruby>は<ruby>残<rt>のこ</rt></ruby>します。<ruby>同<rt>おな</rt></ruby>じ<ruby>表記<rt>ひょうき</rt></ruby>で<ruby>読<rt>よ</rt></ruby>み<ruby>方<rt>かた</rt></ruby>が<ruby>迷<rt>まよ</rt></ruby>いやすい<ruby>語<rt>ご</rt></ruby>には、<ruby>短<rt>みじか</rt></ruby>い<ruby>日本語<rt>にほんご</rt></ruby>の<ruby>文脈<rt>ぶんみゃく</rt></ruby>ヒントを<ruby>表示<rt>ひょうじ</rt></ruby>します。PCでは Enter で<ruby>解答<rt>かいとう</rt></ruby>し、<ruby>結果<rt>けっか</rt></ruby>を<ruby>確認<rt>かくにん</rt></ruby>してもう<ruby>一度<rt>いちど</rt></ruby> Enter で<ruby>次<rt>つぎ</rt></ruby>へ<ruby>進<rt>すす</rt></ruby>めます。</p>
+      <div style="border-top:1px solid var(--line);margin-top:18px;padding-top:14px">
+        <div class="label" style="font-weight:700"><ruby>読<rt>よ</rt></ruby>みクイズの<ruby>成績<rt>せいせき</rt></ruby></div>
+        <div class="stats stats-three">
+          <div class="stat"><b id="sAnswered">0</b><ruby>解答数<rt>かいとうすう</rt></ruby></div>
+          <div class="stat"><b id="sCorrect">0</b><ruby>正解数<rt>せいかいすう</rt></ruby></div>
+          <div class="stat"><b id="sRate">—</b><ruby>正答率<rt>せいとうりつ</rt></ruby></div>
+        </div>
+        <div class="actions"><button type="button" class="secondary" id="resetReadStats" onclick="resetReadStatsNow(this)"><ruby>読<rt>よ</rt></ruby>みの<ruby>成績<rt>せいせき</rt></ruby>をリセット</button></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="write" class="panel" role="tabpanel" aria-labelledby="tab-write">
+    <div class="card">
+      <div class="toptools">
+        <label><ruby>出題順<rt>しゅつだいじゅん</rt></ruby>：
+          <select id="writeOrder" style="padding:7px 9px;border:1px solid var(--line);border-radius:8px">
+            <option value="textbook">教科書順</option>
+            <option value="random">ランダム</option>
+          </select>
+        </label>
+        <label><ruby>外国語<rt>がいこくご</rt></ruby>ヒント：
+          <select id="writeHintLang" style="padding:7px 9px;border:1px solid var(--line);border-radius:8px">
+            <option value="en">English</option>
+            <option value="ko">한국어</option>
+            <option value="pt">Português</option>
+            <option value="th">ไทย</option>
+          </select>
+        </label>
+      </div>
+      <div id="writeQuizArea">
+        <div class="label"><ruby>読<rt>よ</rt></ruby>みと、<ruby>必要<rt>ひつよう</rt></ruby>なときは<ruby>短<rt>みじか</rt></ruby>い<ruby>文脈<rt>ぶんみゃく</rt></ruby>ヒントを<ruby>見<rt>み</rt></ruby>て、<ruby>紙<rt>かみ</rt></ruby>やノートに<ruby>漢字<rt>かんじ</rt></ruby>で<ruby>書<rt>か</rt></ruby>いてください。</div>
+        <div class="write-kanji-legend" aria-label="答えの漢字の分類">
+          <span class="write-legend-item"><span class="write-legend-line target" aria-hidden="true"></span><span><ruby>第<rt>だい</rt></ruby>3<ruby>課<rt>か</rt></ruby></span></span>
+          <span class="write-legend-item"><span class="write-legend-line" aria-hidden="true"></span><span><ruby>初級<rt>しょきゅう</rt></ruby>・<ruby>既習<rt>きしゅう</rt></ruby></span></span>
+          <span class="write-legend-item"><span class="write-legend-line unlearned" aria-hidden="true"></span><span><ruby>未習<rt>みしゅう</rt></ruby></span></span>
+        </div>
+        <div class="progress" id="writeProgress"></div>
+        <div id="wNo" class="label" style="text-align:center;font-size:.9rem;font-weight:700"></div>
+        <div class="question" id="wReading"></div>
+        <div class="actions write-hint-actions">
+          <button type="button" class="secondary" id="showWriteHint"><ruby>外国語<rt>がいこくご</rt></ruby>ヒントを<ruby>見<rt>み</rt></ruby>る</button>
+        </div>
+        <div id="wHint" class="note hidden" style="text-align:center;font-size:1rem;margin-top:-6px"></div>
+        <div id="wAnswer" class="question jp-kanji hidden"></div>
+        <div class="actions" style="justify-content:center">
+          <button class="primary" id="showWrite"><ruby>答<rt>こた</rt></ruby>えを<ruby>見<rt>み</rt></ruby>る</button>
+          <button class="bad hidden" id="writeBad"><ruby>書<rt>か</rt></ruby>けなかった</button>
+          <button class="good hidden" id="writeGood"><ruby>書<rt>か</rt></ruby>けた</button>
+        </div>
+        <div class="write-quiet-notes">
+          <div class="note">※ <ruby>中国語<rt>ちゅうごくご</rt></ruby>の<ruby>訳<rt>やく</rt></ruby>は<ruby>答<rt>こた</rt></ruby>えの<ruby>漢字<rt>かんじ</rt></ruby>そのものになることが<ruby>多<rt>おお</rt></ruby>いので、ここでは<ruby>選<rt>えら</rt></ruby>べません。</div>
+          <div class="note">※「<ruby>初級<rt>しょきゅう</rt></ruby>・<ruby>既習<rt>きしゅう</rt></ruby>」には、<ruby>初級<rt>しょきゅう</rt></ruby>レベルの<ruby>漢字<rt>かんじ</rt></ruby>300<ruby>字<rt>じ</rt></ruby>と、この<ruby>授業<rt>じゅぎょう</rt></ruby>でこれまでに<ruby>学習<rt>がくしゅう</rt></ruby>した<ruby>漢字<rt>かんじ</rt></ruby>を<ruby>含<rt>ふく</rt></ruby>みます。<ruby>初級<rt>しょきゅう</rt></ruby>300<ruby>字<rt>じ</rt></ruby>は、この<ruby>授業<rt>じゅぎょう</rt></ruby>で<ruby>扱<rt>あつか</rt></ruby>った<ruby>漢字<rt>かんじ</rt></ruby>とは<ruby>限<rt>かぎ</rt></ruby>りません。</div>
+          <div class="note">※ 「<ruby>漢字<rt>かんじ</rt></ruby>を<ruby>選<rt>えら</rt></ruby>ぶ」で<ruby>選<rt>えら</rt></ruby>んだ<ruby>漢字<rt>かんじ</rt></ruby>の<ruby>教科書語彙<rt>きょうかしょごい</rt></ruby>だけを<ruby>出題<rt>しゅつだい</rt></ruby>します。<ruby>書<rt>か</rt></ruby>き<ruby>分<rt>わ</rt></ruby>けが<ruby>必要<rt>ひつよう</rt></ruby>な<ruby>語<rt>ご</rt></ruby>には<ruby>短<rt>みじか</rt></ruby>い<ruby>日本語<rt>にほんご</rt></ruby>の<ruby>文脈<rt>ぶんみゃく</rt></ruby>を<ruby>付<rt>つ</rt></ruby>けています。<ruby>分<rt>わ</rt></ruby>からないときは<ruby>外国語<rt>がいこくご</rt></ruby>ヒントも<ruby>使<rt>つか</rt></ruby>えます。</div>
+        </div>
+      </div>
+
+      <div id="writeSummary" class="summary-box hidden" role="status">
+        <div class="summary-title"><ruby>一周<rt>いっしゅう</rt></ruby>おわりました</div>
+        <div class="summary-score"><span id="writeSummaryScore">0</span><span class="of">/ <span id="writeSummaryTotal">0</span> <ruby>書<rt>か</rt></ruby>けた</span></div>
+        <div class="note summary-note" id="writeSummaryNote"></div>
+        <div class="actions">
+          <button type="button" class="primary hidden" id="retryWrongWrite"></button>
+          <button type="button" class="secondary" id="restartWrite"><ruby>最初<rt>さいしょ</rt></ruby>からもう<ruby>一度<rt>いちど</rt></ruby></button>
+        </div>
+      </div>
+      <div style="border-top:1px solid var(--line);margin-top:18px;padding-top:14px">
+        <div class="label" style="font-weight:700"><ruby>書<rt>か</rt></ruby>き<ruby>取<rt>と</rt></ruby>りの<ruby>自己採点<rt>じこさいてん</rt></ruby></div>
+        <div class="stats stats-three">
+          <div class="stat"><b id="sWriteTotal">0</b><ruby>回答数<rt>かいとうすう</rt></ruby></div>
+          <div class="stat"><b id="sWriteGood">0</b>書けた</div>
+          <div class="stat"><b id="sWriteBad">0</b>書けなかった</div>
+        </div>
+        <div class="actions"><button type="button" class="secondary" id="resetWriteStats" onclick="resetWriteStatsNow(this)"><ruby>書<rt>か</rt></ruby>きの<ruby>成績<rt>せいせき</rt></ruby>をリセット</button></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="zh" class="panel" role="tabpanel" aria-labelledby="tab-zh">
+    <div class="card">
+      <div class="label"><ruby>日本語<rt>にほんご</rt></ruby>・<ruby>簡体字<rt>かんたいじ</rt></ruby>・<ruby>繁体字<rt>はんたいじ</rt></ruby>の<ruby>字体<rt>じたい</rt></ruby>を<ruby>一覧<rt>いちらん</rt></ruby>で<ruby>比較<rt>ひかく</rt></ruby>します。</div>
+      <div id="zhCount" style="font-weight:700;margin:10px 0"></div>
+      <div class="toptools">
+        <button class="primary" id="onlyDiff"><ruby>差<rt>さ</rt></ruby>がある<ruby>字<rt>じ</rt></ruby>だけ</button>
+        <button class="secondary" id="showAllZh"><ruby>全<rt>ぜん</rt></ruby>30<ruby>字<rt>じ</rt></ruby></button>
+      </div>
+      <div class="zh-table-wrap" style="margin-top:12px">
+        <table class="list" id="zhTable">
+          <thead><tr><th>No.</th><th><ruby>日本語<rt>にほんご</rt></ruby></th><th><ruby>簡体字<rt>かんたいじ</rt></ruby></th><th><ruby>繁体字<rt>はんたいじ</rt></ruby></th></tr></thead>
+          <tbody id="zhBody"></tbody>
+        </table>
+      </div>
+      <p class="note">※ <ruby>日本語<rt>にほんご</rt></ruby>は<ruby>教科書体<rt>きょうかしょたい</rt></ruby>を<ruby>優先<rt>ゆうせん</rt></ruby>し、<ruby>簡体字<rt>かんたいじ</rt></ruby>・<ruby>繁体字<rt>はんたいじ</rt></ruby>はそれぞれの<ruby>中国語<rt>ちゅうごくご</rt></ruby>フォントで<ruby>表示<rt>ひょうじ</rt></ruby>します。「<ruby>差<rt>さ</rt></ruby>がある<ruby>字<rt>じ</rt></ruby>だけ」には、<ruby>文字自体<rt>もじじたい</rt></ruby>が<ruby>異<rt>こと</rt></ruby>なる<ruby>字<rt>じ</rt></ruby>に<ruby>加<rt>くわ</rt></ruby>え、<ruby>日中漢字<rt>にっちゅうかんじ</rt></ruby>の<ruby>研究<rt>けんきゅう</rt></ruby>・<ruby>公的資料等<rt>こうてきしりょうとう</rt></ruby>で<ruby>学習上<rt>がくしゅうじょう</rt></ruby><ruby>確認<rt>かくにん</rt></ruby>する<ruby>価値<rt>かち</rt></ruby>がある<ruby>字<rt>じ</rt></ruby>も<ruby>表示<rt>ひょうじ</rt></ruby>します。</p>
+    </div>
+  </section>
+
+  <section id="stats" class="panel" role="tabpanel" aria-labelledby="tab-stats">
+    <div class="card">
+      <h2 style="margin-top:0;font-size:1.05rem">★ <ruby>復習<rt>ふくしゅう</rt></ruby>する<ruby>漢字<rt>かんじ</rt></ruby></h2>
+      <p class="note">カードで「★ <ruby>復習<rt>ふくしゅう</rt></ruby>する」を<ruby>押<rt>お</rt></ruby>した<ruby>字<rt>じ</rt></ruby>、<ruby>読<rt>よ</rt></ruby>みを<ruby>間違<rt>まちが</rt></ruby>えた<ruby>字<rt>じ</rt></ruby>、<ruby>書<rt>か</rt></ruby>けなかった<ruby>字<rt>じ</rt></ruby>が<ruby>入<rt>はい</rt></ruby>ります。もう<ruby>大丈夫<rt>だいじょうぶ</rt></ruby>な<ruby>字<rt>じ</rt></ruby>は「<ruby>復習<rt>ふくしゅう</rt></ruby>リストから<ruby>外<rt>はず</rt></ruby>す」で<ruby>削除<rt>さくじょ</rt></ruby>できます。</p>
+      <div class="stat" style="max-width:180px;margin-bottom:12px"><b id="sHard">0</b><ruby>復習<rt>ふくしゅう</rt></ruby>する<ruby>漢字<rt>かんじ</rt></ruby></div>
+      <div class="table-scroll">
+        <table class="list">
+          <thead><tr><th>No.・<ruby>漢字<rt>かんじ</rt></ruby></th><th><ruby>復習理由<rt>ふくしゅうりゆう</rt></ruby></th><th><ruby>操作<rt>そうさ</rt></ruby></th></tr></thead>
+          <tbody id="hardList"></tbody>
+        </table>
+      </div>
+      <div class="actions">
+        <button type="button" class="secondary" id="resetReviewList" onclick="resetReviewListNow(this)"><ruby>復習<rt>ふくしゅう</rt></ruby>リストをリセット</button>
+        <button type="button" class="bad" id="resetStats" onclick="resetAllStatsNow(this)">すべての<ruby>学習記録<rt>がくしゅうきろく</rt></ruby>をリセット</button>
+      </div>
+      <div id="dataCheck" class="hidden"></div>
+    </div>
+  </section>
+
+</main>
+
+<script>
+const DATA = [{"kanji":"符","meaningWord":"切符・符号","meaningEasy":"しるしや、決まった意味を表す記号に関係する","meaningEn":"mark; sign; symbol","meaningZh":"符号；记号","meaningKo":"부호; 기호","meaningPt":"sinal; símbolo","meaningTh":"เครื่องหมาย; สัญลักษณ์","no":461,"on":["フ"],"kun":[],"words":[["切符","きっぷ",{"en":"ticket","zh":"票；车票","ko":"표; 승차권","pt":"bilhete","th":"ตั๋ว"}],["符号","ふごう",{"en":"sign; symbol","zh":"符号；记号","ko":"부호; 기호","pt":"sinal; símbolo","th":"เครื่องหมาย; สัญลักษณ์"}]],"extra":[["音符","おんぷ",{"en":"musical note","zh":"音符","ko":"음표","pt":"nota musical","th":"โน้ตดนตรี"}],["符合する","ふごうする",{"en":"to correspond; match","zh":"符合；一致","ko":"부합하다","pt":"corresponder; coincidir","th":"สอดคล้องกัน"}]],"special":[],"simp":"符","trad":"符"},{"kanji":"券","meaningWord":"券・定期券","meaningEasy":"切符や、サービスを受けるための紙などに関係する","meaningEn":"ticket; coupon; certificate","meaningZh":"券；票","meaningKo":"권; 표","meaningPt":"bilhete; cupom","meaningTh":"บัตร; คูปอง","no":462,"on":["ケン"],"kun":[],"words":[["券","けん",{"en":"ticket; coupon","zh":"券；票","ko":"권; 표","pt":"bilhete; cupom","th":"บัตร; คูปอง"}],["定期券","ていきけん",{"en":"commuter pass; season ticket","zh":"月票；定期票","ko":"정기권","pt":"passe; bilhete de temporada","th":"บัตรโดยสารประจำ"}]],"extra":[["乗車券","じょうしゃけん",{"en":"train/bus ticket","zh":"乘车券","ko":"승차권","pt":"bilhete de transporte","th":"ตั๋วโดยสาร"}],["入場券","にゅうじょうけん",{"en":"admission ticket","zh":"入场券","ko":"입장권","pt":"ingresso","th":"บัตรเข้าชม"}]],"special":[],"simp":"券","trad":"券"},{"kanji":"枚","meaningWord":"一枚・枚数","meaningEasy":"紙や皿など、薄くて平たいものを数えるときに使う","meaningEn":"counter for flat objects","meaningZh":"张；枚（量词）","meaningKo":"장; 매","meaningPt":"contador de objetos planos","meaningTh":"ลักษณนามสำหรับของแบน","no":463,"on":["マイ"],"kun":[],"words":[["一枚","いちまい",{"en":"one flat object/sheet","zh":"一张","ko":"한 장","pt":"uma folha/peça","th":"หนึ่งแผ่น"}],["枚数","まいすう",{"en":"number of sheets/items","zh":"张数；枚数","ko":"장수","pt":"número de folhas/peças","th":"จำนวนแผ่น"}]],"extra":[["二枚","にまい",{"en":"two sheets/items","zh":"两张","ko":"두 장","pt":"duas folhas/peças","th":"สองแผ่น"}]],"special":[],"simp":"枚","trad":"枚"},{"kanji":"札","meaningWord":"千円札・札","meaningEasy":"紙のお金や、文字を書いた小さな板・紙などに関係する","meaningEn":"banknote; tag; placard","meaningZh":"纸币；牌子","meaningKo":"지폐; 표찰","meaningPt":"nota; etiqueta","meaningTh":"ธนบัตร; ป้าย","no":464,"on":["サツ"],"kun":["ふだ"],"words":[["千円札","せんえんさつ",{"en":"1,000-yen note","zh":"一千日元纸币","ko":"천 엔 지폐","pt":"nota de mil ienes","th":"ธนบัตร 1,000 เยน"}]],"extra":[["札","ふだ",{"en":"tag; placard","zh":"牌子；标签","ko":"표찰; 패","pt":"placa; etiqueta","th":"ป้าย; ป้ายชื่อ"}],["名札","なふだ",{"en":"name tag","zh":"名牌","ko":"명찰","pt":"crachá","th":"ป้ายชื่อ"}]],"special":[],"simp":"札","trad":"札"},{"kanji":"改","meaningWord":"改札口・改める","meaningEasy":"今までのものを変えたり、よくしたりすることに関係する","meaningEn":"change; reform; revise","meaningZh":"改；改革；修改","meaningKo":"고치다; 개정하다","meaningPt":"mudar; reformar; revisar","meaningTh":"เปลี่ยน; ปรับปรุง; แก้ไข","no":465,"on":["カイ"],"kun":["あらためる","あらたまる"],"words":[["改札口","かいさつぐち",{"en":"ticket gate","zh":"检票口","ko":"개찰구","pt":"catraca; portão de bilhetes","th":"ประตูตรวจตั๋ว"}],["改める","あらためる",{"en":"to change; revise","zh":"改；修改","ko":"고치다; 바꾸다","pt":"rever; mudar","th":"แก้ไข; เปลี่ยน"}]],"extra":[["改善する","かいぜんする",{"en":"to improve","zh":"改善","ko":"개선하다","pt":"melhorar","th":"ปรับปรุง"}],["改まる","あらたまる",{"en":"to be renewed/formalized","zh":"改变；更新","ko":"고쳐지다; 격식을 차리다","pt":"mudar; tornar-se formal","th":"เปลี่ยนไป; เป็นทางการขึ้น"}]],"special":[],"simp":"改","trad":"改"},{"kanji":"算","meaningWord":"計算・予算","meaningEasy":"数を数えたり、金額などを考えたりすることに関係する","meaningEn":"calculate; arithmetic","meaningZh":"计算；算术","meaningKo":"계산; 산수","meaningPt":"calcular; aritmética","meaningTh":"คำนวณ; เลขคณิต","no":466,"on":["サン"],"kun":[],"words":[["計算する","けいさんする",{"en":"to calculate","zh":"计算","ko":"계산하다","pt":"calcular","th":"คำนวณ"}],["予算","よさん",{"en":"budget","zh":"预算","ko":"예산","pt":"orçamento","th":"งบประมาณ"}]],"extra":[["算数","さんすう",{"en":"arithmetic","zh":"算术","ko":"산수","pt":"aritmética","th":"เลขคณิต"}],["暗算","あんざん",{"en":"mental arithmetic","zh":"心算","ko":"암산","pt":"cálculo mental","th":"คิดเลขในใจ"}]],"special":[],"simp":"算","trad":"算"},{"kanji":"精","meaningWord":"精算・精神","meaningEasy":"細かいところまで正確にすることや、心・気持ちに関係する","meaningEn":"refined; exact; spirit","meaningZh":"精；精确；精神","meaningKo":"정밀; 정신","meaningPt":"preciso; espírito","meaningTh":"ละเอียด; แม่นยำ; จิตใจ","no":467,"on":["セイ","ショウ"],"kun":[],"words":[["精算","せいさん",{"en":"fare adjustment; settlement","zh":"补票结算；结算","ko":"정산","pt":"acerto; ajuste de tarifa","th":"ชำระส่วนต่าง; คิดเงิน"}],["精神","せいしん",{"en":"mind; spirit","zh":"精神","ko":"정신","pt":"mente; espírito","th":"จิตใจ; จิตวิญญาณ"}]],"extra":[["精密な","せいみつな",{"en":"precise; detailed","zh":"精密的","ko":"정밀한","pt":"preciso; detalhado","th":"ละเอียดแม่นยำ"}],["精進する","しょうじんする",{"en":"to devote oneself; improve","zh":"精进","ko":"정진하다","pt":"dedicar-se; aperfeiçoar-se","th":"พากเพียร; ฝึกฝน"}]],"special":[],"simp":"精","trad":"精"},{"kanji":"面","meaningWord":"表面・方面・真面目","meaningEasy":"物の表側、向き、ある分野などを表す","meaningEn":"surface; side; aspect","meaningZh":"面；表面；方面","meaningKo":"면; 표면; 방면","meaningPt":"superfície; lado; aspecto","meaningTh":"พื้นผิว; ด้าน; แง่มุม","no":468,"on":["メン"],"kun":["おも","おもて","つら"],"words":[["表面","ひょうめん",{"en":"surface","zh":"表面","ko":"표면","pt":"superfície","th":"พื้นผิว"}],["方面","ほうめん",{"en":"direction; field","zh":"方面；方向","ko":"방면","pt":"direção; área","th":"ด้าน; ทิศทาง"}],["真面目な","まじめな",{"en":"serious; diligent","zh":"认真；踏实","ko":"성실한; 진지한","pt":"sério; aplicado","th":"จริงจัง; ขยัน"}]],"extra":[["面接","めんせつ",{"en":"interview","zh":"面试","ko":"면접","pt":"entrevista","th":"สัมภาษณ์"}],["面影","おもかげ",{"en":"image; trace; reminder","zh":"面影；痕迹","ko":"면모; 자취","pt":"imagem; vestígio","th":"ภาพติดตา; เค้าเดิม"}]],"special":[],"simp":"面","trad":"面"},{"kanji":"停","meaningWord":"停止・停車・停電・停留所","meaningEasy":"動いているものが止まることに関係する","meaningEn":"stop; halt","meaningZh":"停止；停","meaningKo":"정지; 멈춤","meaningPt":"parar; interrupção","meaningTh":"หยุด; จอด","no":469,"on":["テイ"],"kun":[],"words":[["停止する","ていしする",{"en":"to stop","zh":"停止","ko":"정지하다","pt":"parar","th":"หยุด"}],["停車する","ていしゃする",{"en":"to stop a vehicle","zh":"停车","ko":"정차하다","pt":"parar o veículo","th":"จอดรถ"}],["停電","ていでん",{"en":"power outage","zh":"停电","ko":"정전","pt":"apagão","th":"ไฟดับ"}],["停留所","ていりゅうじょ",{"en":"bus/tram stop","zh":"车站；停靠站","ko":"정류장","pt":"parada","th":"ป้ายรถ"}]],"extra":[["停学","ていがく",{"en":"suspension from school","zh":"停学","ko":"정학","pt":"suspensão escolar","th":"พักการเรียน"}],["停滞","ていたい",{"en":"stagnation","zh":"停滞","ko":"정체","pt":"estagnação","th":"ชะงัก; หยุดนิ่ง"}]],"special":[],"simp":"停","trad":"停"},{"kanji":"刻","meaningWord":"時刻・深刻・刻む","meaningEasy":"時間の区切りや、細かく切る・彫ることに関係する","meaningEn":"time; engrave; carve","meaningZh":"时刻；刻；雕刻","meaningKo":"시각; 새기다","meaningPt":"tempo; gravar; entalhar","meaningTh":"เวลา; แกะสลัก; สับ","no":470,"on":["コク"],"kun":["きざむ"],"words":[["時刻","じこく",{"en":"time; hour","zh":"时刻","ko":"시각","pt":"horário","th":"เวลา"}],["時刻表","じこくひょう",{"en":"timetable","zh":"时刻表","ko":"시간표","pt":"horário; tabela de horários","th":"ตารางเวลา"}],["深刻な","しんこくな",{"en":"serious; grave","zh":"严重的","ko":"심각한","pt":"grave; sério","th":"ร้ายแรง; จริงจัง"}],["刻む","きざむ",{"en":"to carve; chop","zh":"刻；切碎","ko":"새기다; 잘게 썰다","pt":"gravar; picar","th":"แกะสลัก; สับ"}]],"extra":[["彫刻","ちょうこく",{"en":"sculpture","zh":"雕刻；雕塑","ko":"조각","pt":"escultura","th":"ประติมากรรม"}]],"special":[],"simp":"刻","trad":"刻"},{"kanji":"普","meaningWord":"普通・普段","meaningEasy":"特別ではなく、広く一般にそうであることに関係する","meaningEn":"general; ordinary","meaningZh":"普通；普遍","meaningKo":"보통; 일반","meaningPt":"comum; geral","meaningTh":"ทั่วไป; ปกติ","no":471,"on":["フ"],"kun":[],"words":[["普通","ふつう",{"en":"ordinary; normal","zh":"普通","ko":"보통","pt":"comum; normal","th":"ธรรมดา; ปกติ"}],["普段","ふだん",{"en":"usually; everyday","zh":"平时","ko":"평소","pt":"normalmente; cotidiano","th":"ปกติ; ในชีวิตประจำวัน"}]],"extra":[["普及する","ふきゅうする",{"en":"to spread; become widespread","zh":"普及","ko":"보급되다","pt":"difundir-se","th":"แพร่หลาย"}]],"special":[],"simp":"普","trad":"普"},{"kanji":"快","meaningWord":"快適・快速","meaningEasy":"気持ちがよいことや、速く進むことに関係する","meaningEn":"pleasant; comfortable; fast","meaningZh":"愉快；舒适；快速","meaningKo":"쾌적; 유쾌; 쾌속","meaningPt":"agradável; confortável; rápido","meaningTh":"สบาย; รื่นรมย์; รวดเร็ว","no":472,"on":["カイ"],"kun":["こころよい"],"words":[["快適な","かいてきな",{"en":"comfortable","zh":"舒适的","ko":"쾌적한","pt":"confortável","th":"สะดวกสบาย"}],["快速電車","かいそくでんしゃ",{"en":"rapid train","zh":"快速列车","ko":"쾌속 전철","pt":"trem rápido","th":"รถไฟเร็ว"}]],"extra":[["快い","こころよい",{"en":"pleasant; agreeable","zh":"愉快的；爽快的","ko":"상쾌한; 기분 좋은","pt":"agradável","th":"น่ารื่นรมย์; สบายใจ"}]],"special":[],"simp":"快","trad":"快"},{"kanji":"換","meaningWord":"交換・換気・乗り換える","meaningEasy":"別のものと取りかえたり、入れかえたりすることに関係する","meaningEn":"exchange; replace; convert","meaningZh":"换；交换；转换","meaningKo":"바꾸다; 교환하다","meaningPt":"trocar; substituir; converter","meaningTh":"แลก; เปลี่ยน; สับเปลี่ยน","no":473,"on":["カン"],"kun":["かえる","かわる"],"words":[["交換する","こうかんする",{"en":"to exchange","zh":"交换","ko":"교환하다","pt":"trocar","th":"แลกเปลี่ยน"}],["換気する","かんきする",{"en":"to ventilate","zh":"换气；通风","ko":"환기하다","pt":"ventilar","th":"ระบายอากาศ"}],["乗り換える","のりかえる",{"en":"to transfer (trains etc.)","zh":"换乘","ko":"갈아타다","pt":"fazer baldeação","th":"เปลี่ยนรถ; ต่อรถ"}]],"extra":[["換える","かえる",{"en":"to exchange; replace","zh":"换；更换","ko":"바꾸다","pt":"trocar","th":"เปลี่ยน; แลก"}],["換わる","かわる",{"en":"to be replaced/exchanged","zh":"被换；转换","ko":"바뀌다","pt":"ser trocado","th":"ถูกเปลี่ยน; เปลี่ยนไป"}]],"special":[],"simp":"换","trad":"換"},{"kanji":"禁","meaningWord":"禁止・禁煙","meaningEasy":"してはいけないと決めることに関係する","meaningEn":"prohibit; forbid","meaningZh":"禁止；禁","meaningKo":"금지","meaningPt":"proibir","meaningTh":"ห้าม","no":474,"on":["キン"],"kun":[],"words":[["禁止する","きんしする",{"en":"to prohibit","zh":"禁止","ko":"금지하다","pt":"proibir","th":"ห้าม"}]],"extra":[["禁煙","きんえん",{"en":"no smoking","zh":"禁烟","ko":"금연","pt":"proibido fumar; não fumar","th":"ห้ามสูบบุหรี่"}]],"special":[],"simp":"禁","trad":"禁"},{"kanji":"煙","meaningWord":"煙突・禁煙・煙・煙い","meaningEasy":"火などから出る、空気中に広がる細かいものに関係する","meaningEn":"smoke","meaningZh":"烟；烟雾","meaningKo":"연기","meaningPt":"fumaça","meaningTh":"ควัน","no":475,"on":["エン"],"kun":["けむる","けむり","けむい"],"words":[["煙突","えんとつ",{"en":"chimney","zh":"烟囱","ko":"굴뚝","pt":"chaminé","th":"ปล่องไฟ"}],["禁煙","きんえん",{"en":"no smoking","zh":"禁烟","ko":"금연","pt":"não fumar","th":"ห้ามสูบบุหรี่"}],["煙","けむり",{"en":"smoke","zh":"烟；烟雾","ko":"연기","pt":"fumaça","th":"ควัน"}],["煙い","けむい",{"en":"smoky","zh":"烟呛的","ko":"연기가 자욱한","pt":"cheio de fumaça","th":"ควันเยอะ; แสบควัน"}]],"extra":[["煙る","けむる",{"en":"to be smoky; hazy","zh":"烟雾弥漫","ko":"연기가 끼다","pt":"ficar enfumaçado","th":"มีควันปกคลุม"}],["喫煙","きつえん",{"en":"smoking","zh":"吸烟","ko":"흡연","pt":"fumar","th":"การสูบบุหรี่"}]],"special":[],"simp":"烟","trad":"煙"},{"kanji":"険","meaningWord":"冒険・険しい","meaningEasy":"安全ではないことや、山道などが急で厳しいことに関係する","meaningEn":"dangerous; steep","meaningZh":"险；危险；险峻","meaningKo":"위험; 험하다","meaningPt":"perigoso; íngreme","meaningTh":"อันตราย; สูงชัน","no":476,"on":["ケン"],"kun":["けわしい"],"words":[["冒険","ぼうけん",{"en":"adventure","zh":"冒险","ko":"모험","pt":"aventura","th":"การผจญภัย"}],["険しい","けわしい",{"en":"steep; severe","zh":"险峻；严峻","ko":"험하다","pt":"íngreme; severo","th":"สูงชัน; รุนแรง"}]],"extra":[["危険","きけん",{"en":"danger","zh":"危险","ko":"위험","pt":"perigo","th":"อันตราย"}]],"special":[],"simp":"险","trad":"險"},{"kanji":"危","meaningWord":"危険・危ない・危うい","meaningEasy":"安全ではなく、悪いことが起こる可能性があることを表す","meaningEn":"danger; dangerous","meaningZh":"危险；危","meaningKo":"위험; 위태롭다","meaningPt":"perigo; perigoso","meaningTh":"อันตราย; เสี่ยง","no":477,"on":["キ"],"kun":["あぶない","あやうい","あやぶむ"],"words":[["危険な","きけんな",{"en":"dangerous","zh":"危险的","ko":"위험한","pt":"perigoso","th":"อันตราย"}],["危ない","あぶない",{"en":"dangerous","zh":"危险","ko":"위험하다","pt":"perigoso","th":"อันตราย"}],["危うい","あやうい",{"en":"dangerous; close","zh":"危险；险些","ko":"위태롭다","pt":"perigoso; por pouco","th":"หวุดหวิด; อันตราย"}]],"extra":[["危機","きき",{"en":"crisis","zh":"危机","ko":"위기","pt":"crise","th":"วิกฤต"}],["危ぶむ","あやぶむ",{"en":"to fear; doubt","zh":"担心；怀疑","ko":"위태롭게 여기다; 의심하다","pt":"temer; duvidar","th":"กังวล; สงสัย"}]],"special":[],"simp":"危","trad":"危"},{"kanji":"路","meaningWord":"道路・通路・線路","meaningEasy":"人や車などが通る道に関係する","meaningEn":"road; route; path","meaningZh":"路；道路","meaningKo":"길; 노선","meaningPt":"estrada; rota; caminho","meaningTh":"ถนน; เส้นทาง","no":478,"on":["ロ"],"kun":["じ"],"words":[["道路","どうろ",{"en":"road","zh":"道路","ko":"도로","pt":"estrada","th":"ถนน"}],["通路","つうろ",{"en":"passage; aisle","zh":"通道","ko":"통로","pt":"passagem; corredor","th":"ทางเดิน"}],["線路","せんろ",{"en":"railway track","zh":"铁路线；轨道","ko":"선로","pt":"linha férrea","th":"รางรถไฟ"}]],"extra":[["路地","ろじ",{"en":"alley","zh":"小巷","ko":"골목","pt":"beco","th":"ตรอก"}],["進路","しんろ",{"en":"course; future path","zh":"前进路线；升学就业方向","ko":"진로","pt":"rumo; carreira","th":"เส้นทาง; แนวทางอนาคต"}]],"special":[],"simp":"路","trad":"路"},{"kanji":"側","meaningWord":"両側・側面","meaningEasy":"あるものの横や、片方の位置を表す","meaningEn":"side","meaningZh":"侧；一边","meaningKo":"쪽; 측면","meaningPt":"lado","meaningTh":"ด้าน; ข้าง","no":479,"on":["ソク"],"kun":["かわ"],"words":[["両側","りょうがわ",{"en":"both sides","zh":"两侧","ko":"양쪽","pt":"ambos os lados","th":"ทั้งสองด้าน"}]],"extra":[["側面","そくめん",{"en":"side; aspect","zh":"侧面","ko":"측면","pt":"lado; aspecto","th":"ด้านข้าง; แง่มุม"}],["右側","みぎがわ",{"en":"right side","zh":"右侧","ko":"오른쪽","pt":"lado direito","th":"ด้านขวา"}]],"special":[],"simp":"侧","trad":"側"},{"kanji":"窓","meaningWord":"窓・窓口","meaningEasy":"建物や乗り物の壁にある、光や空気を入れる部分などに関係する","meaningEn":"window","meaningZh":"窗；窗口","meaningKo":"창문; 창구","meaningPt":"janela; guichê","meaningTh":"หน้าต่าง; ช่องบริการ","no":480,"on":["ソウ"],"kun":["まど"],"words":[["窓","まど",{"en":"window","zh":"窗户","ko":"창문","pt":"janela","th":"หน้าต่าง"}],["窓口","まどぐち",{"en":"counter; service window","zh":"窗口；柜台","ko":"창구","pt":"guichê; balcão","th":"เคาน์เตอร์บริการ; ช่องบริการ"}]],"extra":[["車窓","しゃそう",{"en":"train/car window; view from it","zh":"车窗","ko":"차창","pt":"janela do veículo","th":"หน้าต่างรถ"}]],"special":[],"simp":"窗","trad":"窗"},{"kanji":"受","meaningWord":"受験・受ける","meaningEasy":"何かを受け取ったり、経験したりすることに関係する","meaningEn":"receive; take; undergo","meaningZh":"受；接受","meaningKo":"받다; 치르다","meaningPt":"receber; fazer; sofrer","meaningTh":"รับ; เข้ารับ; สอบ","no":481,"on":["ジュ"],"kun":["うける","うかる"],"words":[["受験する","じゅけんする",{"en":"to take an examination","zh":"参加考试","ko":"수험하다; 시험을 보다","pt":"prestar exame","th":"เข้าสอบ"}],["受ける","うける",{"en":"to receive; take","zh":"接受；受到","ko":"받다","pt":"receber","th":"รับ; ได้รับ"}]],"extra":[["受付","うけつけ",{"en":"reception; front desk","zh":"接待处；受理","ko":"접수","pt":"recepção","th":"ประชาสัมพันธ์; จุดรับเรื่อง"}],["受かる","うかる",{"en":"to pass an exam","zh":"考上；及格","ko":"합격하다","pt":"passar no exame","th":"สอบผ่าน"}]],"special":[],"simp":"受","trad":"受"},{"kanji":"付","meaningWord":"付近・付属・付く・付ける・受付","meaningEasy":"何かがくっついたり、加わったりすることに関係する","meaningEn":"attach; add; accompany","meaningZh":"附；付；附加","meaningKo":"붙다; 붙이다; 첨부","meaningPt":"anexar; adicionar","meaningTh":"ติด; เพิ่ม; แนบ","no":482,"on":["フ"],"kun":["つく","つける"],"words":[["付近","ふきん",{"en":"vicinity; nearby area","zh":"附近","ko":"부근","pt":"arredores","th":"บริเวณใกล้เคียง"}],["付属する","ふぞくする",{"en":"to be attached/affiliated","zh":"附属","ko":"부속되다","pt":"estar anexo; pertencer","th":"สังกัด; เป็นส่วนประกอบ"}],["付く","つく",{"en":"to stick; be attached","zh":"附着；带有","ko":"붙다","pt":"aderir; ficar anexado","th":"ติด; แนบอยู่"}],["付ける","つける",{"en":"to attach; add","zh":"附上；加上","ko":"붙이다","pt":"anexar; acrescentar","th":"ติด; เพิ่ม"}],["受付","うけつけ",{"en":"reception; front desk","zh":"接待处；受理","ko":"접수","pt":"recepção","th":"ประชาสัมพันธ์; จุดรับเรื่อง"}]],"extra":[["日付","ひづけ",{"en":"date","zh":"日期","ko":"날짜","pt":"data","th":"วันที่"}],["片付ける","かたづける",{"en":"to tidy up","zh":"收拾；整理","ko":"정리하다","pt":"arrumar","th":"เก็บให้เรียบร้อย"}]],"special":[],"simp":"付","trad":"付"},{"kanji":"常","meaningWord":"日常・正常・常に・常識","meaningEasy":"いつも同じように続くことや、普通の状態に関係する","meaningEn":"usual; normal; always","meaningZh":"常；日常；正常","meaningKo":"상시; 일상; 정상","meaningPt":"usual; normal; sempre","meaningTh":"ปกติ; ประจำ; เสมอ","no":483,"on":["ジョウ"],"kun":["つね","とこ"],"words":[["日常","にちじょう",{"en":"everyday life","zh":"日常","ko":"일상","pt":"cotidiano","th":"ชีวิตประจำวัน"}],["正常な","せいじょうな",{"en":"normal","zh":"正常的","ko":"정상적인","pt":"normal","th":"ปกติ"}],["常に","つねに",{"en":"always","zh":"经常；总是","ko":"항상","pt":"sempre","th":"เสมอ"}],["常識","じょうしき",{"en":"common sense","zh":"常识","ko":"상식","pt":"senso comum","th":"สามัญสำนึก"}]],"extra":[["非常","ひじょう",{"en":"emergency; extraordinary","zh":"非常；紧急","ko":"비상","pt":"emergência","th":"ฉุกเฉิน"}],["常夏","とこなつ",{"en":"everlasting summer","zh":"常夏","ko":"상하","pt":"verão permanente","th":"ฤดูร้อนตลอดปี"}]],"special":[],"simp":"常","trad":"常"},{"kanji":"非","meaningWord":"非〜・非常","meaningEasy":"「〜ではない」という否定や、普通とは違うことを表す","meaningEn":"non-; not; wrong","meaningZh":"非；不；不是","meaningKo":"비-; 아니다","meaningPt":"não; não-","meaningTh":"ไม่; นอกเหนือ","no":484,"on":["ヒ"],"kun":[],"words":[["非〜","ひ",{"en":"non-; not","zh":"非…；不…","ko":"비-","pt":"não-","th":"ไม่…"}],["非常口","ひじょうぐち",{"en":"emergency exit","zh":"紧急出口","ko":"비상구","pt":"saída de emergência","th":"ทางออกฉุกเฉิน"}],["非常に","ひじょうに",{"en":"very; extremely","zh":"非常；很","ko":"매우","pt":"muito; extremamente","th":"มาก; อย่างยิ่ง"}],["非常","ひじょう",{"en":"emergency","zh":"紧急；非常","ko":"비상","pt":"emergência","th":"เหตุฉุกเฉิน"}]],"extra":[["非公開","ひこうかい",{"en":"not public; private","zh":"非公开","ko":"비공개","pt":"não público","th":"ไม่เปิดเผย"}]],"special":[],"simp":"非","trad":"非"},{"kanji":"階","meaningWord":"〜階・階段","meaningEasy":"建物の高さの区切りや、その段階を表す","meaningEn":"floor; story; level","meaningZh":"层；楼层","meaningKo":"층","meaningPt":"andar; piso","meaningTh":"ชั้น","no":485,"on":["カイ"],"kun":[],"words":[["〜階","かい",{"en":"floor; story","zh":"层；楼","ko":"층","pt":"andar","th":"ชั้น"}]],"extra":[["階段","かいだん",{"en":"stairs","zh":"楼梯","ko":"계단","pt":"escadas","th":"บันได"}],["一階","いっかい",{"en":"first floor","zh":"一楼","ko":"1층","pt":"primeiro andar","th":"ชั้นหนึ่ง"}]],"special":[],"simp":"阶","trad":"階"},{"kanji":"段","meaningWord":"階段・手段","meaningEasy":"一つ一つの区切りや、方法・レベルを表す","meaningEn":"step; level; means","meaningZh":"段；阶段；手段","meaningKo":"단; 단계; 수단","meaningPt":"degrau; nível; meio","meaningTh":"ขั้น; ระดับ; วิธี","no":486,"on":["ダン"],"kun":[],"words":[["階段","かいだん",{"en":"stairs","zh":"楼梯","ko":"계단","pt":"escadas","th":"บันได"}],["手段","しゅだん",{"en":"means; method","zh":"手段；方法","ko":"수단","pt":"meio; método","th":"วิธี; หนทาง"}]],"extra":[["段階","だんかい",{"en":"stage; phase","zh":"阶段","ko":"단계","pt":"etapa; fase","th":"ขั้นตอน; ระยะ"}]],"special":[],"simp":"段","trad":"段"},{"kanji":"営","meaningWord":"営業・営む","meaningEasy":"仕事や商売などを続けて行うことに関係する","meaningEn":"operate; conduct business","meaningZh":"营业；经营","meaningKo":"영업; 운영","meaningPt":"operar; administrar","meaningTh":"ดำเนินกิจการ; ค้าขาย","no":487,"on":["エイ"],"kun":["いとなむ"],"words":[["営業","えいぎょう",{"en":"business; operation","zh":"营业","ko":"영업","pt":"atividade comercial","th":"การเปิดทำการ; ธุรกิจ"}],["営業中","えいぎょうちゅう",{"en":"open for business","zh":"营业中","ko":"영업 중","pt":"aberto","th":"กำลังเปิดให้บริการ"}]],"extra":[["営む","いとなむ",{"en":"to run; conduct","zh":"经营；从事","ko":"경영하다; 영위하다","pt":"administrar; exercer","th":"ดำเนิน; ประกอบกิจการ"}],["経営","けいえい",{"en":"management","zh":"经营","ko":"경영","pt":"administração","th":"การบริหารกิจการ"}]],"special":[],"simp":"营","trad":"營"},{"kanji":"準","meaningWord":"水準・基準・準備","meaningEasy":"ある基準に合わせたり、前もって用意したりすることに関係する","meaningEn":"standard; semi-; prepare","meaningZh":"准；标准；准备","meaningKo":"준; 기준; 준비","meaningPt":"padrão; preparar","meaningTh":"มาตรฐาน; เตรียม","no":488,"on":["ジュン"],"kun":[],"words":[["水準","すいじゅん",{"en":"level; standard","zh":"水平；水准","ko":"수준","pt":"nível; padrão","th":"ระดับ; มาตรฐาน"}],["基準","きじゅん",{"en":"standard; criterion","zh":"标准；基准","ko":"기준","pt":"critério; padrão","th":"เกณฑ์; มาตรฐาน"}]],"extra":[["準備","じゅんび",{"en":"preparation","zh":"准备","ko":"준비","pt":"preparação","th":"การเตรียม"}],["標準","ひょうじゅん",{"en":"standard","zh":"标准","ko":"표준","pt":"padrão","th":"มาตรฐาน"}]],"special":[],"simp":"准","trad":"準"},{"kanji":"備","meaningWord":"準備・設備・備える","meaningEasy":"必要なものを前もって用意しておくことに関係する","meaningEn":"prepare; provide; equip","meaningZh":"备；准备；设备","meaningKo":"준비; 설비","meaningPt":"preparar; equipar","meaningTh":"เตรียม; จัดให้มี","no":489,"on":["ビ"],"kun":["そなえる","そなわる"],"words":[["準備する","じゅんびする",{"en":"to prepare","zh":"准备","ko":"준비하다","pt":"preparar","th":"เตรียม"}],["設備","せつび",{"en":"equipment; facilities","zh":"设备","ko":"설비","pt":"equipamento; instalações","th":"อุปกรณ์; สิ่งอำนวยความสะดวก"}],["備える","そなえる",{"en":"to prepare; provide","zh":"准备；具备","ko":"갖추다; 대비하다","pt":"preparar; equipar","th":"เตรียมพร้อม; จัดเตรียม"}]],"extra":[["予備","よび",{"en":"reserve; spare","zh":"备用","ko":"예비","pt":"reserva","th":"สำรอง"}],["備わる","そなわる",{"en":"to be equipped; possess","zh":"具备","ko":"갖추어지다","pt":"estar equipado","th":"มีพร้อม; มีคุณสมบัติ"}]],"special":[],"simp":"备","trad":"備"},{"kanji":"清","meaningWord":"清潔・清書・清い","meaningEasy":"よごれがなく、きれいで澄んでいることに関係する","meaningEn":"clean; pure; clear","meaningZh":"清；清洁","meaningKo":"깨끗하다; 맑다","meaningPt":"limpo; puro","meaningTh":"สะอาด; บริสุทธิ์","no":490,"on":["セイ","ショウ"],"kun":["きよい","きよまる","きよめる"],"words":[["清潔な","せいけつな",{"en":"clean; hygienic","zh":"清洁的","ko":"청결한","pt":"limpo; higiênico","th":"สะอาด; ถูกสุขอนามัย"}],["清書する","せいしょする",{"en":"to make a clean copy","zh":"誊清；清书","ko":"정서하다","pt":"passar a limpo","th":"เขียนฉบับสะอาด"}],["清い","きよい",{"en":"pure; clean","zh":"清澈；纯洁","ko":"맑다; 깨끗하다","pt":"puro; limpo","th":"บริสุทธิ์; สะอาด"}]],"extra":[["清掃","せいそう",{"en":"cleaning","zh":"清扫","ko":"청소","pt":"limpeza","th":"การทำความสะอาด"}],["清める","きよめる",{"en":"to purify","zh":"净化；清洁","ko":"깨끗이 하다; 정화하다","pt":"purificar","th":"ชำระให้สะอาด"}]],"special":[],"simp":"清","trad":"清"}];
+
+let selected = new Set(DATA.map(d=>d.kanji));
+let currentFlashData=null;
+
+
+function vocabTranslation(vocab, lang){
+  if(lang==="ja") return "";
+  const tr = vocab[vocab.length-1];
+  if(!tr || typeof tr!=="object" || Array.isArray(tr)) return "";
+  return tr[lang] || "";
+}
+const SPECIAL_READING_WORDS=new Set([]);
+function specialReadingTag(word){
+  return SPECIAL_READING_WORDS.has(word)
+    ? ' <span class="special-reading-tag"><ruby>特別<rt>とくべつ</rt></ruby>な<ruby>読<rt>よ</rt></ruby>み</span>'
+    : "";
+}
+function renderFlashVocab(){
+  if(!currentFlashData) return;
+  const lang=meaningLang.value;
+  const d=currentFlashData;
+  fWords.innerHTML=d.words.map(w=>{
+    const tr=vocabTranslation(w,lang);
+    return `<span class="pill">${w[0]}（${w[1]}）${specialReadingTag(w[0])}${tr ? `<small class="vocab-tr"> ${tr}</small>` : ""}</span>`;
+  }).join("");
+  fExtra.innerHTML=(d.extra||[]).map(w=>{
+    const tr=vocabTranslation(w,lang);
+    return `<span class="pill">${w[0]}（${w[1]}）${specialReadingTag(w[0])}${tr ? `<small class="vocab-tr"> ${tr}</small>` : ""}</span>`;
+  }).join("");
+  if((d.special||[]).length){
+    fSpecialBox.classList.remove("hidden");
+    fSpecial.innerHTML=d.special.map(w=>{
+      const tr=vocabTranslation(w,lang);
+      return `<span class="pill">${w[0]}（${w[1]}）<small>［${w[2]}］</small>${tr ? `<small class="vocab-tr"> ${tr}</small>` : ""}</span>`;
+    }).join("");
+  }else{
+    fSpecialBox.classList.add("hidden");
+    fSpecial.innerHTML="";
+  }
+}
+
+
+function renderIjiDokun(){
+  if(!currentFlashData) return;
+  const item=IJI_DOKUN[currentFlashData.kanji];
+  if(!item){
+    fIjiBox.classList.add("hidden");
+    fIjiText.textContent="";
+    return;
+  }
+  const lang=meaningLang.value||"ja";
+  fIjiText.textContent=item[lang]||item.ja;
+  fIjiText.lang = lang==="zh" ? "zh-CN" : lang==="ko" ? "ko" : lang==="pt" ? "pt-BR" : lang==="th" ? "th" : lang==="en" ? "en" : "ja";
+  fIjiBox.classList.remove("hidden");
+}
+
+function renderMeaning(){
+  if(!currentFlashData) return;
+  const lang=meaningLang.value;
+  const langHelp=document.getElementById("langHelp");
+  if(langHelp) langHelp.classList.toggle("hidden", lang!=="ja");
+  if(lang==="ja"){
+    meaningJa.classList.remove("hidden");
+    meaningOther.classList.add("hidden");
+    fMeaningWord.textContent=currentFlashData.meaningWord ? currentFlashData.meaningWord+"：" : "";
+    fMeaningEasy.textContent=currentFlashData.meaningEasy||"";
+  }else{
+    meaningJa.classList.add("hidden");
+    meaningOther.classList.remove("hidden");
+    const map={en:"meaningEn",zh:"meaningZh",ko:"meaningKo",pt:"meaningPt",th:"meaningTh"};
+    meaningOther.textContent=currentFlashData[map[lang]]||"";
+    meaningOther.lang = lang==="zh" ? "zh-CN" : lang==="ko" ? "ko" : lang==="pt" ? "pt-BR" : lang==="th" ? "th" : "en";
+  }
+  renderFlashVocab();
+  renderReadingExamples(currentFlashData);
+  renderIjiDokun();
+}
+let flashPool = [...DATA], flashIndex = 0, flashDirty = false;
+
+function resetFlashPool(){
+  flashPool=DATA.filter(d=>selected.has(d.kanji));
+  if(cardOrder.value==="random") flashPool=shuffle(flashPool);
+  flashIndex=0;
+  flashDirty=false;
+}
+
+
+// 常用漢字表で音訓が1字下げされる「特別なもの又は用法のごく狭いもの」を共通管理する。
+const LIMITED_USE_JOYO_READINGS = new Set(["数|on|ス","静|on|ジョウ","馬|kun|ま","舟|kun|ふな","石|on|シャク","石|on|コク","由|on|ユイ","若|on|ニャク","留|on|ル","供|on|ク","緒|on|チョ","夫|on|フウ","児|on|ニ","庫|on|ク","流|on|ル"]);
+const IJI_DOKUN = {"付":{"ja":"つく：付く＝ものが くっつく・いっしょに なる ／ 着く＝ばしょに とうちゃくする ／ 就く＝しごと・やくわりを はじめる ／ 突く＝ゆびや ぼうなどで おす・つつく ／ 点く＝でんきや ひが つく","en":"つく: 付く = be attached / 着く = arrive at a place / 就く = take up a job or role / 突く = poke or thrust / 点く = a light or fire comes on","zh":"つく：付く＝附着、带有 ／ 着く＝到达某地 ／ 就く＝就职、担任某职 ／ 突く＝戳、捅 ／ 点く＝灯或火亮起","ko":"つく: 付く＝붙다 ／ 着く＝도착하다 ／ 就く＝직업·역할을 맡다 ／ 突く＝찌르다·쿡 누르다 ／ 点く＝불·전기가 켜지다","pt":"つく: 付く = ficar preso/anexado / 着く = chegar / 就く = assumir um trabalho ou função / 突く = espetar ou cutucar / 点く = luz ou fogo acender","th":"つく: 付く = ติดอยู่ / 着く = ไปถึงสถานที่ / 就く = เริ่มงานหรือรับตำแหน่ง / 突く = จิ้ม แทง หรือดัน / 点く = ไฟหรือแสงติด"}};
+const READING_EXAMPLES = {"符":{"on":{"フ":"符号（ふごう）"},"kun":{}},"券":{"on":{"ケン":"定期券（ていきけん）"},"kun":{}},"枚":{"on":{"マイ":"枚数（まいすう）"},"kun":{}},"札":{"on":{"サツ":"千円札（せんえんさつ）"},"kun":{"ふだ":"名札（なふだ）"}},"改":{"on":{"カイ":"改札（かいさつ）"},"kun":{"あらためる":"改める（あらためる）","あらたまる":"改まる（あらたまる）"}},"算":{"on":{"サン":"計算（けいさん）"},"kun":{}},"精":{"on":{"セイ":"精算（せいさん）","ショウ":"精進（しょうじん）"},"kun":{}},"面":{"on":{"メン":"表面（ひょうめん）"},"kun":{"おも":"面影（おもかげ）","おもて":"面（おもて）","つら":"面（つら）"}},"停":{"on":{"テイ":"停車（ていしゃ）"},"kun":{}},"刻":{"on":{"コク":"時刻（じこく）"},"kun":{"きざむ":"刻む（きざむ）"}},"普":{"on":{"フ":"普通（ふつう）"},"kun":{}},"快":{"on":{"カイ":"快適（かいてき）"},"kun":{"こころよい":"快い（こころよい）"}},"換":{"on":{"カン":"交換（こうかん）"},"kun":{"かえる":"換える（かえる）","かわる":"換わる（かわる）"}},"禁":{"on":{"キン":"禁止（きんし）"},"kun":{}},"煙":{"on":{"エン":"禁煙（きんえん）"},"kun":{"けむる":"煙る（けむる）","けむり":"煙（けむり）","けむい":"煙い（けむい）"}},"険":{"on":{"ケン":"危険（きけん）"},"kun":{"けわしい":"険しい（けわしい）"}},"危":{"on":{"キ":"危険（きけん）"},"kun":{"あぶない":"危ない（あぶない）","あやうい":"危うい（あやうい）","あやぶむ":"危ぶむ（あやぶむ）"}},"路":{"on":{"ロ":"道路（どうろ）"},"kun":{"じ":"路地（ろじ）"}},"側":{"on":{"ソク":"側面（そくめん）"},"kun":{"かわ":"右側（みぎがわ）"}},"窓":{"on":{"ソウ":"車窓（しゃそう）"},"kun":{"まど":"窓（まど）"}},"受":{"on":{"ジュ":"受験（じゅけん）"},"kun":{"うける":"受ける（うける）","うかる":"受かる（うかる）"}},"付":{"on":{"フ":"付近（ふきん）"},"kun":{"つく":"付く（つく）","つける":"付ける（つける）"}},"常":{"on":{"ジョウ":"日常（にちじょう）"},"kun":{"つね":"常に（つねに）","とこ":"常夏（とこなつ）"}},"非":{"on":{"ヒ":"非常（ひじょう）"},"kun":{}},"階":{"on":{"カイ":"階段（かいだん）"},"kun":{}},"段":{"on":{"ダン":"手段（しゅだん）"},"kun":{}},"営":{"on":{"エイ":"営業（えいぎょう）"},"kun":{"いとなむ":"営む（いとなむ）"}},"準":{"on":{"ジュン":"準備（じゅんび）"},"kun":{}},"備":{"on":{"ビ":"設備（せつび）"},"kun":{"そなえる":"備える（そなえる）","そなわる":"備わる（そなわる）"}},"清":{"on":{"セイ":"清潔（せいけつ）","ショウ":"清浄（しょうじょう）"},"kun":{"きよい":"清い（きよい）","きよまる":"清まる（きよまる）","きよめる":"清める（きよめる）"}}};
+const READING_EXAMPLE_GLOSS = {"符|on|フ":{"ja":"切符","en":"mark; sign; symbol","zh":"符号；记号","ko":"부호; 기호","pt":"sinal; símbolo","th":"เครื่องหมาย; สัญลักษณ์"},"券|on|ケン":{"ja":"券","en":"ticket; coupon; certificate","zh":"券；票","ko":"권; 표","pt":"bilhete; cupom","th":"บัตร; คูปอง"},"枚|on|マイ":{"ja":"一枚","en":"counter for flat objects","zh":"张；枚（量词）","ko":"장; 매","pt":"contador de objetos planos","th":"ลักษณนามสำหรับของแบน"},"札|on|サツ":{"ja":"千円札","en":"banknote; tag; placard","zh":"纸币；牌子","ko":"지폐; 표찰","pt":"nota; etiqueta","th":"ธนบัตร; ป้าย"},"札|kun|ふだ":{"ja":"千円札","en":"banknote; tag; placard","zh":"纸币；牌子","ko":"지폐; 표찰","pt":"nota; etiqueta","th":"ธนบัตร; ป้าย"},"改|on|カイ":{"ja":"改札口","en":"change; reform; revise","zh":"改；改革；修改","ko":"고치다; 개정하다","pt":"mudar; reformar; revisar","th":"เปลี่ยน; ปรับปรุง; แก้ไข"},"改|kun|あらためる":{"ja":"改札口","en":"change; reform; revise","zh":"改；改革；修改","ko":"고치다; 개정하다","pt":"mudar; reformar; revisar","th":"เปลี่ยน; ปรับปรุง; แก้ไข"},"改|kun|あらたまる":{"ja":"改札口","en":"change; reform; revise","zh":"改；改革；修改","ko":"고치다; 개정하다","pt":"mudar; reformar; revisar","th":"เปลี่ยน; ปรับปรุง; แก้ไข"},"算|on|サン":{"ja":"計算","en":"calculate; arithmetic","zh":"计算；算术","ko":"계산; 산수","pt":"calcular; aritmética","th":"คำนวณ; เลขคณิต"},"精|on|セイ":{"ja":"精算","en":"refined; exact; spirit","zh":"精；精确；精神","ko":"정밀; 정신","pt":"preciso; espírito","th":"ละเอียด; แม่นยำ; จิตใจ"},"精|on|ショウ":{"ja":"精算","en":"refined; exact; spirit","zh":"精；精确；精神","ko":"정밀; 정신","pt":"preciso; espírito","th":"ละเอียด; แม่นยำ; จิตใจ"},"面|on|メン":{"ja":"表面","en":"surface; side; aspect","zh":"面；表面；方面","ko":"면; 표면; 방면","pt":"superfície; lado; aspecto","th":"พื้นผิว; ด้าน; แง่มุม"},"面|kun|おも":{"ja":"表面","en":"surface; side; aspect","zh":"面；表面；方面","ko":"면; 표면; 방면","pt":"superfície; lado; aspecto","th":"พื้นผิว; ด้าน; แง่มุม"},"面|kun|おもて":{"ja":"表面","en":"surface; side; aspect","zh":"面；表面；方面","ko":"면; 표면; 방면","pt":"superfície; lado; aspecto","th":"พื้นผิว; ด้าน; แง่มุม"},"面|kun|つら":{"ja":"表面","en":"surface; side; aspect","zh":"面；表面；方面","ko":"면; 표면; 방면","pt":"superfície; lado; aspecto","th":"พื้นผิว; ด้าน; แง่มุม"},"停|on|テイ":{"ja":"停止","en":"stop; halt","zh":"停止；停","ko":"정지; 멈춤","pt":"parar; interrupção","th":"หยุด; จอด"},"刻|on|コク":{"ja":"時刻","en":"time; engrave; carve","zh":"时刻；刻；雕刻","ko":"시각; 새기다","pt":"tempo; gravar; entalhar","th":"เวลา; แกะสลัก; สับ"},"刻|kun|きざむ":{"ja":"時刻","en":"time; engrave; carve","zh":"时刻；刻；雕刻","ko":"시각; 새기다","pt":"tempo; gravar; entalhar","th":"เวลา; แกะสลัก; สับ"},"普|on|フ":{"ja":"普通","en":"general; ordinary","zh":"普通；普遍","ko":"보통; 일반","pt":"comum; geral","th":"ทั่วไป; ปกติ"},"快|on|カイ":{"ja":"快適","en":"pleasant; comfortable; fast","zh":"愉快；舒适；快速","ko":"쾌적; 유쾌; 쾌속","pt":"agradável; confortável; rápido","th":"สบาย; รื่นรมย์; รวดเร็ว"},"快|kun|こころよい":{"ja":"快適","en":"pleasant; comfortable; fast","zh":"愉快；舒适；快速","ko":"쾌적; 유쾌; 쾌속","pt":"agradável; confortável; rápido","th":"สบาย; รื่นรมย์; รวดเร็ว"},"換|on|カン":{"ja":"交換","en":"exchange; replace; convert","zh":"换；交换；转换","ko":"바꾸다; 교환하다","pt":"trocar; substituir; converter","th":"แลก; เปลี่ยน; สับเปลี่ยน"},"換|kun|かえる":{"ja":"交換","en":"exchange; replace; convert","zh":"换；交换；转换","ko":"바꾸다; 교환하다","pt":"trocar; substituir; converter","th":"แลก; เปลี่ยน; สับเปลี่ยน"},"換|kun|かわる":{"ja":"交換","en":"exchange; replace; convert","zh":"换；交换；转换","ko":"바꾸다; 교환하다","pt":"trocar; substituir; converter","th":"แลก; เปลี่ยน; สับเปลี่ยน"},"禁|on|キン":{"ja":"禁止","en":"prohibit; forbid","zh":"禁止；禁","ko":"금지","pt":"proibir","th":"ห้าม"},"煙|on|エン":{"ja":"煙突","en":"smoke","zh":"烟；烟雾","ko":"연기","pt":"fumaça","th":"ควัน"},"煙|kun|けむる":{"ja":"煙突","en":"smoke","zh":"烟；烟雾","ko":"연기","pt":"fumaça","th":"ควัน"},"煙|kun|けむり":{"ja":"煙突","en":"smoke","zh":"烟；烟雾","ko":"연기","pt":"fumaça","th":"ควัน"},"煙|kun|けむい":{"ja":"煙突","en":"smoke","zh":"烟；烟雾","ko":"연기","pt":"fumaça","th":"ควัน"},"険|on|ケン":{"ja":"冒険","en":"dangerous; steep","zh":"险；危险；险峻","ko":"위험; 험하다","pt":"perigoso; íngreme","th":"อันตราย; สูงชัน"},"険|kun|けわしい":{"ja":"冒険","en":"dangerous; steep","zh":"险；危险；险峻","ko":"위험; 험하다","pt":"perigoso; íngreme","th":"อันตราย; สูงชัน"},"危|on|キ":{"ja":"危険","en":"danger; dangerous","zh":"危险；危","ko":"위험; 위태롭다","pt":"perigo; perigoso","th":"อันตราย; เสี่ยง"},"危|kun|あぶない":{"ja":"危険","en":"danger; dangerous","zh":"危险；危","ko":"위험; 위태롭다","pt":"perigo; perigoso","th":"อันตราย; เสี่ยง"},"危|kun|あやうい":{"ja":"危険","en":"danger; dangerous","zh":"危险；危","ko":"위험; 위태롭다","pt":"perigo; perigoso","th":"อันตราย; เสี่ยง"},"危|kun|あやぶむ":{"ja":"危険","en":"danger; dangerous","zh":"危险；危","ko":"위험; 위태롭다","pt":"perigo; perigoso","th":"อันตราย; เสี่ยง"},"路|on|ロ":{"ja":"道路","en":"road; route; path","zh":"路；道路","ko":"길; 노선","pt":"estrada; rota; caminho","th":"ถนน; เส้นทาง"},"路|kun|じ":{"ja":"道路","en":"road; route; path","zh":"路；道路","ko":"길; 노선","pt":"estrada; rota; caminho","th":"ถนน; เส้นทาง"},"側|on|ソク":{"ja":"両側","en":"side","zh":"侧；一边","ko":"쪽; 측면","pt":"lado","th":"ด้าน; ข้าง"},"側|kun|かわ":{"ja":"両側","en":"side","zh":"侧；一边","ko":"쪽; 측면","pt":"lado","th":"ด้าน; ข้าง"},"窓|on|ソウ":{"ja":"窓","en":"window","zh":"窗；窗口","ko":"창문; 창구","pt":"janela; guichê","th":"หน้าต่าง; ช่องบริการ"},"窓|kun|まど":{"ja":"窓","en":"window","zh":"窗；窗口","ko":"창문; 창구","pt":"janela; guichê","th":"หน้าต่าง; ช่องบริการ"},"受|on|ジュ":{"ja":"受験","en":"receive; take; undergo","zh":"受；接受","ko":"받다; 치르다","pt":"receber; fazer; sofrer","th":"รับ; เข้ารับ; สอบ"},"受|kun|うける":{"ja":"受験","en":"receive; take; undergo","zh":"受；接受","ko":"받다; 치르다","pt":"receber; fazer; sofrer","th":"รับ; เข้ารับ; สอบ"},"受|kun|うかる":{"ja":"受験","en":"receive; take; undergo","zh":"受；接受","ko":"받다; 치르다","pt":"receber; fazer; sofrer","th":"รับ; เข้ารับ; สอบ"},"付|on|フ":{"ja":"付近","en":"attach; add; accompany","zh":"附；付；附加","ko":"붙다; 붙이다; 첨부","pt":"anexar; adicionar","th":"ติด; เพิ่ม; แนบ"},"付|kun|つく":{"ja":"付近","en":"attach; add; accompany","zh":"附；付；附加","ko":"붙다; 붙이다; 첨부","pt":"anexar; adicionar","th":"ติด; เพิ่ม; แนบ"},"付|kun|つける":{"ja":"付近","en":"attach; add; accompany","zh":"附；付；附加","ko":"붙다; 붙이다; 첨부","pt":"anexar; adicionar","th":"ติด; เพิ่ม; แนบ"},"常|on|ジョウ":{"ja":"日常","en":"usual; normal; always","zh":"常；日常；正常","ko":"상시; 일상; 정상","pt":"usual; normal; sempre","th":"ปกติ; ประจำ; เสมอ"},"常|kun|つね":{"ja":"日常","en":"usual; normal; always","zh":"常；日常；正常","ko":"상시; 일상; 정상","pt":"usual; normal; sempre","th":"ปกติ; ประจำ; เสมอ"},"常|kun|とこ":{"ja":"日常","en":"usual; normal; always","zh":"常；日常；正常","ko":"상시; 일상; 정상","pt":"usual; normal; sempre","th":"ปกติ; ประจำ; เสมอ"},"非|on|ヒ":{"ja":"非〜","en":"non-; not; wrong","zh":"非；不；不是","ko":"비-; 아니다","pt":"não; não-","th":"ไม่; นอกเหนือ"},"階|on|カイ":{"ja":"〜階","en":"floor; story; level","zh":"层；楼层","ko":"층","pt":"andar; piso","th":"ชั้น"},"段|on|ダン":{"ja":"階段","en":"step; level; means","zh":"段；阶段；手段","ko":"단; 단계; 수단","pt":"degrau; nível; meio","th":"ขั้น; ระดับ; วิธี"},"営|on|エイ":{"ja":"営業","en":"operate; conduct business","zh":"营业；经营","ko":"영업; 운영","pt":"operar; administrar","th":"ดำเนินกิจการ; ค้าขาย"},"営|kun|いとなむ":{"ja":"営業","en":"operate; conduct business","zh":"营业；经营","ko":"영업; 운영","pt":"operar; administrar","th":"ดำเนินกิจการ; ค้าขาย"},"準|on|ジュン":{"ja":"水準","en":"standard; semi-; prepare","zh":"准；标准；准备","ko":"준; 기준; 준비","pt":"padrão; preparar","th":"มาตรฐาน; เตรียม"},"備|on|ビ":{"ja":"準備","en":"prepare; provide; equip","zh":"备；准备；设备","ko":"준비; 설비","pt":"preparar; equipar","th":"เตรียม; จัดให้มี"},"備|kun|そなえる":{"ja":"準備","en":"prepare; provide; equip","zh":"备；准备；设备","ko":"준비; 설비","pt":"preparar; equipar","th":"เตรียม; จัดให้มี"},"備|kun|そなわる":{"ja":"準備","en":"prepare; provide; equip","zh":"备；准备；设备","ko":"준비; 설비","pt":"preparar; equipar","th":"เตรียม; จัดให้มี"},"清|on|セイ":{"ja":"清潔","en":"clean; pure; clear","zh":"清；清洁","ko":"깨끗하다; 맑다","pt":"limpo; puro","th":"สะอาด; บริสุทธิ์"},"清|on|ショウ":{"ja":"清潔","en":"clean; pure; clear","zh":"清；清洁","ko":"깨끗하다; 맑다","pt":"limpo; puro","th":"สะอาด; บริสุทธิ์"},"清|kun|きよい":{"ja":"清潔","en":"clean; pure; clear","zh":"清；清洁","ko":"깨끗하다; 맑다","pt":"limpo; puro","th":"สะอาด; บริสุทธิ์"},"清|kun|きよまる":{"ja":"清潔","en":"clean; pure; clear","zh":"清；清洁","ko":"깨끗하다; 맑다","pt":"limpo; puro","th":"สะอาด; บริสุทธิ์"},"清|kun|きよめる":{"ja":"清潔","en":"clean; pure; clear","zh":"清；清洁","ko":"깨끗하다; 맑다","pt":"limpo; puro","th":"สะอาด; บริสุทธิ์"}};
+const KUN_PARTS = {"ふだ":["ふだ",""],"あらためる":["あらた","める"],"あらたまる":["あらた","まる"],"おも":["おも",""],"おもて":["おもて",""],"つら":["つら",""],"きざむ":["きざ","む"],"こころよい":["こころよ","い"],"かえる":["か","える"],"かわる":["か","わる"],"けむる":["けむ","る"],"けむり":["けむり",""],"けむい":["けむ","い"],"けわしい":["けわ","しい"],"あぶない":["あぶ","ない"],"あやうい":["あや","うい"],"あやぶむ":["あや","ぶむ"],"じ":["じ",""],"かわ":["かわ",""],"まど":["まど",""],"うける":["う","ける"],"うかる":["う","かる"],"つく":["つ","く"],"つける":["つ","ける"],"つね":["つね",""],"とこ":["とこ",""],"いとなむ":["いとな","む"],"そなえる":["そな","える"],"そなわる":["そな","わる"],"きよい":["きよ","い"],"きよまる":["きよ","まる"],"きよめる":["きよ","める"]};
+function formatKun(readings){
+  if(!readings.length) return "—";
+  return readings.map(r=>{
+    const p=KUN_PARTS[r] || [r,""];
+    return `<span class="kun-stem">${p[0]}</span>${p[1] ? `<span class="okuri">${p[1]}</span>` : ""}`;
+  }).join("・");
+}
+
+
+function renderReadingExamples(d){
+  const ex=READING_EXAMPLES[d.kanji]||{on:{},kun:{}};
+  const lang=meaningLang?.value||"ja";
+  const langAttr = lang==="zh" ? "zh-CN" : lang==="ko" ? "ko" : lang==="pt" ? "pt-BR" : lang==="th" ? "th" : lang==="en" ? "en" : "ja";
+
+  const makeRow=(type,r,word)=>{
+    const gloss=READING_EXAMPLE_GLOSS[d.kanji+"|"+type+"|"+r]?.[lang]||"";
+    const isReference=word.endsWith("［参考］");
+    const displayWord=isReference ? word.slice(0,-4) : word;
+    const refMark=isReference ? `<sup class="reading-ref-mark">※</sup>` : "";
+    return `<span class="reading-example-row">
+      <span class="reading-key">${type==="kun" ? formatKun([r]) : r}</span>
+      ${word?`<span class="reading-arrow">→</span><span class="reading-word jp-kanji">${displayWord}${refMark}</span>`:""}
+      ${gloss?`<small class="reading-gloss" lang="${langAttr}">${gloss}</small>`:""}
+    </span>`;
+  };
+
+  if(d.on.length){
+    fOn.innerHTML=d.on.map(r=>makeRow("on",r,ex.on?.[r]||"")).join("");
+  }else{
+    fOn.textContent="—";
+  }
+
+  if(d.kun.length){
+    fKun.innerHTML=d.kun.map(r=>makeRow("kun",r,ex.kun?.[r]||"")).join("");
+  }else{
+    fKun.textContent="—";
+  }
+
+  const onHasReference=(d.on||[]).some(r=>(ex.on?.[r]||"").endsWith("［参考］"));
+  const kunHasReference=(d.kun||[]).some(r=>(ex.kun?.[r]||"").endsWith("［参考］"));
+  fOnRefNote.classList.toggle("hidden",!onHasReference);
+  fKunRefNote.classList.toggle("hidden",!kunHasReference);
+}
+
+function shuffle(a){
+  const b=[...a];
+  for(let i=b.length-1;i>0;i--){
+    const j=Math.floor(Math.random()*(i+1));
+    [b[i],b[j]]=[b[j],b[i]];
+  }
+  return b;
+}
+function norm(s){
+  return String(s??"")
+    .normalize("NFKC")
+    .trim()
+    .replace(/\s+/g,"")
+    .replace(/[・、。，．]/g,"")
+    .replace(/[ァ-ヶ]/g,ch=>String.fromCharCode(ch.charCodeAt(0)-0x60));
+}
+// 読みクイズでは、画面に出した語の読みをそのまま答える。
+// ぢ/じ・づ/ずは同一扱いにしない。
+function answerMatches(input,reading){
+  const a=norm(input);
+  return a!=="" && a===norm(reading);
+}
+
+// 読みクイズ専用の出題形。
+// する動詞は「する」を、な形容詞は語末の「な」を外す。
+// それ以外の送り仮名（速い・遅れる等）は残す。
+function toReadingQuizForm(word,reading){
+  let qWord=String(word??"");
+  let qReading=String(reading??"");
+  if(qWord.endsWith("する") && qReading.endsWith("する")){
+    qWord=qWord.slice(0,-2);
+    qReading=qReading.slice(0,-2);
+  }else if(qWord.endsWith("な") && qReading.endsWith("な")){
+    qWord=qWord.slice(0,-1);
+    qReading=qReading.slice(0,-1);
+  }
+  return {word:qWord,reading:qReading};
+}
+
+const memoryStorage={};
+function safeStorageGet(key){
+  try{
+    const v=localStorage.getItem(key);
+    if(v!==null) memoryStorage[key]=v;
+    return v!==null ? v : (memoryStorage[key] ?? null);
+  }catch(e){
+    return memoryStorage[key] ?? null;
+  }
+}
+function safeStorageSet(key,value){
+  memoryStorage[key]=String(value);
+  try{ localStorage.setItem(key,String(value)); }catch(e){}
+}
+function safeStorageRemove(key){
+  delete memoryStorage[key];
+  try{ localStorage.removeItem(key); }catch(e){}
+}
+function defaultStats(){
+  return {answered:0,correct:0,writeGood:0,writeBad:0,items:{}};
+}
+function statsLoad(){
+  let s;
+  try{
+    const raw=safeStorageGet("kanjiL9StatsV1");
+    s=raw ? JSON.parse(raw) : defaultStats();
+  }catch(e){
+    s=defaultStats();
+  }
+  if(!s || typeof s!=="object" || Array.isArray(s)) s=defaultStats();
+  s.answered=Number.isFinite(Number(s.answered)) ? Number(s.answered) : 0;
+  s.correct=Number.isFinite(Number(s.correct)) ? Number(s.correct) : 0;
+  s.writeGood=Number.isFinite(Number(s.writeGood)) ? Number(s.writeGood) : 0;
+  s.writeBad=Number.isFinite(Number(s.writeBad)) ? Number(s.writeBad) : 0;
+  if(!s.items || typeof s.items!=="object" || Array.isArray(s.items)) s.items={};
+  return s;
+}
+function statsSave(s){safeStorageSet("kanjiL9StatsV1",JSON.stringify(s));}
+
+// ---- 第1〜8課 学習記録パイロット v2：進捗と「実際に学習した日時」を分けて保存 ----
+const PROGRESS_KEY="kanjiL9ProgressV2";
+const LEGACY_PROGRESS_KEY="kanjiL9ProgressV1";
+
+function defaultProgress(){
+  return {cards:{},read:{},write:{},status:"",lastActivity:0,legacyOnly:false};
+}
+function normalizeProgress(p){
+  if(!p || typeof p!=="object" || Array.isArray(p)) p=defaultProgress();
+  ["cards","read","write"].forEach(k=>{
+    if(!p[k] || typeof p[k]!=="object" || Array.isArray(p[k])) p[k]={};
+  });
+  if(!["","learning","done"].includes(p.status)) p.status="";
+  p.lastActivity=Number.isFinite(Number(p.lastActivity)) ? Number(p.lastActivity) : 0;
+  p.legacyOnly=!!p.legacyOnly;
+  return p;
+}
+function hasProgressItems(p){
+  return ["cards","read","write"].some(k=>Object.keys(p[k]||{}).length>0);
+}
+function progressLoad(){
+  let p;
+  try{
+    const raw=safeStorageGet(PROGRESS_KEY);
+    if(raw) return normalizeProgress(JSON.parse(raw));
+  }catch(e){}
+
+  // V1の日時は、旧成績の移行や状態変更でも更新され得たため
+  // 「学習した日時」としては引き継がない。進捗・状態だけを引き継ぐ。
+  p=defaultProgress();
+  let old=null;
+  try{
+    const rawOld=safeStorageGet(LEGACY_PROGRESS_KEY);
+    old=rawOld ? normalizeProgress(JSON.parse(rawOld)) : null;
+  }catch(e){ old=null; }
+
+  if(old){
+    p.cards={...old.cards};
+    p.read={...old.read};
+    p.write={...old.write};
+    p.status=old.status;
+  }
+
+  const s=statsLoad();
+  const hasLegacy=(s.answered||0)>0 || (s.writeGood||0)>0 || (s.writeBad||0)>0 || Object.keys(s.items||{}).length>0;
+  const hadOldSignal=!!old && (old.status || hasProgressItems(old) || old.lastActivity>0);
+
+  if(!p.status && (hasProgressItems(p) || hasLegacy)) p.status="learning";
+  if(hadOldSignal || hasLegacy){
+    p.legacyOnly=true;
+    p.lastActivity=0;
+    progressSave(p);
+  }
+  return p;
+}
+function progressSave(p){
+  safeStorageSet(PROGRESS_KEY,JSON.stringify(normalizeProgress(p)));
+}
+function recordUniqueProgress(kind,key){
+  if(!kind || !key) return;
+  const p=progressLoad();
+  if(!p[kind]) p[kind]={};
+  p[kind][key]=true;
+  if(p.status!=="done") p.status="learning";
+  // Only a real learning action updates the study time.
+  p.lastActivity=Date.now();
+  p.legacyOnly=false;
+  progressSave(p);
+}
+function recordStudyActivity(){
+  const p=progressLoad();
+  if(p.status!=="done") p.status="learning";
+  // 「答えを見る」は学習開始として扱うが、書き進捗はまだ増やさない。
+  p.lastActivity=Date.now();
+  p.legacyOnly=false;
+  progressSave(p);
+}
+function mark(k,field,add=1){
+  const s=statsLoad();
+  if(!s.items[k]) s.items[k]={hard:0,wrong:0,review:false};
+  s.items[k][field]=(s.items[k][field]||0)+add;
+  s.items[k].review=true;
+  statsSave(s); renderStats();
+}
+function removeReview(k){
+  const s=statsLoad();
+  if(s.items[k]) s.items[k].review=false;
+  statsSave(s); renderStats();
+}
+
+function switchTab(id){
+  document.querySelectorAll(".tabs button").forEach(b=>{
+    const on=b.dataset.tab===id;
+    b.classList.toggle("active",on);
+    b.setAttribute("aria-selected",on ? "true" : "false");
+  });
+  document.querySelectorAll(".panel").forEach(p=>p.classList.toggle("active",p.id===id));
+}
+
+function escapeHtml(s){
+  return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+}
+// 書き練習の答えを、学習段階で見分ける。
+const BEGINNER_300=new Set([..."安一飲右雨駅円下何火花会外学間気休魚金九空月見言古五午後語口校行高国今左三山四子時耳七社車手週十出書女小少上食新人水生西先千川前足多大男中長天店電土東道読南二日入年買白八半百父分聞母北本毎万名木目友来立六話県悪暗以意医員引院運映英遠屋音夏家歌画回海界開楽寒漢館顔帰起急究牛去京強教業近銀区兄計軽建犬研験元好工広考合黒菜作仕使始姉市思止死私紙試事字持自室質写者借弱主首秋終習集住重春所暑乗場色心森真親図世正声青赤切説洗早走送族村体待貸代台題短知地池茶着昼注朝町鳥通低弟転田都度冬答頭働動同堂特肉売発飯病品不風服物文別便勉歩方妹味明問門夜野薬有夕曜洋用理旅料力林黄座濯奥押降号取酒寝全鉄内晩番府部閉米利和"]);
+const PRIOR_LESSON_KANJI=new Set([..."級予定表授宿復辞初第課練科参忘覚組席欠板解筆違消次線最適当選例形変式直記点机数余速遅易単簡難細太狭浅深静涼暖冷温熱困球化馬象竹糸貝毛舟石岩畑由油官管島若苦向老像紹介留的術技妻供緒登専卒結婚夫刺身独柔配畳具雑誌童児冊壁絵隅箱床戸庫蔵器乳卵果庭落並決折続割流渡曲過助倒増減伸破育燃残片越港神美偉芸交差役公園昔城警察署防橋容角"]);
+const CURRENT_LESSON_KANJI=new Set(DATA.map(d=>d.kanji));
+const HAN_RE=/\p{Script=Han}/u;
+
+function highlightTargets(word){
+  return [...String(word)].map(ch=>{
+    const safe=escapeHtml(ch);
+    if(CURRENT_LESSON_KANJI.has(ch)){
+      return `<span class="target-kanji" title="第9課">${safe}</span>`;
+    }
+    if(BEGINNER_300.has(ch) || PRIOR_LESSON_KANJI.has(ch)){
+      return `<span class="known-kanji" title="初級・既習">${safe}</span>`;
+    }
+    if(HAN_RE.test(ch)){
+      return `<span class="unlearned-kanji" title="未習">${safe}</span>`;
+    }
+    return safe;
+  }).join("");
+}
+
+let selectMsgTimer=null;
+function showSelectMsg(text){
+  selectMsg.innerHTML=text;
+  selectMsg.classList.remove("hidden");
+  clearTimeout(selectMsgTimer);
+  selectMsgTimer=setTimeout(()=>selectMsg.classList.add("hidden"),5000);
+}
+
+const SELECTED_KEY="kanjiL9SelectedV1";
+const CARD_RESUME_KEY="kanjiL9CardResumeV1";
+const READ_RESUME_KEY="kanjiL9ReadResumeV1";
+const WRITE_RESUME_KEY="kanjiL9WriteResumeV1";
+
+function selectionSignature(){
+  return DATA.filter(d=>selected.has(d.kanji)).map(d=>d.kanji).join("\u0001");
+}
+function loadResumeObject(key){
+  try{
+    const raw=safeStorageGet(key);
+    if(!raw) return null;
+    const obj=JSON.parse(raw);
+    return obj && typeof obj==="object" ? obj : null;
+  }catch(e){ return null; }
+}
+function clearCardResume(){ safeStorageRemove(CARD_RESUME_KEY); }
+function clearReadResume(){ safeStorageRemove(READ_RESUME_KEY); }
+function clearWriteResume(){ safeStorageRemove(WRITE_RESUME_KEY); }
+function clearAllResume(){
+  clearCardResume();
+  clearReadResume();
+  clearWriteResume();
+}
+function quizItemKey(x){
+  return x ? String(x.word)+"\u0000"+String(x.reading) : "";
+}
+
+function saveFlashResume(){
+  if(!flashPool.length){ clearCardResume(); return; }
+  safeStorageSet(CARD_RESUME_KEY,JSON.stringify({
+    sig:selectionSignature(),
+    order:cardOrder.value,
+    keys:flashPool.map(d=>d.kanji),
+    pos:flashIndex
+  }));
+}
+function restoreFlashResume(){
+  const s=loadResumeObject(CARD_RESUME_KEY);
+  if(!s || s.sig!==selectionSignature() || !Array.isArray(s.keys) || !s.keys.length){
+    if(s) clearCardResume();
+    return false;
+  }
+  const pool=DATA.filter(d=>selected.has(d.kanji));
+  const byKey=new Map(pool.map(d=>[d.kanji,d]));
+  const deck=s.keys.map(k=>byKey.get(k)).filter(Boolean);
+  if(deck.length!==s.keys.length){
+    clearCardResume();
+    return false;
+  }
+  cardOrder.value=s.order==="random" ? "random" : "textbook";
+  flashPool=deck;
+  const p=Number(s.pos);
+  flashIndex=Number.isFinite(p) ? Math.max(0,Math.min(Math.trunc(p),deck.length-1)) : 0;
+  flashDirty=false;
+  return true;
+}
+
+function saveReadResume(pos=readPos){
+  if(!readDeck.length){ clearReadResume(); return; }
+  safeStorageSet(READ_RESUME_KEY,JSON.stringify({
+    sig:selectionSignature(),
+    order:readOrder.value,
+    keys:readDeck.map(quizItemKey),
+    pos:Math.max(0,Math.min(Number(pos)||0,readDeck.length)),
+    total:readRound.total,
+    correct:readRound.correct,
+    wrong:(readRound.wrong||[]).map(quizItemKey)
+  }));
+}
+function restoreReadResume(){
+  const s=loadResumeObject(READ_RESUME_KEY);
+  if(!s || s.sig!==selectionSignature() || !Array.isArray(s.keys) || !s.keys.length){
+    if(s) clearReadResume();
+    return false;
+  }
+  const universe=buildReadingWords();
+  const byKey=new Map(universe.map(x=>[quizItemKey(x),x]));
+  const deck=s.keys.map(k=>byKey.get(k)).filter(Boolean);
+  if(deck.length!==s.keys.length){
+    clearReadResume();
+    return false;
+  }
+  readOrder.value=s.order==="random" ? "random" : "textbook";
+  readDeck=deck;
+  const p=Number(s.pos);
+  readPos=Number.isFinite(p) ? Math.max(0,Math.min(Math.trunc(p),deck.length)) : 0;
+  const wrongKeys=Array.isArray(s.wrong) ? s.wrong : [];
+  readRound={
+    total:deck.length,
+    correct:Math.max(0,Number(s.correct)||0),
+    wrong:wrongKeys.map(k=>byKey.get(k)).filter(Boolean)
+  };
+  readDirty=false;
+  return true;
+}
+
+function saveWriteResume(pos=writePos){
+  if(!writeDeck.length){ clearWriteResume(); return; }
+  safeStorageSet(WRITE_RESUME_KEY,JSON.stringify({
+    sig:selectionSignature(),
+    order:writeOrder.value,
+    keys:writeDeck.map(quizItemKey),
+    pos:Math.max(0,Math.min(Number(pos)||0,writeDeck.length)),
+    total:writeRound.total,
+    good:writeRound.good,
+    bad:(writeRound.bad||[]).map(quizItemKey)
+  }));
+}
+function restoreWriteResume(){
+  const s=loadResumeObject(WRITE_RESUME_KEY);
+  if(!s || s.sig!==selectionSignature() || !Array.isArray(s.keys) || !s.keys.length){
+    if(s) clearWriteResume();
+    return false;
+  }
+  const universe=buildWriteWords();
+  const byKey=new Map(universe.map(x=>[quizItemKey(x),x]));
+  const deck=s.keys.map(k=>byKey.get(k)).filter(Boolean);
+  if(deck.length!==s.keys.length){
+    clearWriteResume();
+    return false;
+  }
+  writeOrder.value=s.order==="random" ? "random" : "textbook";
+  writeDeck=deck;
+  const p=Number(s.pos);
+  writePos=Number.isFinite(p) ? Math.max(0,Math.min(Math.trunc(p),deck.length)) : 0;
+  const badKeys=Array.isArray(s.bad) ? s.bad : [];
+  writeRound={
+    total:deck.length,
+    good:Math.max(0,Number(s.good)||0),
+    bad:badKeys.map(k=>byKey.get(k)).filter(Boolean)
+  };
+  writeDirty=false;
+  return true;
+}
+function saveSelected(){
+  safeStorageSet(SELECTED_KEY,JSON.stringify([...selected]));
+}
+function loadSelected(){
+  try{
+    const raw=safeStorageGet(SELECTED_KEY);
+    if(!raw) return null;
+    const arr=JSON.parse(raw);
+    if(!Array.isArray(arr)) return null;
+    const valid=arr.filter(k=>DATA.some(d=>d.kanji===k));
+    return valid.length ? new Set(valid) : null;
+  }catch(e){ return null; }
+}
+
+function renderGrid(){
+  kanjiGrid.innerHTML=DATA.map(d=>`
+    <button type="button"
+      class="kanji-tile ${selected.has(d.kanji)?'selected':''}"
+      data-k="${d.kanji}"
+      aria-pressed="${selected.has(d.kanji)}"
+      aria-label="No.${d.no} ${d.kanji}：${selected.has(d.kanji)?'練習する':'選ばない'}">
+      <div class="tile-meta">
+        <div class="tile-check-slot">${selected.has(d.kanji)?'<span class="tile-check" aria-hidden="true">✓</span>':''}</div>
+        <div class="tile-no">No.${d.no}</div>
+      </div>
+      <div class="k jp-kanji">${d.kanji}</div>
+    </button>`).join("");
+  kanjiGrid.querySelectorAll(".kanji-tile").forEach(btn=>btn.onclick=()=>{
+    const k=btn.dataset.k;
+    selected.has(k)?selected.delete(k):selected.add(k);
+    clearAllResume();
+    readDeck=[]; readPos=0; currentRead=null; readDirty=true;
+    writeDeck=[]; writePos=0; currentWrite=null; writeDirty=true;
+    flashDirty=true;
+    renderGrid();
+  });
+  selCount.textContent=selected.size;
+  saveSelected();
+}
+selectAll.onclick=()=>{clearAllResume();selected=new Set(DATA.map(d=>d.kanji));readDeck=[];writeDeck=[];currentRead=null;currentWrite=null;readDirty=true;writeDirty=true;flashDirty=true;renderGrid()};
+clearAll.onclick=()=>{clearAllResume();selected.clear();readDeck=[];writeDeck=[];currentRead=null;currentWrite=null;readDirty=true;writeDirty=true;flashDirty=true;renderGrid()};
+selectHard.onclick=()=>{
+  clearAllResume();
+  const s=statsLoad();
+  selected=new Set(DATA.filter(d=>{
+    const x=s.items[d.kanji];
+    return x && (x.review===true || (x.review===undefined && ((x.hard||0)+(x.wrong||0)>0)));
+  }).map(d=>d.kanji));
+  readDeck=[]; writeDeck=[]; currentRead=null; currentWrite=null;
+  readDirty=true; writeDirty=true; flashDirty=true;
+  renderGrid();
+};
+startSelected.onclick=()=>{
+  if(!selected.size){showSelectMsg("<ruby>練習<rt>れんしゅう</rt></ruby>する<ruby>漢字<rt>かんじ</rt></ruby>を1<ruby>字以上<rt>じいじょう</rt></ruby><ruby>選<rt>えら</rt></ruby>んでください。");return;}
+  if(flashDirty || !flashPool.length) resetFlashPool();
+  showFlash();
+  switchTab("flash");
+};
+
+function showFlash(){
+  if(!flashPool.length) return;
+  if(flashIndex>=flashPool.length){
+    if(cardOrder.value==="random") flashPool=shuffle(flashPool);
+    flashIndex=0;
+  }
+  const d=flashPool[flashIndex];
+  currentFlashData=d;
+  fNo.textContent="教科書 No."+d.no;
+  fKanji.textContent=d.kanji;
+  renderMeaning(); // 中で renderReadingExamples / renderFlashVocab / renderIjiDokun も呼ばれる
+  fHidden.classList.add("hidden");
+  revealBtn.classList.remove("hidden");
+  hardBtn.classList.add("hidden");
+  revealBtn.classList.remove("hidden");
+  const saved=statsLoad().items[d.kanji];
+  const reviewed=!!(saved && (saved.review===true || (saved.review===undefined && ((saved.hard||0)+(saved.wrong||0)>0))));
+  if(reviewed){
+    hardBtn.innerHTML='★ <ruby>登録済<rt>とうろくず</rt></ruby>み';
+    hardBtn.disabled=true;
+  }else{
+    hardBtn.innerHTML='★ <ruby>復習<rt>ふくしゅう</rt></ruby>する';
+    hardBtn.disabled=false;
+  }
+  flashProgress.textContent=`${flashIndex+1} / ${flashPool.length}`;
+  saveFlashResume();
+}
+prevFlash.onclick=()=>{
+  if(!flashPool.length) return;
+  flashIndex = (flashIndex - 1 + flashPool.length) % flashPool.length;
+  showFlash();
+};
+revealBtn.onclick=()=>{
+  if(flashPool[flashIndex]) recordUniqueProgress("cards",flashPool[flashIndex].kanji);
+  fHidden.classList.remove("hidden"); revealBtn.classList.add("hidden");
+  hardBtn.classList.remove("hidden");
+};
+hardBtn.onclick=()=>{
+  const k=flashPool[flashIndex].kanji;
+  const s=statsLoad();
+  const x=s.items[k];
+  const already=!!(x && (x.review===true || (x.review===undefined && ((x.hard||0)+(x.wrong||0)>0))));
+  if(!already) mark(k,"hard");
+  hardBtn.innerHTML='★ <ruby>登録済<rt>とうろくず</rt></ruby>み';
+  hardBtn.disabled=true;
+};
+nextFlash.onclick=()=>{flashIndex++;showFlash()};
+cardOrder.onchange=()=>{
+  clearCardResume();
+  resetFlashPool();
+  if(flashPool.length) showFlash();
+};
+
+const READ_CONTEXTS = {};
+
+// 読み：「漢字を選ぶ」で選んだ漢字の教科書語彙。同じ語・同じ読みは1回だけ。
+function buildReadingWords(){
+  const unique=new Map();
+  DATA.filter(d=>selected.has(d.kanji)).forEach(d=>{
+    d.words.forEach(w=>{
+      const sourceWord=w[0];
+      const sourceReading=w[1];
+      const quiz=toReadingQuizForm(sourceWord,sourceReading);
+      const key=quiz.word+"\u0000"+quiz.reading;
+      const tr=w[w.length-1];
+      const translations=(tr && typeof tr==="object" && !Array.isArray(tr)) ? tr : {};
+      if(!unique.has(key)){
+        unique.set(key,{
+          kanji:d.kanji,
+          kanjiList:[d.kanji],
+          word:quiz.word,
+          reading:quiz.reading,
+          sourceWord,
+          sourceReading,
+          translations:{...translations}
+        });
+      }else{
+        const item=unique.get(key);
+        if(!item.kanjiList.includes(d.kanji)) item.kanjiList.push(d.kanji);
+        Object.keys(translations).forEach(lang=>{
+          if(!item.translations[lang]) item.translations[lang]=translations[lang];
+        });
+      }
+    });
+  });
+  return [...unique.values()];
+}
+let readDeck=[], readPos=0, currentRead=null, readLocked=false, readDirty=false;
+let readRound={total:0,correct:0,wrong:[]};
+function startReadDeck(pool){
+  readDeck=(readOrder.value==="random") ? shuffle(pool) : pool.slice();
+  readPos=0;
+  readRound={total:readDeck.length,correct:0,wrong:[]};
+  readDirty=false;
+}
+function resetReadDeck(){ startReadDeck(buildReadingWords()); }
+
+function showReadSummary(){
+  clearReadResume();
+  readQuizArea.classList.add("hidden");
+  readSummary.classList.remove("hidden");
+  readSummaryScore.textContent=readRound.correct;
+  readSummaryTotal.textContent=readRound.total;
+  const wrong=readRound.wrong;
+  if(wrong.length){
+    retryWrongRead.innerHTML=`<ruby>間違<rt>まちが</rt></ruby>えた ${wrong.length} <ruby>語<rt>ご</rt></ruby>をもう<ruby>一度<rt>いちど</rt></ruby>`;
+    retryWrongRead.classList.remove("hidden");
+    readSummaryNote.innerHTML='<span class="jp-kanji">'+wrong.map(x=>escapeHtml(x.word)).join("・")+"</span>";
+  }else{
+    retryWrongRead.classList.add("hidden");
+    readSummaryNote.textContent="ぜんぶ正解です。";
+  }
+}
+retryWrongRead.onclick=()=>{
+  const again=readRound.wrong.slice();
+  if(!again.length) return;
+  startReadDeck(again);
+  newRead();
+};
+restartRead.onclick=()=>{ resetReadDeck(); newRead(); };
+
+function newRead(){
+  readSummary.classList.add("hidden");
+  readQuizArea.classList.remove("hidden");
+  if(readPos>=readDeck.length) resetReadDeck();
+  if(!readDeck.length){
+    currentRead=null;
+    rWord.textContent="練習する漢字を選んでください";
+    rGloss.textContent="";
+    rGloss.classList.add("hidden");
+    rInput.value="";
+    rInput.disabled=true;
+    rFeedback.className="feedback hidden";
+    checkRead.classList.add("hidden");
+    nextRead.classList.add("hidden");
+    readProgress.textContent="0 / 0";
+    return;
+  }
+  currentRead=readDeck[readPos];
+  const targetKanji=currentRead.kanjiList||[currentRead.kanji];
+  const targetNos=targetKanji
+    .map(k=>DATA.find(d=>d.kanji===k))
+    .filter(Boolean)
+    .map(d=>d.no);
+  rNo.textContent=targetNos.length ? "教科書 No."+targetNos.join("・") : "";
+  rWord.textContent=currentRead.word;
+  const readContext=READ_CONTEXTS[(currentRead.sourceWord||currentRead.word)+"\u0000"+(currentRead.sourceReading||currentRead.reading)]||"";
+  if(readContext){
+    rGloss.innerHTML="<ruby>文脈<rt>ぶんみゃく</rt></ruby>ヒント："+escapeHtml(readContext);
+    rGloss.lang="ja";
+    rGloss.classList.remove("hidden");
+  }else{
+    rGloss.textContent="";
+    rGloss.classList.add("hidden");
+  }
+  rInput.value=""; rInput.disabled=false;
+  requestAnimationFrame(()=>{
+    try{ rInput.focus({preventScroll:true}); }catch(e){ rInput.focus(); }
+  });
+  rFeedback.className="feedback reading-feedback-inline hidden"; rFeedback.textContent="";
+  checkRead.classList.remove("hidden"); nextRead.classList.add("hidden");
+  readLocked=false;
+  readProgress.textContent=`${readPos+1} / ${readDeck.length}`;
+  saveReadResume(readPos);
+}
+checkRead.onclick=()=>{
+  if(readLocked)return;
+  recordUniqueProgress("read",currentRead.word+"\u0000"+currentRead.reading);
+  const ok=answerMatches(rInput.value,currentRead.reading);
+  const s=statsLoad(); s.answered++;
+  if(ok){
+    s.correct++;
+    readRound.correct++;
+    rFeedback.className="feedback reading-feedback-inline ok";
+    rFeedback.textContent="⭕ 正解";
+  } else {
+    if(!readRound.wrong.some(x=>x.word===currentRead.word && x.reading===currentRead.reading)){
+      readRound.wrong.push(currentRead);
+    }
+    const targetKanji=currentRead.kanjiList||[currentRead.kanji];
+    targetKanji.forEach(k=>{
+      if(!s.items[k])s.items[k]={hard:0,wrong:0,review:false};
+      s.items[k].wrong=(s.items[k].wrong||0)+1;
+      s.items[k].review=true;
+    });
+    rFeedback.className="feedback reading-feedback-inline ng";
+    rFeedback.innerHTML=`❌ ちがいます<span class="mobile-break"><br></span><span class="desktop-gap">　</span><span class="answer-unit"><ruby>正解<rt>せいかい</rt></ruby>：<b>${currentRead.reading}</b></span>`;
+  }
+  statsSave(s); renderStats();
+  // 解答済みなら、再訪時は次の問題から再開する。
+  saveReadResume(Math.min(readPos+1,readDeck.length));
+  // スマホでは入力欄を無効化するとソフトキーボードが閉じて
+  // 画面が大きく動くため、入力欄はフォーカスしたままにする。
+  readLocked=true;
+  checkRead.classList.add("hidden"); nextRead.classList.remove("hidden");
+  requestAnimationFrame(()=>{
+    try{ rInput.focus({preventScroll:true}); }catch(e){ rInput.focus(); }
+  });
+};
+nextRead.onclick=()=>{
+  readPos++;
+  if(readPos>=readDeck.length){ showReadSummary(); return; }
+  newRead();
+};
+
+rInput.addEventListener("beforeinput",e=>{
+  if(readLocked && e.inputType!=="insertLineBreak"){
+    e.preventDefault();
+  }
+});
+document.addEventListener("keydown",e=>{
+  if(e.key!=="Enter" || e.isComposing || e.keyCode===229) return;
+  const readingPanel=document.getElementById("read");
+  if(!readingPanel.classList.contains("active")) return;
+  if(document.activeElement!==rInput) return;
+  e.preventDefault();
+  if(!readLocked){
+    if(rInput.value.trim()!=="") checkRead.click();
+  }else{
+    nextRead.click();
+  }
+});
+readOrder.onchange=()=>{ clearReadResume(); resetReadDeck(); newRead(); };
+
+const WRITE_CONTEXTS = {};
+
+// 書き：一巡するまで重複なし
+function buildWriteWords(){
+  const unique=new Map();
+  DATA.filter(d=>selected.has(d.kanji)).forEach(d=>{
+    d.words.forEach(w=>{
+      const key=w[0]+"\u0000"+w[1];
+      const tr=w[w.length-1];
+      const translations=(tr && typeof tr==="object" && !Array.isArray(tr)) ? tr : {};
+      if(!unique.has(key)){
+        unique.set(key,{
+          kanji:d.kanji,
+          kanjiList:[d.kanji],
+          word:w[0],
+          reading:w[1],
+          translations:{...translations},
+          context:WRITE_CONTEXTS[w[0]+"\u0000"+w[1]]||""
+        });
+      }else{
+        const item=unique.get(key);
+        if(!item.kanjiList.includes(d.kanji)) item.kanjiList.push(d.kanji);
+        // 重複語では、欠けている訳があれば補う。
+        Object.keys(translations).forEach(lang=>{
+          if(!item.translations[lang]) item.translations[lang]=translations[lang];
+        });
+      }
+    });
+  });
+  return [...unique.values()];
+}
+let writeDeck=[], writePos=0, currentWrite=null, writeJudged=false, writeDirty=false;
+let writeRound={total:0,good:0,bad:[]};
+function startWriteDeck(pool){
+  writeDeck=(writeOrder.value==="random") ? shuffle(pool) : pool.slice();
+  writePos=0;
+  writeRound={total:writeDeck.length,good:0,bad:[]};
+  writeDirty=false;
+}
+function resetWriteDeck(){ startWriteDeck(buildWriteWords()); }
+
+function showWriteSummary(){
+  clearWriteResume();
+  writeQuizArea.classList.add("hidden");
+  writeSummary.classList.remove("hidden");
+  writeSummaryScore.textContent=writeRound.good;
+  writeSummaryTotal.textContent=writeRound.total;
+  const bad=writeRound.bad;
+  if(bad.length){
+    retryWrongWrite.innerHTML=`<ruby>書<rt>か</rt></ruby>けなかった ${bad.length} <ruby>語<rt>ご</rt></ruby>をもう<ruby>一度<rt>いちど</rt></ruby>`;
+    retryWrongWrite.classList.remove("hidden");
+    writeSummaryNote.innerHTML='<span class="jp-kanji">'+bad.map(x=>escapeHtml(x.word)).join("・")+"</span>";
+  }else{
+    retryWrongWrite.classList.add("hidden");
+    writeSummaryNote.textContent="ぜんぶ書けました。";
+  }
+}
+retryWrongWrite.onclick=()=>{
+  const again=writeRound.bad.slice();
+  if(!again.length) return;
+  startWriteDeck(again);
+  newWrite();
+};
+restartWrite.onclick=()=>{ resetWriteDeck(); newWrite(); };
+function advanceWrite(){
+  writePos++;
+  if(writePos>=writeDeck.length){ showWriteSummary(); return; }
+  newWrite();
+}
+let writeHintVisible=false;
+function renderWriteHint(){
+  if(!currentWrite || !writeHintVisible){
+    wHint.textContent="";
+    wHint.classList.add("hidden");
+    return;
+  }
+  const lang=writeHintLang.value||"en";
+  const hint=(currentWrite.translations||{})[lang] || (currentWrite.translations||{}).en || "";
+  if(hint){
+    const labels={en:"English",ko:"한국어",pt:"Português",th:"ไทย"};
+    wHint.textContent=(labels[lang]||"Hint")+"："+hint;
+    wHint.lang=lang==="ko" ? "ko" : lang==="pt" ? "pt-BR" : lang==="th" ? "th" : "en";
+    wHint.classList.remove("hidden");
+  }else{
+    wHint.textContent="";
+    wHint.classList.add("hidden");
+  }
+}
+
+function newWrite(){
+  writeSummary.classList.add("hidden");
+  writeQuizArea.classList.remove("hidden");
+  if(writePos>=writeDeck.length) resetWriteDeck();
+  if(!writeDeck.length){
+    currentWrite=null;
+    wReading.textContent="練習する漢字を選んでください";
+    wHint.textContent="";
+    wHint.classList.add("hidden");
+    showWriteHint.classList.add("hidden");
+    wAnswer.textContent="";
+    wAnswer.classList.add("hidden");
+    showWrite.classList.add("hidden");
+    writeBad.classList.add("hidden");
+    writeGood.classList.add("hidden");
+    writeProgress.textContent="0 / 0";
+    return;
+  }
+  currentWrite=writeDeck[writePos];
+  const targetKanji=currentWrite.kanjiList||[currentWrite.kanji];
+  const targetNos=targetKanji
+    .map(k=>DATA.find(d=>d.kanji===k))
+    .filter(Boolean)
+    .map(d=>d.no);
+  wNo.textContent=targetNos.length ? "教科書 No."+targetNos.join("・") : "";
+  wReading.textContent=currentWrite.context || currentWrite.reading;
+  writeHintVisible=false;
+  showWriteHint.classList.remove("hidden");
+  wHint.textContent="";
+  wHint.classList.add("hidden");
+  wAnswer.innerHTML=highlightTargets(currentWrite.word);
+  wAnswer.classList.add("hidden");
+  showWrite.classList.remove("hidden");
+  writeBad.classList.add("hidden"); writeGood.classList.add("hidden");
+  writeProgress.textContent=`${writePos+1} / ${writeDeck.length}`;
+  writeJudged=false;
+  saveWriteResume(writePos);
+}
+showWrite.onclick=()=>{
+  recordStudyActivity();
+  wAnswer.classList.remove("hidden");
+  showWrite.classList.add("hidden");
+  showWriteHint.classList.add("hidden");
+  writeBad.classList.remove("hidden"); writeGood.classList.remove("hidden");
+};
+writeBad.onclick=()=>{
+  if(writeJudged)return;
+  recordUniqueProgress("write",currentWrite.word+"\u0000"+currentWrite.reading);
+  writeJudged=true;
+  const s=statsLoad();
+  s.writeBad++;
+  const targetKanji=currentWrite.kanjiList||[currentWrite.kanji];
+  targetKanji.forEach(k=>{
+    if(!s.items[k]) s.items[k]={hard:0,wrong:0,review:false};
+    s.items[k].hard=(s.items[k].hard||0)+1;
+    s.items[k].review=true;
+  });
+  statsSave(s); renderStats();
+  if(!writeRound.bad.some(x=>x.word===currentWrite.word && x.reading===currentWrite.reading)){
+    writeRound.bad.push(currentWrite);
+  }
+  advanceWrite();
+};
+writeGood.onclick=()=>{
+  if(writeJudged)return;
+  recordUniqueProgress("write",currentWrite.word+"\u0000"+currentWrite.reading);
+  writeJudged=true;
+  const s=statsLoad();
+  s.writeGood++;
+  writeRound.good++;
+  statsSave(s); renderStats();
+  advanceWrite();
+};
+writeOrder.onchange=()=>{ clearWriteResume(); resetWriteDeck(); newWrite(); };
+showWriteHint.onclick=()=>{
+  writeHintVisible=true;
+  renderWriteHint();
+  showWriteHint.classList.add("hidden");
+};
+writeHintLang.onchange=()=>{
+  safeStorageSet("kanjiWriteHintLang",writeHintLang.value);
+  renderWriteHint();
+};
+
+// 字体比較：一覧表示
+// 原則：日本語・簡体字・繁体字の文字データが異なる字を表示。
+// 加えて、日中漢字の字形研究・公的資料・地域別CJKフォント資料で
+// 学習上確認する価値がある同一コード字を、共通マスターから自動で拾う。
+// 課ごとに手作業で追加しない。
+const RESEARCH_GLYPH_DIFFS = {"化":{"reason":"同一Unicodeでも日本語字形と中国語字形で学習上確認しやすい地域差があるため比較対象にする","source":"文化庁の字体・字形資料および地域別CJK標準字形資料"},"器":{"reason":"同一Unicodeでも日本語字形と中国語字形で中央部分に学習上確認しやすい地域差があるため比較対象にする","source":"地域別CJK標準字形資料"}};
+let zhDiffOnly=true;
+function renderZh(){
+  const hasStudyValue=d=>d.kanji!==d.simp||d.kanji!==d.trad||!!RESEARCH_GLYPH_DIFFS[d.kanji];
+  const rows = zhDiffOnly ? DATA.filter(hasStudyValue) : DATA;
+  const diffCount = DATA.filter(hasStudyValue).length;
+  zhCount.innerHTML = zhDiffOnly
+    ? `<ruby>字体<rt>じたい</rt></ruby>に<ruby>差<rt>さ</rt></ruby>がある<ruby>字<rt>じ</rt></ruby>：${diffCount}<ruby>字<rt>じ</rt></ruby> / 30<ruby>字<rt>じ</rt></ruby>`
+    : `<ruby>全<rt>ぜん</rt></ruby>30<ruby>字<rt>じ</rt></ruby>（うち<ruby>字体<rt>じたい</rt></ruby>に<ruby>差<rt>さ</rt></ruby>がある<ruby>字<rt>じ</rt></ruby>：${diffCount}<ruby>字<rt>じ</rt></ruby>）`;
+  zhBody.innerHTML = rows.map(d=>`<tr>
+      <td style="font-size:.85rem;font-weight:700">${d.no}</td>
+      <td class="jp-kanji" lang="ja" style="font-size:2rem">${d.kanji}</td>
+      <td class="zh-cn" lang="zh-CN" style="font-size:2rem">${d.simp}</td>
+      <td class="zh-tw" lang="zh-TW" style="font-size:2rem">${d.trad}</td>
+    </tr>`).join("");
+}
+onlyDiff.onclick=()=>{zhDiffOnly=true;renderZh()};
+showAllZh.onclick=()=>{zhDiffOnly=false;renderZh()};
+
+// 統計
+function renderStats(){
+  const s=statsLoad();
+  sAnswered.textContent=s.answered;
+  sCorrect.textContent=s.correct;
+  sRate.textContent=s.answered?Math.round(100*s.correct/s.answered)+"%":"—";
+
+  sWriteGood.textContent=s.writeGood||0;
+  sWriteBad.textContent=s.writeBad||0;
+  sWriteTotal.textContent=(s.writeGood||0)+(s.writeBad||0);
+
+  const arr=DATA.map(d=>{
+    const x=s.items[d.kanji]||{hard:0,wrong:0,review:false};
+    const legacy = x.review===undefined && ((x.hard||0)+(x.wrong||0)>0);
+    return {k:d.kanji,no:d.no,hard:x.hard||0,wrong:x.wrong||0,review:x.review===true||legacy};
+  }).filter(x=>x.review);
+
+  sHard.textContent=arr.length;
+  hardList.innerHTML=arr.length
+    ?arr.map(x=>{
+       const reasons=[];
+       if(x.hard) reasons.push(`カード・<ruby>書<rt>か</rt></ruby>き：${x.hard}<ruby>回<rt>かい</rt></ruby>`);
+       if(x.wrong) reasons.push(`<ruby>読<rt>よ</rt></ruby>み<ruby>間違<rt>まちが</rt></ruby>い：${x.wrong}<ruby>回<rt>かい</rt></ruby>`);
+       if(!reasons.length) reasons.push("<ruby>復習指定<rt>ふくしゅうしてい</rt></ruby>");
+       return `<tr>
+         <td class="jp-kanji" style="font-size:1.5rem">No.${x.no}　${x.k}</td>
+         <td>${reasons.join("／")}</td>
+         <td><button class="secondary" onclick="removeReview('${x.k}')"><ruby>復習<rt>ふくしゅう</rt></ruby>リストから<ruby>外<rt>はず</rt></ruby>す</button></td>
+       </tr>`;
+     }).join("")
+    :`<tr><td colspan="3"><ruby>復習<rt>ふくしゅう</rt></ruby>リストはまだ<ruby>空<rt>から</rt></ruby>です。</td></tr>`;
+}
+
+function flashResetDone(btn, originalHtml){
+  if(!btn) return;
+  btn.innerHTML="リセットしました";
+  btn.disabled=true;
+  window.setTimeout(()=>{
+    btn.innerHTML=originalHtml;
+    btn.disabled=false;
+  },900);
+}
+
+function resetReadStatsNow(btn){
+  clearReadResume();
+  readDeck=[]; readPos=0; currentRead=null; readDirty=true;
+  const s=statsLoad();
+  s.answered=0;
+  s.correct=0;
+  statsSave(s);
+
+  // 保存結果をその場で確実に反映
+  sAnswered.textContent="0";
+  sCorrect.textContent="0";
+  sRate.textContent="—";
+  renderStats();
+
+  flashResetDone(btn,"<ruby>読<rt>よ</rt></ruby>みの<ruby>成績<rt>せいせき</rt></ruby>をリセット");
+}
+
+function resetWriteStatsNow(btn){
+  clearWriteResume();
+  writeDeck=[]; writePos=0; currentWrite=null; writeDirty=true;
+  const s=statsLoad();
+  s.writeGood=0;
+  s.writeBad=0;
+  statsSave(s);
+
+  // 保存結果をその場で確実に反映
+  sWriteGood.textContent="0";
+  sWriteBad.textContent="0";
+  sWriteTotal.textContent="0";
+  renderStats();
+
+  flashResetDone(btn,"<ruby>書<rt>か</rt></ruby>きの<ruby>成績<rt>せいせき</rt></ruby>をリセット");
+}
+
+function resetReviewListNow(btn){
+  const s=statsLoad();
+  Object.keys(s.items||{}).forEach(k=>{
+    s.items[k].review=false;
+    s.items[k].hard=0;
+    s.items[k].wrong=0;
+  });
+  statsSave(s);
+
+  // 保存結果をその場で確実に反映
+  sHard.textContent="0";
+  hardList.innerHTML='<tr><td colspan="3"><ruby>復習<rt>ふくしゅう</rt></ruby>リストはまだ<ruby>空<rt>から</rt></ruby>です。</td></tr>';
+  renderStats();
+
+  flashResetDone(btn,"<ruby>復習<rt>ふくしゅう</rt></ruby>リストをリセット");
+}
+
+let resetAllArmed=false;
+let resetAllTimer=null;
+function resetAllStatsNow(btn){
+  if(!resetAllArmed){
+    resetAllArmed=true;
+    btn.innerHTML="もう<ruby>一度<rt>いちど</rt></ruby><ruby>押<rt>お</rt></ruby>すとすべてリセット";
+    clearTimeout(resetAllTimer);
+    resetAllTimer=setTimeout(()=>{
+      resetAllArmed=false;
+      btn.innerHTML="すべての<ruby>学習記録<rt>がくしゅうきろく</rt></ruby>をリセット";
+    },3500);
+    return;
+  }
+
+  clearTimeout(resetAllTimer);
+  resetAllArmed=false;
+  safeStorageRemove("kanjiL9StatsV1");
+  safeStorageRemove(PROGRESS_KEY);
+  safeStorageRemove(LEGACY_PROGRESS_KEY);
+  clearAllResume();
+  flashPool=[]; flashIndex=0; flashDirty=true;
+  readDeck=[]; readPos=0; currentRead=null; readDirty=true;
+  writeDeck=[]; writePos=0; currentWrite=null; writeDirty=true;
+  renderStats();
+  flashResetDone(btn,"すべての学習記録をリセット");
+}
+
+document.querySelectorAll(".tabs button").forEach(b=>b.onclick=()=>{
+  const tab=b.dataset.tab;
+  if(tab==="flash"){
+    if(!selected.size){
+      switchTab("select");
+      showSelectMsg("<ruby>練習<rt>れんしゅう</rt></ruby>する<ruby>漢字<rt>かんじ</rt></ruby>を1<ruby>字以上<rt>じいじょう</rt></ruby><ruby>選<rt>えら</rt></ruby>んでください。");
+      return;
+    }
+    if(flashDirty) resetFlashPool();
+    showFlash();
+  }
+  switchTab(tab);
+  if(tab==="read" && readDirty){ resetReadDeck(); newRead(); }
+  if(tab==="write" && writeDirty){ resetWriteDeck(); newWrite(); }
+  if(tab==="zh")renderZh();
+  if(tab==="stats")renderStats();
+});
+
+// タブは左右キーでも移動できるようにする。
+{
+  const tabButtons=[...document.querySelectorAll('.tabs button')];
+  tabButtons.forEach((b,i)=>{
+    b.addEventListener("keydown",e=>{
+      if(e.key!=="ArrowRight" && e.key!=="ArrowLeft" && e.key!=="Home" && e.key!=="End") return;
+      e.preventDefault();
+      const next = e.key==="Home" ? 0
+        : e.key==="End" ? tabButtons.length-1
+        : e.key==="ArrowRight" ? (i+1)%tabButtons.length
+        : (i-1+tabButtons.length)%tabButtons.length;
+      tabButtons[next].focus();
+      tabButtons[next].click();
+    });
+  });
+}
+
+// ---- 教材データの自己点検 ----
+// 「太」の代表例と意味が食い違っていた種類のミスは、画面を見ても気づきにくい。
+// 起動時に機械的に照合して、問題があれば console に出す。?check=1 なら画面にも出す。
+function runDataCheck(){
+  const problems=[];
+  const wordKeys=new Set();
+  DATA.forEach(d=>d.words.forEach(w=>wordKeys.add(w[0]+"\u0000"+w[1])));
+
+  DATA.forEach(d=>{
+    const ex=READING_EXAMPLES[d.kanji];
+    if(!ex){ problems.push(`${d.kanji}：READING_EXAMPLES にエントリがありません`); return; }
+    ["on","kun"].forEach(type=>{
+      d[type].forEach(r=>{
+        const word=(ex[type]||{})[r];
+        if(!word) problems.push(`${d.kanji}（${type==="on"?"音":"訓"}「${r}」）：代表例がありません`);
+        const limitedKey=`${d.kanji}|${type}|${r}`;
+        const shouldBeLimited=LIMITED_USE_JOYO_READINGS.has(limitedKey);
+        const isMarkedLimited=String(word||"").endsWith("［参考］");
+        if(shouldBeLimited!==isMarkedLimited){
+          problems.push(`${d.kanji}（${type==="on"?"音":"訓"}「${r}」）：※「用法が限られる読み」の指定が常用漢字表の基準と一致していません`);
+        }
+        const g=READING_EXAMPLE_GLOSS[`${d.kanji}|${type}|${r}`];
+        if(!g){
+          problems.push(`${d.kanji}（${type==="on"?"音":"訓"}「${r}」）：意味データがありません`);
+        }else if(type==="on" && word){
+          const head=String(word).split("（")[0];
+          const ja=String(g.ja||"");
+          if(head && ja && !ja.includes(head) && !head.includes(ja)){
+            problems.push(`${d.kanji}（音「${r}」）：代表例「${word}」と意味「${ja}」が対応していません`);
+          }
+        }
+      });
+    });
+    d.kun.forEach(r=>{ if(!(r in KUN_PARTS)) problems.push(`${d.kanji}（訓「${r}」）：KUN_PARTS に送り仮名の区切りがありません`); });
+    [...(d.words||[]),...(d.extra||[])].forEach(w=>{
+      const tr=w[w.length-1];
+      if(!tr || typeof tr!=="object" || Array.isArray(tr)) problems.push(`${d.kanji}「${w[0]}」：訳データがありません`);
+    });
+  });
+
+  const orphan=(obj,name)=>Object.keys(obj).forEach(k=>{
+    if(!wordKeys.has(k)) problems.push(`${name} のキー「${k.replace("\u0000","／")}」に対応する語彙がありません`);
+  });
+  orphan(READ_CONTEXTS,"READ_CONTEXTS");
+  orphan(WRITE_CONTEXTS,"WRITE_CONTEXTS");
+  [["IJI_DOKUN",IJI_DOKUN]].forEach(([name,obj])=>{
+    Object.keys(obj).forEach(k=>{
+      if(!DATA.some(d=>d.kanji===k)) problems.push(`${name} の「${k}」はこの課の漢字ではありません`);
+    });
+  });
+
+  // 読みが同じで答えが違う語は、書き練習で判別できないので文脈ヒントが要る。
+  const byReading=new Map();
+  DATA.forEach(d=>d.words.forEach(w=>{
+    if(!byReading.has(w[1])) byReading.set(w[1],new Set());
+    byReading.get(w[1]).add(w[0]);
+  }));
+  byReading.forEach((words,reading)=>{
+    if(words.size<2) return;
+    [...words].forEach(w=>{
+      if(!WRITE_CONTEXTS[w+"\u0000"+reading]){
+        problems.push(`書き練習：「${reading}」の答えが ${[...words].join("・")} と複数あるのに、「${w}」に文脈ヒントがありません`);
+      }
+    });
+  });
+  return problems;
+}
+
+
+function runDataWarnings(){
+  const warnings=[];
+  const quizForms=new Map();
+  DATA.forEach(d=>d.words.forEach(w=>{
+    const q=toReadingQuizForm(w[0],w[1]);
+    const key=q.word+"\u0000"+q.reading;
+    if(!quizForms.has(key)) quizForms.set(key,new Set());
+    quizForms.get(key).add(w[0]+"／"+w[1]);
+  }));
+  quizForms.forEach((sources,key)=>{
+    if(sources.size>1){
+      const [word,reading]=key.split("\u0000");
+      warnings.push(`読みクイズ変換後：「${word}／${reading}」に ${[...sources].join("・")} が統合されます`);
+    }
+  });
+  Object.entries(RESEARCH_GLYPH_DIFFS).forEach(([k,v])=>{
+    if(!v || typeof v!=="object" || !v.reason){
+      warnings.push(`RESEARCH_GLYPH_DIFFS「${k}」：reason がありません`);
+    }
+  });
+  return warnings;
+}
+
+{
+  const problems=runDataCheck();
+  const warnings=runDataWarnings();
+  if(problems.length) console.warn("[教材データの点検] "+problems.length+"件:\n- "+problems.join("\n- "));
+  else console.info("[教材データの点検] 問題は見つかりませんでした。");
+  if(warnings.length) console.info("[教材データの確認事項] "+warnings.length+"件:\n- "+warnings.join("\n- "));
+  if(/[?&]check=1/.test(location.search)){
+    dataCheck.classList.remove("hidden");
+    dataCheck.classList.toggle("ok",problems.length===0);
+    const problemHtml=problems.length
+      ? "<b>教材データの点検："+problems.length+"件</b><ul>"+problems.map(p=>"<li>"+escapeHtml(p)+"</li>").join("")+"</ul>"
+      : "<b>教材データの点検：問題は見つかりませんでした。</b>";
+    const warningHtml=warnings.length
+      ? "<div style=\"margin-top:8px\"><b>確認事項："+warnings.length+"件</b><ul>"+warnings.map(p=>"<li>"+escapeHtml(p)+"</li>").join("")+"</ul></div>"
+      : "";
+    dataCheck.innerHTML=problemHtml+warningHtml;
+  }
+}
+
+{
+  const savedSelected=loadSelected();
+  if(savedSelected) selected=savedSelected;
+}
+{
+  const savedLang=safeStorageGet("kanjiMeaningLang")||"ja";
+  meaningLang.value=["ja","en","zh","ko","pt","th"].includes(savedLang) ? savedLang : "ja";
+}
+{
+  const savedWriteHintLang=safeStorageGet("kanjiWriteHintLang")||"en";
+  writeHintLang.value=["en","ko","pt","th"].includes(savedWriteHintLang) ? savedWriteHintLang : "en";
+}
+meaningLang.onchange=()=>{
+  safeStorageSet("kanjiMeaningLang",meaningLang.value);
+  renderMeaning();
+};
+
+renderGrid();
+
+if(!restoreFlashResume()) resetFlashPool();
+showFlash();
+
+if(!restoreReadResume()) resetReadDeck();
+if(readDeck.length && readPos>=readDeck.length) showReadSummary();
+else newRead();
+
+if(!restoreWriteResume()) resetWriteDeck();
+if(writeDeck.length && writePos>=writeDeck.length) showWriteSummary();
+else newWrite();
+
+renderZh();
+renderStats();
+</script>
+</body>
+</html>
