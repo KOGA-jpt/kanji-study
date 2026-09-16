@@ -843,7 +843,35 @@ button ruby{
 }
 .top-link:hover{background:rgba(255,255,255,.12)}
 @media(max-width:480px){
-  .top-link{padding:8px 10px;font-size:.86rem}
+  /* スマホではタイトルが長くても TOP ボタンを崩さない */
+  header{padding:12px 14px}
+  .lesson-header-inner{
+    display:grid;
+    grid-template-columns:minmax(0,1fr) auto;
+    align-items:start;
+    gap:8px 10px;
+    width:100%;
+    max-width:100%;
+  }
+  .lesson-header-text{
+    min-width:0;
+    overflow:hidden;
+  }
+  .lesson-header-text h1{
+    line-height:1.45;
+    overflow-wrap:anywhere;
+  }
+  .lesson-header-text p{
+    margin-top:.25rem;
+  }
+  .top-link{
+    align-self:start;
+    min-height:38px;
+    padding:7px 10px;
+    font-size:.84rem;
+    line-height:1;
+    flex:none;
+  }
 }
 
 
