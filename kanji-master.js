@@ -1,0 +1,275 @@
+/*
+  kanji-master.js v2.1
+  全32課の所属課マスター + 初級300字 + 横断データ。
+  既存 lesson01〜10 はまだこのファイルへ移行していません。
+
+  READING_MASTER v2 の対象: 第11・12課。
+  常用音訓は文化庁「常用漢字表の音訓索引」と照合した構造で保持します。
+*/
+(function(global){
+  "use strict";
+
+  const MASTER_BUILD="2026-09-17-v2.1-l11-12";
+
+  const LESSON_META = {
+    1: { title:"教室", start:301, end:320, range:"301〜320", cardTotal:20, kanji:"級予定表授宿復辞初第課練科参忘覚組席欠板" },
+    2: { title:"テスト", start:321, end:340, range:"321〜340", cardTotal:20, kanji:"解筆違消次線最適当選例形変式直記点机数余" },
+    3: { title:"形容詞", start:341, end:360, range:"341〜360", cardTotal:20, kanji:"速遅易単簡難細太狭浅深静涼暖冷温熱困球化" },
+    4: { title:"漢字", start:361, end:380, range:"361〜380", cardTotal:20, kanji:"馬象竹糸貝毛舟石岩畑由油官管島若苦向老像" },
+    5: { title:"自己紹介", start:381, end:400, range:"381〜400", cardTotal:20, kanji:"紹介留的術技妻供緒登専卒結婚夫刺身独柔配" },
+    6: { title:"私の部屋", start:401, end:420, range:"401〜420", cardTotal:20, kanji:"畳具雑誌童児冊壁絵隅箱床戸庫蔵器乳卵果庭" },
+    7: { title:"自動詞・他動詞", start:421, end:440, range:"421〜440", cardTotal:20, kanji:"落並決折続割流渡曲過助倒増減伸破育燃残片" },
+    8: { title:"私の町", start:441, end:460, range:"441〜460", cardTotal:20, kanji:"越港神美偉芸交差役公園昔城警察署防橋容角" },
+    9: { title:"駅", start:461, end:480, range:"461〜480", cardTotal:20, kanji:"符券枚札改算精面停刻普快換禁煙険危路側窓" },
+    10: { title:"サイン・広告", start:481, end:500, range:"481〜500", cardTotal:20, kanji:"受付常非階段営準備清掃議製綿募給師求修承" },
+    11: { title:"料理", start:501, end:520, range:"501〜520", cardTotal:20, kanji:"材玉個塩粉杯固厚薄量湯沸軟混等丸包巻麦焼" },
+    12: { title:"コンピューター", start:521, end:540, range:"521〜540", cardTotal:20, kanji:"編示成存保設印刷信了列戻更移除能接候補囲" },
+    13: { title:"アルバム", start:541, end:560, range:"541〜560", cardTotal:20, kanji:"祖怒泣彼恥息抱娘孫君似珍寺仏祈築徒将経活" },
+    14: { title:"作文", start:561, end:580, range:"561〜580", cardTotal:20, kanji:"雪寄末猫迷昨坊伝痛凍労暮勤慣干泳誤賃貯皿" },
+    15: { title:"日記", start:581, end:600, range:"581〜600", cardTotal:20, kanji:"晴久遊連束喜底念故疲曇張宅幼迎祝菓得呼雲" },
+    16: { title:"手紙・はがき", start:601, end:620, range:"601〜620", cardTotal:20, kanji:"状格願様皆舞忙順伺平御返頂幸礼拝殿談相旧" },
+    17: { title:"買い物", start:621, end:640, range:"621〜640", cardTotal:20, kanji:"販商支払法達額超無確認収領翌客届布財値費" },
+    18: { title:"空港", start:641, end:664, range:"641〜664", cardTotal:24, kanji:"央際到案両替喫郵荷預関税査検機職協航姓性齢効飛羽" },
+    19: { title:"テレビ・映画", start:665, end:688, range:"665〜688", cardTotal:24, kanji:"恵賢笑劇夢欲福永勇情演招恋然突再愛感贈涙武悲王想" },
+    20: { title:"注意書き", start:689, end:712, range:"689〜712", cardTotal:24, kanji:"才歳満未整係現貨硬犯駐断捨召盗触置眠袋挟械任責担" },
+    21: { title:"ガイダンス", start:713, end:736, range:"713〜736", cardTotal:24, kanji:"講申込導絡望希在可許要必類筒封務期限守進採価評績" },
+    22: { title:"旅行", start:737, end:760, range:"737〜760", cardTotal:24, kanji:"紅葉対絶泊程史歴灯靴装加帽産祭踊衣浴緑指約拾景詰" },
+    23: { title:"発表", start:761, end:784, range:"761〜784", cardTotal:24, kanji:"諸敬尊詞副志司資省略命共調報告実構処肯否令基則規" },
+    24: { title:"論文", start:785, end:808, range:"785〜808", cardTotal:24, kanji:"論占幅横境逆率比他較章述均傾件条仮倍拡著版環判批" },
+    25: { title:"健康", start:809, end:832, range:"809〜832", cardTotal:24, kanji:"健康操肩背腰腕鼻吸胸栄骨悩胃髪抜療歯磨汗汚局看血" },
+    26: { title:"地理", start:833, end:856, range:"833〜856", cardTotal:24, kanji:"州帯節季湿蒸陸吹乾燥震泉富湖豊湾砂埋岸浮欧積沈泥" },
+    27: { title:"植物", start:857, end:880, range:"857〜880", cardTotal:24, kanji:"植虫甘液群根巨針枝辺散咲香草耕種皮含辛照鳴谷坂域" },
+    28: { title:"地球", start:881, end:904, range:"881〜904", cardTotal:24, kanji:"星陽周極裏宇宙億河光逃異測観氷溶恐圧探庁怖波零兆" },
+    29: { title:"いろいろなニュース・1", start:905, end:928, range:"905〜928", cardTotal:24, kanji:"亡展捕宝棒輪爆原因捜救識居疑反罪叫況殺追婦途灰暴" },
+    30: { title:"いろいろなニュース・2", start:929, end:952, range:"929〜952", cardTotal:24, kanji:"民録位秒優勝退勢仲打投頼戦延負賞争団失敗委訪競依" },
+    31: { title:"いろいろなニュース・3", start:953, end:976, range:"953〜976", cardTotal:24, kanji:"与炭鉱型標農漁努複制純各層訓造善般船完貿革輸貧雇" },
+    32: { title:"いろいろなニュース・4", start:977, end:1000, range:"977〜1000", cardTotal:24, kanji:"柱軒害被損濃乱応律賛総臣政治済軍兵権郊放党毒互刊" }
+  };
+
+  const BEGINNER_300 = Object.freeze([..."安一飲右雨駅円下何火花会外学間気休魚金九空月見言古五午後語口校行高国今左三山四子時耳七社車手週十出書女小少上食新人水生西先千川前足多大男中長天店電土東道読南二日入年買白八半百父分聞母北本毎万名木目友来立六話県悪暗以意医員引院運映英遠屋音夏家歌画回海界開楽寒漢館顔帰起急究牛去京強教業近銀区兄計軽建犬研験元好工広考合黒菜作仕使始姉市思止死私紙試事字持自室質写者借弱主首秋終習集住重春所暑乗場色心森真親図世正声青赤切説洗早走送族村体待貸代台題短知地池茶着昼注朝町鳥通低弟転田都度冬答頭働動同堂特肉売発飯病品不風服物文別便勉歩方妹味明問門夜野薬有夕曜洋用理旅料力林黄座濯奥押降号取酒寝全鉄内晩番府部閉米利和"]);
+  const BEGINNER_300_SET = new Set(BEGINNER_300);
+
+  // LESSON_META から全700字の住所録を自動生成。
+  // データ不整合があっても学習ページ全体を停止させず、validateMaster() に回す。
+  const BUILD_ERRORS = [];
+  const COURSE_MASTER = {};
+  Object.entries(LESSON_META).forEach(([lessonKey,meta])=>{
+    const lesson=Number(lessonKey);
+    [...meta.kanji].forEach((kanji,i)=>{
+      if(Object.prototype.hasOwnProperty.call(COURSE_MASTER,kanji)){
+        BUILD_ERRORS.push(`COURSE_MASTER 重複: ${kanji}（第${COURSE_MASTER[kanji].lesson}課 / 第${lesson}課）`);
+        return; // 最初の登録を残す。
+      }
+      COURSE_MASTER[kanji]={no:meta.start+i,lesson};
+    });
+  });
+
+  // 第11・12課から新方式を試す。
+  // limited:true は常用漢字表で「1字下げ」の読みだけに付ける。
+  // 第11・12課について、成「ジョウ」・除「ジ」が該当。
+  // 候「そうろう」・示「シ」・接「つぐ」・粉「こ」は1字下げではない。
+  const READING_AUDIT = {
+    source:"文化庁『常用漢字表』（平成22年11月30日内閣告示第2号）",
+    checked:"2026-09-16",
+    lessons:Object.freeze([11,12]),
+    limitedRule:"音訓欄で1字下げの音訓＝特別なもの又は用法のごく狭いもの"
+  };
+  const READING_MASTER = {"材":{"on":[{"reading":"ザイ","example":{"word":"材料","reading":"ざいりょう"}}],"kun":[]},"玉":{"on":[{"reading":"ギョク","example":{"word":"玉石","reading":"ぎょくせき"}}],"kun":[{"reading":"たま","stem":"たま","okuri":"","example":{"word":"玉","reading":"たま"}}]},"個":{"on":[{"reading":"コ","example":{"word":"個人","reading":"こじん"}}],"kun":[]},"塩":{"on":[{"reading":"エン","example":{"word":"食塩","reading":"しょくえん"}}],"kun":[{"reading":"しお","stem":"しお","okuri":"","example":{"word":"塩","reading":"しお"}}]},"粉":{"on":[{"reading":"フン","example":{"word":"粉末","reading":"ふんまつ"}}],"kun":[{"reading":"こ","stem":"こ","okuri":"","example":{"word":"小麦粉","reading":"こむぎこ"}},{"reading":"こな","stem":"こな","okuri":"","example":{"word":"粉","reading":"こな"}}]},"杯":{"on":[{"reading":"ハイ","example":{"word":"一杯","reading":"いっぱい"}}],"kun":[{"reading":"さかずき","stem":"さかずき","okuri":"","example":{"word":"杯","reading":"さかずき"}}]},"固":{"on":[{"reading":"コ","example":{"word":"固定","reading":"こてい"}}],"kun":[{"reading":"かためる","stem":"かた","okuri":"める","example":{"word":"固める","reading":"かためる"}},{"reading":"かたまる","stem":"かた","okuri":"まる","example":{"word":"固まる","reading":"かたまる"}},{"reading":"かたい","stem":"かた","okuri":"い","example":{"word":"固い","reading":"かたい"}}]},"厚":{"on":[{"reading":"コウ","example":{"word":"厚生","reading":"こうせい"}}],"kun":[{"reading":"あつい","stem":"あつ","okuri":"い","example":{"word":"厚い","reading":"あつい"}}]},"薄":{"on":[{"reading":"ハク","example":{"word":"薄情","reading":"はくじょう"}}],"kun":[{"reading":"うすい","stem":"うす","okuri":"い","example":{"word":"薄い","reading":"うすい"}},{"reading":"うすめる","stem":"うす","okuri":"める","example":{"word":"薄める","reading":"うすめる"}},{"reading":"うすまる","stem":"うす","okuri":"まる","example":{"word":"薄まる","reading":"うすまる"}},{"reading":"うすらぐ","stem":"うす","okuri":"らぐ","example":{"word":"薄らぐ","reading":"うすらぐ"}},{"reading":"うすれる","stem":"うす","okuri":"れる","example":{"word":"薄れる","reading":"うすれる"}}]},"量":{"on":[{"reading":"リョウ","example":{"word":"分量","reading":"ぶんりょう"}}],"kun":[{"reading":"はかる","stem":"はか","okuri":"る","example":{"word":"量る","reading":"はかる"}}]},"湯":{"on":[{"reading":"トウ","example":{"word":"熱湯","reading":"ねっとう"}}],"kun":[{"reading":"ゆ","stem":"ゆ","okuri":"","example":{"word":"湯","reading":"ゆ"}}]},"沸":{"on":[{"reading":"フツ","example":{"word":"沸騰","reading":"ふっとう"}}],"kun":[{"reading":"わく","stem":"わ","okuri":"く","example":{"word":"沸く","reading":"わく"}},{"reading":"わかす","stem":"わ","okuri":"かす","example":{"word":"沸かす","reading":"わかす"}}]},"軟":{"on":[{"reading":"ナン","example":{"word":"軟弱","reading":"なんじゃく"}}],"kun":[{"reading":"やわらか","stem":"やわ","okuri":"らか","example":{"word":"軟らか","reading":"やわらか"}},{"reading":"やわらかい","stem":"やわ","okuri":"らかい","example":{"word":"軟らかい","reading":"やわらかい"}}]},"混":{"on":[{"reading":"コン","example":{"word":"混雑","reading":"こんざつ"}}],"kun":[{"reading":"まじる","stem":"ま","okuri":"じる","example":{"word":"混じる","reading":"まじる"}},{"reading":"まざる","stem":"ま","okuri":"ざる","example":{"word":"混ざる","reading":"まざる"}},{"reading":"まぜる","stem":"ま","okuri":"ぜる","example":{"word":"混ぜる","reading":"まぜる"}},{"reading":"こむ","stem":"こ","okuri":"む","example":{"word":"混む","reading":"こむ"}}]},"等":{"on":[{"reading":"トウ","example":{"word":"平等","reading":"びょうどう"}}],"kun":[{"reading":"ひとしい","stem":"ひと","okuri":"しい","example":{"word":"等しい","reading":"ひとしい"}}]},"丸":{"on":[{"reading":"ガン","example":{"word":"弾丸","reading":"だんがん"}}],"kun":[{"reading":"まる","stem":"まる","okuri":"","example":{"word":"丸","reading":"まる"}},{"reading":"まるい","stem":"まる","okuri":"い","example":{"word":"丸い","reading":"まるい"}},{"reading":"まるめる","stem":"まる","okuri":"める","example":{"word":"丸める","reading":"まるめる"}}]},"包":{"on":[{"reading":"ホウ","example":{"word":"包装","reading":"ほうそう"}}],"kun":[{"reading":"つつむ","stem":"つつ","okuri":"む","example":{"word":"包む","reading":"つつむ"}}]},"巻":{"on":[{"reading":"カン","example":{"word":"一巻","reading":"いっかん"}}],"kun":[{"reading":"まく","stem":"ま","okuri":"く","example":{"word":"巻く","reading":"まく"}},{"reading":"まき","stem":"まき","okuri":"","example":{"word":"巻","reading":"まき"}}]},"麦":{"on":[{"reading":"バク","example":{"word":"麦芽","reading":"ばくが"}}],"kun":[{"reading":"むぎ","stem":"むぎ","okuri":"","example":{"word":"小麦","reading":"こむぎ"}}]},"焼":{"on":[{"reading":"ショウ","example":{"word":"燃焼","reading":"ねんしょう"}}],"kun":[{"reading":"やく","stem":"や","okuri":"く","example":{"word":"焼く","reading":"やく"}},{"reading":"やける","stem":"や","okuri":"ける","example":{"word":"焼ける","reading":"やける"}}]},"編":{"on":[{"reading":"ヘン","example":{"word":"編集","reading":"へんしゅう"}}],"kun":[{"reading":"あむ","stem":"あ","okuri":"む","example":{"word":"編む","reading":"あむ"}}]},"示":{"on":[{"reading":"ジ","example":{"word":"表示","reading":"ひょうじ"}},{"reading":"シ","example":{"word":"示唆","reading":"しさ"}}],"kun":[{"reading":"しめす","stem":"しめ","okuri":"す","example":{"word":"示す","reading":"しめす"}}]},"成":{"on":[{"reading":"セイ","example":{"word":"作成","reading":"さくせい"}},{"reading":"ジョウ","limited":true,"example":{"word":"成就","reading":"じょうじゅ"}}],"kun":[{"reading":"なる","stem":"な","okuri":"る","example":{"word":"成る","reading":"なる"}},{"reading":"なす","stem":"な","okuri":"す","example":{"word":"成す","reading":"なす"}}]},"存":{"on":[{"reading":"ソン","example":{"word":"存在","reading":"そんざい"}},{"reading":"ゾン","example":{"word":"存じる","reading":"ぞんじる"}}],"kun":[]},"保":{"on":[{"reading":"ホ","example":{"word":"保存","reading":"ほぞん"}}],"kun":[{"reading":"たもつ","stem":"たも","okuri":"つ","example":{"word":"保つ","reading":"たもつ"}}]},"設":{"on":[{"reading":"セツ","example":{"word":"設定","reading":"せってい"}}],"kun":[{"reading":"もうける","stem":"もう","okuri":"ける","example":{"word":"設ける","reading":"もうける"}}]},"印":{"on":[{"reading":"イン","example":{"word":"印刷","reading":"いんさつ"}}],"kun":[{"reading":"しるし","stem":"しるし","okuri":"","example":{"word":"印","reading":"しるし"}}]},"刷":{"on":[{"reading":"サツ","example":{"word":"印刷","reading":"いんさつ"}}],"kun":[{"reading":"する","stem":"す","okuri":"る","example":{"word":"刷る","reading":"する"}}]},"信":{"on":[{"reading":"シン","example":{"word":"通信","reading":"つうしん"}}],"kun":[]},"了":{"on":[{"reading":"リョウ","example":{"word":"完了","reading":"かんりょう"}}],"kun":[]},"列":{"on":[{"reading":"レツ","example":{"word":"行列","reading":"ぎょうれつ"}}],"kun":[]},"戻":{"on":[{"reading":"レイ","example":{"word":"返戻","reading":"へんれい"}}],"kun":[{"reading":"もどす","stem":"もど","okuri":"す","example":{"word":"戻す","reading":"もどす"}},{"reading":"もどる","stem":"もど","okuri":"る","example":{"word":"戻る","reading":"もどる"}}]},"更":{"on":[{"reading":"コウ","example":{"word":"更新","reading":"こうしん"}}],"kun":[{"reading":"さら","stem":"さら","okuri":"","example":{"word":"更に","reading":"さらに"}},{"reading":"ふける","stem":"ふ","okuri":"ける","example":{"word":"更ける","reading":"ふける"}},{"reading":"ふかす","stem":"ふ","okuri":"かす","example":{"word":"夜更かし","reading":"よふかし"}}]},"移":{"on":[{"reading":"イ","example":{"word":"移動","reading":"いどう"}}],"kun":[{"reading":"うつる","stem":"うつ","okuri":"る","example":{"word":"移る","reading":"うつる"}},{"reading":"うつす","stem":"うつ","okuri":"す","example":{"word":"移す","reading":"うつす"}}]},"除":{"on":[{"reading":"ジョ","example":{"word":"削除","reading":"さくじょ"}},{"reading":"ジ","limited":true,"example":{"word":"掃除","reading":"そうじ"}}],"kun":[{"reading":"のぞく","stem":"のぞ","okuri":"く","example":{"word":"除く","reading":"のぞく"}}]},"能":{"on":[{"reading":"ノウ","example":{"word":"能力","reading":"のうりょく"}}],"kun":[]},"接":{"on":[{"reading":"セツ","example":{"word":"接続","reading":"せつぞく"}}],"kun":[{"reading":"つぐ","stem":"つ","okuri":"ぐ","example":{"word":"接ぐ","reading":"つぐ"}}]},"候":{"on":[{"reading":"コウ","example":{"word":"候補","reading":"こうほ"}}],"kun":[{"reading":"そうろう","stem":"そうろう","okuri":"","example":{"word":"候文","reading":"そうろうぶん"}}]},"補":{"on":[{"reading":"ホ","example":{"word":"候補","reading":"こうほ"}}],"kun":[{"reading":"おぎなう","stem":"おぎな","okuri":"う","example":{"word":"補う","reading":"おぎなう"}}]},"囲":{"on":[{"reading":"イ","example":{"word":"範囲","reading":"はんい"}}],"kun":[{"reading":"かこむ","stem":"かこ","okuri":"む","example":{"word":"囲む","reading":"かこむ"}},{"reading":"かこう","stem":"かこ","okuri":"う","example":{"word":"囲う","reading":"かこう"}}]}};
+
+  // 特別な読みは構成漢字が700字／初級300字の外でも登録可。
+  const SPECIAL_READING_MASTER = {"蕎麦":{"reading":"そば","sourceLesson":11,"kind":"special"},"成田":{"reading":"なりた","sourceLesson":12,"kind":"proper-name"},"相撲":{"reading":"すもう","sourceLesson":16,"kind":"special"},"為替":{"reading":"かわせ","sourceLesson":18,"kind":"special"},"二十歳":{"reading":"はたち","sourceLesson":20,"kind":"special"},"足袋":{"reading":"たび","sourceLesson":20,"kind":"special"},"紅葉":{"reading":"もみじ","sourceLesson":22,"kind":"special"},"土産":{"reading":"みやげ","sourceLesson":22,"kind":"special"},"浴衣":{"reading":"ゆかた","sourceLesson":22,"kind":"special"},"景色":{"reading":"けしき","sourceLesson":22,"kind":"special"},"秋葉原":{"reading":"あきはばら","sourceLesson":29,"kind":"proper-name"},"勝手":{"reading":"かって","sourceLesson":30,"kind":"special"},"布団":{"reading":"ふとん","sourceLesson":30,"kind":"special"}};
+
+  // 課番号・「初級」は entries に手入力しない。表示時に自動解決する。
+  const IJI_DOKUN_MASTER = {"たま":{"entries":[{"kanji":"球","word":"球","ja":"球技のボール・電球など、球形のもの","en":"a ball used in sports; also round or spherical things such as a light bulb","zh":"球类运动中的球；也指电灯泡等球形的东西","ko":"구기 종목의 공, 전구 등 둥글거나 구형인 것","pt":"bola usada em esportes; também coisas redondas ou esféricas, como uma lâmpada","th":"ลูกบอลในกีฬา และสิ่งที่มีลักษณะกลมหรือทรงกลม เช่น หลอดไฟ"},{"kanji":"玉","word":"玉","ja":"宝石・丸い物など","en":"a jewel, bead, or other small round object","zh":"宝石、珠子等圆形的小物体","ko":"보석, 구슬 등 작고 둥근 물건","pt":"joia, conta ou outro objeto pequeno e redondo","th":"อัญมณี ลูกปัด หรือของชิ้นเล็กที่มีลักษณะกลม"},{"kanji":"弾","word":"弾","ja":"銃などの弾丸","en":"a bullet or projectile used in a gun, etc.","zh":"枪等使用的子弹、弹丸","ko":"총 등에 쓰는 탄환","pt":"bala ou projétil usado em arma de fogo","th":"กระสุนหรือวัตถุที่ยิงออกจากปืน"}]},"かえる":{"entries":[{"kanji":"換","word":"換える","ja":"別のものと交換する・入れかえる","en":"to exchange, convert, or replace one thing with another","zh":"交换、兑换或转换成别的东西","ko":"다른 것으로 교환·전환하다","pt":"trocar, converter ou substituir uma coisa por outra","th":"แลก เปลี่ยน หรือแปลงเป็นอีกสิ่งหนึ่ง"},{"kanji":"変","word":"変える","ja":"状態・内容・方法などを違うものにする","en":"to change a state, content, method, etc.","zh":"改变状态、内容、方法等","ko":"상태·내용·방법 등을 바꾸다","pt":"mudar estado, conteúdo, método etc.","th":"เปลี่ยนสภาพ เนื้อหา วิธีการ ฯลฯ"},{"kanji":"替","word":"替える","ja":"今あるものを、同じ役割の別のものに取り替える","en":"to replace something with another item serving the same role","zh":"把现有的东西换成用途相同的另一个","ko":"현재의 것을 같은 역할의 다른 것으로 갈다","pt":"substituir algo por outro item com a mesma função","th":"เปลี่ยนของเดิมเป็นอีกชิ้นที่ทำหน้าที่เดียวกัน"}]},"つく":{"entries":[{"kanji":"付","word":"付く","ja":"ものがくっつく・一緒になる","en":"to attach to or become joined with something","zh":"附着、粘上；和某物连在一起","ko":"붙다; 어떤 것에 달라붙거나 함께 붙다","pt":"grudar-se; ficar ligado a algo","th":"ติดหรือแนบเข้ากับสิ่งอื่น"},{"kanji":"着","word":"着く","ja":"場所に到着する","en":"to arrive at a place","zh":"到达某个地方","ko":"어떤 장소에 도착하다","pt":"chegar a um lugar","th":"ไปถึงสถานที่หนึ่ง"},{"kanji":"就","word":"就く","ja":"仕事・役割を始める","en":"to take up a job, position, or role","zh":"开始从事工作或担任职位","ko":"직업·직위·역할을 맡기 시작하다","pt":"assumir um emprego, cargo ou função","th":"เริ่มทำงาน รับตำแหน่ง หรือรับบทบาท"},{"kanji":"突","word":"突く","ja":"指や棒などで押す・つつく","en":"to poke or thrust with a finger, stick, etc.","zh":"用手指、棍子等戳、捅","ko":"손가락이나 막대기 등으로 찌르다","pt":"cutucar ou empurrar com o dedo, uma vara etc.","th":"จิ้มหรือแทงด้วยนิ้ว ไม้ ฯลฯ"},{"kanji":"点","word":"点く","ja":"電気や火がつく","en":"for a light or fire to come on or be lit","zh":"灯亮；火点着","ko":"불이나 전기가 켜지다","pt":"acender-se uma luz ou fogo","th":"ไฟหรือแสงติดขึ้น"}]},"はかる":{"entries":[{"kanji":"量","word":"量る","ja":"重さ・量・容積などを調べる","en":"to measure weight, quantity, volume, etc.","zh":"测量重量、数量、容积等","ko":"무게·양·부피 등을 재다","pt":"medir peso, quantidade, volume etc.","th":"วัดน้ำหนัก ปริมาณ ปริมาตร ฯลฯ"},{"kanji":"測","word":"測る","ja":"長さ・高さ・速さなどを測定する","en":"to measure length, height, speed, etc.","zh":"测量长度、高度、速度等","ko":"길이·높이·속도 등을 측정하다","pt":"medir comprimento, altura, velocidade etc.","th":"วัดความยาว ความสูง ความเร็ว ฯลฯ"},{"kanji":"計","word":"計る","ja":"時間・数などを調べる","en":"to measure or calculate time, numbers, etc.","zh":"计量时间、数值等","ko":"시간·수치 등을 재거나 계산하다","pt":"medir ou calcular tempo, números etc.","th":"จับเวลา วัด หรือคำนวณตัวเลข ฯลฯ"}]},"なく":{"entries":[{"kanji":"泣","word":"泣く","ja":"涙を流す","en":"to cry and shed tears","zh":"哭；流泪","ko":"울다; 눈물을 흘리다","pt":"chorar; derramar lágrimas","th":"ร้องไห้และมีน้ำตา"},{"kanji":"鳴","word":"鳴く","ja":"動物・虫などが声を出す","en":"for an animal or insect to make a sound","zh":"动物、昆虫等发出叫声","ko":"동물·곤충 등이 소리를 내다","pt":"animal ou inseto emitir um som","th":"สัตว์หรือแมลงส่งเสียง"}]},"つとめる":{"entries":[{"kanji":"勤","word":"勤める","ja":"会社・学校などで仕事をする","en":"to work for a company, school, etc.","zh":"在公司、学校等工作","ko":"회사·학교 등에서 근무하다","pt":"trabalhar em uma empresa, escola etc.","th":"ทำงานในบริษัท โรงเรียน ฯลฯ"},{"kanji":"務","word":"務める","ja":"役割・任務を担当する","en":"to serve in or carry out a role or duty","zh":"担任某种角色、任务","ko":"역할·임무를 맡다","pt":"desempenhar um papel ou dever","th":"ทำหน้าที่หรือรับผิดชอบภารกิจ"},{"kanji":"努","word":"努める","ja":"目標のために努力する","en":"to make an effort toward a goal","zh":"为了目标而努力","ko":"목표를 위해 노력하다","pt":"esforçar-se para alcançar um objetivo","th":"พยายามเพื่อบรรลุเป้าหมาย"}]},"やさしい":{"entries":[{"kanji":"易","word":"易しい","ja":"難しくない","en":"not difficult; easy","zh":"不难；容易","ko":"어렵지 않다; 쉽다","pt":"não difícil; fácil","th":"ไม่ยาก; ง่าย"},{"kanji":"優","word":"優しい","ja":"思いやりがある・おだやかだ","en":"kind, gentle, and considerate","zh":"温柔、体贴","ko":"친절하고 상냥하며 배려가 있다","pt":"gentil, amável e atencioso","th":"ใจดี อ่อนโยน และเห็นอกเห็นใจ"}]},"こえる":{"entries":[{"kanji":"越","word":"越える","ja":"場所・境界などを通り過ぎる","en":"to cross over a place, boundary, etc.","zh":"越过地点、边界等","ko":"장소·경계 등을 넘다","pt":"atravessar um lugar, limite etc.","th":"ข้ามสถานที่หรือเขตแดน"},{"kanji":"超","word":"超える","ja":"数量・基準・限度などを上回る","en":"to exceed a quantity, standard, limit, etc.","zh":"超过数量、标准、限度等","ko":"수량·기준·한도 등을 넘다","pt":"exceder uma quantidade, padrão, limite etc.","th":"เกินจำนวน มาตรฐาน หรือขีดจำกัด"}]},"なおす":{"entries":[{"kanji":"直","word":"直す","ja":"間違い・故障などを正しい状態にする","en":"to correct a mistake or repair something broken","zh":"纠正错误；修理故障等","ko":"잘못을 고치거나 고장 난 것을 수리하다","pt":"corrigir um erro ou consertar algo quebrado","th":"แก้ข้อผิดพลาดหรือซ่อมของที่เสีย"},{"kanji":"治","word":"治す","ja":"病気やけがをよくする","en":"to cure an illness or injury","zh":"治好疾病或伤势","ko":"병이나 부상을 낫게 하다","pt":"curar uma doença ou lesão","th":"รักษาโรคหรืออาการบาดเจ็บให้ดีขึ้น"}]},"かたい":{"entries":[{"kanji":"固","word":"固い","ja":"形が変わりにくい・固まっている","en":"firm or solid; not easily changing shape","zh":"坚固；不容易改变形状","ko":"단단하고 형태가 잘 변하지 않다","pt":"sólido, firme; não muda de forma facilmente","th":"แข็งแน่นและเปลี่ยนรูปได้ยาก"},{"kanji":"硬","word":"硬い","ja":"物の表面などが強くて変形しにくい","en":"hard and resistant to bending or deformation","zh":"坚硬；不易变形","ko":"표면 등이 딱딱하고 잘 변형되지 않다","pt":"duro e resistente à deformação","th":"แข็งและเปลี่ยนรูปได้ยาก"}]},"のびる":{"entries":[{"kanji":"伸","word":"伸びる","ja":"長さなどが長くなる","en":"to become longer; to stretch or grow","zh":"长度变长；伸长","ko":"길이 등이 길어지다","pt":"ficar mais comprido; esticar-se","th":"ยาวขึ้นหรือยืดออก"},{"kanji":"延","word":"延びる","ja":"時間・期限・距離などが長くなる","en":"for time, a deadline, distance, etc. to be extended","zh":"时间、期限、距离等延长","ko":"시간·기한·거리 등이 늘어나다","pt":"tempo, prazo ou distância ser prolongado","th":"เวลา กำหนด หรือระยะทางยาวขึ้น"}]},"のばす":{"entries":[{"kanji":"伸","word":"伸ばす","ja":"長さなどを長くする","en":"to make something longer; to stretch it","zh":"把长度等拉长、伸长","ko":"길이 등을 길게 하다","pt":"alongar; esticar algo","th":"ทำให้ยาวขึ้นหรือยืดออก"},{"kanji":"延","word":"延ばす","ja":"時間・期限・距離などを長くする","en":"to extend time, a deadline, distance, etc.","zh":"延长时间、期限、距离等","ko":"시간·기한·거리 등을 늘리다","pt":"prolongar tempo, prazo, distância etc.","th":"ขยายเวลา กำหนด หรือระยะทาง"}]},"さす":{"entries":[{"kanji":"刺","word":"刺す","ja":"先のとがったものを突き入れる","en":"to pierce or stab with something pointed","zh":"用尖锐物刺入","ko":"뾰족한 것으로 찌르다","pt":"perfurar ou espetar com algo pontudo","th":"แทงหรือจิ้มด้วยของแหลม"},{"kanji":"差","word":"差す","ja":"傘を開く、光が入るなど","en":"to open or hold an umbrella; for light to shine in, etc.","zh":"撑伞；光线照入等","ko":"우산을 쓰다; 빛이 비치다 등","pt":"abrir ou usar um guarda-chuva; luz incidir etc.","th":"กางร่ม หรือแสงส่องเข้ามา ฯลฯ"},{"kanji":"指","word":"指す","ja":"指などで方向・対象を示す","en":"to point at or indicate a direction or target","zh":"用手指等指示方向或对象","ko":"손가락 등으로 방향·대상을 가리키다","pt":"apontar ou indicar uma direção ou alvo","th":"ชี้ทิศทางหรือเป้าหมายด้วยนิ้ว ฯลฯ"}]},"かわ":{"entries":[{"kanji":"皮","word":"皮","ja":"動物・植物などの表面をおおうもの","en":"skin, peel, or outer covering of an animal or plant","zh":"动物、植物等表面的皮、外皮","ko":"동물·식물 등의 겉을 덮는 껍질·피부","pt":"pele, casca ou cobertura externa de animal ou planta","th":"ผิวหรือเปลือกที่หุ้มสัตว์หรือพืช"},{"kanji":"革","word":"革","ja":"動物の皮を加工して作った材料","en":"leather made by processing animal hide","zh":"加工动物皮制成的皮革","ko":"동물의 가죽을 가공한 재료","pt":"couro feito do processamento da pele animal","th":"หนังที่ได้จากการแปรรูปหนังสัตว์"}]},"あつい":{"entries":[{"kanji":"厚","word":"厚い","ja":"物の厚みが大きい","en":"thick; having substantial thickness","zh":"厚；厚度大","ko":"두께가 두껍다","pt":"espesso; de grande espessura","th":"หนา; มีความหนามาก"},{"kanji":"熱","word":"熱い","ja":"物の温度が高い","en":"hot to the touch; high in temperature","zh":"物体温度高；烫","ko":"물건의 온도가 높다; 뜨겁다","pt":"quente ao toque; temperatura alta","th":"ร้อนเมื่อสัมผัส; อุณหภูมิสูง"},{"kanji":"暑","word":"暑い","ja":"気温が高く、暑さを感じる","en":"hot weather; the air temperature is high","zh":"天气热；气温高","ko":"날씨·기온이 높아 덥다","pt":"tempo quente; temperatura do ar alta","th":"อากาศร้อน; อุณหภูมิอากาศสูง"}]},"まじる":{"entries":[{"kanji":"混","word":"混じる","ja":"別のものが入り合う","en":"different things become mixed together","zh":"不同的东西混在一起","ko":"서로 다른 것이 뒤섞이다","pt":"coisas diferentes ficarem misturadas","th":"สิ่งต่างชนิดผสมปะปนกัน"},{"kanji":"交","word":"交じる","ja":"性質の違うものが入り合う。文化庁資料では「混じる」との使い分け対象","en":"different kinds of things are intermingled; contrasted with 混じる in official usage guidance","zh":"性质不同的事物相互掺杂；官方用法资料中与「混じる」作区分","ko":"성질이 다른 것이 서로 섞이다; 공적 용법 자료에서 混じる와 구별","pt":"coisas de natureza diferente se intercalam; contrastado com 混じる em orientação oficial","th":"สิ่งที่มีลักษณะต่างกันแทรกปะปนกัน; ในแนวทางทางการแยกใช้จาก 混じる"}]},"まざる":{"entries":[{"kanji":"混","word":"混ざる","ja":"別のものが入り合った状態になる","en":"to become mixed with other things","zh":"与别的东西混在一起","ko":"다른 것과 뒤섞인 상태가 되다","pt":"ficar misturado com outras coisas","th":"กลายเป็นสภาพที่ผสมกับสิ่งอื่น"},{"kanji":"交","word":"交ざる","ja":"性質の違うものが入り合った状態になる","en":"different kinds of things become intermingled","zh":"性质不同的事物相互掺杂在一起","ko":"성질이 다른 것이 서로 섞인 상태가 되다","pt":"coisas de natureza diferente ficam intercaladas","th":"สิ่งที่มีลักษณะต่างกันปะปนกัน"}]},"まぜる":{"entries":[{"kanji":"混","word":"混ぜる","ja":"いくつかのものを一緒にして混じり合わせる","en":"to mix several things together","zh":"把几种东西混合在一起","ko":"여러 가지를 함께 섞다","pt":"misturar várias coisas juntas","th":"นำหลายสิ่งมาผสมเข้าด้วยกัน"},{"kanji":"交","word":"交ぜる","ja":"性質の違うものを入り合わせる","en":"to intermix things of different kinds","zh":"把性质不同的东西掺在一起","ko":"성질이 다른 것을 서로 섞다","pt":"misturar coisas de naturezas diferentes","th":"นำสิ่งที่มีลักษณะต่างกันมาปะปนกัน"}]},"まるい":{"entries":[{"kanji":"丸","word":"丸い","ja":"球・輪のような形をしている","en":"round or spherical in shape","zh":"呈球状、环状等圆形","ko":"공·고리처럼 둥근 모양이다","pt":"ter forma redonda ou esférica","th":"มีรูปกลมหรือทรงกลม"},{"kanji":"円","word":"円い","ja":"円のような形をしている","en":"circular, like a circle","zh":"像圆一样的形状","ko":"원처럼 둥근 모양이다","pt":"circular, como um círculo","th":"มีรูปทรงเหมือนวงกลม"}]},"そなえる":{"entries":[{"kanji":"備","word":"備える","ja":"必要なものを準備しておく","en":"to prepare or keep necessary things ready","zh":"预先准备好必要的东西","ko":"필요한 것을 미리 준비해 두다","pt":"preparar ou deixar pronto o que é necessário","th":"เตรียมสิ่งที่จำเป็นไว้ล่วงหน้า"},{"kanji":"供","word":"供える","ja":"神仏などに物をささげる","en":"to offer something to a deity, Buddha, etc.","zh":"向神佛等供奉物品","ko":"신불 등에 물건을 바치다","pt":"oferecer algo a uma divindade, Buda etc.","th":"ถวายสิ่งของแด่เทพ พระพุทธเจ้า ฯลฯ"}]},"おさめる":{"entries":[{"kanji":"修","word":"修める","ja":"学問・技術などを身につける","en":"to master or acquire learning, skills, etc.","zh":"掌握学问、技术等","ko":"학문·기술 등을 익히다","pt":"dominar ou adquirir conhecimentos, habilidades etc.","th":"เรียนรู้จนเชี่ยวชาญด้านวิชา ทักษะ ฯลฯ"},{"kanji":"収","word":"収める","ja":"中に入れる、受け取る、成果を得る","en":"to put away, receive, or obtain results","zh":"收进、收取、取得成果等","ko":"안에 넣다, 받다, 성과를 거두다","pt":"guardar, receber ou obter resultados","th":"เก็บเข้า รับ หรือได้ผลสำเร็จ"},{"kanji":"治","word":"治める","ja":"国や地域などを統治する","en":"to govern a country, region, etc.","zh":"治理国家、地区等","ko":"나라·지역 등을 다스리다","pt":"governar um país, região etc.","th":"ปกครองประเทศหรือพื้นที่"}]},"へる":{"entries":[{"kanji":"減","word":"減る","ja":"数量などが少なくなる","en":"to decrease in number or amount","zh":"数量等减少","ko":"수량 등이 줄어들다","pt":"diminuir em número ou quantidade","th":"จำนวนหรือปริมาณลดลง"},{"kanji":"経","word":"経る","ja":"時間が過ぎる、ある場所や段階を通る","en":"for time to pass; to go through a place or stage","zh":"时间经过；经过某地或某阶段","ko":"시간이 지나거나 어떤 장소·단계를 거치다","pt":"o tempo passar; passar por um lugar ou etapa","th":"เวลาผ่านไป หรือผ่านสถานที่หรือขั้นตอนหนึ่ง"}]},"やわらかい":{"entries":[{"kanji":"柔","word":"柔らかい","ja":"手触り・性質・態度などがやわらかい","en":"soft in touch; gentle or flexible in character or manner","zh":"触感柔软；性格、态度等柔和","ko":"촉감·성질·태도 등이 부드럽다","pt":"macio ao toque; gentil ou flexível em caráter ou atitude","th":"นุ่มต่อการสัมผัส หรืออ่อนโยนในนิสัยหรือท่าที"},{"kanji":"軟","word":"軟らかい","ja":"かたくなく、力を加えると形が変わりやすい","en":"not hard; easily changes shape when force is applied","zh":"不硬；受力后容易变形","ko":"딱딱하지 않고 힘을 주면 형태가 쉽게 변한다","pt":"não duro; muda de forma facilmente sob pressão","th":"ไม่แข็ง และเปลี่ยนรูปง่ายเมื่อออกแรง"}]},"うつる":{"entries":[{"kanji":"移","word":"移る","ja":"場所・位置・状態などが別のところへ変わる","en":"a place, position, state, etc. moves or changes to another","zh":"地点、位置、状态等转移或改变到别处","ko":"장소·위치·상태 등이 다른 곳으로 옮겨가거나 바뀌다","pt":"um lugar, posição ou estado muda para outro","th":"สถานที่ ตำแหน่ง หรือสภาพเปลี่ยนหรือย้ายไปอีกที่หนึ่ง"},{"kanji":"写","word":"写る","ja":"写真・画像に姿が記録される","en":"to appear or be captured in a photograph or image","zh":"被拍进照片或记录在图像中","ko":"사진·이미지에 모습이 찍히다","pt":"aparecer ou ficar registrado em uma foto ou imagem","th":"ปรากฏหรือติดอยู่ในภาพถ่ายหรือรูปภาพ"},{"kanji":"映","word":"映る","ja":"鏡・水面・画面などに姿や映像が見える","en":"an image appears on a mirror, water surface, screen, etc.","zh":"影像出现在镜子、水面、屏幕等上","ko":"거울·수면·화면 등에 모습이나 영상이 비치다","pt":"uma imagem aparece em espelho, superfície da água, tela etc.","th":"ภาพหรือเงาปรากฏบนกระจก ผิวน้ำ หน้าจอ ฯลฯ"}]},"うつす":{"entries":[{"kanji":"移","word":"移す","ja":"場所・位置・状態などを別のところへ変える","en":"to move or transfer a place, position, state, etc. to another","zh":"把地点、位置、状态等转移到别处","ko":"장소·위치·상태 등을 다른 곳으로 옮기다","pt":"mover ou transferir um lugar, posição ou estado para outro","th":"ย้ายหรือเปลี่ยนสถานที่ ตำแหน่ง หรือสภาพไปอีกที่หนึ่ง"},{"kanji":"写","word":"写す","ja":"写真に撮る、または見たものを書き写す","en":"to photograph, copy, or reproduce what is seen","zh":"拍照，或照着原样抄写、复制","ko":"사진을 찍거나 본 것을 베껴 쓰다","pt":"fotografar, copiar ou reproduzir o que se vê","th":"ถ่ายภาพ หรือคัดลอกสิ่งที่เห็น"},{"kanji":"映","word":"映す","ja":"鏡・画面などに像や映像を出す","en":"to show, project, or reflect an image on a screen, mirror, etc.","zh":"把影像投射、显示或映在屏幕、镜子等上","ko":"화면·거울 등에 상이나 영상을 비추다","pt":"mostrar, projetar ou refletir uma imagem em tela, espelho etc.","th":"ฉาย แสดง หรือสะท้อนภาพบนหน้าจอ กระจก ฯลฯ"}]},"ふける":{"entries":[{"kanji":"更","word":"更ける","ja":"夜・時間が遅くなる","en":"the night or time grows late","zh":"夜渐深；时间变晚","ko":"밤이나 시간이 깊어지다","pt":"a noite ou o tempo avança e fica tarde","th":"กลางคืนหรือเวลาล่วงเลยจนดึก"},{"kanji":"老","word":"老ける","ja":"年を取って見える、年齢を重ねる","en":"to look older or grow old","zh":"显老；上年纪","ko":"늙어 보이거나 나이가 들다","pt":"parecer mais velho ou envelhecer","th":"ดูแก่ขึ้นหรือมีอายุมากขึ้น"}]},"つぐ":{"entries":[{"kanji":"接","word":"接ぐ","ja":"二つのものをつなぐ、植物を接ぎ木する","en":"to join two things; to graft a plant","zh":"连接两个东西；嫁接植物","ko":"두 가지를 잇다; 식물을 접붙이다","pt":"unir duas coisas; enxertar uma planta","th":"เชื่อมสองสิ่งเข้าด้วยกัน หรือทาบกิ่งพืช"},{"kanji":"次","word":"次ぐ","ja":"すぐ後に続く","en":"to follow immediately after; to rank next","zh":"紧接在后；位居其次","ko":"바로 뒤를 잇다; 다음가다","pt":"vir logo depois; ocupar a posição seguinte","th":"ตามมาติด ๆ หรืออยู่ในลำดับถัดไป"}]}};
+
+  // type: glyph=コード上の字体差 / usage=用字差 / regional=同一コードの地域別字形差。
+  // 1〜10課の simp/trad は移行完了まで各課DATAにも残すが、最終的にはここを正本にする。
+  const GLYPH_MASTER = {"険":{"jp":"険","sc":"险","tc":"險","type":"glyph"},"綿":{"jp":"綿","sc":"绵","tc":"綿","type":"glyph","noteJa":"「棉」は別字。中国語で綿・コットンを表す語としてよく使うため、用字差の補足として扱う。"},"窓":{"jp":"窓","sc":"窗","tc":"窗","type":"usage","noteJa":"中国語では通常「窗」を使う。単純な字体変換ではなく、用字差として扱う。"},"庁":{"jp":"庁","sc":"厅","tc":"廳","type":"glyph"},"圧":{"jp":"圧","sc":"压","tc":"壓","type":"glyph"},"観":{"jp":"観","sc":"观","tc":"觀","type":"glyph"},"測":{"jp":"測","sc":"测","tc":"測","type":"glyph"},"億":{"jp":"億","sc":"亿","tc":"億","type":"glyph"},"化":{"jp":"化","sc":"化","tc":"化","type":"regional","reason":"同一Unicodeでも日本語字形と中国語字形で学習上確認しやすい地域差があるため比較対象にする","source":"文化庁「常用漢字表の字体・字形に関する指針」等／地域別CJKフォント資料"},"器":{"jp":"器","sc":"器","tc":"器","type":"regional","reason":"同一Unicodeでも日本語字形と中国語字形で中央部分に学習上確認しやすい地域差があるため比較対象にする","source":"地域別CJK標準字形資料"}};
+
+  function lessonInfoForKanji(kanji){
+    const course=COURSE_MASTER[kanji];
+    if(!course) return null;
+    const meta=LESSON_META[course.lesson];
+    return {
+      kanji,
+      no:course.no,
+      lesson:course.lesson,
+      title:meta.title,
+      href:`lesson${String(course.lesson).padStart(2,"0")}.html`
+    };
+  }
+
+  // 表示優先順位:
+  // 1〜32課の学習漢字 → 「○課」
+  // 初級300字 → 「初級」
+  // それ以外 → 表示ラベルなし
+  // currentLesson を渡すと relation も返す。
+  function studyStageForKanji(kanji,currentLesson=null){
+    const course=lessonInfoForKanji(kanji);
+    if(course){
+      let relation="course";
+      if(Number.isInteger(currentLesson)){
+        relation=course.lesson<currentLesson ? "past" : course.lesson===currentLesson ? "current" : "future";
+      }
+      return {
+        type:"lesson", relation, label:`${course.lesson}課`,
+        lesson:course.lesson, title:course.title, href:course.href
+      };
+    }
+    if(BEGINNER_300_SET.has(kanji)){
+      return {type:"beginner",relation:"beginner",label:"初級",lesson:null,title:"",href:""};
+    }
+    return {type:"external",relation:"external",label:"",lesson:null,title:"",href:""};
+  }
+
+  function resolveIjiDokun(reading,currentLesson=null){
+    const group=IJI_DOKUN_MASTER[reading];
+    if(!group) return null;
+    return {
+      reading,
+      entries:group.entries.map(entry=>({
+        ...entry,
+        stage:studyStageForKanji(entry.kanji,currentLesson)
+      }))
+    };
+  }
+
+  function formatIjiLabel(entry){
+    const label=entry?.stage?.label||"";
+    return label ? `${entry.word}（${label}）` : entry.word;
+  }
+
+  function isBeginnerKanji(kanji){ return BEGINNER_300_SET.has(kanji); }
+
+  function isPreviouslyLearned(kanji,currentLesson){
+    if(BEGINNER_300_SET.has(kanji)) return true;
+    const info=COURSE_MASTER[kanji];
+    return !!info && info.lesson < currentLesson;
+  }
+
+  function isCurrentLessonKanji(kanji,currentLesson){
+    return COURSE_MASTER[kanji]?.lesson===currentLesson;
+  }
+
+  function readingInfo(kanji,type,reading){
+    const list=READING_MASTER[kanji]?.[type]||[];
+    return list.find(x=>x.reading===reading)||null;
+  }
+
+  function kunParts(readingObj){
+    if(!readingObj) return null;
+    return [readingObj.stem ?? readingObj.reading, readingObj.okuri ?? ""];
+  }
+
+  function limitedUseKeySet(){
+    const out=new Set();
+    Object.entries(READING_MASTER).forEach(([kanji,types])=>{
+      ["on","kun"].forEach(type=>{
+        (types[type]||[]).forEach(r=>{
+          if(r.limited) out.add(`${kanji}|${type}|${r.reading}`);
+        });
+      });
+    });
+    return out;
+  }
+
+  function hiraOnly(s){ return /^[ぁ-ゖー]+$/u.test(String(s||"")); }
+  function kataOnly(s){ return /^[ァ-ヺー]+$/u.test(String(s||"")); }
+
+  function validateMaster(){
+    const errors=[...BUILD_ERRORS];
+    const warnings=[];
+    const courseChars=Object.keys(COURSE_MASTER);
+    if(Object.keys(LESSON_META).length!==32) errors.push("LESSON_META が32課ではありません");
+    if(courseChars.length!==700) errors.push(`COURSE_MASTER が700字ではありません: ${courseChars.length}`);
+    if(BEGINNER_300.length!==300) errors.push(`BEGINNER_300 が300字ではありません: ${BEGINNER_300.length}`);
+
+    const overlap=courseChars.filter(k=>BEGINNER_300_SET.has(k));
+    if(overlap.length) errors.push(`初級300字と301〜1000に重複: ${overlap.join("・")}`);
+
+    let expectedNo=301;
+    for(let n=1;n<=32;n++){
+      const meta=LESSON_META[n];
+      const expectedCount=n<=17?20:24;
+      if(!meta){ errors.push(`第${n}課がありません`); continue; }
+      if([...meta.kanji].length!==expectedCount) errors.push(`第${n}課の字数が${expectedCount}字ではありません`);
+      if(meta.start!==expectedNo) errors.push(`第${n}課の開始No.が不連続です`);
+      if(meta.end!==meta.start+[...meta.kanji].length-1) errors.push(`第${n}課の終了No.が不整合です`);
+      expectedNo=meta.end+1;
+    }
+    if(expectedNo!==1001) errors.push("最終No.が1000で終わっていません");
+
+    const auditedLessons=new Set(READING_AUDIT.lessons);
+    Object.entries(READING_MASTER).forEach(([kanji,types])=>{
+      const course=COURSE_MASTER[kanji];
+      if(!course){ errors.push(`READING_MASTER: ${kanji} がCOURSE_MASTERにありません`); return; }
+      if(!auditedLessons.has(course.lesson)){
+        warnings.push(`READING_MASTER: ${kanji}（${course.lesson}課）はlimited監査範囲外です`);
+      }
+      ["on","kun"].forEach(type=>{
+        const rows=types[type]||[];
+        if(!Array.isArray(rows)){ errors.push(`READING_MASTER: ${kanji}.${type} が配列ではありません`); return; }
+        rows.forEach(r=>{
+          if(!r || !r.reading){ errors.push(`READING_MASTER: ${kanji}.${type} にreadingがありません`); return; }
+          if(type==="on" && !kataOnly(r.reading)) errors.push(`READING_MASTER: ${kanji} 音「${r.reading}」が片仮名ではありません`);
+          if(type==="kun" && !hiraOnly(r.reading)) errors.push(`READING_MASTER: ${kanji} 訓「${r.reading}」が平仮名ではありません`);
+          if(type==="kun"){
+            if(typeof r.stem!=="string" || typeof r.okuri!=="string") errors.push(`READING_MASTER: ${kanji} 訓「${r.reading}」にstem/okuriがありません`);
+            else if(r.stem+r.okuri!==r.reading) errors.push(`READING_MASTER: ${kanji} 訓「${r.reading}」で stem+okuri が一致しません`);
+          }
+          if(r.example){
+            if(!String(r.example.word||"").includes(kanji)) errors.push(`READING_MASTER: ${kanji}「${r.reading}」の例語に見出し漢字がありません`);
+            if(!hiraOnly(r.example.reading)) errors.push(`READING_MASTER: ${kanji}「${r.reading}」の例語読みが平仮名ではありません`);
+          }else warnings.push(`READING_MASTER: ${kanji}「${r.reading}」に代表例がありません`);
+          if(r.limited!==undefined && typeof r.limited!=="boolean") errors.push(`READING_MASTER: ${kanji}「${r.reading}」のlimitedが真偽値ではありません`);
+        });
+      });
+    });
+
+    Object.entries(SPECIAL_READING_MASTER).forEach(([word,item])=>{
+      if(!item || !hiraOnly(item.reading)) errors.push(`SPECIAL_READING_MASTER: ${word} の読みが不正です`);
+      if(!Number.isInteger(item?.sourceLesson) || !LESSON_META[item.sourceLesson]) errors.push(`SPECIAL_READING_MASTER: ${word} のsourceLessonが不正です`);
+    });
+
+    Object.entries(GLYPH_MASTER).forEach(([kanji,item])=>{
+      if(!COURSE_MASTER[kanji] && !BEGINNER_300_SET.has(kanji)) warnings.push(`GLYPH_MASTER: ${kanji} は教材1000字の外です`);
+      if(!["glyph","usage","regional"].includes(item?.type)) errors.push(`GLYPH_MASTER: ${kanji} のtypeが不正です`);
+      if(!item?.jp || !item?.sc || !item?.tc) errors.push(`GLYPH_MASTER: ${kanji} のjp/sc/tcが不足しています`);
+    });
+
+    Object.entries(IJI_DOKUN_MASTER).forEach(([reading,group])=>{
+      if(!hiraOnly(reading)) errors.push(`IJI_DOKUN_MASTER: キー「${reading}」が平仮名ではありません`);
+      (group.entries||[]).forEach(e=>{
+        if(!e.kanji || !e.word) errors.push(`${reading}：異字同訓エントリが不完全です`);
+        ["ja","en","zh","ko","pt","th"].forEach(lang=>{
+          if(!String(e[lang]||"").trim()) errors.push(`${reading}／${e.word||"?"}：使い分け説明 ${lang} がありません`);
+        });
+        if(e.kanji && e.word && !e.word.includes(e.kanji)) errors.push(`${reading}：${e.word} に ${e.kanji} が含まれません`);
+      });
+    });
+
+    return {
+      ok:errors.length===0, errors, warnings,
+      courseKanji:courseChars.length, beginnerKanji:BEGINNER_300.length, overlap:overlap.length,
+      readingMasterKanji:Object.keys(READING_MASTER).length
+    };
+  }
+
+  function deepFreeze(value,seen=new WeakSet()){
+    if(value===null || (typeof value!=="object" && typeof value!=="function")) return value;
+    if(seen.has(value)) return value;
+    seen.add(value);
+    Reflect.ownKeys(value).forEach(k=>deepFreeze(value[k],seen));
+    return Object.freeze(value);
+  }
+
+  const PUBLIC_MASTER={
+    MASTER_BUILD,
+    LESSON_META, COURSE_MASTER, BEGINNER_300, READING_AUDIT, READING_MASTER,
+    SPECIAL_READING_MASTER, IJI_DOKUN_MASTER, GLYPH_MASTER,
+    lessonInfoForKanji, studyStageForKanji, resolveIjiDokun, formatIjiLabel,
+    isBeginnerKanji, isPreviouslyLearned, isCurrentLessonKanji,
+    readingInfo, kunParts, limitedUseKeySet, validateMaster
+  };
+  global.KANJI_MASTER=deepFreeze(PUBLIC_MASTER);
+})(typeof globalThis!=="undefined" ? globalThis : this);
