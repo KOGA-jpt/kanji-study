@@ -2417,7 +2417,7 @@ document.addEventListener("keydown",e=>{
 });
 readOrder.onchange=()=>{ clearReadResume(); resetReadDeck(); newRead(); };
 
-const WRITE_CONTEXTS = {"伝記\u0000でんき":"（じんぶつの）でんき","勤める\u0000つとめる":"（かいしゃに）つとめる","習慣\u0000しゅうかん":"（まいにちの）しゅうかん","寄る\u0000よる":"（コンビニに）よる"};
+const WRITE_CONTEXTS = {"伝記\u0000でんき":"（じんぶつの）でんき","勤める\u0000つとめる":"（かいしゃに）つとめる","習慣\u0000しゅうかん":"（まいにちの）しゅうかん","寄る\u0000よる":"（コンビニに）よる","昨日\u0000きのう":"きのう（の よる）"};
 
 // 書き：一巡するまで重複なし
 function buildWriteWords(){
