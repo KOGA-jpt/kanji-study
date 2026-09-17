@@ -913,7 +913,6 @@ button ruby{
 }
 
 </style>
-<!-- progress-pilot v2: unique progress + real study timestamp, Lesson 4 -->
 </head>
 <body>
 <header>
@@ -1001,7 +1000,7 @@ button ruby{
               <option value="zh">中文</option>
               <option value="ko">한국어</option>
               <option value="pt">Português</option>
-              <option value="th">ไทย</option>
+                <option value="th">ไทย</option>
             </select>
           </div>
           <div class="note lang-help" id="langHelp" style="margin-top:7px">
@@ -1114,7 +1113,7 @@ button ruby{
             <option value="en">English</option>
             <option value="ko">한국어</option>
             <option value="pt">Português</option>
-              <option value="th">ไทย</option>
+                <option value="th">ไทย</option>
           </select>
         </label>
       </div>
@@ -1205,8 +1204,9 @@ button ruby{
 
 </main>
 
+<script src="kanji-master.js"></script>
 <script>
-const DATA = [{"kanji":"馬","meaningWord":"うま","meaningEasy":"人が乗ったり、物を運んだりする動物","meaningEn":"horse","meaningZh":"马；马匹","meaningKo":"말","meaningPt":"cavalo","no":361,"on":["バ"],"kun":["うま","ま"],"words":[["乗馬","じょうば",{"en":"horse riding","zh":"骑马","ko":"승마","pt":"equitação","th":"การขี่ม้า"}],["馬","うま",{"en":"horse","zh":"马","ko":"말","pt":"cavalo","th":"ม้า"}]],"extra":[["馬車","ばしゃ",{"en":"carriage","zh":"马车","ko":"마차","pt":"carruagem","th":"รถม้า"}],["競馬","けいば",{"en":"horse racing","zh":"赛马","ko":"경마","pt":"corrida de cavalos","th":"การแข่งม้า"}],["馬力","ばりき",{"en":"horsepower","zh":"马力","ko":"마력","pt":"cavalo-vapor","th":"แรงม้า"}]],"special":[["騎馬像","きばぞう","美術・彫刻",{"en":"equestrian statue","zh":"骑马像","ko":"기마상","pt":"estátua equestre","th":"รูปปั้นคนขี่ม้า"}]],"simp":"马","trad":"馬","meaningTh":"ม้า"},{"kanji":"象","meaningWord":"ぞう","meaningEasy":"鼻がとても長く、体が大きい動物。また、物の形や姿を表すこともある","meaningEn":"elephant; image / form","meaningZh":"象；形象","meaningKo":"코끼리; 형상","meaningPt":"elefante; imagem / forma","no":362,"on":["ショウ","ゾウ"],"kun":[],"words":[["気象","きしょう",{"en":"weather; meteorological conditions","zh":"气象","ko":"기상","pt":"condições meteorológicas","th":"สภาพอากาศ; ภาวะทางอุตุนิยมวิทยา"}],["現象","げんしょう",{"en":"phenomenon","zh":"现象","ko":"현상","pt":"fenômeno","th":"ปรากฏการณ์"}],["象","ぞう",{"en":"elephant","zh":"象；大象","ko":"코끼리","pt":"elefante","th":"ช้าง"}]],"extra":[["印象","いんしょう",{"en":"impression","zh":"印象","ko":"인상","pt":"impressão","th":"ความประทับใจ"}],["対象","たいしょう",{"en":"target; subject","zh":"对象；目标","ko":"대상","pt":"alvo; objeto","th":"เป้าหมาย; สิ่งที่เป็นหัวข้อ"}],["象徴","しょうちょう",{"en":"symbol","zh":"象征","ko":"상징","pt":"símbolo","th":"สัญลักษณ์"}]],"special":[["抽象","ちゅうしょう","美術",{"en":"abstraction; abstract","zh":"抽象","ko":"추상","pt":"abstração; abstrato","th":"นามธรรม"}],["具象","ぐしょう","美術",{"en":"figuration; representational","zh":"具象","ko":"구상","pt":"figuração; figurativo","th":"รูปธรรม; การแสดงแบบเหมือนจริง"}],["抽象画","ちゅうしょうが","美術",{"en":"abstract painting","zh":"抽象画","ko":"추상화","pt":"pintura abstrata","th":"ภาพวาดนามธรรม"}],["具象画","ぐしょうが","美術",{"en":"figurative painting","zh":"具象画","ko":"구상화","pt":"pintura figurativa","th":"ภาพวาดแบบรูปธรรม"}],["象徴","しょうちょう","美術・表現",{"en":"symbol; symbolism","zh":"象征","ko":"상징","pt":"símbolo; simbolismo","th":"สัญลักษณ์"}]],"simp":"象","trad":"象","meaningTh":"ช้าง; ภาพ/รูปร่าง"},{"kanji":"竹","meaningWord":"たけ","meaningEasy":"細くて高く伸びる植物。物を作る材料にもなる","meaningEn":"bamboo","meaningZh":"竹子","meaningKo":"대나무","meaningPt":"bambu","no":363,"on":["チク"],"kun":["たけ"],"words":[["竹","たけ",{"en":"bamboo","zh":"竹子","ko":"대나무","pt":"bambu","th":"ไม้ไผ่"}]],"extra":[["竹林","ちくりん",{"en":"bamboo grove","zh":"竹林","ko":"죽림; 대나무 숲","pt":"bosque de bambu","th":"ป่าไผ่"}],["竹製","たけせい",{"en":"made of bamboo","zh":"竹制","ko":"대나무제","pt":"feito de bambu","th":"ทำจากไม้ไผ่"}],["竹刀","しない",{"en":"bamboo sword (shinai)","zh":"竹刀","ko":"죽도","pt":"espada de bambu (shinai)","th":"ดาบไม้ไผ่ชิไน"}]],"special":[["竹工芸","たけこうげい","美術・工芸",{"en":"bamboo craft","zh":"竹工艺","ko":"대나무 공예","pt":"artesanato em bambu","th":"งานหัตถกรรมไม้ไผ่"}]],"simp":"竹","trad":"竹","meaningTh":"ไม้ไผ่"},{"kanji":"糸","meaningWord":"いと","meaningEasy":"布を作ったり、物をぬったりするときに使う、細くて長いもの","meaningEn":"thread","meaningZh":"线；丝","meaningKo":"실","meaningPt":"fio","no":364,"on":["シ"],"kun":["いと"],"words":[["糸","いと",{"en":"thread","zh":"线；丝","ko":"실","pt":"fio","th":"ด้าย"}]],"extra":[["毛糸","けいと",{"en":"wool yarn","zh":"毛线","ko":"털실","pt":"fio de lã","th":"ไหมพรม"}],["糸口","いとぐち",{"en":"clue; lead","zh":"线索；头绪","ko":"실마리","pt":"pista; indício","th":"เบาะแส; จุดเริ่มต้น"}],["糸状","しじょう",{"en":"threadlike; filamentous","zh":"丝状","ko":"실 모양","pt":"filiforme","th":"เป็นเส้นด้าย"}]],"special":[["刺繍糸","ししゅういと","美術・工芸",{"en":"embroidery thread","zh":"刺绣线","ko":"자수실","pt":"linha de bordado","th":"ด้ายปัก"}],["糸鋸","いとのこ","工芸・造形",{"en":"coping saw; fret saw","zh":"线锯；钢丝锯","ko":"실톱","pt":"serra de arco; serra tico-tico manual","th":"เลื่อยฉลุ"}]],"simp":"丝","trad":"絲","meaningTh":"ด้าย"},{"kanji":"貝","meaningWord":"かい","meaningEasy":"海や川などにいて、かたい殻を持つ生き物","meaningEn":"shellfish; shell","meaningZh":"贝类；贝壳","meaningKo":"조개; 조개껍데기","meaningPt":"marisco; concha","no":365,"on":[],"kun":["かい"],"words":[["貝","かい",{"en":"shellfish; shell","zh":"贝类；贝壳","ko":"조개; 조개껍데기","pt":"marisco; concha","th":"หอย; เปลือกหอย"}]],"extra":[["貝殻","かいがら",{"en":"shell","zh":"贝壳","ko":"조개껍데기","pt":"concha","th":"เปลือกหอย"}],["貝類","かいるい",{"en":"shellfish","zh":"贝类","ko":"조개류","pt":"moluscos","th":"สัตว์จำพวกหอย"}]],"special":[["貝細工","かいざいく","美術・工芸",{"en":"shell craft","zh":"贝壳工艺","ko":"조개 세공","pt":"artesanato com conchas","th":"งานประดิษฐ์จากเปลือกหอย"}]],"simp":"贝","trad":"貝","meaningTh":"หอย; เปลือกหอย"},{"kanji":"毛","meaningWord":"け","meaningEasy":"人や動物の体に生える、細いもの","meaningEn":"hair; fur","meaningZh":"毛；毛发","meaningKo":"털; 머리카락","meaningPt":"pelo; cabelo","no":366,"on":["モウ"],"kun":["け"],"words":[["羊毛","ようもう",{"en":"wool","zh":"羊毛","ko":"양모","pt":"lã","th":"ขนแกะ"}],["毛","け",{"en":"hair; fur","zh":"毛；毛发","ko":"털","pt":"pelo","th":"ขน; เส้นผม"}],["毛糸","けいと",{"en":"wool yarn","zh":"毛线","ko":"털실","pt":"fio de lã","th":"ไหมพรม"}]],"extra":[["毛布","もうふ",{"en":"blanket","zh":"毛毯","ko":"담요","pt":"cobertor","th":"ผ้าห่ม"}],["毛皮","けがわ",{"en":"fur; pelt","zh":"毛皮","ko":"모피","pt":"pele; pelagem","th":"ขนสัตว์; หนังสัตว์มีขน"}],["髪の毛","かみのけ",{"en":"hair","zh":"头发","ko":"머리카락","pt":"cabelo","th":"เส้นผม"}]],"special":[["毛筆","もうひつ","美術・書道",{"en":"brush (for calligraphy)","zh":"毛笔","ko":"붓","pt":"pincel de caligrafia","th":"พู่กัน; การเขียนด้วยพู่กัน"}]],"simp":"毛","trad":"毛","meaningTh":"ขน; เส้นผม"},{"kanji":"舟","meaningWord":"ふね","meaningEasy":"人や物を乗せて、水の上を進む乗り物","meaningEn":"boat","meaningZh":"船；小舟","meaningKo":"배; 작은 배","meaningPt":"barco","no":367,"on":["シュウ"],"kun":["ふね","ふな"],"words":[["舟","ふね",{"en":"boat","zh":"小舟；船","ko":"배; 작은 배","pt":"barco","th":"เรือ"}]],"extra":[["小舟","こぶね",{"en":"small boat","zh":"小舟","ko":"작은 배","pt":"barco pequeno","th":"เรือลำเล็ก"}],["舟運","しゅううん",{"en":"water transport","zh":"水运","ko":"수운","pt":"transporte fluvial","th":"การขนส่งทางน้ำ"}]],"special":[["舟形光背","ふながたこうはい","美術・仏教彫刻",{"en":"boat-shaped halo","zh":"舟形光背","ko":"주형 광배","pt":"auréola em forma de barco","th":"รัศมีรูปเรือ"}]],"simp":"舟","trad":"舟","meaningTh":"เรือ"},{"kanji":"石","meaningWord":"いし","meaningEasy":"地面などにある、かたくて小さい岩のようなもの","meaningEn":"stone","meaningZh":"石头","meaningKo":"돌","meaningPt":"pedra","no":368,"on":["セキ","シャク","コク"],"kun":["いし"],"words":[["石油","せきゆ",{"en":"petroleum; oil","zh":"石油","ko":"석유","pt":"petróleo","th":"ปิโตรเลียม; น้ำมัน"}],["磁石","じしゃく",{"en":"magnet","zh":"磁铁","ko":"자석","pt":"ímã","th":"แม่เหล็ก"}],["石","いし",{"en":"stone","zh":"石头","ko":"돌","pt":"pedra","th":"หิน"}],["石けん","せっけん",{"en":"soap","zh":"肥皂","ko":"비누","pt":"sabão","th":"สบู่"}]],"extra":[["宝石","ほうせき",{"en":"gem; jewel","zh":"宝石","ko":"보석","pt":"pedra preciosa","th":"อัญมณี"}],["石材","せきざい",{"en":"stone material","zh":"石材","ko":"석재","pt":"material de pedra","th":"วัสดุหิน"}],["石炭","せきたん",{"en":"coal","zh":"煤；煤炭","ko":"석탄","pt":"carvão","th":"ถ่านหิน"}]],"special":[["石彫","いしぼり","美術・彫刻",{"en":"stone carving","zh":"石雕","ko":"석조; 돌조각","pt":"escultura em pedra","th":"การแกะสลักหิน"}],["石膏","せっこう","美術・彫刻",{"en":"plaster; gypsum","zh":"石膏","ko":"석고","pt":"gesso","th":"ปูนปลาสเตอร์; ยิปซัม"}],["石版画","せきばんが","美術・版画",{"en":"lithograph; lithography","zh":"石版画","ko":"석판화","pt":"litografia","th":"ภาพพิมพ์หิน; ลิโทกราฟ"}]],"simp":"石","trad":"石","meaningTh":"หิน"},{"kanji":"岩","meaningWord":"いわ","meaningEasy":"大きくて、かたい石","meaningEn":"rock","meaningZh":"岩石","meaningKo":"바위","meaningPt":"rocha","no":369,"on":["ガン"],"kun":["いわ"],"words":[["溶岩","ようがん",{"en":"lava","zh":"熔岩","ko":"용암","pt":"lava","th":"ลาวา"}],["岩","いわ",{"en":"rock","zh":"岩石","ko":"바위","pt":"rocha","th":"ก้อนหิน; โขดหิน"}]],"extra":[["岩石","がんせき",{"en":"rock","zh":"岩石","ko":"암석","pt":"rocha","th":"หิน; ศิลา"}],["岩場","いわば",{"en":"rocky area","zh":"岩石地带","ko":"바위 지대","pt":"área rochosa","th":"พื้นที่โขดหิน"}],["岩山","いわやま",{"en":"rocky mountain","zh":"岩山","ko":"바위산","pt":"montanha rochosa","th":"ภูเขาหิน"}]],"special":[["岩絵具","いわえのぐ","日本画",{"en":"mineral pigment","zh":"岩彩；矿物颜料","ko":"석채; 광물 안료","pt":"pigmento mineral","th":"สีแร่ธรรมชาติ"}]],"simp":"岩","trad":"岩","meaningTh":"ก้อนหิน; ศิลา"},{"kanji":"畑","meaningWord":"はたけ","meaningEasy":"野菜や豆などを育てる土地","meaningEn":"field; farm field","meaningZh":"旱田；田地","meaningKo":"밭","meaningPt":"campo; terreno de cultivo","no":370,"on":[],"kun":["はた","はたけ"],"words":[["畑","はたけ",{"en":"field; farm field","zh":"旱田；田地","ko":"밭","pt":"campo de cultivo","th":"ไร่; แปลงเพาะปลูก"}]],"extra":[["田畑","たはた",{"en":"fields and farms","zh":"田地","ko":"논밭","pt":"campos e plantações","th":"นาและไร่"}],["畑作","はたさく",{"en":"dry-field farming","zh":"旱作","ko":"밭농사","pt":"agricultura de sequeiro","th":"การทำไร่"}]],"special":[],"simp":"畑","trad":"畑","meaningTh":"ไร่; แปลงเพาะปลูก"},{"kanji":"由","meaningWord":"理由・由来","meaningEasy":"「なぜそうなのか」というわけや、物事の始まりを表す","meaningEn":"reason; origin","meaningZh":"理由；由来","meaningKo":"이유; 유래","meaningPt":"razão; origem","no":371,"on":["ユ","ユウ","ユイ"],"kun":["よし"],"words":[["経由して","けいゆして",{"en":"via; by way of","zh":"经由；途经","ko":"경유하여","pt":"via; passando por","th":"ผ่าน; โดยผ่านทาง"}],["理由","りゆう",{"en":"reason","zh":"理由","ko":"이유","pt":"razão","th":"เหตุผล"}],["自由","じゆう",{"en":"freedom; free","zh":"自由","ko":"자유","pt":"liberdade; livre","th":"อิสระ; เสรีภาพ"}]],"extra":[["由来","ゆらい",{"en":"origin; derivation","zh":"由来；来源","ko":"유래","pt":"origem","th":"ที่มา; แหล่งกำเนิด"}],["不自由","ふじゆう",{"en":"inconvenience; limitation","zh":"不自由；不便","ko":"부자유; 불편","pt":"limitação; inconveniência","th":"ความไม่สะดวก; ข้อจำกัด"}],["自由席","じゆうせき",{"en":"non-reserved seat","zh":"自由席","ko":"자유석","pt":"assento não reservado","th":"ที่นั่งไม่ระบุเลข"}]],"special":[["自由画","じゆうが","美術・美術教育",{"en":"free drawing","zh":"自由画","ko":"자유화","pt":"desenho livre","th":"การวาดภาพอิสระ"}]],"simp":"由","trad":"由","meaningTh":"เหตุผล; ที่มา"},{"kanji":"油","meaningWord":"あぶら","meaningEasy":"料理や燃料などに使う、水とまざりにくい液体","meaningEn":"oil","meaningZh":"油","meaningKo":"기름","meaningPt":"óleo","no":372,"on":["ユ"],"kun":["あぶら"],"words":[["石油","せきゆ",{"en":"petroleum; oil","zh":"石油","ko":"석유","pt":"petróleo","th":"ปิโตรเลียม; น้ำมัน"}],["しょう油","しょうゆ",{"en":"soy sauce","zh":"酱油","ko":"간장","pt":"molho de soja","th":"ซีอิ๊วญี่ปุ่น"}],["油","あぶら",{"en":"oil","zh":"油","ko":"기름","pt":"óleo","th":"น้ำมัน"}]],"extra":[["油断","ゆだん",{"en":"carelessness","zh":"疏忽；大意","ko":"방심","pt":"descuido","th":"ความประมาท"}],["油田","ゆでん",{"en":"oil field","zh":"油田","ko":"유전","pt":"campo de petróleo","th":"แหล่งน้ำมัน"}],["油性","ゆせい",{"en":"oil-based","zh":"油性","ko":"유성","pt":"à base de óleo","th":"ชนิดน้ำมัน; มีน้ำมันเป็นฐาน"}]],"special":[["油絵","あぶらえ","美術",{"en":"oil painting","zh":"油画","ko":"유화","pt":"pintura a óleo","th":"ภาพสีน้ำมัน"}],["油彩","ゆさい","美術",{"en":"oil painting; oils","zh":"油彩","ko":"유채","pt":"pintura a óleo","th":"จิตรกรรมสีน้ำมัน"}],["油絵具","あぶらえのぐ","美術",{"en":"oil paint","zh":"油画颜料","ko":"유화 물감","pt":"tinta a óleo","th":"สีน้ำมัน"}]],"simp":"油","trad":"油","meaningTh":"น้ำมัน"},{"kanji":"官","meaningWord":"官庁・警官","meaningEasy":"国や地方の役所、そこで仕事をする人に関係する","meaningEn":"government official; public office","meaningZh":"官员；政府机关","meaningKo":"관리; 관공서","meaningPt":"funcionário público; órgão público","no":373,"on":["カン"],"kun":[],"words":[["官庁","かんちょう",{"en":"government office","zh":"政府机关","ko":"관청","pt":"órgão público","th":"หน่วยงานราชการ"}],["警官","けいかん",{"en":"police officer","zh":"警察","ko":"경찰관","pt":"policial","th":"ตำรวจ"}]],"extra":[["官僚","かんりょう",{"en":"bureaucrat","zh":"官僚","ko":"관료","pt":"burocrata","th":"ข้าราชการระดับสูง; ข้าราชการ"}],["官公庁","かんこうちょう",{"en":"government offices","zh":"政府机关","ko":"관공서","pt":"órgãos públicos","th":"หน่วยงานราชการ"}],["長官","ちょうかん",{"en":"chief; director-general","zh":"长官","ko":"장관; 수장","pt":"chefe; diretor-geral","th":"อธิบดี; หัวหน้าหน่วยงาน"}]],"special":[],"simp":"官","trad":"官","meaningTh":"เจ้าหน้าที่รัฐ; หน่วยงานราชการ"},{"kanji":"管","meaningWord":"くだ・管理","meaningEasy":"細長く、中が空いているもの。また、物事を受け持って管理する意味もある","meaningEn":"pipe; tube; manage","meaningZh":"管；管道；管理","meaningKo":"관; 파이프; 관리하다","meaningPt":"tubo; cano; administrar","no":374,"on":["カン"],"kun":["くだ"],"words":[["管理する","かんりする",{"en":"to manage","zh":"管理","ko":"관리하다","pt":"administrar; gerenciar","th":"จัดการ; บริหาร"}],["管","くだ",{"en":"pipe; tube","zh":"管；管子","ko":"관; 파이프","pt":"tubo; cano","th":"ท่อ"}]],"extra":[["保管","ほかん",{"en":"storage; safekeeping","zh":"保管","ko":"보관","pt":"armazenamento; guarda","th":"การเก็บรักษา"}],["管内","かんない",{"en":"within the jurisdiction","zh":"管辖范围内","ko":"관내","pt":"dentro da jurisdição","th":"ภายในเขตอำนาจ"}],["配管","はいかん",{"en":"piping; plumbing","zh":"管道；配管","ko":"배관","pt":"tubulação","th":"ระบบท่อ; งานเดินท่อ"}]],"special":[],"simp":"管","trad":"管","meaningTh":"ท่อ; หลอด; จัดการ"},{"kanji":"島","meaningWord":"しま","meaningEasy":"まわりが全部、海や湖などの水になっている土地","meaningEn":"island","meaningZh":"岛","meaningKo":"섬","meaningPt":"ilha","no":375,"on":["トウ"],"kun":["しま"],"words":[["半島","はんとう",{"en":"peninsula","zh":"半岛","ko":"반도","pt":"península","th":"คาบสมุทร"}],["島","しま",{"en":"island","zh":"岛","ko":"섬","pt":"ilha","th":"เกาะ"}]],"extra":[["列島","れっとう",{"en":"archipelago","zh":"列岛","ko":"열도","pt":"arquipélago","th":"หมู่เกาะ"}],["島国","しまぐに",{"en":"island country","zh":"岛国","ko":"섬나라","pt":"país insular","th":"ประเทศเกาะ"}],["無人島","むじんとう",{"en":"uninhabited island","zh":"无人岛","ko":"무인도","pt":"ilha desabitada","th":"เกาะร้าง"}]],"special":[],"simp":"岛","trad":"島","meaningTh":"เกาะ"},{"kanji":"若","meaningWord":"若い","meaningEasy":"年齢が少ない、年をとっていない","meaningEn":"young","meaningZh":"年轻","meaningKo":"젊다","meaningPt":"jovem","no":376,"on":["ジャク","ニャク"],"kun":["わかい","もしくは"],"words":[["若い","わかい",{"en":"young","zh":"年轻","ko":"젊다","pt":"jovem","th":"หนุ่มสาว; อายุน้อย"}]],"extra":[["若者","わかもの",{"en":"young person; youth","zh":"年轻人","ko":"젊은이","pt":"jovem","th":"คนหนุ่มสาว"}],["若年","じゃくねん",{"en":"young age","zh":"年轻；低龄","ko":"약년; 젊은 나이","pt":"idade jovem","th":"วัยหนุ่มสาว; อายุยังน้อย"}],["若干","じゃっかん",{"en":"some; a few","zh":"若干；一些","ko":"약간; 다소","pt":"alguns; um pouco","th":"เล็กน้อย; บางส่วน"}]],"special":[],"simp":"若","trad":"若","meaningTh":"หนุ่มสาว; อายุน้อย"},{"kanji":"苦","meaningWord":"苦しい・苦い","meaningEasy":"つらいこと。また、食べ物などの味がにがいこと","meaningEn":"suffering; bitter","meaningZh":"痛苦；苦","meaningKo":"괴롭다; 쓰다","meaningPt":"sofrimento; amargo","no":377,"on":["ク"],"kun":["くるしい","くるしむ","くるしめる","にがい","にがる"],"words":[["苦労","くろう",{"en":"trouble; hardship","zh":"辛苦；劳苦","ko":"고생","pt":"dificuldade; esforço","th":"ความลำบาก"}],["苦しい","くるしい",{"en":"painful; hard","zh":"痛苦；难受","ko":"괴롭다; 힘들다","pt":"doloroso; difícil","th":"ทรมาน; ลำบาก"}],["苦い","にがい",{"en":"bitter","zh":"苦","ko":"쓰다","pt":"amargo","th":"ขม"}],["苦手な","にがてな",{"en":"not good at; weak at","zh":"不擅长","ko":"서투르다; 잘 못하다","pt":"não ser bom em","th":"ไม่ถนัด"}]],"extra":[["苦痛","くつう",{"en":"pain; suffering","zh":"痛苦","ko":"고통","pt":"dor; sofrimento","th":"ความเจ็บปวด; ความทุกข์"}],["苦情","くじょう",{"en":"complaint","zh":"投诉；抱怨","ko":"불만; 항의","pt":"reclamação","th":"คำร้องเรียน"}],["苦戦","くせん",{"en":"hard struggle","zh":"苦战","ko":"고전","pt":"luta difícil","th":"การต่อสู้อย่างยากลำบาก"}]],"special":[],"simp":"苦","trad":"苦","meaningTh":"ความทุกข์; ขม"},{"kanji":"向","meaningWord":"向く・向かう","meaningEasy":"ある方向に顔や体を向けること。また、方向を表す","meaningEn":"direction; face toward","meaningZh":"方向；朝向","meaningKo":"방향; 향하다","meaningPt":"direção; virar-se para","no":378,"on":["コウ"],"kun":["むく","むける","むかう","むこう"],"words":[["方向","ほうこう",{"en":"direction","zh":"方向","ko":"방향","pt":"direção","th":"ทิศทาง"}],["向く","むく",{"en":"to face; turn toward","zh":"朝向；面向","ko":"향하다","pt":"virar-se para","th":"หันไปทาง"}],["向ける","むける",{"en":"to turn toward; direct","zh":"使朝向；对准","ko":"향하게 하다; 돌리다","pt":"virar; direcionar","th":"หัน; มุ่งไปทาง"}],["向かう","むかう",{"en":"to head toward","zh":"前往；朝向","ko":"향하다; 나아가다","pt":"dirigir-se a","th":"มุ่งหน้าไป"}],["向こう","むこう",{"en":"over there; opposite side","zh":"那边；对面","ko":"저쪽; 건너편","pt":"do outro lado; lá","th":"ทางโน้น; ฝั่งตรงข้าม"}]],"extra":[["傾向","けいこう",{"en":"tendency","zh":"倾向","ko":"경향","pt":"tendência","th":"แนวโน้ม"}],["向上","こうじょう",{"en":"improvement","zh":"提高；进步","ko":"향상","pt":"melhoria","th":"การพัฒนาให้ดีขึ้น"}],["前向き","まえむき",{"en":"positive; forward-looking","zh":"积极；正面","ko":"긍정적; 적극적","pt":"positivo; construtivo","th":"เชิงบวก; มองไปข้างหน้า"}]],"special":[],"simp":"向","trad":"向","meaningTh":"ทิศทาง; หันไปทาง"},{"kanji":"老","meaningWord":"老いる・老人","meaningEasy":"年をとること、または年をとった人に関係する","meaningEn":"old; age","meaningZh":"老；年老","meaningKo":"늙다; 나이가 들다","meaningPt":"velho; envelhecer","no":379,"on":["ロウ"],"kun":["おいる","ふける"],"words":[["老人","ろうじん",{"en":"elderly person","zh":"老人","ko":"노인","pt":"idoso","th":"ผู้สูงอายุ"}]],"extra":[["老後","ろうご",{"en":"later life; old age","zh":"晚年","ko":"노후","pt":"velhice","th":"ชีวิตหลังเกษียณ; วัยชรา"}],["老化","ろうか",{"en":"aging","zh":"老化","ko":"노화","pt":"envelhecimento","th":"ความเสื่อมตามวัย"}],["老舗","しにせ",{"en":"long-established shop/company","zh":"老字号","ko":"노포","pt":"estabelecimento tradicional","th":"ร้านหรือบริษัทเก่าแก่"}]],"special":[],"simp":"老","trad":"老","meaningTh":"แก่; อายุ"},{"kanji":"像","meaningWord":"ぞう","meaningEasy":"人や物の形を作ったもの。また、目に見える姿やイメージを表すこともある","meaningEn":"image; statue","meaningZh":"形象；像；雕像","meaningKo":"상; 이미지; 조각상","meaningPt":"imagem; estátua","no":380,"on":["ゾウ"],"kun":[],"words":[["像","ぞう",{"en":"image; statue","zh":"像；雕像","ko":"상; 조각상","pt":"imagem; estátua","th":"ภาพ; รูปปั้น"}],["想像する","そうぞうする",{"en":"to imagine","zh":"想象","ko":"상상하다","pt":"imaginar","th":"จินตนาการ"}]],"extra":[["映像","えいぞう",{"en":"video image; footage","zh":"影像","ko":"영상","pt":"imagem; vídeo","th":"ภาพวิดีโอ; ภาพเคลื่อนไหว"}],["画像","がぞう",{"en":"image; picture","zh":"图像","ko":"화상; 이미지","pt":"imagem","th":"ภาพ; รูปภาพ"}],["銅像","どうぞう",{"en":"bronze statue","zh":"铜像","ko":"동상","pt":"estátua de bronze","th":"รูปปั้นทองสัมฤทธิ์"}]],"special":[["肖像","しょうぞう","美術",{"en":"portrait","zh":"肖像","ko":"초상","pt":"retrato","th":"ภาพเหมือน"}],["彫像","ちょうぞう","美術・彫刻",{"en":"sculpture; statue","zh":"雕像","ko":"조상; 조각상","pt":"escultura; estátua","th":"ประติมากรรม; รูปปั้น"}],["肖像画","しょうぞうが","美術",{"en":"portrait painting","zh":"肖像画","ko":"초상화","pt":"retrato; pintura de retrato","th":"ภาพวาดบุคคล"}],["塑像","そぞう","美術・彫刻",{"en":"modeled sculpture; statue","zh":"塑像","ko":"소상; 소조상","pt":"escultura modelada","th":"ประติมากรรมปั้น"}]],"simp":"像","trad":"像","meaningTh":"ภาพ; รูปปั้น"}];
+const DATA = [{"kanji":"馬","meaningWord":"うま","meaningEasy":"人が乗ったり、物を運んだりする動物","meaningEn":"horse","meaningZh":"马；马匹","meaningKo":"말","meaningPt":"cavalo","no":361,"on":["バ"],"kun":["うま","ま"],"words":[["乗馬","じょうば",{"en":"horse riding","zh":"骑马","ko":"승마","pt":"equitação","th":"การขี่ม้า"}],["馬","うま",{"en":"horse","zh":"马","ko":"말","pt":"cavalo","th":"ม้า"}]],"extra":[["馬車","ばしゃ",{"en":"carriage","zh":"马车","ko":"마차","pt":"carruagem","th":"รถม้า"}],["競馬","けいば",{"en":"horse racing","zh":"赛马","ko":"경마","pt":"corrida de cavalos","th":"การแข่งม้า"}],["馬力","ばりき",{"en":"horsepower","zh":"马力","ko":"마력","pt":"cavalo-vapor","th":"แรงม้า"}]],"special":[["騎馬像","きばぞう","美術・彫刻",{"en":"equestrian statue","zh":"骑马像","ko":"기마상","pt":"estátua equestre","th":"รูปปั้นคนขี่ม้า"}]],"simp":"马","trad":"馬","meaningTh":"ม้า"},{"kanji":"象","meaningWord":"ぞう","meaningEasy":"鼻がとても長く、体が大きい動物。また、物の形や姿を表すこともある","meaningEn":"elephant; image / form","meaningZh":"象；形象","meaningKo":"코끼리; 형상","meaningPt":"elefante; imagem / forma","no":362,"on":["ショウ","ゾウ"],"kun":[],"words":[["気象","きしょう",{"en":"weather; meteorological conditions","zh":"气象","ko":"기상","pt":"condições meteorológicas","th":"สภาพอากาศ; อุตุนิยมวิทยา"}],["現象","げんしょう",{"en":"phenomenon","zh":"现象","ko":"현상","pt":"fenômeno","th":"ปรากฏการณ์"}],["象","ぞう",{"en":"elephant","zh":"象；大象","ko":"코끼리","pt":"elefante","th":"ช้าง"}]],"extra":[["印象","いんしょう",{"en":"impression","zh":"印象","ko":"인상","pt":"impressão","th":"ความประทับใจ"}],["対象","たいしょう",{"en":"target; subject","zh":"对象；目标","ko":"대상","pt":"alvo; objeto","th":"เป้าหมาย; หัวข้อ"}],["象形文字","しょうけいもじ",{"en":"pictograph; hieroglyph","zh":"象形文字","ko":"상형문자","pt":"pictograma; hieróglifo","th":"อักษรภาพ"}]],"special":[["抽象","ちゅうしょう","美術",{"en":"abstraction; abstract","zh":"抽象","ko":"추상","pt":"abstração; abstrato","th":"นามธรรม; การทำให้เป็นนามธรรม"}],["具象","ぐしょう","美術",{"en":"figuration; representational","zh":"具象","ko":"구상","pt":"figuração; figurativo","th":"รูปธรรม; การแสดงรูปจริง"}],["抽象画","ちゅうしょうが","美術",{"en":"abstract painting","zh":"抽象画","ko":"추상화","pt":"pintura abstrata","th":"ภาพวาดนามธรรม"}],["具象画","ぐしょうが","美術",{"en":"figurative painting","zh":"具象画","ko":"구상화","pt":"pintura figurativa","th":"ภาพวาดรูปธรรม"}],["象徴","しょうちょう","美術・表現",{"en":"symbol; symbolism","zh":"象征","ko":"상징","pt":"símbolo; simbolismo","th":"สัญลักษณ์"}]],"simp":"象","trad":"象","meaningTh":"ช้าง; ภาพ; รูป"},{"kanji":"竹","meaningWord":"たけ","meaningEasy":"細くて高く伸びる植物。物を作る材料にもなる","meaningEn":"bamboo","meaningZh":"竹子","meaningKo":"대나무","meaningPt":"bambu","no":363,"on":["チク"],"kun":["たけ"],"words":[["竹","たけ",{"en":"bamboo","zh":"竹子","ko":"대나무","pt":"bambu","th":"ไผ่"}]],"extra":[["竹林","ちくりん",{"en":"bamboo grove","zh":"竹林","ko":"죽림; 대나무 숲","pt":"bosque de bambu","th":"ป่าไผ่"}],["竹製","たけせい",{"en":"made of bamboo","zh":"竹制","ko":"대나무제","pt":"feito de bambu","th":"ทำจากไผ่"}],["竹刀","しない",{"en":"bamboo sword (shinai)","zh":"竹刀","ko":"죽도","pt":"espada de bambu (shinai)","th":"ดาบไม้ไผ่ (ชิไน)"}]],"special":[["竹工芸","たけこうげい","美術・工芸",{"en":"bamboo craft","zh":"竹工艺","ko":"대나무 공예","pt":"artesanato em bambu","th":"งานหัตถกรรมไม้ไผ่"}]],"simp":"竹","trad":"竹","meaningTh":"ไผ่"},{"kanji":"糸","meaningWord":"いと","meaningEasy":"布を作ったり、物をぬったりするときに使う、細くて長いもの","meaningEn":"thread","meaningZh":"线；丝","meaningKo":"실","meaningPt":"fio","no":364,"on":["シ"],"kun":["いと"],"words":[["糸","いと",{"en":"thread","zh":"线；丝","ko":"실","pt":"fio","th":"ด้าย"}]],"extra":[["毛糸","けいと",{"en":"wool yarn","zh":"毛线","ko":"털실","pt":"fio de lã","th":"ไหมพรม"}],["糸口","いとぐち",{"en":"clue; lead","zh":"线索；头绪","ko":"실마리","pt":"pista; indício","th":"เบาะแส; จุดเริ่มต้น"}],["糸状","しじょう",{"en":"threadlike; filamentous","zh":"丝状","ko":"실 모양","pt":"filiforme","th":"มีลักษณะเป็นเส้น"}]],"special":[["刺繍糸","ししゅういと","美術・工芸",{"en":"embroidery thread","zh":"刺绣线","ko":"자수실","pt":"linha de bordado","th":"ด้ายปัก"}],["糸鋸","いとのこ","工芸・造形",{"en":"coping saw; fret saw","zh":"线锯；钢丝锯","ko":"실톱","pt":"serra de arco; serra tico-tico manual","th":"เลื่อยฉลุ"}]],"simp":"丝","trad":"絲","meaningTh":"ด้าย; เส้นใย"},{"kanji":"貝","meaningWord":"かい","meaningEasy":"海や川などにいて、かたい殻を持つ生き物","meaningEn":"shellfish; shell","meaningZh":"贝类；贝壳","meaningKo":"조개; 조개껍데기","meaningPt":"marisco; concha","no":365,"on":[],"kun":["かい"],"words":[["貝","かい",{"en":"shellfish; shell","zh":"贝类；贝壳","ko":"조개; 조개껍데기","pt":"marisco; concha","th":"หอย; เปลือกหอย"}]],"extra":[["貝殻","かいがら",{"en":"shell","zh":"贝壳","ko":"조개껍데기","pt":"concha","th":"เปลือกหอย"}],["貝類","かいるい",{"en":"shellfish","zh":"贝类","ko":"조개류","pt":"moluscos","th":"สัตว์จำพวกหอย"}],["貝塚","かいづか",{"en":"shell mound","zh":"贝冢","ko":"패총","pt":"sambaqui; monte de conchas","th":"กองเปลือกหอยโบราณ"}]],"special":[["貝細工","かいざいく","美術・工芸",{"en":"shell craft","zh":"贝壳工艺","ko":"조개 세공","pt":"artesanato com conchas","th":"งานประดิษฐ์จากเปลือกหอย"}]],"simp":"贝","trad":"貝","meaningTh":"หอย; เปลือกหอย"},{"kanji":"毛","meaningWord":"け","meaningEasy":"人や動物の体に生える、細いもの","meaningEn":"hair; fur","meaningZh":"毛；毛发","meaningKo":"털; 머리카락","meaningPt":"pelo; cabelo","no":366,"on":["モウ"],"kun":["け"],"words":[["羊毛","ようもう",{"en":"wool","zh":"羊毛","ko":"양모","pt":"lã","th":"ขนแกะ"}],["毛","け",{"en":"hair; fur","zh":"毛；毛发","ko":"털","pt":"pelo","th":"ขน; เส้นผม"}],["毛糸","けいと",{"en":"wool yarn","zh":"毛线","ko":"털실","pt":"fio de lã","th":"ไหมพรม"}]],"extra":[["毛布","もうふ",{"en":"blanket","zh":"毛毯","ko":"담요","pt":"cobertor","th":"ผ้าห่ม"}],["毛皮","けがわ",{"en":"fur; pelt","zh":"毛皮","ko":"모피","pt":"pele; pelagem","th":"ขนสัตว์; หนังขนสัตว์"}],["髪の毛","かみのけ",{"en":"hair","zh":"头发","ko":"머리카락","pt":"cabelo","th":"เส้นผม"}]],"special":[["毛筆","もうひつ","美術・書道",{"en":"brush (for calligraphy)","zh":"毛笔","ko":"붓","pt":"pincel de caligrafia","th":"พู่กันจีน/ญี่ปุ่น"}]],"simp":"毛","trad":"毛","meaningTh":"ขน; เส้นผม"},{"kanji":"舟","meaningWord":"ふね","meaningEasy":"人や物を乗せて、水の上を進む乗り物","meaningEn":"boat","meaningZh":"船；小舟","meaningKo":"배; 작은 배","meaningPt":"barco","no":367,"on":["シュウ"],"kun":["ふね","ふな"],"words":[["舟","ふね",{"en":"boat","zh":"小舟；船","ko":"배; 작은 배","pt":"barco","th":"เรือ"}]],"extra":[["小舟","こぶね",{"en":"small boat","zh":"小舟","ko":"작은 배","pt":"barco pequeno","th":"เรือลำเล็ก"}],["舟運","しゅううん",{"en":"water transport","zh":"水运","ko":"수운","pt":"transporte fluvial","th":"การขนส่งทางน้ำ"}],["舟旅","ふなたび",{"en":"journey by boat","zh":"乘船旅行","ko":"뱃길 여행","pt":"viagem de barco","th":"การเดินทางทางเรือ"}]],"special":[["舟形光背","ふながたこうはい","美術・仏教彫刻",{"en":"boat-shaped halo","zh":"舟形光背","ko":"주형 광배","pt":"auréola em forma de barco","th":"รัศมีรูปเรือ"}]],"simp":"舟","trad":"舟","meaningTh":"เรือ"},{"kanji":"石","meaningWord":"いし","meaningEasy":"地面などにある、かたくて小さい岩のようなもの","meaningEn":"stone","meaningZh":"石头","meaningKo":"돌","meaningPt":"pedra","no":368,"on":["セキ","シャク","コク"],"kun":["いし"],"words":[["石油","せきゆ",{"en":"petroleum; oil","zh":"石油","ko":"석유","pt":"petróleo","th":"ปิโตรเลียม; น้ำมัน"}],["磁石","じしゃく",{"en":"magnet","zh":"磁铁","ko":"자석","pt":"ímã","th":"แม่เหล็ก"}],["石","いし",{"en":"stone","zh":"石头","ko":"돌","pt":"pedra","th":"หิน"}],["石けん","せっけん",{"en":"soap","zh":"肥皂","ko":"비누","pt":"sabão","th":"สบู่"}]],"extra":[["宝石","ほうせき",{"en":"gem; jewel","zh":"宝石","ko":"보석","pt":"pedra preciosa","th":"อัญมณี"}],["石材","せきざい",{"en":"stone material","zh":"石材","ko":"석재","pt":"material de pedra","th":"วัสดุหิน"}],["石炭","せきたん",{"en":"coal","zh":"煤；煤炭","ko":"석탄","pt":"carvão","th":"ถ่านหิน"}]],"special":[["石彫","いしぼり","美術・彫刻",{"en":"stone carving","zh":"石雕","ko":"석조; 돌조각","pt":"escultura em pedra","th":"งานแกะสลักหิน"}],["石膏","せっこう","美術・彫刻",{"en":"plaster; gypsum","zh":"石膏","ko":"석고","pt":"gesso","th":"ปูนปลาสเตอร์; ยิปซัม"}],["石版画","せきばんが","美術・版画",{"en":"lithograph; lithography","zh":"石版画","ko":"석판화","pt":"litografia","th":"ภาพพิมพ์หิน; ลิโทกราฟ"}]],"simp":"石","trad":"石","meaningTh":"หิน"},{"kanji":"岩","meaningWord":"いわ","meaningEasy":"大きくて、かたい石","meaningEn":"rock","meaningZh":"岩石","meaningKo":"바위","meaningPt":"rocha","no":369,"on":["ガン"],"kun":["いわ"],"words":[["溶岩","ようがん",{"en":"lava","zh":"熔岩","ko":"용암","pt":"lava","th":"ลาวา"}],["岩","いわ",{"en":"rock","zh":"岩石","ko":"바위","pt":"rocha","th":"หิน; โขดหิน"}]],"extra":[["岩石","がんせき",{"en":"rock","zh":"岩石","ko":"암석","pt":"rocha","th":"หิน"}],["岩場","いわば",{"en":"rocky area","zh":"岩石地带","ko":"바위 지대","pt":"área rochosa","th":"บริเวณโขดหิน"}],["岩山","いわやま",{"en":"rocky mountain","zh":"岩山","ko":"바위산","pt":"montanha rochosa","th":"ภูเขาหิน"}]],"special":[["岩絵具","いわえのぐ","日本画",{"en":"mineral pigment","zh":"岩彩；矿物颜料","ko":"석채; 광물 안료","pt":"pigmento mineral","th":"สีแร่"}]],"simp":"岩","trad":"岩","meaningTh":"โขดหิน; หิน"},{"kanji":"畑","meaningWord":"はたけ","meaningEasy":"野菜や豆などを育てる土地","meaningEn":"field; farm field","meaningZh":"旱田；田地","meaningKo":"밭","meaningPt":"campo; terreno de cultivo","no":370,"on":[],"kun":["はた","はたけ"],"words":[["畑","はたけ",{"en":"field; farm field","zh":"旱田；田地","ko":"밭","pt":"campo de cultivo","th":"ไร่; แปลงเพาะปลูก"}]],"extra":[["田畑","たはた",{"en":"fields and farms","zh":"田地","ko":"논밭","pt":"campos e plantações","th":"นาและไร่"}],["畑作","はたさく",{"en":"dry-field farming","zh":"旱作","ko":"밭농사","pt":"agricultura de sequeiro","th":"การเพาะปลูกในไร่แห้ง"}],["花畑","はなばたけ",{"en":"flower field","zh":"花田；花圃","ko":"꽃밭","pt":"campo de flores","th":"ทุ่งดอกไม้"}]],"special":[],"simp":"畑","trad":"畑","meaningTh":"ไร่; แปลงเพาะปลูก"},{"kanji":"由","meaningWord":"理由・由来","meaningEasy":"「なぜそうなのか」というわけや、物事の始まりを表す","meaningEn":"reason; origin","meaningZh":"理由；由来","meaningKo":"이유; 유래","meaningPt":"razão; origem","no":371,"on":["ユ","ユウ","ユイ"],"kun":["よし"],"words":[["経由して","けいゆして",{"en":"via; by way of","zh":"经由；途经","ko":"경유하여","pt":"via; passando por","th":"ผ่าน; โดยผ่าน"}],["理由","りゆう",{"en":"reason","zh":"理由","ko":"이유","pt":"razão","th":"เหตุผล"}],["自由","じゆう",{"en":"freedom; free","zh":"自由","ko":"자유","pt":"liberdade; livre","th":"เสรีภาพ; อิสระ"}]],"extra":[["由来","ゆらい",{"en":"origin; derivation","zh":"由来；来源","ko":"유래","pt":"origem","th":"ที่มา; ต้นกำเนิด"}],["不自由","ふじゆう",{"en":"inconvenience; limitation","zh":"不自由；不便","ko":"부자유; 불편","pt":"limitação; inconveniência","th":"ความไม่สะดวก; ข้อจำกัด"}],["自由席","じゆうせき",{"en":"non-reserved seat","zh":"自由席","ko":"자유석","pt":"assento não reservado","th":"ที่นั่งไม่จอง"}]],"special":[["自由画","じゆうが","美術・美術教育",{"en":"free drawing","zh":"自由画","ko":"자유화","pt":"desenho livre","th":"วาดภาพอิสระ"}]],"simp":"由","trad":"由","meaningTh":"เหตุผล; ที่มา"},{"kanji":"油","meaningWord":"あぶら","meaningEasy":"料理や燃料などに使う、水とまざりにくい液体","meaningEn":"oil","meaningZh":"油","meaningKo":"기름","meaningPt":"óleo","no":372,"on":["ユ"],"kun":["あぶら"],"words":[["石油","せきゆ",{"en":"petroleum; oil","zh":"石油","ko":"석유","pt":"petróleo","th":"ปิโตรเลียม; น้ำมัน"}],["しょう油","しょうゆ",{"en":"soy sauce","zh":"酱油","ko":"간장","pt":"molho de soja","th":"ซีอิ๊วญี่ปุ่น"}],["油","あぶら",{"en":"oil","zh":"油","ko":"기름","pt":"óleo","th":"น้ำมัน"}]],"extra":[["油断","ゆだん",{"en":"carelessness","zh":"疏忽；大意","ko":"방심","pt":"descuido","th":"ความประมาท"}],["油田","ゆでん",{"en":"oil field","zh":"油田","ko":"유전","pt":"campo de petróleo","th":"แหล่งน้ำมัน"}],["油性","ゆせい",{"en":"oil-based","zh":"油性","ko":"유성","pt":"à base de óleo","th":"ชนิดน้ำมัน; ฐานน้ำมัน"}]],"special":[["油絵","あぶらえ","美術",{"en":"oil painting","zh":"油画","ko":"유화","pt":"pintura a óleo","th":"ภาพสีน้ำมัน"}],["油彩","ゆさい","美術",{"en":"oil painting; oils","zh":"油彩","ko":"유채","pt":"pintura a óleo","th":"จิตรกรรมสีน้ำมัน"}],["油絵具","あぶらえのぐ","美術",{"en":"oil paint","zh":"油画颜料","ko":"유화 물감","pt":"tinta a óleo","th":"สีน้ำมัน"}]],"simp":"油","trad":"油","meaningTh":"น้ำมัน"},{"kanji":"官","meaningWord":"官庁・警官","meaningEasy":"国や地方の役所、そこで仕事をする人に関係する","meaningEn":"government official; public office","meaningZh":"官员；政府机关","meaningKo":"관리; 관공서","meaningPt":"funcionário público; órgão público","no":373,"on":["カン"],"kun":[],"words":[["官庁","かんちょう",{"en":"government office","zh":"政府机关","ko":"관청","pt":"órgão público","th":"หน่วยงานราชการ"}],["警官","けいかん",{"en":"police officer","zh":"警察","ko":"경찰관","pt":"policial","th":"ตำรวจ"}]],"extra":[["官僚","かんりょう",{"en":"bureaucrat","zh":"官僚","ko":"관료","pt":"burocrata","th":"ข้าราชการระดับสูง; ระบบราชการ"}],["官公庁","かんこうちょう",{"en":"government offices","zh":"政府机关","ko":"관공서","pt":"órgãos públicos","th":"หน่วยงานราชการ"}],["長官","ちょうかん",{"en":"chief; director-general","zh":"长官","ko":"장관; 수장","pt":"chefe; diretor-geral","th":"อธิบดี; หัวหน้าหน่วยงาน"}]],"special":[],"simp":"官","trad":"官","meaningTh":"เจ้าหน้าที่รัฐ; หน่วยงานราชการ"},{"kanji":"管","meaningWord":"くだ・管理","meaningEasy":"細長く、中が空いているもの。また、物事を受け持って管理する意味もある","meaningEn":"pipe; tube; manage","meaningZh":"管；管道；管理","meaningKo":"관; 파이프; 관리하다","meaningPt":"tubo; cano; administrar","no":374,"on":["カン"],"kun":["くだ"],"words":[["管理する","かんりする",{"en":"to manage","zh":"管理","ko":"관리하다","pt":"administrar; gerenciar","th":"จัดการ; บริหาร"}],["管","くだ",{"en":"pipe; tube","zh":"管；管子","ko":"관; 파이프","pt":"tubo; cano","th":"ท่อ; หลอด"}]],"extra":[["保管","ほかん",{"en":"storage; safekeeping","zh":"保管","ko":"보관","pt":"armazenamento; guarda","th":"การเก็บรักษา"}],["管内","かんない",{"en":"within the jurisdiction","zh":"管辖范围内","ko":"관내","pt":"dentro da jurisdição","th":"ภายในเขตอำนาจ"}],["配管","はいかん",{"en":"piping; plumbing","zh":"管道；配管","ko":"배관","pt":"tubulação","th":"ระบบท่อ"}]],"special":[],"simp":"管","trad":"管","meaningTh":"ท่อ; หลอด; จัดการ"},{"kanji":"島","meaningWord":"しま","meaningEasy":"まわりが全部、海や湖などの水になっている土地","meaningEn":"island","meaningZh":"岛","meaningKo":"섬","meaningPt":"ilha","no":375,"on":["トウ"],"kun":["しま"],"words":[["半島","はんとう",{"en":"peninsula","zh":"半岛","ko":"반도","pt":"península","th":"คาบสมุทร"}],["島","しま",{"en":"island","zh":"岛","ko":"섬","pt":"ilha","th":"เกาะ"}]],"extra":[["列島","れっとう",{"en":"archipelago","zh":"列岛","ko":"열도","pt":"arquipélago","th":"หมู่เกาะ"}],["島国","しまぐに",{"en":"island country","zh":"岛国","ko":"섬나라","pt":"país insular","th":"ประเทศเกาะ"}],["無人島","むじんとう",{"en":"uninhabited island","zh":"无人岛","ko":"무인도","pt":"ilha desabitada","th":"เกาะร้าง"}]],"special":[],"simp":"岛","trad":"島","meaningTh":"เกาะ"},{"kanji":"若","meaningWord":"若い","meaningEasy":"年齢が少ない、年をとっていない","meaningEn":"young","meaningZh":"年轻","meaningKo":"젊다","meaningPt":"jovem","no":376,"on":["ジャク","ニャク"],"kun":["わかい","もしくは"],"words":[["若い","わかい",{"en":"young","zh":"年轻","ko":"젊다","pt":"jovem","th":"หนุ่มสาว; อายุน้อย"}]],"extra":[["若者","わかもの",{"en":"young person; youth","zh":"年轻人","ko":"젊은이","pt":"jovem","th":"คนหนุ่มสาว"}],["若年","じゃくねん",{"en":"young age","zh":"年轻；低龄","ko":"약년; 젊은 나이","pt":"idade jovem","th":"วัยหนุ่มสาว"}],["若干","じゃっかん",{"en":"some; a few","zh":"若干；一些","ko":"약간; 다소","pt":"alguns; um pouco","th":"บางส่วน; เล็กน้อย"}]],"special":[],"simp":"若","trad":"若","meaningTh":"หนุ่มสาว; อ่อนวัย"},{"kanji":"苦","meaningWord":"苦しい・苦い","meaningEasy":"つらいこと。また、食べ物などの味がにがいこと","meaningEn":"suffering; bitter","meaningZh":"痛苦；苦","meaningKo":"괴롭다; 쓰다","meaningPt":"sofrimento; amargo","no":377,"on":["ク"],"kun":["くるしい","くるしむ","くるしめる","にがい","にがる"],"words":[["苦労","くろう",{"en":"trouble; hardship","zh":"辛苦；劳苦","ko":"고생","pt":"dificuldade; esforço","th":"ความลำบาก; ความเหนื่อยยาก"}],["苦しい","くるしい",{"en":"painful; hard","zh":"痛苦；难受","ko":"괴롭다; 힘들다","pt":"doloroso; difícil","th":"ทรมาน; ลำบาก"}],["苦い","にがい",{"en":"bitter","zh":"苦","ko":"쓰다","pt":"amargo","th":"ขม"}],["苦手な","にがてな",{"en":"not good at; weak at","zh":"不擅长","ko":"서투르다; 잘 못하다","pt":"não ser bom em","th":"ไม่ถนัด"}]],"extra":[["苦痛","くつう",{"en":"pain; suffering","zh":"痛苦","ko":"고통","pt":"dor; sofrimento","th":"ความเจ็บปวด; ความทุกข์"}],["苦情","くじょう",{"en":"complaint","zh":"投诉；抱怨","ko":"불만; 항의","pt":"reclamação","th":"คำร้องเรียน"}],["苦戦","くせん",{"en":"hard struggle","zh":"苦战","ko":"고전","pt":"luta difícil","th":"การต่อสู้อย่างยากลำบาก"}]],"special":[],"simp":"苦","trad":"苦","meaningTh":"ความทุกข์; ขม"},{"kanji":"向","meaningWord":"向く・向かう","meaningEasy":"ある方向に顔や体を向けること。また、方向を表す","meaningEn":"direction; face toward","meaningZh":"方向；朝向","meaningKo":"방향; 향하다","meaningPt":"direção; virar-se para","no":378,"on":["コウ"],"kun":["むく","むける","むかう","むこう"],"words":[["方向","ほうこう",{"en":"direction","zh":"方向","ko":"방향","pt":"direção","th":"ทิศทาง"}],["向く","むく",{"en":"to face; turn toward","zh":"朝向；面向","ko":"향하다","pt":"virar-se para","th":"หันไปทาง"}],["向ける","むける",{"en":"to turn toward; direct","zh":"使朝向；对准","ko":"향하게 하다; 돌리다","pt":"virar; direcionar","th":"หันไป; มุ่งไป"}],["向かう","むかう",{"en":"to head toward","zh":"前往；朝向","ko":"향하다; 나아가다","pt":"dirigir-se a","th":"มุ่งหน้าไป"}],["向こう","むこう",{"en":"over there; opposite side","zh":"那边；对面","ko":"저쪽; 건너편","pt":"do outro lado; lá","th":"ฝั่งโน้น; ตรงข้าม"}]],"extra":[["傾向","けいこう",{"en":"tendency","zh":"倾向","ko":"경향","pt":"tendência","th":"แนวโน้ม"}],["向上","こうじょう",{"en":"improvement","zh":"提高；进步","ko":"향상","pt":"melhoria","th":"การพัฒนา; ดีขึ้น"}],["前向き","まえむき",{"en":"positive; forward-looking","zh":"积极；正面","ko":"긍정적; 적극적","pt":"positivo; construtivo","th":"เชิงบวก; มองไปข้างหน้า"}]],"special":[],"simp":"向","trad":"向","meaningTh":"ทิศทาง; หันไป"},{"kanji":"老","meaningWord":"老いる・老人","meaningEasy":"年をとること、または年をとった人に関係する","meaningEn":"old; age","meaningZh":"老；年老","meaningKo":"늙다; 나이가 들다","meaningPt":"velho; envelhecer","no":379,"on":["ロウ"],"kun":["おいる","ふける"],"words":[["老人","ろうじん",{"en":"elderly person","zh":"老人","ko":"노인","pt":"idoso","th":"ผู้สูงอายุ"}]],"extra":[["老後","ろうご",{"en":"later life; old age","zh":"晚年","ko":"노후","pt":"velhice","th":"วัยชรา; ชีวิตหลังเกษียณ"}],["老化","ろうか",{"en":"aging","zh":"老化","ko":"노화","pt":"envelhecimento","th":"การแก่ตัว"}],["老舗","しにせ",{"en":"long-established shop/company","zh":"老字号","ko":"노포","pt":"estabelecimento tradicional","th":"ร้าน/บริษัทเก่าแก่"}]],"special":[],"simp":"老","trad":"老","meaningTh":"แก่; ชรา"},{"kanji":"像","meaningWord":"ぞう","meaningEasy":"人や物の形を作ったもの。また、目に見える姿やイメージを表すこともある","meaningEn":"image; statue","meaningZh":"形象；像；雕像","meaningKo":"상; 이미지; 조각상","meaningPt":"imagem; estátua","no":380,"on":["ゾウ"],"kun":[],"words":[["像","ぞう",{"en":"image; statue","zh":"像；雕像","ko":"상; 조각상","pt":"imagem; estátua","th":"ภาพ; รูปปั้น"}],["想像する","そうぞうする",{"en":"to imagine","zh":"想象","ko":"상상하다","pt":"imaginar","th":"จินตนาการ"}]],"extra":[["映像","えいぞう",{"en":"video image; footage","zh":"影像","ko":"영상","pt":"imagem; vídeo","th":"ภาพวิดีโอ; ภาพเคลื่อนไหว"}],["画像","がぞう",{"en":"image; picture","zh":"图像","ko":"화상; 이미지","pt":"imagem","th":"ภาพ"}],["銅像","どうぞう",{"en":"bronze statue","zh":"铜像","ko":"동상","pt":"estátua de bronze","th":"รูปปั้นทองสัมฤทธิ์"}]],"special":[["肖像","しょうぞう","美術",{"en":"portrait","zh":"肖像","ko":"초상","pt":"retrato","th":"ภาพเหมือน"}],["彫像","ちょうぞう","美術・彫刻",{"en":"sculpture; statue","zh":"雕像","ko":"조상; 조각상","pt":"escultura; estátua","th":"ประติมากรรม; รูปปั้น"}],["肖像画","しょうぞうが","美術",{"en":"portrait painting","zh":"肖像画","ko":"초상화","pt":"retrato; pintura de retrato","th":"ภาพวาดบุคคล"}],["塑像","そぞう","美術・彫刻",{"en":"modeled sculpture; statue","zh":"塑像","ko":"소상; 소조상","pt":"escultura modelada","th":"รูปปั้นปั้น"}]],"simp":"像","trad":"像","meaningTh":"ภาพ; รูปปั้น"}];
 
 let selected = new Set(DATA.map(d=>d.kanji));
 let currentFlashData=null;
@@ -1250,16 +1250,34 @@ function renderFlashVocab(){
 
 
 function renderIjiDokun(){
-  if(!currentFlashData) return;
-  const item=IJI_DOKUN[currentFlashData.kanji];
-  if(!item){
-    fIjiBox.classList.add("hidden");
-    fIjiText.textContent="";
-    return;
+  if(!currentFlashData)return;
+  const lang=meaningLang.value||"ja",master=window.KANJI_MASTER;
+  if(master?.IJI_DOKUN_MASTER&&master?.resolveIjiDokun){
+    const groups=Object.keys(master.IJI_DOKUN_MASTER).map(r=>master.resolveIjiDokun(r,4)).filter(g=>g&&g.entries.some(e=>e.kanji===currentFlashData.kanji));
+    if(groups.length){
+      fIjiText.innerHTML=groups.map(g=>{
+        const entries=g.entries.map(e=>{
+          const label=e.stage?.label?`（${escapeHtml(e.stage.label)}）`:"";
+          return `<b class="jp-kanji">${escapeHtml(e.word)}</b>${label}＝${escapeHtml(e[lang]||e.ja||"")}`;
+        }).join(" ／ ");
+        return `<div><b>${escapeHtml(g.reading)}</b>：${entries}</div>`;
+      }).join("");
+      fIjiText.lang=lang==="zh"?"zh-CN":lang==="ko"?"ko":lang==="pt"?"pt-BR":lang==="th"?"th":lang==="en"?"en":"ja";
+      fIjiBox.classList.remove("hidden");return;
+    }
   }
-  const lang=meaningLang.value||"ja";
-  fIjiText.textContent=item[lang]||item.ja;
-  fIjiText.lang = lang==="zh" ? "zh-CN" : lang==="ko" ? "ko" : lang==="pt" ? "pt-BR" : lang==="th" ? "th" : lang==="en" ? "en" : "ja";
+  const item=IJI_DOKUN[currentFlashData.kanji];
+  if(!item){fIjiBox.classList.add("hidden");fIjiText.textContent="";return;}
+  let text=item[lang]||item.ja;
+  if(master?.studyStageForKanji){
+    text=text.replace(/([一-龯々]+[ぁ-んァ-ヶー]*)（([^）]+)）/g,(m,word,reading)=>{
+      const km=word.match(/[一-龯々]/);if(!km)return m;
+      const label=master.studyStageForKanji(km[0],4)?.label||"";
+      return label?`${word}（${reading}・${label}）`:m;
+    });
+  }
+  fIjiText.textContent=text;
+  fIjiText.lang=lang==="zh"?"zh-CN":lang==="ko"?"ko":lang==="pt"?"pt-BR":lang==="th"?"th":lang==="en"?"en":"ja";
   fIjiBox.classList.remove("hidden");
 }
 
@@ -1296,9 +1314,9 @@ function resetFlashPool(){
 
 // 常用漢字表で音訓が1字下げされる「特別なもの又は用法のごく狭いもの」を共通管理する。
 const LIMITED_USE_JOYO_READINGS = new Set(["数|on|ス","静|on|ジョウ","馬|kun|ま","舟|kun|ふな","石|on|シャク","石|on|コク","由|on|ユイ","若|on|ニャク","留|on|ル","供|on|ク","緒|on|チョ","夫|on|フウ","児|on|ニ","庫|on|ク","流|on|ル"]);
-const IJI_DOKUN = {"舟":{"ja":"舟（ふね）＝比較的小さいふね・文学的な表記にも使う　／　船（ふね）＝一般的なふね、特に大きなものにも使う","en":"舟（ふね） = relatively small boat, also literary / 船（ふね） = general word for a vessel, including larger ships","zh":"舟（ふね）＝较小的船，也用于文学性表达 ／ 船（ふね）＝一般的船，也可指较大的船只","ko":"舟（ふね）＝비교적 작은 배·문학적 표현 ／ 船（ふね）＝일반적인 배, 큰 선박에도 사용","pt":"舟（ふね） = barco relativamente pequeno, também literário / 船（ふね） = termo geral para embarcação, inclusive navios maiores","th":"舟（ふね）＝เรือค่อนข้างเล็ก และใช้ในภาษาวรรณกรรมได้ ／ 船（ふね）＝คำทั่วไปสำหรับเรือ รวมถึงเรือขนาดใหญ่"},"油":{"ja":"油（あぶら）＝常温で液体のあぶらを中心に使う　／　脂（あぶら）＝動物の脂肪など、固体・半固体のあぶらに使うことが多い","en":"油（あぶら） = mainly liquid oil / 脂（あぶら） = mainly animal fat or solid/semi-solid grease","zh":"油（あぶら）＝主要指常温下液态的油 ／ 脂（あぶら）＝多指动物脂肪等固态、半固态的油脂","ko":"油（あぶら）＝주로 상온에서 액체인 기름 ／ 脂（あぶら）＝동물성 지방 등 고체·반고체 지방","pt":"油（あぶら） = principalmente óleo líquido / 脂（あぶら） = principalmente gordura animal ou gordura sólida/semi-sólida","th":"油（あぶら）＝ส่วนใหญ่เป็นน้ำมันเหลว ／ 脂（あぶら）＝ส่วนใหญ่เป็นไขมันสัตว์หรือไขมันกึ่งแข็ง/แข็ง"}};
+const IJI_DOKUN = {"舟":{"ja":"舟（ふね）＝比較的小さいふね・文学的な表記にも使う　／　船（ふね）＝一般的なふね、特に大きなものにも使う","en":"舟（ふね） = relatively small boat, also literary / 船（ふね） = general word for a vessel, including larger ships","zh":"舟（ふね）＝较小的船，也用于文学性表达 ／ 船（ふね）＝一般的船，也可指较大的船只","ko":"舟（ふね）＝비교적 작은 배·문학적 표현 ／ 船（ふね）＝일반적인 배, 큰 선박에도 사용","pt":"舟（ふね） = barco relativamente pequeno, também literário / 船（ふね） = termo geral para embarcação, inclusive navios maiores","th":"舟（ふね）＝มักใช้กับเรือขนาดค่อนข้างเล็กและในภาษาเชิงวรรณกรรม ／ 船（ふね）＝คำทั่วไปสำหรับเรือ รวมถึงเรือขนาดใหญ่"},"油":{"ja":"油（あぶら）＝常温で液体のあぶらを中心に使う　／　脂（あぶら）＝動物の脂肪など、固体・半固体のあぶらに使うことが多い","en":"油（あぶら） = mainly liquid oil / 脂（あぶら） = mainly animal fat or solid/semi-solid grease","zh":"油（あぶら）＝主要指常温下液态的油 ／ 脂（あぶら）＝多指动物脂肪等固态、半固态的油脂","ko":"油（あぶら）＝주로 상온에서 액체인 기름 ／ 脂（あぶら）＝동물성 지방 등 고체·반고체 지방","pt":"油（あぶら） = principalmente óleo líquido / 脂（あぶら） = principalmente gordura animal ou gordura sólida/semi-sólida","th":"油（あぶら）＝มักใช้กับน้ำมันที่เป็นของเหลวที่อุณหภูมิห้อง ／ 脂（あぶら）＝มักใช้กับไขมันสัตว์หรือไขมันที่เป็นของแข็ง/กึ่งแข็ง"}};
 const READING_EXAMPLES = {"馬":{"on":{"バ":"乗馬（じょうば）"},"kun":{"うま":"馬（うま）","ま":"馬子（まご）［参考］"}},"象":{"on":{"ショウ":"気象（きしょう）","ゾウ":"象（ぞう）"},"kun":{}},"竹":{"on":{"チク":"竹林（ちくりん）"},"kun":{"たけ":"竹（たけ）"}},"糸":{"on":{"シ":"製糸（せいし）"},"kun":{"いと":"糸（いと）"}},"貝":{"on":{},"kun":{"かい":"貝（かい）"}},"毛":{"on":{"モウ":"羊毛（ようもう）"},"kun":{"け":"毛（け）"}},"舟":{"on":{"シュウ":"舟運（しゅううん）"},"kun":{"ふね":"舟（ふね）","ふな":"舟形（ふながた）［参考］"}},"石":{"on":{"セキ":"石油（せきゆ）","シャク":"磁石（じしゃく）［参考］","コク":"石高（こくだか）［参考］"},"kun":{"いし":"石（いし）"}},"岩":{"on":{"ガン":"溶岩（ようがん）"},"kun":{"いわ":"岩（いわ）"}},"畑":{"on":{},"kun":{"はた":"畑作（はたさく）","はたけ":"畑（はたけ）"}},"由":{"on":{"ユ":"経由（けいゆ）","ユウ":"理由（りゆう）","ユイ":"由緒（ゆいしょ）［参考］"},"kun":{"よし":"由（よし）"}},"油":{"on":{"ユ":"石油（せきゆ）"},"kun":{"あぶら":"油（あぶら）"}},"官":{"on":{"カン":"官庁（かんちょう）"},"kun":{}},"管":{"on":{"カン":"管理（かんり）"},"kun":{"くだ":"管（くだ）"}},"島":{"on":{"トウ":"半島（はんとう）"},"kun":{"しま":"島（しま）"}},"若":{"on":{"ジャク":"若干（じゃっかん）","ニャク":"老若（ろうにゃく）［参考］"},"kun":{"わかい":"若い","もしくは":"若しくは"}},"苦":{"on":{"ク":"苦労（くろう）"},"kun":{"くるしい":"苦しい","くるしむ":"苦しむ","くるしめる":"苦しめる","にがい":"苦い","にがる":"苦り切る（にがりきる）"}},"向":{"on":{"コウ":"方向（ほうこう）"},"kun":{"むく":"向く","むける":"向ける","むかう":"向かう","むこう":"向こう"}},"老":{"on":{"ロウ":"老人（ろうじん）"},"kun":{"おいる":"老いる","ふける":"老ける"}},"像":{"on":{"ゾウ":"肖像（しょうぞう）"},"kun":{}}};
-const READING_EXAMPLE_GLOSS = {"馬|on|バ":{"ja":"乗馬","en":"horse riding","zh":"骑马","ko":"승마","pt":"equitação"},"馬|kun|うま":{"ja":"動物の馬","en":"horse","zh":"马","ko":"말","pt":"cavalo"},"馬|kun|ま":{"ja":"馬を扱う人","en":"packhorse driver","zh":"马夫","ko":"마부","pt":"condutor de cavalo"},"象|on|ショウ":{"ja":"気象","en":"weather; meteorological phenomena","zh":"气象","ko":"기상","pt":"meteorologia; fenômenos atmosféricos"},"象|on|ゾウ":{"ja":"象","en":"elephant","zh":"象；大象","ko":"코끼리","pt":"elefante"},"竹|on|チク":{"ja":"竹林","en":"bamboo grove","zh":"竹林","ko":"죽림","pt":"bosque de bambu"},"竹|kun|たけ":{"ja":"植物の竹","en":"bamboo","zh":"竹子","ko":"대나무","pt":"bambu"},"糸|on|シ":{"ja":"製糸","en":"silk reeling; thread production","zh":"制丝","ko":"제사; 실 생산","pt":"fiação; produção de fio"},"糸|kun|いと":{"ja":"細く長い繊維","en":"thread; string","zh":"线；丝","ko":"실","pt":"fio; linha"},"貝|kun|かい":{"ja":"貝","en":"shellfish; shell","zh":"贝；贝壳","ko":"조개","pt":"molusco; concha"},"毛|on|モウ":{"ja":"羊毛","en":"wool","zh":"羊毛","ko":"양모","pt":"lã"},"毛|kun|け":{"ja":"体や動物に生える毛","en":"hair; fur","zh":"毛；毛发","ko":"털","pt":"pelo; pelagem"},"舟|on|シュウ":{"ja":"舟運","en":"water transport; shipping","zh":"水运","ko":"주운; 수운","pt":"transporte fluvial"},"舟|kun|ふね":{"ja":"小さな船・舟","en":"boat","zh":"舟；小船","ko":"배; 작은 배","pt":"barco"},"舟|kun|ふな":{"ja":"舟の形","en":"boat-shaped","zh":"舟形；船形","ko":"배 모양","pt":"em forma de barco"},"石|on|セキ":{"ja":"石油","en":"petroleum; oil","zh":"石油","ko":"석유","pt":"petróleo"},"石|on|シャク":{"ja":"磁石","en":"magnet","zh":"磁铁","ko":"자석","pt":"ímã"},"石|on|コク":{"ja":"石高","en":"rice yield assessed in koku","zh":"石高；按石计的产量","ko":"고쿠다카; 석고","pt":"produção avaliada em koku"},"石|kun|いし":{"ja":"石","en":"stone","zh":"石头","ko":"돌","pt":"pedra"},"岩|on|ガン":{"ja":"溶岩","en":"lava","zh":"熔岩","ko":"용암","pt":"lava"},"岩|kun|いわ":{"ja":"大きな石・岩","en":"rock; boulder","zh":"岩石；大石头","ko":"바위","pt":"rocha; rochedo"},"畑|kun|はた":{"ja":"畑で作物を作ること","en":"dry-field cultivation","zh":"旱田耕作","ko":"밭농사","pt":"cultivo em campo seco"},"畑|kun|はたけ":{"ja":"野菜などを作る土地","en":"field; vegetable plot","zh":"旱田；菜地","ko":"밭","pt":"campo; horta"},"由|on|ユ":{"ja":"経由","en":"via; by way of","zh":"经由","ko":"경유","pt":"via; por meio de"},"由|on|ユウ":{"ja":"理由","en":"reason","zh":"理由","ko":"이유","pt":"razão"},"由|on|ユイ":{"ja":"由緒","en":"history; pedigree; origin","zh":"由来；来历","ko":"유서; 내력","pt":"história; origem; tradição"},"由|kun|よし":{"ja":"理由・方法","en":"reason; means","zh":"理由；方法","ko":"이유; 방법","pt":"razão; meio"},"油|on|ユ":{"ja":"石油","en":"petroleum; oil","zh":"石油","ko":"석유","pt":"petróleo"},"油|kun|あぶら":{"ja":"液体の油","en":"oil","zh":"油","ko":"기름","pt":"óleo"},"官|on|カン":{"ja":"官庁","en":"government office","zh":"政府机关","ko":"관청","pt":"órgão público"},"管|on|カン":{"ja":"管理","en":"management","zh":"管理","ko":"관리","pt":"gestão"},"管|kun|くだ":{"ja":"細長く中が空いているもの","en":"tube; pipe","zh":"管子","ko":"관; 파이프","pt":"tubo; cano"},"島|on|トウ":{"ja":"半島","en":"peninsula","zh":"半岛","ko":"반도","pt":"península"},"島|kun|しま":{"ja":"海などに囲まれた土地","en":"island","zh":"岛","ko":"섬","pt":"ilha"},"若|on|ジャク":{"ja":"若干","en":"some; a few","zh":"若干","ko":"약간","pt":"alguns; certa quantidade"},"若|on|ニャク":{"ja":"老若","en":"old and young","zh":"老少","ko":"노약; 남녀노소","pt":"velhos e jovens"},"若|kun|わかい":{"ja":"年齢が少ない","en":"young","zh":"年轻","ko":"젊다","pt":"jovem"},"若|kun|もしくは":{"ja":"または","en":"or; alternatively","zh":"或者","ko":"또는","pt":"ou; alternativamente"},"苦|on|ク":{"ja":"苦労","en":"hardship; trouble","zh":"辛苦；劳苦","ko":"고생","pt":"dificuldade; esforço"},"苦|kun|くるしい":{"ja":"つらくて楽ではない","en":"painful; difficult","zh":"痛苦；难受","ko":"괴롭다","pt":"doloroso; difícil"},"苦|kun|くるしむ":{"ja":"苦しい状態になる","en":"to suffer","zh":"受苦","ko":"괴로워하다","pt":"sofrer"},"苦|kun|くるしめる":{"ja":"相手を苦しい状態にする","en":"to torment; cause suffering","zh":"使痛苦","ko":"괴롭히다","pt":"atormentar; causar sofrimento"},"苦|kun|にがい":{"ja":"味が苦い","en":"bitter","zh":"苦的","ko":"쓰다","pt":"amargo"},"苦|kun|にがる":{"ja":"いやな気持ちを顔に出す","en":"to look displeased","zh":"露出不快神色","ko":"언짢은 표정을 짓다","pt":"mostrar desagrado"},"向|on|コウ":{"ja":"方向","en":"direction","zh":"方向","ko":"방향","pt":"direção"},"向|kun|むく":{"ja":"ある方向を向く","en":"to face; turn toward","zh":"朝向","ko":"향하다","pt":"virar-se para; estar voltado"},"向|kun|むける":{"ja":"ある方向へ向かせる","en":"to turn/direct toward","zh":"使朝向","ko":"향하게 하다","pt":"virar; direcionar"},"向|kun|むかう":{"ja":"ある場所・方向へ進む","en":"to head toward","zh":"前往；朝向","ko":"향해 가다","pt":"dirigir-se a"},"向|kun|むこう":{"ja":"反対側・あちら","en":"the other side; over there","zh":"对面；那边","ko":"저쪽; 맞은편","pt":"o outro lado; lá"},"老|on|ロウ":{"ja":"老人","en":"elderly person","zh":"老人","ko":"노인","pt":"idoso"},"老|kun|おいる":{"ja":"年を取る","en":"to grow old","zh":"衰老；上年纪","ko":"늙다","pt":"envelhecer"},"老|kun|ふける":{"ja":"年齢より年を取って見える","en":"to look older; age","zh":"显老；衰老","ko":"늙어 보이다","pt":"envelhecer; parecer mais velho"},"像|on|ゾウ":{"ja":"肖像","en":"portrait; image","zh":"肖像","ko":"초상","pt":"retrato; imagem"}};
+const READING_EXAMPLE_GLOSS = {"馬|on|バ":{"ja":"乗馬","en":"horse riding","zh":"骑马","ko":"승마","pt":"equitação","th":"การขี่ม้า"},"馬|kun|うま":{"ja":"動物の馬","en":"horse","zh":"马","ko":"말","pt":"cavalo","th":"ม้า"},"馬|kun|ま":{"ja":"馬を扱う人","en":"packhorse driver","zh":"马夫","ko":"마부","pt":"condutor de cavalo","th":"คนจูง/ดูแลม้าบรรทุก"},"象|on|ショウ":{"ja":"気象","en":"weather; meteorological phenomena","zh":"气象","ko":"기상","pt":"meteorologia; fenômenos atmosféricos","th":"สภาพอากาศ; อุตุนิยมวิทยา"},"象|on|ゾウ":{"ja":"象","en":"elephant","zh":"象；大象","ko":"코끼리","pt":"elefante","th":"ช้าง"},"竹|on|チク":{"ja":"竹林","en":"bamboo grove","zh":"竹林","ko":"죽림","pt":"bosque de bambu","th":"ป่าไผ่"},"竹|kun|たけ":{"ja":"植物の竹","en":"bamboo","zh":"竹子","ko":"대나무","pt":"bambu","th":"ไผ่"},"糸|on|シ":{"ja":"製糸","en":"silk reeling; thread production","zh":"制丝","ko":"제사; 실 생산","pt":"fiação; produção de fio","th":"การสาวไหม; การผลิตเส้นด้าย"},"糸|kun|いと":{"ja":"細く長い繊維","en":"thread; string","zh":"线；丝","ko":"실","pt":"fio; linha","th":"ด้าย; เส้นเชือก"},"貝|kun|かい":{"ja":"貝","en":"shellfish; shell","zh":"贝；贝壳","ko":"조개","pt":"molusco; concha","th":"หอย; เปลือกหอย"},"毛|on|モウ":{"ja":"羊毛","en":"wool","zh":"羊毛","ko":"양모","pt":"lã","th":"ขนแกะ"},"毛|kun|け":{"ja":"体や動物に生える毛","en":"hair; fur","zh":"毛；毛发","ko":"털","pt":"pelo; pelagem","th":"ขน; เส้นผม"},"舟|on|シュウ":{"ja":"舟運","en":"water transport; shipping","zh":"水运","ko":"주운; 수운","pt":"transporte fluvial","th":"การขนส่งทางน้ำ"},"舟|kun|ふね":{"ja":"小さな船・舟","en":"boat","zh":"舟；小船","ko":"배; 작은 배","pt":"barco","th":"เรือ"},"舟|kun|ふな":{"ja":"舟の形","en":"boat-shaped","zh":"舟形；船形","ko":"배 모양","pt":"em forma de barco","th":"รูปทรงเรือ"},"石|on|セキ":{"ja":"石油","en":"petroleum; oil","zh":"石油","ko":"석유","pt":"petróleo","th":"ปิโตรเลียม; น้ำมัน"},"石|on|シャク":{"ja":"磁石","en":"magnet","zh":"磁铁","ko":"자석","pt":"ímã","th":"แม่เหล็ก"},"石|on|コク":{"ja":"石高","en":"rice yield assessed in koku","zh":"石高；按石计的产量","ko":"고쿠다카; 석고","pt":"produção avaliada em koku","th":"ปริมาณผลผลิตข้าวที่ประเมินเป็นหน่วยโคกุ"},"石|kun|いし":{"ja":"石","en":"stone","zh":"石头","ko":"돌","pt":"pedra","th":"หิน"},"岩|on|ガン":{"ja":"溶岩","en":"lava","zh":"熔岩","ko":"용암","pt":"lava","th":"ลาวา"},"岩|kun|いわ":{"ja":"大きな石・岩","en":"rock; boulder","zh":"岩石；大石头","ko":"바위","pt":"rocha; rochedo","th":"หิน; ก้อนหินใหญ่"},"畑|kun|はた":{"ja":"畑で作物を作ること","en":"dry-field cultivation","zh":"旱田耕作","ko":"밭농사","pt":"cultivo em campo seco","th":"การเพาะปลูกในไร่แห้ง"},"畑|kun|はたけ":{"ja":"野菜などを作る土地","en":"field; vegetable plot","zh":"旱田；菜地","ko":"밭","pt":"campo; horta","th":"ไร่; แปลงผัก"},"由|on|ユ":{"ja":"経由","en":"via; by way of","zh":"经由","ko":"경유","pt":"via; por meio de","th":"ผ่าน; โดยผ่าน"},"由|on|ユウ":{"ja":"理由","en":"reason","zh":"理由","ko":"이유","pt":"razão","th":"เหตุผล"},"由|on|ユイ":{"ja":"由緒","en":"history; pedigree; origin","zh":"由来；来历","ko":"유서; 내력","pt":"história; origem; tradição","th":"ประวัติความเป็นมา; เชื้อสาย"},"由|kun|よし":{"ja":"理由・方法","en":"reason; means","zh":"理由；方法","ko":"이유; 방법","pt":"razão; meio","th":"เหตุผล; วิธีการ"},"油|on|ユ":{"ja":"石油","en":"petroleum; oil","zh":"石油","ko":"석유","pt":"petróleo","th":"ปิโตรเลียม; น้ำมัน"},"油|kun|あぶら":{"ja":"液体の油","en":"oil","zh":"油","ko":"기름","pt":"óleo","th":"น้ำมัน"},"官|on|カン":{"ja":"官庁","en":"government office","zh":"政府机关","ko":"관청","pt":"órgão público","th":"หน่วยงานราชการ"},"管|on|カン":{"ja":"管理","en":"management","zh":"管理","ko":"관리","pt":"gestão","th":"การจัดการ"},"管|kun|くだ":{"ja":"細長く中が空いているもの","en":"tube; pipe","zh":"管子","ko":"관; 파이프","pt":"tubo; cano","th":"ท่อ; หลอด"},"島|on|トウ":{"ja":"半島","en":"peninsula","zh":"半岛","ko":"반도","pt":"península","th":"คาบสมุทร"},"島|kun|しま":{"ja":"海などに囲まれた土地","en":"island","zh":"岛","ko":"섬","pt":"ilha","th":"เกาะ"},"若|on|ジャク":{"ja":"若干","en":"some; a few","zh":"若干","ko":"약간","pt":"alguns; certa quantidade","th":"บางส่วน; เล็กน้อย"},"若|on|ニャク":{"ja":"老若","en":"old and young","zh":"老少","ko":"노약; 남녀노소","pt":"velhos e jovens","th":"คนแก่และคนหนุ่มสาว"},"若|kun|わかい":{"ja":"年齢が少ない","en":"young","zh":"年轻","ko":"젊다","pt":"jovem","th":"หนุ่มสาว; อายุน้อย"},"若|kun|もしくは":{"ja":"または","en":"or; alternatively","zh":"或者","ko":"또는","pt":"ou; alternativamente","th":"หรือ; อีกทางหนึ่ง"},"苦|on|ク":{"ja":"苦労","en":"hardship; trouble","zh":"辛苦；劳苦","ko":"고생","pt":"dificuldade; esforço","th":"ความลำบาก; ความเหนื่อยยาก"},"苦|kun|くるしい":{"ja":"つらくて楽ではない","en":"painful; difficult","zh":"痛苦；难受","ko":"괴롭다","pt":"doloroso; difícil","th":"เจ็บปวด; ลำบาก"},"苦|kun|くるしむ":{"ja":"苦しい状態になる","en":"to suffer","zh":"受苦","ko":"괴로워하다","pt":"sofrer","th":"ทุกข์ทรมาน"},"苦|kun|くるしめる":{"ja":"相手を苦しい状態にする","en":"to torment; cause suffering","zh":"使痛苦","ko":"괴롭히다","pt":"atormentar; causar sofrimento","th":"ทรมานผู้อื่น; ทำให้เป็นทุกข์"},"苦|kun|にがい":{"ja":"味が苦い","en":"bitter","zh":"苦的","ko":"쓰다","pt":"amargo","th":"ขม"},"苦|kun|にがる":{"ja":"いやな気持ちを顔に出す","en":"to look displeased","zh":"露出不快神色","ko":"언짢은 표정을 짓다","pt":"mostrar desagrado","th":"แสดงสีหน้าไม่พอใจ"},"向|on|コウ":{"ja":"方向","en":"direction","zh":"方向","ko":"방향","pt":"direção","th":"ทิศทาง"},"向|kun|むく":{"ja":"ある方向を向く","en":"to face; turn toward","zh":"朝向","ko":"향하다","pt":"virar-se para; estar voltado","th":"หันไปทาง"},"向|kun|むける":{"ja":"ある方向へ向かせる","en":"to turn/direct toward","zh":"使朝向","ko":"향하게 하다","pt":"virar; direcionar","th":"หัน/มุ่งไปทาง"},"向|kun|むかう":{"ja":"ある場所・方向へ進む","en":"to head toward","zh":"前往；朝向","ko":"향해 가다","pt":"dirigir-se a","th":"มุ่งหน้าไป"},"向|kun|むこう":{"ja":"反対側・あちら","en":"the other side; over there","zh":"对面；那边","ko":"저쪽; 맞은편","pt":"o outro lado; lá","th":"อีกฝั่ง; ทางโน้น"},"老|on|ロウ":{"ja":"老人","en":"elderly person","zh":"老人","ko":"노인","pt":"idoso","th":"ผู้สูงอายุ"},"老|kun|おいる":{"ja":"年を取る","en":"to grow old","zh":"衰老；上年纪","ko":"늙다","pt":"envelhecer","th":"แก่ลง"},"老|kun|ふける":{"ja":"年齢より年を取って見える","en":"to look older; age","zh":"显老；衰老","ko":"늙어 보이다","pt":"envelhecer; parecer mais velho","th":"ดูแก่ลง; แก่ตัว"},"像|on|ゾウ":{"ja":"肖像","en":"portrait; image","zh":"肖像","ko":"초상","pt":"retrato; imagem","th":"ภาพเหมือน"}};
 const KUN_PARTS = {"うま":["うま",""],"ま":["ま",""],"たけ":["たけ",""],"いと":["いと",""],"かい":["かい",""],"け":["け",""],"ふね":["ふね",""],"ふな":["ふな",""],"いし":["いし",""],"いわ":["いわ",""],"はた":["はた",""],"はたけ":["はたけ",""],"よし":["よし",""],"あぶら":["あぶら",""],"くだ":["くだ",""],"しま":["しま",""],"わかい":["わか","い"],"もしくは":["も","しくは"],"くるしい":["くる","しい"],"くるしむ":["くる","しむ"],"くるしめる":["くる","しめる"],"にがい":["にが","い"],"にがる":["にが","る"],"むく":["む","く"],"むける":["む","ける"],"むかう":["む","かう"],"むこう":["む","こう"],"おいる":["お","いる"],"ふける":["ふ","ける"]};
 function formatKun(readings){
   if(!readings.length) return "—";
@@ -1312,7 +1330,7 @@ function formatKun(readings){
 function renderReadingExamples(d){
   const ex=READING_EXAMPLES[d.kanji]||{on:{},kun:{}};
   const lang=meaningLang?.value||"ja";
-  const langAttr = lang==="zh" ? "zh-CN" : lang==="ko" ? "ko" : lang==="pt" ? "pt-BR" : lang==="en" ? "en" : "ja";
+  const langAttr = lang==="zh" ? "zh-CN" : lang==="ko" ? "ko" : lang==="pt" ? "pt-BR" : lang==="th" ? "th" : lang==="en" ? "en" : "ja";
 
   const makeRow=(type,r,word)=>{
     const gloss=READING_EXAMPLE_GLOSS[d.kanji+"|"+type+"|"+r]?.[lang]||"";
@@ -1422,83 +1440,42 @@ function statsLoad(){
 }
 function statsSave(s){safeStorageSet("kanjiL4StatsV1",JSON.stringify(s));}
 
-// ---- 第1〜8課 学習記録パイロット v2：進捗と「実際に学習した日時」を分けて保存 ----
+// ---- 学習記録 v2 ----
 const PROGRESS_KEY="kanjiL4ProgressV2";
 const LEGACY_PROGRESS_KEY="kanjiL4ProgressV1";
-
-function defaultProgress(){
-  return {cards:{},read:{},write:{},status:"",lastActivity:0,legacyOnly:false};
-}
+function defaultProgress(){return {cards:{},read:{},write:{},status:"",lastActivity:0,legacyOnly:false};}
 function normalizeProgress(p){
-  if(!p || typeof p!=="object" || Array.isArray(p)) p=defaultProgress();
-  ["cards","read","write"].forEach(k=>{
-    if(!p[k] || typeof p[k]!=="object" || Array.isArray(p[k])) p[k]={};
-  });
+  if(!p||typeof p!=="object"||Array.isArray(p)) p=defaultProgress();
+  ["cards","read","write"].forEach(k=>{if(!p[k]||typeof p[k]!=="object"||Array.isArray(p[k])) p[k]={};});
   if(!["","learning","done"].includes(p.status)) p.status="";
-  p.lastActivity=Number.isFinite(Number(p.lastActivity)) ? Number(p.lastActivity) : 0;
-  p.legacyOnly=!!p.legacyOnly;
-  return p;
+  p.lastActivity=Number.isFinite(Number(p.lastActivity))?Number(p.lastActivity):0;
+  p.legacyOnly=!!p.legacyOnly; return p;
 }
-function hasProgressItems(p){
-  return ["cards","read","write"].some(k=>Object.keys(p[k]||{}).length>0);
-}
+function hasProgressItems(p){return ["cards","read","write"].some(k=>Object.keys(p[k]||{}).length>0);}
 function progressLoad(){
   let p;
-  try{
-    const raw=safeStorageGet(PROGRESS_KEY);
-    if(raw) return normalizeProgress(JSON.parse(raw));
-  }catch(e){}
-
-  // V1の日時は、旧成績の移行や状態変更でも更新され得たため
-  // 「学習した日時」としては引き継がない。進捗・状態だけを引き継ぐ。
-  p=defaultProgress();
-  let old=null;
-  try{
-    const rawOld=safeStorageGet(LEGACY_PROGRESS_KEY);
-    old=rawOld ? normalizeProgress(JSON.parse(rawOld)) : null;
-  }catch(e){ old=null; }
-
-  if(old){
-    p.cards={...old.cards};
-    p.read={...old.read};
-    p.write={...old.write};
-    p.status=old.status;
-  }
-
+  try{const raw=safeStorageGet(PROGRESS_KEY); if(raw) return normalizeProgress(JSON.parse(raw));}catch(e){}
+  p=defaultProgress(); let old=null;
+  try{const rawOld=safeStorageGet(LEGACY_PROGRESS_KEY); old=rawOld?normalizeProgress(JSON.parse(rawOld)):null;}catch(e){old=null;}
+  if(old){p.cards={...old.cards};p.read={...old.read};p.write={...old.write};p.status=old.status;}
   const s=statsLoad();
-  const hasLegacy=(s.answered||0)>0 || (s.writeGood||0)>0 || (s.writeBad||0)>0 || Object.keys(s.items||{}).length>0;
-  const hadOldSignal=!!old && (old.status || hasProgressItems(old) || old.lastActivity>0);
-
-  if(!p.status && (hasProgressItems(p) || hasLegacy)) p.status="learning";
-  if(hadOldSignal || hasLegacy){
-    p.legacyOnly=true;
-    p.lastActivity=0;
-    progressSave(p);
-  }
+  const hasLegacy=(s.answered||0)>0||(s.writeGood||0)>0||(s.writeBad||0)>0||Object.keys(s.items||{}).length>0;
+  const hadOldSignal=!!old&&(old.status||hasProgressItems(old)||old.lastActivity>0);
+  if(!p.status&&(hasProgressItems(p)||hasLegacy)) p.status="learning";
+  if(hadOldSignal||hasLegacy){p.legacyOnly=true;p.lastActivity=0;progressSave(p);}
   return p;
 }
-function progressSave(p){
-  safeStorageSet(PROGRESS_KEY,JSON.stringify(normalizeProgress(p)));
-}
+function progressSave(p){safeStorageSet(PROGRESS_KEY,JSON.stringify(normalizeProgress(p)));}
 function recordUniqueProgress(kind,key){
-  if(!kind || !key) return;
-  const p=progressLoad();
-  if(!p[kind]) p[kind]={};
-  p[kind][key]=true;
-  if(p.status!=="done") p.status="learning";
-  // Only a real learning action updates the study time.
-  p.lastActivity=Date.now();
-  p.legacyOnly=false;
-  progressSave(p);
+  if(!kind||!key)return; const p=progressLoad(); if(!p[kind])p[kind]={};
+  p[kind][key]=true; if(p.status!=="done")p.status="learning";
+  p.lastActivity=Date.now(); p.legacyOnly=false; progressSave(p);
 }
 function recordStudyActivity(){
-  const p=progressLoad();
-  if(p.status!=="done") p.status="learning";
-  // 「答えを見る」は学習開始として扱うが、書き進捗はまだ増やさない。
-  p.lastActivity=Date.now();
-  p.legacyOnly=false;
-  progressSave(p);
+  const p=progressLoad(); if(p.status!=="done")p.status="learning";
+  p.lastActivity=Date.now(); p.legacyOnly=false; progressSave(p);
 }
+
 function mark(k,field,add=1){
   const s=statsLoad();
   if(!s.items[k]) s.items[k]={hard:0,wrong:0,review:false};
@@ -1555,140 +1532,61 @@ function showSelectMsg(text){
 }
 
 const SELECTED_KEY="kanjiL4SelectedV1";
+
 const CARD_RESUME_KEY="kanjiL4CardResumeV1";
 const READ_RESUME_KEY="kanjiL4ReadResumeV1";
 const WRITE_RESUME_KEY="kanjiL4WriteResumeV1";
-
-function selectionSignature(){
-  return DATA.filter(d=>selected.has(d.kanji)).map(d=>d.kanji).join("\u0001");
-}
-function loadResumeObject(key){
-  try{
-    const raw=safeStorageGet(key);
-    if(!raw) return null;
-    const obj=JSON.parse(raw);
-    return obj && typeof obj==="object" ? obj : null;
-  }catch(e){ return null; }
-}
-function clearCardResume(){ safeStorageRemove(CARD_RESUME_KEY); }
-function clearReadResume(){ safeStorageRemove(READ_RESUME_KEY); }
-function clearWriteResume(){ safeStorageRemove(WRITE_RESUME_KEY); }
-function clearAllResume(){
-  clearCardResume();
-  clearReadResume();
-  clearWriteResume();
-}
-function quizItemKey(x){
-  return x ? String(x.word)+"\u0000"+String(x.reading) : "";
-}
-
+function selectionSignature(){return DATA.filter(d=>selected.has(d.kanji)).map(d=>d.kanji).join("\u0001");}
+function loadResumeObject(key){try{const raw=safeStorageGet(key);if(!raw)return null;const o=JSON.parse(raw);return o&&typeof o==="object"?o:null;}catch(e){return null;}}
+function clearCardResume(){safeStorageRemove(CARD_RESUME_KEY);}
+function clearReadResume(){safeStorageRemove(READ_RESUME_KEY);}
+function clearWriteResume(){safeStorageRemove(WRITE_RESUME_KEY);}
+function clearAllResume(){clearCardResume();clearReadResume();clearWriteResume();}
+function quizItemKey(x){return x?String(x.word)+"\u0000"+String(x.reading):"";}
 function saveFlashResume(){
-  if(!flashPool.length){ clearCardResume(); return; }
-  safeStorageSet(CARD_RESUME_KEY,JSON.stringify({
-    sig:selectionSignature(),
-    order:cardOrder.value,
-    keys:flashPool.map(d=>d.kanji),
-    pos:flashIndex
-  }));
+  if(!flashPool.length){clearCardResume();return;}
+  safeStorageSet(CARD_RESUME_KEY,JSON.stringify({sig:selectionSignature(),order:cardOrder.value,keys:flashPool.map(d=>d.kanji),pos:flashIndex}));
 }
 function restoreFlashResume(){
   const s=loadResumeObject(CARD_RESUME_KEY);
-  if(!s || s.sig!==selectionSignature() || !Array.isArray(s.keys) || !s.keys.length){
-    if(s) clearCardResume();
-    return false;
-  }
-  const pool=DATA.filter(d=>selected.has(d.kanji));
-  const byKey=new Map(pool.map(d=>[d.kanji,d]));
+  if(!s||s.sig!==selectionSignature()||!Array.isArray(s.keys)||!s.keys.length){if(s)clearCardResume();return false;}
+  const pool=DATA.filter(d=>selected.has(d.kanji)),byKey=new Map(pool.map(d=>[d.kanji,d]));
   const deck=s.keys.map(k=>byKey.get(k)).filter(Boolean);
-  if(deck.length!==s.keys.length){
-    clearCardResume();
-    return false;
-  }
-  cardOrder.value=s.order==="random" ? "random" : "textbook";
-  flashPool=deck;
-  const p=Number(s.pos);
-  flashIndex=Number.isFinite(p) ? Math.max(0,Math.min(Math.trunc(p),deck.length-1)) : 0;
-  flashDirty=false;
-  return true;
+  if(deck.length!==s.keys.length){clearCardResume();return false;}
+  cardOrder.value=s.order==="random"?"random":"textbook";flashPool=deck;
+  const p=Number(s.pos);flashIndex=Number.isFinite(p)?Math.max(0,Math.min(Math.trunc(p),deck.length-1)):0;flashDirty=false;return true;
 }
-
 function saveReadResume(pos=readPos){
-  if(!readDeck.length){ clearReadResume(); return; }
-  safeStorageSet(READ_RESUME_KEY,JSON.stringify({
-    sig:selectionSignature(),
-    order:readOrder.value,
-    keys:readDeck.map(quizItemKey),
-    pos:Math.max(0,Math.min(Number(pos)||0,readDeck.length)),
-    total:readRound.total,
-    correct:readRound.correct,
-    wrong:(readRound.wrong||[]).map(quizItemKey)
-  }));
+  if(!readDeck.length){clearReadResume();return;}
+  safeStorageSet(READ_RESUME_KEY,JSON.stringify({sig:selectionSignature(),order:readOrder.value,keys:readDeck.map(quizItemKey),pos:Math.max(0,Math.min(Number(pos)||0,readDeck.length)),total:readRound.total,correct:readRound.correct,wrong:(readRound.wrong||[]).map(quizItemKey)}));
 }
 function restoreReadResume(){
   const s=loadResumeObject(READ_RESUME_KEY);
-  if(!s || s.sig!==selectionSignature() || !Array.isArray(s.keys) || !s.keys.length){
-    if(s) clearReadResume();
-    return false;
-  }
-  const universe=buildReadingWords();
-  const byKey=new Map(universe.map(x=>[quizItemKey(x),x]));
+  if(!s||s.sig!==selectionSignature()||!Array.isArray(s.keys)||!s.keys.length){if(s)clearReadResume();return false;}
+  const universe=buildReadingWords(),byKey=new Map(universe.map(x=>[quizItemKey(x),x]));
   const deck=s.keys.map(k=>byKey.get(k)).filter(Boolean);
-  if(deck.length!==s.keys.length){
-    clearReadResume();
-    return false;
-  }
-  readOrder.value=s.order==="random" ? "random" : "textbook";
-  readDeck=deck;
-  const p=Number(s.pos);
-  readPos=Number.isFinite(p) ? Math.max(0,Math.min(Math.trunc(p),deck.length)) : 0;
-  const wrongKeys=Array.isArray(s.wrong) ? s.wrong : [];
-  readRound={
-    total:deck.length,
-    correct:Math.max(0,Number(s.correct)||0),
-    wrong:wrongKeys.map(k=>byKey.get(k)).filter(Boolean)
-  };
-  readDirty=false;
-  return true;
+  if(deck.length!==s.keys.length){clearReadResume();return false;}
+  readOrder.value=s.order==="random"?"random":"textbook";readDeck=deck;
+  const p=Number(s.pos);readPos=Number.isFinite(p)?Math.max(0,Math.min(Math.trunc(p),deck.length)):0;
+  const wrongKeys=Array.isArray(s.wrong)?s.wrong:[];
+  readRound={total:deck.length,correct:Math.max(0,Number(s.correct)||0),wrong:wrongKeys.map(k=>byKey.get(k)).filter(Boolean)};readDirty=false;return true;
 }
-
 function saveWriteResume(pos=writePos){
-  if(!writeDeck.length){ clearWriteResume(); return; }
-  safeStorageSet(WRITE_RESUME_KEY,JSON.stringify({
-    sig:selectionSignature(),
-    order:writeOrder.value,
-    keys:writeDeck.map(quizItemKey),
-    pos:Math.max(0,Math.min(Number(pos)||0,writeDeck.length)),
-    total:writeRound.total,
-    good:writeRound.good,
-    bad:(writeRound.bad||[]).map(quizItemKey)
-  }));
+  if(!writeDeck.length){clearWriteResume();return;}
+  safeStorageSet(WRITE_RESUME_KEY,JSON.stringify({sig:selectionSignature(),order:writeOrder.value,keys:writeDeck.map(quizItemKey),pos:Math.max(0,Math.min(Number(pos)||0,writeDeck.length)),total:writeRound.total,good:writeRound.good,bad:(writeRound.bad||[]).map(quizItemKey)}));
 }
 function restoreWriteResume(){
   const s=loadResumeObject(WRITE_RESUME_KEY);
-  if(!s || s.sig!==selectionSignature() || !Array.isArray(s.keys) || !s.keys.length){
-    if(s) clearWriteResume();
-    return false;
-  }
-  const universe=buildWriteWords();
-  const byKey=new Map(universe.map(x=>[quizItemKey(x),x]));
+  if(!s||s.sig!==selectionSignature()||!Array.isArray(s.keys)||!s.keys.length){if(s)clearWriteResume();return false;}
+  const universe=buildWriteWords(),byKey=new Map(universe.map(x=>[quizItemKey(x),x]));
   const deck=s.keys.map(k=>byKey.get(k)).filter(Boolean);
-  if(deck.length!==s.keys.length){
-    clearWriteResume();
-    return false;
-  }
-  writeOrder.value=s.order==="random" ? "random" : "textbook";
-  writeDeck=deck;
-  const p=Number(s.pos);
-  writePos=Number.isFinite(p) ? Math.max(0,Math.min(Math.trunc(p),deck.length)) : 0;
-  const badKeys=Array.isArray(s.bad) ? s.bad : [];
-  writeRound={
-    total:deck.length,
-    good:Math.max(0,Number(s.good)||0),
-    bad:badKeys.map(k=>byKey.get(k)).filter(Boolean)
-  };
-  writeDirty=false;
-  return true;
+  if(deck.length!==s.keys.length){clearWriteResume();return false;}
+  writeOrder.value=s.order==="random"?"random":"textbook";writeDeck=deck;
+  const p=Number(s.pos);writePos=Number.isFinite(p)?Math.max(0,Math.min(Math.trunc(p),deck.length)):0;
+  const badKeys=Array.isArray(s.bad)?s.bad:[];
+  writeRound={total:deck.length,good:Math.max(0,Number(s.good)||0),bad:badKeys.map(k=>byKey.get(k)).filter(Boolean)};writeDirty=false;return true;
 }
+
 function saveSelected(){
   safeStorageSet(SELECTED_KEY,JSON.stringify([...selected]));
 }
@@ -1743,7 +1641,7 @@ selectHard.onclick=()=>{
 };
 startSelected.onclick=()=>{
   if(!selected.size){showSelectMsg("<ruby>練習<rt>れんしゅう</rt></ruby>する<ruby>漢字<rt>かんじ</rt></ruby>を1<ruby>字以上<rt>じいじょう</rt></ruby><ruby>選<rt>えら</rt></ruby>んでください。");return;}
-  if(flashDirty || !flashPool.length) resetFlashPool();
+  resetFlashPool();
   showFlash();
   switchTab("flash");
 };
@@ -1781,7 +1679,7 @@ prevFlash.onclick=()=>{
   showFlash();
 };
 revealBtn.onclick=()=>{
-  if(flashPool[flashIndex]) recordUniqueProgress("cards",flashPool[flashIndex].kanji);
+  if(flashPool[flashIndex])recordUniqueProgress("cards",flashPool[flashIndex].kanji);
   fHidden.classList.remove("hidden"); revealBtn.classList.add("hidden");
   hardBtn.classList.remove("hidden");
 };
@@ -1801,7 +1699,7 @@ cardOrder.onchange=()=>{
   if(flashPool.length) showFlash();
 };
 
-const READ_CONTEXTS = {"管\u0000くだ":"みずや くうきが なかを とおる ほそながい もの"};
+const READ_CONTEXTS = {};
 
 // 読み：「漢字を選ぶ」で選んだ漢字の教科書語彙。同じ語・同じ読みは1回だけ。
 function buildReadingWords(){
@@ -1937,7 +1835,6 @@ checkRead.onclick=()=>{
     rFeedback.innerHTML=`❌ ちがいます<span class="mobile-break"><br></span><span class="desktop-gap">　</span><span class="answer-unit"><ruby>正解<rt>せいかい</rt></ruby>：<b>${currentRead.reading}</b></span>`;
   }
   statsSave(s); renderStats();
-  // 解答済みなら、再訪時は次の問題から再開する。
   saveReadResume(Math.min(readPos+1,readDeck.length));
   // スマホでは入力欄を無効化するとソフトキーボードが閉じて
   // 画面が大きく動くため、入力欄はフォーカスしたままにする。
@@ -1972,7 +1869,7 @@ document.addEventListener("keydown",e=>{
 });
 readOrder.onchange=()=>{ clearReadResume(); resetReadDeck(); newRead(); };
 
-const WRITE_CONTEXTS = {"気象\u0000きしょう":"きしょう（てんきの こと）","象\u0000ぞう":"ぞう（どうぶつ）","貝\u0000かい":"かい（うみの いきもの）","舟\u0000ふね":"ふね（ちいさい ふねを あらわす じ）","石\u0000いし":"いし（ちいさくて かたい もの）","油\u0000あぶら":"あぶら（りょうりに つかう えきたい）","官庁\u0000かんちょう":"かんちょう（くにや しの やくしょ）","警官\u0000けいかん":"けいかん（けいさつの ひと）","向く\u0000むく":"（からだが みぎを） むく","向ける\u0000むける":"（かおを まえに） むける","向こう\u0000むこう":"むこう（はんたいがわ）","像\u0000ぞう":"ぞう（ひとや ものの すがた）"};
+const WRITE_CONTEXTS = {"気象\u0000きしょう":"きしょう（よほう）","象\u0000ぞう":"（どうぶつの）ぞう","舟\u0000ふね":"（ちいさな てこぎの）ふね","油\u0000あぶら":"（りょうりなどに つかう）あぶら","像\u0000ぞう":"（ちょうこくの）ぞう","貝\u0000かい":"（うみの）かい","石\u0000いし":"（かわらの）いし","想像する\u0000そうぞうする":"（ばめんを）そうぞうする"};
 
 // 書き：一巡するまで重複なし
 function buildWriteWords(){
@@ -2213,8 +2110,6 @@ function flashResetDone(btn, originalHtml){
 }
 
 function resetReadStatsNow(btn){
-  clearReadResume();
-  readDeck=[]; readPos=0; currentRead=null; readDirty=true;
   const s=statsLoad();
   s.answered=0;
   s.correct=0;
@@ -2230,8 +2125,6 @@ function resetReadStatsNow(btn){
 }
 
 function resetWriteStatsNow(btn){
-  clearWriteResume();
-  writeDeck=[]; writePos=0; currentWrite=null; writeDirty=true;
   const s=statsLoad();
   s.writeGood=0;
   s.writeBad=0;
@@ -2279,13 +2172,10 @@ function resetAllStatsNow(btn){
 
   clearTimeout(resetAllTimer);
   resetAllArmed=false;
-  safeStorageRemove("kanjiL4StatsV1");
   safeStorageRemove(PROGRESS_KEY);
   safeStorageRemove(LEGACY_PROGRESS_KEY);
   clearAllResume();
-  flashPool=[]; flashIndex=0; flashDirty=true;
-  readDeck=[]; readPos=0; currentRead=null; readDirty=true;
-  writeDeck=[]; writePos=0; currentWrite=null; writeDirty=true;
+  safeStorageRemove("kanjiL4StatsV1");
   renderStats();
   flashResetDone(btn,"すべての学習記録をリセット");
 }
@@ -2454,18 +2344,12 @@ meaningLang.onchange=()=>{
 };
 
 renderGrid();
-
-if(!restoreFlashResume()) resetFlashPool();
+if(!restoreFlashResume())resetFlashPool();
 showFlash();
-
-if(!restoreReadResume()) resetReadDeck();
-if(readDeck.length && readPos>=readDeck.length) showReadSummary();
-else newRead();
-
-if(!restoreWriteResume()) resetWriteDeck();
-if(writeDeck.length && writePos>=writeDeck.length) showWriteSummary();
-else newWrite();
-
+if(!restoreReadResume())resetReadDeck();
+if(readDeck.length&&readPos>=readDeck.length)showReadSummary();else newRead();
+if(!restoreWriteResume())resetWriteDeck();
+if(writeDeck.length&&writePos>=writeDeck.length)showWriteSummary();else newWrite();
 renderZh();
 renderStats();
 </script>
