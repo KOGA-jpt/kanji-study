@@ -1020,6 +1020,32 @@ button:focus-visible,
 }
 /* ===== end UI polish ===== */
 
+
+/* ===== v2.1: compact lesson title + mobile tab touch targets ===== */
+.lesson-header-text{flex:1 1 auto;min-width:0}
+.lesson-header-text h1{
+  display:flex;
+  align-items:baseline;
+  flex-wrap:wrap;
+  gap:.5em;
+  line-height:1.45;
+}
+.lesson-header-text h1 .lesson-number,
+.lesson-header-text h1 .lesson-topic{display:inline-block;white-space:nowrap}
+@media(max-width:760px){
+  .tabs button{
+    min-height:44px;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    padding:10px 13px;
+  }
+}
+@media(max-width:480px){
+  .lesson-header-text h1{font-size:1.05rem;gap:.42em}
+}
+/* ===== end v2.1 ===== */
+
 </style>
 <!-- progress-pilot v2: unique progress + real study timestamp, Lesson 12 -->
 <!-- 第14課：ProgressV2対応。第1〜8課の学習記録方式を継承。 -->
@@ -1028,8 +1054,8 @@ button:focus-visible,
 <header>
   <div class="lesson-header-inner">
     <div class="lesson-header-text">
-      <h1>第20課　注意書き　漢字自習ツール</h1>
-      <p>641〜664｜24字</p>
+      <h1><span class="lesson-number">第20課</span><span class="lesson-topic"><ruby>注意書き<rt>ちゅういがき</rt></ruby></span></h1>
+      <p>689〜712｜24字</p>
     </div>
     <nav class="lesson-header-nav" aria-label="課の移動">
       <a class="lesson-neighbor-link" href="lesson19.html" aria-label="第19課へ移動">← 第19課</a>

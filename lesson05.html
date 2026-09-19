@@ -10,7 +10,7 @@
 <!-- v50: 第5課。参考ラベルを「用法が限られる読み」と明示 -->
 <!-- v51: 第5課。用法が限られる読みは※だけを行内表示し、説明は音訓ボックス下部へ -->
 <!-- v52: 第5課。常用音訓・※基準・使い分け・自己点検を再監査 -->
-<title>第5課 漢字自習ツール</title>
+<title>第5課 自己紹介｜漢字自習ツール</title>
 <!-- 学生試用統一版：第5課。第5課 v38 の共通仕様に統一 -->
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -984,13 +984,39 @@ button:focus-visible,
 }
 /* ===== end UI polish ===== */
 
+
+/* ===== v2.1: compact lesson title + mobile tab touch targets ===== */
+.lesson-header-text{flex:1 1 auto;min-width:0}
+.lesson-header-text h1{
+  display:flex;
+  align-items:baseline;
+  flex-wrap:wrap;
+  gap:.5em;
+  line-height:1.45;
+}
+.lesson-header-text h1 .lesson-number,
+.lesson-header-text h1 .lesson-topic{display:inline-block;white-space:nowrap}
+@media(max-width:760px){
+  .tabs button{
+    min-height:44px;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    padding:10px 13px;
+  }
+}
+@media(max-width:480px){
+  .lesson-header-text h1{font-size:1.05rem;gap:.42em}
+}
+/* ===== end v2.1 ===== */
+
 </style>
 </head>
 <body>
 <header>
   <div class="lesson-header-inner">
     <div class="lesson-header-text">
-      <h1>第5課 漢字自習ツール</h1>
+      <h1><span class="lesson-number">第5課</span><span class="lesson-topic"><ruby>自己紹介<rt>じこしょうかい</rt></ruby></span></h1>
       <p>381〜400｜20字</p>
     </div>
     <nav class="lesson-header-nav" aria-label="課の移動">
