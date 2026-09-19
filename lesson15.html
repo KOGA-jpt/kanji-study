@@ -1046,6 +1046,43 @@ button:focus-visible,
 }
 /* ===== end v2.1 ===== */
 
+
+
+/* ===== v2.2: unify lesson header layout with lessons 1-10 ===== */
+.lesson-header-inner{
+  display:flex;
+  width:auto;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+}
+.lesson-header-text{
+  flex:1 1 auto;
+  min-width:0;
+  overflow:visible;
+}
+.lesson-header-text h1{
+  overflow-wrap:normal;
+  word-break:normal;
+}
+@media(max-width:650px){
+  .lesson-header-inner{
+    display:flex;
+    flex-wrap:wrap;
+    align-items:center;
+  }
+  .lesson-header-text{
+    width:100%;
+    order:1;
+  }
+  .lesson-header-nav{
+    width:100%;
+    order:2;
+    justify-content:center;
+  }
+}
+/* ===== end v2.2 header fix ===== */
+
 </style>
 <!-- progress-pilot v2: unique progress + real study timestamp, Lesson 12 -->
 <!-- 第14課：ProgressV2対応。第1〜8課の学習記録方式を継承。 -->
