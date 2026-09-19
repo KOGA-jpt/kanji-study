@@ -1010,6 +1010,30 @@ button:focus-visible,
 }
 /* ===== end v2.1 ===== */
 
+
+/* ===== v2.3: mobile ruby alignment + clearer tab buttons ===== */
+.empty-rt::before{
+  content:"";
+}
+@media(max-width:760px){
+  .empty-rt::before{
+    content:"あ";
+    visibility:hidden;
+  }
+  .tabs button{
+    border-width:2px;
+    border-color:#aebbd0;
+  }
+  .tabs button.active{
+    border-color:var(--accent);
+  }
+  .lesson-header-text h1{
+    min-height:2.55em;
+    align-items:baseline;
+  }
+}
+/* ===== end v2.3 ===== */
+
 </style>
 </head>
 <body>
@@ -1020,21 +1044,21 @@ button:focus-visible,
       <p>401〜420｜20字</p>
     </div>
     <nav class="lesson-header-nav" aria-label="課の移動">
-      <a class="lesson-neighbor-link" href="lesson05.html" aria-label="第5課へ移動">← 第5課</a>
+      <a class="lesson-neighbor-link" href="lesson05.html?v=2.3" aria-label="第5課へ移動">← 第5課</a>
       <a class="top-link" href="index.html" aria-label="TOPページへ戻る">TOP</a>
-      <a class="lesson-neighbor-link" href="lesson07.html" aria-label="第7課へ移動">第7課 →</a>
+      <a class="lesson-neighbor-link" href="lesson07.html?v=2.3" aria-label="第7課へ移動">第7課 →</a>
     </nav>
   </div>
 </header>
 <main>
 
   <div class="tabs" role="tablist" aria-label="学習メニュー">
-    <button type="button" role="tab" id="tab-select" aria-controls="select" aria-selected="true" class="active" data-tab="select"><ruby>漢字<rt>かんじ</rt></ruby>を<ruby>選<rt>えら</rt></ruby>ぶ</button>
-    <button type="button" role="tab" id="tab-flash" aria-controls="flash" aria-selected="false" data-tab="flash">🃏 <ruby>漢字<rt>かんじ</rt></ruby>カード</button>
-    <button type="button" role="tab" id="tab-read" aria-controls="read" aria-selected="false" data-tab="read">📖 <ruby>読<rt>よ</rt></ruby>みクイズ</button>
-    <button type="button" role="tab" id="tab-write" aria-controls="write" aria-selected="false" data-tab="write">✍️ <ruby>書<rt>か</rt></ruby>き<ruby>練習<rt>れんしゅう</rt></ruby></button>
+    <button type="button" role="tab" id="tab-select" aria-controls="select" aria-selected="true" class="active" data-tab="select"><ruby>漢字<rt>かんじ</rt></ruby><ruby>を<rt class="empty-rt" aria-hidden="true"></rt></ruby><ruby>選<rt>えら</rt></ruby><ruby>ぶ<rt class="empty-rt" aria-hidden="true"></rt></ruby></button>
+    <button type="button" role="tab" id="tab-flash" aria-controls="flash" aria-selected="false" data-tab="flash">🃏 <ruby>漢字<rt>かんじ</rt></ruby><ruby>カード<rt class="empty-rt" aria-hidden="true"></rt></ruby></button>
+    <button type="button" role="tab" id="tab-read" aria-controls="read" aria-selected="false" data-tab="read">📖 <ruby>読<rt>よ</rt></ruby><ruby>みクイズ<rt class="empty-rt" aria-hidden="true"></rt></ruby></button>
+    <button type="button" role="tab" id="tab-write" aria-controls="write" aria-selected="false" data-tab="write">✍️ <ruby>書<rt>か</rt></ruby><ruby>き<rt class="empty-rt" aria-hidden="true"></rt></ruby><ruby>練習<rt>れんしゅう</rt></ruby></button>
     <button type="button" role="tab" id="tab-zh" aria-controls="zh" aria-selected="false" data-tab="zh"><ruby>日<rt>にち</rt></ruby>・<ruby>中<rt>ちゅう</rt></ruby>・<ruby>台<rt>たい</rt></ruby> <ruby>字体<rt>じたい</rt></ruby><ruby>比較<rt>ひかく</rt></ruby></button>
-    <button type="button" role="tab" id="tab-stats" aria-controls="stats" aria-selected="false" data-tab="stats">★ <ruby>復習<rt>ふくしゅう</rt></ruby>リスト</button>
+    <button type="button" role="tab" id="tab-stats" aria-controls="stats" aria-selected="false" data-tab="stats">★ <ruby>復習<rt>ふくしゅう</rt></ruby><ruby>リスト<rt class="empty-rt" aria-hidden="true"></rt></ruby></button>
   </div>
 
   <section id="select" class="panel active" role="tabpanel" aria-labelledby="tab-select">
