@@ -912,6 +912,76 @@ button ruby{
   line-height:1.45;
 }
 
+
+
+/* ===== UI polish: table readability + subtle button hover/focus ===== */
+.list thead th{
+  background:#e2e8f0;
+  color:#344054;
+  font-weight:700;
+  border-bottom:2px solid #b7c3d3;
+}
+.list tbody tr:nth-child(even){
+  background:#f1f4f8;
+}
+.primary,.secondary,.good,.bad,.tabs button{
+  transition:background-color .14s ease, border-color .14s ease, filter .14s ease, box-shadow .14s ease;
+}
+@media (hover:hover){
+  .primary:hover{filter:brightness(.94)}
+  .secondary:hover{background:#dde3ef}
+  .good:hover{background:#d9f0e4}
+  .bad:hover{background:#f8dcd9}
+  .tabs button:not(.active):hover{background:#f3f5fa;border-color:#c5cede}
+  .tabs button.active:hover{filter:brightness(.95)}
+}
+button:focus-visible,
+.top-link:focus-visible,
+.lesson-neighbor-link:focus-visible{
+  outline:3px solid #8da4ed;
+  outline-offset:2px;
+}
+
+/* ===== Previous / TOP / next lesson navigation ===== */
+.lesson-header-nav{
+  flex:0 0 auto;
+  display:flex;
+  align-items:center;
+  justify-content:flex-end;
+  gap:7px;
+}
+.lesson-header-nav a{
+  min-height:44px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:9px 12px;
+  border:1px solid rgba(255,255,255,.55);
+  border-radius:10px;
+  color:#fff;
+  text-decoration:none;
+  font-weight:700;
+  white-space:nowrap;
+}
+.lesson-header-nav .top-link{min-width:96px}
+.lesson-header-nav a:hover{background:rgba(255,255,255,.12)}
+.lesson-header-nav .lesson-neighbor-link.hidden{display:none!important}
+@media(max-width:650px){
+  .lesson-header-inner{flex-wrap:wrap}
+  .lesson-header-nav{
+    width:100%;
+    justify-content:center;
+    order:2;
+  }
+  .lesson-header-text{width:100%}
+}
+@media(max-width:390px){
+  .lesson-header-nav{gap:5px}
+  .lesson-header-nav a{padding:8px 9px;font-size:.82rem}
+  .lesson-header-nav .top-link{min-width:84px}
+}
+/* ===== end UI polish ===== */
+
 </style>
 <!-- progress-pilot v2: unique progress + real study timestamp, Lesson 10 -->
 <!-- 第10課：ProgressV2対応。第1〜8課の学習記録方式を継承。 -->
@@ -923,7 +993,11 @@ button ruby{
       <h1>第10課　サイン・<ruby>広告<rt>こうこく</rt></ruby>　漢字自習ツール</h1>
       <p>481〜500｜20字</p>
     </div>
-    <a class="top-link" href="index.html" aria-label="TOPページへ戻る">← TOP</a>
+    <nav class="lesson-header-nav" aria-label="課の移動">
+      <a class="lesson-neighbor-link" href="lesson09.html" aria-label="第9課へ移動">← 第9課</a>
+      <a class="top-link" href="index.html" aria-label="TOPページへ戻る">TOP</a>
+      <a class="lesson-neighbor-link" href="lesson11.html" aria-label="第11課へ移動">第11課 →</a>
+    </nav>
   </div>
 </header>
 <main>
@@ -1542,6 +1616,7 @@ function removeReview(k){
 }
 
 function switchTab(id){
+  document.querySelectorAll(".lesson-neighbor-link").forEach(a=>a.classList.toggle("hidden",id!=="select"));
   document.querySelectorAll(".tabs button").forEach(b=>{
     const on=b.dataset.tab===id;
     b.classList.toggle("active",on);
