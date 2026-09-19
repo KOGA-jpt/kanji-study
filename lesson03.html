@@ -1379,6 +1379,7 @@ function norm(s){
     .trim()
     .replace(/\s+/g,"")
     .replace(/[・、。，．]/g,"")
+    .replace(/[~〜～]/g,"")
     .replace(/[ァ-ヶ]/g,ch=>String.fromCharCode(ch.charCodeAt(0)-0x60));
 }
 // 読みクイズでは、画面に出した語の読みをそのまま答える。
