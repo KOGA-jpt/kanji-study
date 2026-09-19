@@ -4,12 +4,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <!-- v45: 「さらに学ぶ」と重複するため、一般発展語彙見出しを「よく使う発展語彙」に簡略化 -->
-<!-- v49 unified: 第11課 漢字自習ツール の漢字選択UIを凡例＋左上○✓方式に統一 -->
+<!-- v49 unified: 第14課 漢字自習ツール の漢字選択UIを凡例＋左上○✓方式に統一 -->
 <!-- v49.1: 第1・3・4課に欠けていた○✓凡例を追加 -->
-<!-- v51 unified: 第11課。用法が限られる読みは※＋下部注記で表示 -->
-<!-- v53 shared-master: 第11課。常用音訓・※基準・使い分け・自己点検を再監査 -->
-<title>第11課 料理｜漢字自習ツール</title>
-<!-- 学生試用統一版：第11課。第11課 v38 の共通仕様に統一 -->
+<!-- v51 unified: 第14課。用法が限られる読みは※＋下部注記で表示 -->
+<!-- v53 shared-master: 第14課。常用音訓・※基準・使い分け・自己点検を再監査 -->
+<title>第23課 発表｜漢字自習ツール</title>
+<!-- 学生試用統一版：第14課。第14課 v38 の共通仕様に統一 -->
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -574,7 +574,7 @@ button ruby{
   justify-content:center;
 }
 
-/* v40: 書き練習の答えを「初級・既習 / 第11課 / 未習」で見分ける */
+/* v40: 書き練習の答えを「初級・既習 / 第14課 / 未習」で見分ける */
 .target-kanji{
   color:var(--accent);
   border-bottom:3px solid #8fa8ee;
@@ -951,15 +951,15 @@ button ruby{
 }
 
 </style>
-<!-- progress-pilot v2: unique progress + real study timestamp, Lesson 11 -->
-<!-- 第11課：ProgressV2対応。第1〜8課の学習記録方式を継承。 -->
+<!-- progress-pilot v2: unique progress + real study timestamp, Lesson 12 -->
+<!-- 第14課：ProgressV2対応。第1〜8課の学習記録方式を継承。 -->
 </head>
 <body>
 <header>
   <div class="lesson-header-inner">
     <div class="lesson-header-text">
-      <h1>第11課　<ruby>料理<rt>りょうり</rt></ruby>　漢字自習ツール</h1>
-      <p>501〜520｜20字</p>
+      <h1>第23課　発表　漢字自習ツール</h1>
+      <p>641〜664｜24字</p>
     </div>
     <a class="top-link" href="index.html" aria-label="TOPページへ戻る">← TOP</a>
   </div>
@@ -1070,7 +1070,7 @@ button ruby{
           </div>
         </div>
         <div class="box" style="margin-top:12px">
-          <div class="label"><ruby>第<rt>だい</rt></ruby>11<ruby>課<rt>か</rt></ruby>の<ruby>語彙<rt>ごい</rt></ruby></div><div class="words" id="fWords"></div>
+          <div class="label"><ruby>第<rt>だい</rt></ruby>12<ruby>課<rt>か</rt></ruby>の<ruby>語彙<rt>ごい</rt></ruby></div><div class="words" id="fWords"></div>
         </div>
         <div class="further-divider" aria-label="さらに学ぶ">
           <span></span>
@@ -1160,7 +1160,7 @@ button ruby{
       <div id="writeQuizArea">
         <div class="label"><ruby>読<rt>よ</rt></ruby>みと、<ruby>必要<rt>ひつよう</rt></ruby>なときは<ruby>短<rt>みじか</rt></ruby>い<ruby>文脈<rt>ぶんみゃく</rt></ruby>ヒントを<ruby>見<rt>み</rt></ruby>て、<ruby>紙<rt>かみ</rt></ruby>やノートに<ruby>漢字<rt>かんじ</rt></ruby>で<ruby>書<rt>か</rt></ruby>いてください。</div>
         <div class="write-kanji-legend" aria-label="答えの漢字の分類">
-          <span class="write-legend-item"><span class="write-legend-line target" aria-hidden="true"></span><span><ruby>第<rt>だい</rt></ruby>11<ruby>課<rt>か</rt></ruby></span></span>
+          <span class="write-legend-item"><span class="write-legend-line target" aria-hidden="true"></span><span><ruby>第<rt>だい</rt></ruby>12<ruby>課<rt>か</rt></ruby></span></span>
           <span class="write-legend-item"><span class="write-legend-line" aria-hidden="true"></span><span><ruby>初級<rt>しょきゅう</rt></ruby>・<ruby>既習<rt>きしゅう</rt></ruby></span></span>
           <span class="write-legend-item"><span class="write-legend-line unlearned" aria-hidden="true"></span><span><ruby>未習<rt>みしゅう</rt></ruby></span></span>
         </div>
@@ -1211,7 +1211,7 @@ button ruby{
       <div id="zhCount" style="font-weight:700;margin:10px 0"></div>
       <div class="toptools">
         <button class="primary" id="onlyDiff"><ruby>差<rt>さ</rt></ruby>がある<ruby>字<rt>じ</rt></ruby>だけ</button>
-        <button class="secondary" id="showAllZh"><ruby>全<rt>ぜん</rt></ruby>20<ruby>字<rt>じ</rt></ruby></button>
+        <button class="secondary" id="showAllZh"><ruby>全<rt>ぜん</rt></ruby>24<ruby>字<rt>じ</rt></ruby></button>
       </div>
       <div class="zh-table-wrap" style="margin-top:12px">
         <table class="list" id="zhTable">
@@ -1546,7 +1546,8 @@ if(!MASTER){
   if(grid) grid.innerHTML='<div style="grid-column:1/-1;padding:14px;border:1px solid #b42318;border-radius:10px;background:#fff0ef;color:#b42318">共通データを読み込めませんでした。ページを再読み込みしてください。</div>';
   throw new Error("KANJI_MASTER could not be loaded");
 }
-const DATA = [{"kanji":"材","meaningWord":"材料・画材","meaningEasy":"物を作るときに使うものや、そのもとになるものに関係する","meaningEn":"material; timber","meaningZh":"材料；材质","meaningKo":"재료; 자재","meaningPt":"material; matéria-prima","meaningTh":"วัสดุ; วัตถุดิบ","no":501,"words":[["材料","ざいりょう",{"en":"material; ingredient","zh":"材料；原料","ko":"재료","pt":"material; ingrediente","th":"วัสดุ; ส่วนผสม"}]],"extra":[["木材","もくざい",{"en":"wood; lumber","zh":"木材","ko":"목재","pt":"madeira","th":"ไม้; ไม้แปรรูป"}],["人材","じんざい",{"en":"human resources; talented person","zh":"人才","ko":"인재","pt":"recursos humanos; talento","th":"บุคลากร; คนมีความสามารถ"}],["教材","きょうざい",{"en":"teaching material; learning material","zh":"教材","ko":"교재","pt":"material didático","th":"สื่อการสอน; แบบเรียน"}]],"special":[["画材","がざい","美術",{"en":"art materials","zh":"美术材料","ko":"미술 재료","pt":"materiais de arte","th":"วัสดุศิลปะ"}]],"simp":"材","trad":"材"},{"kanji":"玉","meaningWord":"玉・玉ねぎ","meaningEasy":"丸い形のものや、球のようなものに関係する","meaningEn":"ball; sphere; jewel","meaningZh":"球；玉；宝玉","meaningKo":"구슬; 공; 옥","meaningPt":"bola; esfera; joia","meaningTh":"ลูกกลม; ลูกบอล; อัญมณี","no":502,"words":[["玉","たま",{"en":"ball; sphere","zh":"球；玉","ko":"공; 구슬","pt":"bola; esfera","th":"ลูกกลม; ลูกบอล"}],["玉ねぎ","たまねぎ",{"en":"onion","zh":"洋葱","ko":"양파","pt":"cebola","th":"หัวหอม"}]],"extra":[["玉石","ぎょくせき",{"en":"gems and stones","zh":"玉石","ko":"옥석","pt":"gemas e pedras","th":"อัญมณีและหิน"}],["目玉","めだま",{"en":"eyeball; featured item","zh":"眼球；主打项目","ko":"눈알; 핵심 상품","pt":"globo ocular; destaque","th":"ลูกตา; จุดเด่น"}],["水玉","みずたま",{"en":"polka dots; droplets","zh":"圆点花纹；水滴","ko":"물방울무늬; 물방울","pt":"bolinhas; gotas d'água","th":"ลายจุด; หยดน้ำ"}]],"special":[],"simp":"玉","trad":"玉"},{"kanji":"個","meaningWord":"個人・～個","meaningEasy":"一つ一つのものや、人・物を数えることに関係する","meaningEn":"individual; counter for objects","meaningZh":"个；个人；量词","meaningKo":"개; 개인","meaningPt":"individual; contador","meaningTh":"บุคคล; ลักษณนาม","no":503,"words":[["個人","こじん",{"en":"individual; person","zh":"个人","ko":"개인","pt":"indivíduo","th":"บุคคล"}],["～個","こ",{"en":"counter for objects","zh":"个（量词）","ko":"개(단위)","pt":"contador de objetos","th":"ลักษณนามสำหรับสิ่งของ"}]],"extra":[["個別","こべつ",{"en":"individual; separate","zh":"个别；分别","ko":"개별","pt":"individual; separado","th":"แยกเป็นรายบุคคล"}],["個性","こせい",{"en":"individuality; personality","zh":"个性","ko":"개성","pt":"individualidade; personalidade","th":"ความเป็นเอกลักษณ์; บุคลิก"}],["個体","こたい",{"en":"individual organism/object","zh":"个体","ko":"개체","pt":"indivíduo; unidade","th":"ตัวบุคคล; หน่วยเฉพาะ"}]],"special":[],"simp":"个","trad":"個"},{"kanji":"塩","meaningWord":"食塩・塩","meaningEasy":"しょっぱい味をつける調味料や、その成分に関係する","meaningEn":"salt","meaningZh":"盐","meaningKo":"소금","meaningPt":"sal","meaningTh":"เกลือ","no":504,"words":[["食塩","しょくえん",{"en":"table salt; sodium chloride","zh":"食盐","ko":"식염","pt":"sal de cozinha","th":"เกลือแกง"}],["塩","しお",{"en":"salt","zh":"盐","ko":"소금","pt":"sal","th":"เกลือ"}]],"extra":[["塩分","えんぶん",{"en":"salt content","zh":"盐分","ko":"염분","pt":"teor de sal","th":"ปริมาณเกลือ"}],["塩水","しおみず",{"en":"salt water","zh":"盐水","ko":"소금물","pt":"água salgada","th":"น้ำเกลือ"}],["減塩","げんえん",{"en":"reduced salt","zh":"减盐；低盐","ko":"저염","pt":"redução de sal; pouco sal","th":"ลดเกลือ; โซเดียมต่ำ"}]],"special":[],"simp":"盐","trad":"鹽"},{"kanji":"粉","meaningWord":"粉・小麦粉","meaningEasy":"細かい粒になったものに関係する","meaningEn":"powder; flour","meaningZh":"粉；粉末","meaningKo":"가루; 분말","meaningPt":"pó; farinha","meaningTh":"ผง; แป้ง","no":505,"words":[["粉","こ",{"en":"powder; flour (in compounds/usage)","zh":"粉；粉末","ko":"가루","pt":"pó; farinha","th":"ผง; แป้ง"}],["小麦粉","こむぎこ",{"en":"wheat flour","zh":"小麦粉；面粉","ko":"밀가루","pt":"farinha de trigo","th":"แป้งสาลี"}],["粉","こな",{"en":"powder; flour","zh":"粉；粉末","ko":"가루","pt":"pó; farinha","th":"ผง; แป้ง"}]],"extra":[["粉末","ふんまつ",{"en":"powder","zh":"粉末","ko":"분말","pt":"pó","th":"ผง"}],["花粉","かふん",{"en":"pollen","zh":"花粉","ko":"꽃가루","pt":"pólen","th":"ละอองเกสร"}],["粉雪","こなゆき",{"en":"powdery snow","zh":"粉雪；细雪","ko":"가루눈","pt":"neve em pó","th":"หิมะผง"}]],"special":[],"simp":"粉","trad":"粉"},{"kanji":"杯","meaningWord":"～杯","meaningEasy":"飲み物などを、容器に入れた回数で数えるときに使う","meaningEn":"counter for cups/glasses","meaningZh":"杯；杯数","meaningKo":"잔; 컵의 단위","meaningPt":"contador de copos/xícaras","meaningTh":"ลักษณนามสำหรับแก้ว/ถ้วย","no":506,"words":[["～杯","はい",{"en":"counter for cups/glasses","zh":"杯（量词）","ko":"잔(단위)","pt":"contador de copos/xícaras","th":"ลักษณนามแก้ว/ถ้วย"}]],"extra":[["一杯","いっぱい",{"en":"one cup/glass; full","zh":"一杯","ko":"한 잔; 가득","pt":"um copo; cheio","th":"หนึ่งแก้ว; เต็ม"}],["乾杯","かんぱい",{"en":"toast; cheers","zh":"干杯","ko":"건배","pt":"brinde; saúde","th":"ชนแก้ว; ไชโย"}],["杯数","はいすう",{"en":"number of cups/glasses","zh":"杯数","ko":"잔 수","pt":"número de copos/xícaras","th":"จำนวนแก้ว/ถ้วย"}],["杯","さかずき",{"en":"sake cup; drinking cup","zh":"酒杯；盏","ko":"술잔","pt":"taça de saquê; cálice","th":"ถ้วยสาเก; จอกเหล้า"}]],"special":[],"simp":"杯","trad":"杯"},{"kanji":"固","meaningWord":"固体・固い","meaningEasy":"形が変わりにくいことや、しっかり決まっていることに関係する","meaningEn":"hard; solid; firm","meaningZh":"固；坚固；固体","meaningKo":"굳다; 고체","meaningPt":"duro; sólido; firme","meaningTh":"แข็ง; ของแข็ง; มั่นคง","no":507,"words":[["固体","こたい",{"en":"solid","zh":"固体","ko":"고체","pt":"sólido","th":"ของแข็ง"}],["固い","かたい",{"en":"hard; firm","zh":"坚硬；牢固","ko":"단단하다","pt":"duro; firme","th":"แข็ง; แน่น"}]],"extra":[["固定する","こていする",{"en":"to fix; secure","zh":"固定","ko":"고정하다","pt":"fixar","th":"ยึด; ตรึง"}],["固める","かためる",{"en":"to harden; consolidate","zh":"使坚固；巩固","ko":"굳히다","pt":"endurecer; consolidar","th":"ทำให้แข็ง; ทำให้มั่นคง"}],["固まる","かたまる",{"en":"to harden; solidify","zh":"凝固；变硬","ko":"굳다","pt":"endurecer; solidificar","th":"แข็งตัว"}]],"special":[],"simp":"固","trad":"固"},{"kanji":"厚","meaningWord":"厚生労働省・厚い","meaningEasy":"物の表面から裏面までの距離が大きいことなどに関係する","meaningEn":"thick; kind; substantial","meaningZh":"厚；厚的","meaningKo":"두껍다","meaningPt":"espesso; grosso","meaningTh":"หนา","no":508,"words":[["厚生労働省","こうせいろうどうしょう",{"en":"Ministry of Health, Labour and Welfare","zh":"厚生劳动省","ko":"후생노동성","pt":"Ministério da Saúde, Trabalho e Bem-Estar","th":"กระทรวงสาธารณสุข แรงงาน และสวัสดิการ"}],["厚い","あつい",{"en":"thick","zh":"厚的","ko":"두껍다","pt":"espesso","th":"หนา"}],["厚かましい","あつかましい",{"en":"shameless; impudent","zh":"厚脸皮的","ko":"뻔뻔하다","pt":"descarado; sem-vergonha","th":"หน้าด้าน; ไม่เกรงใจ"}]],"extra":[["厚生","こうせい",{"en":"welfare; public health","zh":"福利；保健","ko":"후생","pt":"bem-estar","th":"สวัสดิการ"}],["厚紙","あつがみ",{"en":"thick paper; cardstock","zh":"厚纸；卡纸","ko":"두꺼운 종이","pt":"papel grosso; cartolina","th":"กระดาษหนา"}],["厚着","あつぎ",{"en":"wearing many/thick clothes","zh":"穿厚衣服","ko":"두껍게 입음","pt":"roupa grossa; agasalhar-se","th":"สวมเสื้อผ้าหนา"}]],"special":[["厚塗り","あつぬり","絵画",{"en":"thick application of paint","zh":"厚涂","ko":"두껍게 칠하기","pt":"pintura em camada espessa","th":"การลงสีหนา"}]],"simp":"厚","trad":"厚"},{"kanji":"薄","meaningWord":"薄い","meaningEasy":"厚み・色・味などが少ないことに関係する","meaningEn":"thin; weak; light","meaningZh":"薄；淡","meaningKo":"얇다; 연하다","meaningPt":"fino; fraco; claro","meaningTh":"บาง; จาง","no":509,"words":[["薄い","うすい",{"en":"thin; light; weak","zh":"薄的；淡的","ko":"얇다; 연하다","pt":"fino; claro; fraco","th":"บาง; จาง"}]],"extra":[["薄情な","はくじょうな",{"en":"cold-hearted","zh":"薄情的","ko":"박정한","pt":"insensível","th":"ใจดำ"}],["薄める","うすめる",{"en":"to dilute; thin","zh":"稀释","ko":"묽게 하다","pt":"diluir","th":"เจือจาง"}],["薄まる","うすまる",{"en":"to become diluted","zh":"变淡；稀释","ko":"묽어지다","pt":"ficar diluído","th":"จางลง"}],["薄らぐ","うすらぐ",{"en":"to fade; lessen","zh":"变淡；减弱","ko":"희미해지다","pt":"enfraquecer; diminuir","th":"จางลง; เบาลง"}],["薄れる","うすれる",{"en":"to fade","zh":"变淡；淡忘","ko":"옅어지다","pt":"desvanecer","th":"เลือนลง"}]],"special":[["薄塗り","うすぬり","絵画",{"en":"thin application of paint","zh":"薄涂","ko":"얇게 칠하기","pt":"pintura em camada fina","th":"การลงสีบาง"}]],"simp":"薄","trad":"薄"},{"kanji":"量","meaningWord":"量・分量・量る","meaningEasy":"物の多さや重さなどを調べたり表したりすることに関係する","meaningEn":"quantity; amount; measure","meaningZh":"量；数量；测量","meaningKo":"양; 양을 재다","meaningPt":"quantidade; medir","meaningTh":"ปริมาณ; วัด","no":510,"words":[["量","りょう",{"en":"quantity; amount","zh":"量；数量","ko":"양","pt":"quantidade","th":"ปริมาณ"}],["分量","ぶんりょう",{"en":"quantity; amount","zh":"分量","ko":"분량","pt":"quantidade; porção","th":"ปริมาณ; ส่วน"}],["量る","はかる",{"en":"to weigh; measure quantity","zh":"称量；计量","ko":"재다","pt":"medir; pesar","th":"ชั่ง; วัดปริมาณ"}]],"extra":[["大量","たいりょう",{"en":"large quantity","zh":"大量","ko":"대량","pt":"grande quantidade","th":"ปริมาณมาก"}],["数量","すうりょう",{"en":"quantity; amount","zh":"数量","ko":"수량","pt":"quantidade","th":"จำนวน; ปริมาณ"}],["容量","ようりょう",{"en":"capacity; data capacity","zh":"容量","ko":"용량","pt":"capacidade","th":"ความจุ"}]],"special":[],"simp":"量","trad":"量"},{"kanji":"湯","meaningWord":"湯","meaningEasy":"熱い水や、お風呂のお湯などに関係する","meaningEn":"hot water","meaningZh":"热水；开水","meaningKo":"뜨거운 물","meaningPt":"água quente","meaningTh":"น้ำร้อน","no":511,"words":[["湯","ゆ",{"en":"hot water","zh":"热水","ko":"뜨거운 물","pt":"água quente","th":"น้ำร้อน"}]],"extra":[["熱湯","ねっとう",{"en":"boiling/hot water","zh":"热水；开水","ko":"끓는 물","pt":"água fervente","th":"น้ำเดือด"}],["お湯","おゆ",{"en":"hot water","zh":"热水","ko":"뜨거운 물","pt":"água quente","th":"น้ำร้อน"}],["湯気","ゆげ",{"en":"steam","zh":"蒸汽；热气","ko":"김; 수증기","pt":"vapor","th":"ไอน้ำ"}]],"special":[],"simp":"汤","trad":"湯"},{"kanji":"沸","meaningWord":"沸く・沸かす","meaningEasy":"水などが熱くなって、泡が出る状態に関係する","meaningEn":"boil","meaningZh":"沸；烧开","meaningKo":"끓다; 끓이다","meaningPt":"ferver","meaningTh":"เดือด; ต้มให้เดือด","no":512,"words":[["沸く","わく",{"en":"to boil","zh":"沸腾；烧开","ko":"끓다","pt":"ferver","th":"เดือด"}],["沸かす","わかす",{"en":"to boil (water)","zh":"烧开","ko":"끓이다","pt":"ferver; pôr para ferver","th":"ต้มให้เดือด"}]],"extra":[["沸騰する","ふっとうする",{"en":"to boil","zh":"沸腾","ko":"비등하다; 끓다","pt":"entrar em ebulição","th":"เดือดพล่าน"}],["沸点","ふってん",{"en":"boiling point","zh":"沸点","ko":"끓는점","pt":"ponto de ebulição","th":"จุดเดือด"}],["煮沸する","しゃふつする",{"en":"to boil for sterilization","zh":"煮沸","ko":"자비하다; 끓여 소독하다","pt":"ferver; esterilizar por fervura","th":"ต้มฆ่าเชื้อ"}]],"special":[],"simp":"沸","trad":"沸"},{"kanji":"軟","meaningWord":"軟らかい","meaningEasy":"かたくなく、力を加えると形が変わりやすいことに関係する","meaningEn":"soft; flexible","meaningZh":"软；柔软","meaningKo":"부드럽다; 연하다","meaningPt":"macio; flexível","meaningTh":"นุ่ม; อ่อน","no":513,"words":[["軟らかい","やわらかい",{"en":"soft","zh":"柔软的","ko":"부드럽다","pt":"macio","th":"นุ่ม"}]],"extra":[["軟らか","やわらか",{"en":"soft; flexible","zh":"柔软","ko":"부드러움","pt":"macio; flexível","th":"นุ่ม; อ่อน"}],["軟弱な","なんじゃくな",{"en":"weak; soft","zh":"软弱的","ko":"연약한","pt":"fraco; débil","th":"อ่อนแอ"}],["軟水","なんすい",{"en":"soft water","zh":"软水","ko":"연수","pt":"água mole","th":"น้ำอ่อน"}]],"special":[],"simp":"软","trad":"軟"},{"kanji":"混","meaningWord":"混雑・混じる・混ざる・混ぜる","meaningEasy":"違うものが一緒になることに関係する","meaningEn":"mix; mingle; crowded","meaningZh":"混；混合；拥挤","meaningKo":"섞이다; 섞다; 혼잡","meaningPt":"misturar; misturar-se; lotado","meaningTh":"ผสม; ปะปน; แออัด","no":514,"words":[["混雑する","こんざつする",{"en":"to be crowded","zh":"拥挤","ko":"혼잡하다","pt":"estar lotado","th":"แออัด"}],["混じる","まじる",{"en":"to be mixed in","zh":"混入；夹杂","ko":"섞이다","pt":"misturar-se","th":"ปะปน"}],["混ざる","まざる",{"en":"to get mixed","zh":"混合；混在","ko":"섞이다","pt":"misturar-se","th":"ผสมกัน"}],["混ぜる","まぜる",{"en":"to mix","zh":"混合；搅拌","ko":"섞다","pt":"misturar","th":"ผสม"}]],"extra":[["混む","こむ",{"en":"to be crowded","zh":"拥挤","ko":"붐비다","pt":"ficar lotado","th":"แน่น; แออัด"}],["混乱する","こんらんする",{"en":"to become confused; be in disorder","zh":"混乱","ko":"혼란하다","pt":"ficar confuso; entrar em desordem","th":"สับสน; วุ่นวาย"}],["混合する","こんごうする",{"en":"to mix; combine","zh":"混合","ko":"혼합하다","pt":"misturar; combinar","th":"ผสม; รวมกัน"}]],"special":[],"simp":"混","trad":"混"},{"kanji":"等","meaningWord":"～等・高等・等分・平等・等しい","meaningEasy":"同じ程度であることや、種類をまとめて示すことに関係する","meaningEn":"equal; class; etc.","meaningZh":"等；相等；等等","meaningKo":"등; 동등; 등등","meaningPt":"igual; classe; etc.","meaningTh":"เท่ากัน; ระดับ; เป็นต้น","no":515,"words":[["～等","とう",{"en":"etc.; and so on","zh":"等；等等","ko":"등","pt":"etc.; e outros","th":"ฯลฯ"}],["高等の","こうとうの",{"en":"higher; advanced","zh":"高等的","ko":"고등의","pt":"superior; avançado","th":"ระดับสูง"}],["等分する","とうぶんする",{"en":"to divide equally","zh":"等分","ko":"등분하다","pt":"dividir igualmente","th":"แบ่งเท่าๆ กัน"}],["平等な","びょうどうな",{"en":"equal; fair","zh":"平等的","ko":"평등한","pt":"igualitário","th":"เท่าเทียม"}],["等しい","ひとしい",{"en":"equal","zh":"相等的","ko":"같다; 동등하다","pt":"igual","th":"เท่ากัน"}]],"extra":[["平等","びょうどう",{"en":"equality","zh":"平等","ko":"평등","pt":"igualdade","th":"ความเท่าเทียม"}],["等級","とうきゅう",{"en":"grade; class; rank","zh":"等级","ko":"등급","pt":"grau; classe","th":"ระดับ; ชั้น"}],["同等","どうとう",{"en":"equal; equivalent","zh":"同等","ko":"동등","pt":"igual; equivalente","th":"เท่าเทียม; เทียบเท่า"}]],"special":[],"simp":"等","trad":"等"},{"kanji":"丸","meaningWord":"丸・丸い","meaningEasy":"円や球のような形に関係する","meaningEn":"round; circle; ball","meaningZh":"圆；丸；球形","meaningKo":"둥글다; 원","meaningPt":"redondo; círculo","meaningTh":"กลม; วงกลม","no":516,"words":[["丸","まる",{"en":"circle; round mark","zh":"圆；圆圈","ko":"동그라미","pt":"círculo","th":"วงกลม"}],["丸い","まるい",{"en":"round","zh":"圆的","ko":"둥글다","pt":"redondo","th":"กลม"}]],"extra":[["弾丸","だんがん",{"en":"bullet","zh":"弹丸；子弹","ko":"탄환","pt":"bala; projétil","th":"กระสุน"}],["丸める","まるめる",{"en":"to roll up; make round","zh":"卷成团；弄圆","ko":"둥글게 만들다","pt":"enrolar; arredondar","th":"ม้วน; ทำให้กลม"}],["丸ごと","まるごと",{"en":"whole; entirely","zh":"整个；全部","ko":"통째로","pt":"inteiro; por completo","th":"ทั้งก้อน; ทั้งหมด"}]],"special":[["丸筆","まるふで","絵画",{"en":"round brush","zh":"圆头画笔","ko":"둥근 붓","pt":"pincel redondo","th":"พู่กันกลม"}]],"simp":"丸","trad":"丸"},{"kanji":"包","meaningWord":"包装・包帯・包む・小包","meaningEasy":"外側からおおったり、中に入れてまとめたりすることに関係する","meaningEn":"wrap; package","meaningZh":"包；包装","meaningKo":"싸다; 포장","meaningPt":"embrulhar; pacote","meaningTh":"ห่อ; บรรจุ","no":517,"words":[["包装","ほうそう",{"en":"wrapping; packaging","zh":"包装","ko":"포장","pt":"embalagem","th":"บรรจุภัณฑ์"}],["包帯","ほうたい",{"en":"bandage","zh":"绷带","ko":"붕대","pt":"atadura; bandagem","th":"ผ้าพันแผล"}],["包む","つつむ",{"en":"to wrap","zh":"包；包裹","ko":"싸다","pt":"embrulhar","th":"ห่อ"}],["小包","こづつみ",{"en":"parcel","zh":"包裹；小包","ko":"소포","pt":"pacote; encomenda","th":"พัสดุ"}]],"extra":[["包丁","ほうちょう",{"en":"kitchen knife","zh":"菜刀","ko":"식칼","pt":"faca de cozinha","th":"มีดทำครัว"}],["包囲する","ほういする",{"en":"to surround; encircle","zh":"包围","ko":"포위하다","pt":"cercar; rodear","th":"ล้อมรอบ"}],["包容力","ほうようりょく",{"en":"tolerance; broad-mindedness","zh":"包容力","ko":"포용력","pt":"tolerância; capacidade de acolher","th":"ความใจกว้าง; การยอมรับ"}]],"special":[["包装デザイン","ほうそうデザイン","デザイン",{"en":"package design","zh":"包装设计","ko":"패키지 디자인","pt":"design de embalagem","th":"การออกแบบบรรจุภัณฑ์"}]],"simp":"包","trad":"包"},{"kanji":"巻","meaningWord":"～巻・巻く","meaningEasy":"長いものを丸く巻いたり、本などのまとまりを数えたりすることに関係する","meaningEn":"roll; volume","meaningZh":"卷；卷起；卷册","meaningKo":"말다; 권","meaningPt":"enrolar; volume","meaningTh":"ม้วน; เล่ม","no":518,"words":[["～巻","かん",{"en":"volume; book number","zh":"卷（书籍单位）","ko":"권","pt":"volume","th":"เล่ม"}],["巻く","まく",{"en":"to roll; wind","zh":"卷；缠","ko":"감다; 말다","pt":"enrolar","th":"ม้วน; พัน"}]],"extra":[["一巻","いっかん",{"en":"one volume","zh":"一卷","ko":"한 권","pt":"um volume","th":"หนึ่งเล่ม"}],["巻","まき",{"en":"roll; volume","zh":"卷","ko":"두루마리; 권","pt":"rolo; volume","th":"ม้วน; เล่ม"}],["巻物","まきもの",{"en":"scroll","zh":"卷轴","ko":"두루마리","pt":"rolo; pergaminho","th":"ม้วนภาพ/คัมภีร์"}]],"special":[],"simp":"卷","trad":"卷"},{"kanji":"麦","meaningWord":"小麦・蕎麦","meaningEasy":"小麦など、穀物の一種に関係する","meaningEn":"wheat; barley; grain","meaningZh":"麦；小麦","meaningKo":"밀; 보리","meaningPt":"trigo; cereal","meaningTh":"ข้าวสาลี; ธัญพืช","no":519,"words":[["小麦","こむぎ",{"en":"wheat","zh":"小麦","ko":"밀","pt":"trigo","th":"ข้าวสาลี"}],["蕎麦","そば",{"en":"soba; buckwheat noodles","zh":"荞麦面；荞麦","ko":"메밀국수; 메밀","pt":"soba; trigo-sarraceno","th":"โซบะ; บักวีต"}]],"extra":[["麦芽","ばくが",{"en":"malt","zh":"麦芽","ko":"맥아","pt":"malte","th":"มอลต์"}],["大麦","おおむぎ",{"en":"barley","zh":"大麦","ko":"보리","pt":"cevada","th":"ข้าวบาร์เลย์"}],["麦茶","むぎちゃ",{"en":"barley tea","zh":"麦茶","ko":"보리차","pt":"chá de cevada","th":"ชาข้าวบาร์เลย์"}]],"special":[],"simp":"麦","trad":"麥"},{"kanji":"焼","meaningWord":"焼ける・焼く","meaningEasy":"火や熱を使って食べ物を調理したり、物を熱したりすることに関係する","meaningEn":"burn; bake; grill","meaningZh":"烧；烤","meaningKo":"굽다; 타다","meaningPt":"assar; grelhar; queimar","meaningTh":"ย่าง; อบ; ไหม้","no":520,"words":[["焼ける","やける",{"en":"to be baked; burn","zh":"烤好；烧焦","ko":"구워지다; 타다","pt":"assar-se; queimar","th":"สุกจากการย่าง; ไหม้"}],["焼く","やく",{"en":"to bake; grill; burn","zh":"烤；烧","ko":"굽다","pt":"assar; grelhar","th":"ย่าง; อบ"}]],"extra":[["燃焼","ねんしょう",{"en":"combustion","zh":"燃烧","ko":"연소","pt":"combustão","th":"การเผาไหม้"}],["焼却する","しょうきゃくする",{"en":"to incinerate; burn","zh":"焚烧；烧毁","ko":"소각하다","pt":"incinerar; queimar","th":"เผาทำลาย"}],["夕焼け","ゆうやけ",{"en":"sunset glow","zh":"晚霞","ko":"저녁노을","pt":"pôr do sol avermelhado","th":"แสงแดงยามเย็น"}]],"special":[["焼き物","やきもの","工芸",{"en":"pottery; ceramics","zh":"陶器；陶瓷","ko":"도자기","pt":"cerâmica","th":"เครื่องปั้นดินเผา"}]],"simp":"烧","trad":"燒"}];
+const CURRENT_LESSON=23;
+const DATA = [{"kanji":"諸","meaningWord":"諸国・諸問題","meaningEasy":"いろいろなものをまとめて表すことに関係する","meaningEn":"various; several","meaningZh":"诸；各种","meaningKo":"여러; 제반","meaningPt":"vários; diversos","meaningTh":"ต่าง ๆ; หลาย","no":761,"words":[["諸国","しょこく",{"en":"various countries","zh":"各国","ko":"여러 나라","pt":"vários países","th":"หลายประเทศ"}],["諸問題","しょもんだい",{"en":"various problems","zh":"各种问题","ko":"여러 문제","pt":"diversos problemas","th":"ปัญหาต่าง ๆ"}]],"extra":[["諸事情","しょじじょう",{"en":"various circumstances","zh":"各种情况","ko":"여러 사정","pt":"diversas circunstâncias","th":"เหตุผลและสถานการณ์ต่าง ๆ"}],["諸条件","しょじょうけん",{"en":"various conditions","zh":"各种条件","ko":"여러 조건","pt":"diversas condições","th":"เงื่อนไขต่าง ๆ"}],["諸外国","しょがいこく",{"en":"various foreign countries","zh":"各个外国；各国","ko":"여러 외국","pt":"vários países estrangeiros","th":"ต่างประเทศหลายประเทศ"}]],"special":[],"simp":"诸","trad":"諸"},{"kanji":"敬","meaningWord":"敬語・敬う","meaningEasy":"相手を大切に思い、礼儀を表すことに関係する","meaningEn":"respect","meaningZh":"敬；尊敬","meaningKo":"경; 존경","meaningPt":"respeito","meaningTh":"เคารพ","no":762,"words":[["敬語","けいご",{"en":"honorific language","zh":"敬语","ko":"경어","pt":"linguagem honorífica","th":"ภาษาสุภาพ"}],["敬う","うやまう",{"en":"to respect","zh":"尊敬","ko":"존경하다","pt":"respeitar","th":"เคารพ"}]],"extra":[["敬意","けいい",{"en":"respect; esteem","zh":"敬意","ko":"경의","pt":"respeito; estima","th":"ความเคารพ"}],["敬称","けいしょう",{"en":"honorific title","zh":"敬称","ko":"경칭","pt":"tratamento honorífico","th":"คำเรียกยกย่อง"}],["敬遠する","けいえんする",{"en":"to avoid; keep one’s distance","zh":"敬而远之；回避","ko":"경원하다; 꺼리다","pt":"evitar; manter distância","th":"หลีกเลี่ยง; เว้นระยะ"}]],"special":[],"simp":"敬","trad":"敬"},{"kanji":"尊","meaningWord":"尊敬する・尊重する","meaningEasy":"人や価値のあるものを大切にして高く評価することに関係する","meaningEn":"respect; honor","meaningZh":"尊；尊重","meaningKo":"존; 존중","meaningPt":"respeitar; honrar","meaningTh":"เคารพ; ยกย่อง","no":763,"words":[["尊敬する","そんけいする",{"en":"to respect","zh":"尊敬","ko":"존경하다","pt":"respeitar","th":"เคารพ"}],["尊重する","そんちょうする",{"en":"to respect; value","zh":"尊重","ko":"존중하다","pt":"respeitar; valorizar","th":"เคารพ; ให้ความสำคัญ"}]],"extra":[["尊厳","そんげん",{"en":"dignity","zh":"尊严","ko":"존엄","pt":"dignidade","th":"ศักดิ์ศรี"}],["尊称","そんしょう",{"en":"honorific title; respectful form of address","zh":"尊称；敬称","ko":"존칭; 높임 호칭","pt":"título honorífico; forma respeitosa de tratamento","th":"คำเรียกยกย่อง; คำเรียกแบบให้เกียรติ"}],["尊大","そんだい",{"en":"haughty; arrogant","zh":"妄自尊大；傲慢","ko":"거만함; 거만한 태도","pt":"arrogante; altivo","th":"หยิ่งยโส; วางท่า"}]],"special":[],"simp":"尊","trad":"尊"},{"kanji":"詞","meaningWord":"名詞・動詞・形容詞","meaningEasy":"ことばや品詞など、文法上のことばに関係する","meaningEn":"word; part of speech","meaningZh":"词；词类","meaningKo":"사; 품사","meaningPt":"palavra; classe gramatical","meaningTh":"คำ; ชนิดของคำ","no":764,"words":[["名詞","めいし",{"en":"noun","zh":"名词","ko":"명사","pt":"substantivo","th":"คำนาม"}],["動詞","どうし",{"en":"verb","zh":"动词","ko":"동사","pt":"verbo","th":"คำกริยา"}],["形容詞","けいようし",{"en":"adjective","zh":"形容词","ko":"형용사","pt":"adjetivo","th":"คำคุณศัพท์"}]],"extra":[["品詞","ひんし",{"en":"part of speech","zh":"词类","ko":"품사","pt":"classe gramatical","th":"ชนิดของคำ"}],["助詞","じょし",{"en":"particle","zh":"助词","ko":"조사","pt":"partícula gramatical","th":"คำช่วย"}],["歌詞","かし",{"en":"song lyrics","zh":"歌词","ko":"가사","pt":"letra de música","th":"เนื้อเพลง"}]],"special":[],"simp":"词","trad":"詞"},{"kanji":"副","meaningWord":"副～・副詞","meaningEasy":"中心となるものを助けるものや、二番目の役割に関係する","meaningEn":"secondary; vice-","meaningZh":"副；辅助","meaningKo":"부; 부-","meaningPt":"secundário; vice-","meaningTh":"รอง; ผู้ช่วย","no":765,"words":[["副～","ふく",{"en":"vice-; deputy; sub-","zh":"副…","ko":"부-","pt":"vice-; sub-","th":"รอง…"}],["副詞","ふくし",{"en":"adverb","zh":"副词","ko":"부사","pt":"advérbio","th":"คำวิเศษณ์"}]],"extra":[["副会長","ふくかいちょう",{"en":"vice-chairperson","zh":"副会长","ko":"부회장","pt":"vice-presidente","th":"รองประธาน"}],["副作用","ふくさよう",{"en":"side effect","zh":"副作用","ko":"부작용","pt":"efeito colateral","th":"ผลข้างเคียง"}],["副業","ふくぎょう",{"en":"side job; second job","zh":"副业；兼职","ko":"부업","pt":"trabalho extra; atividade secundária","th":"งานเสริม"}]],"special":[["副題","ふくだい","文章・デザイン",{"en":"subtitle","zh":"副标题","ko":"부제","pt":"subtítulo","th":"ชื่อรอง"}]],"simp":"副","trad":"副"},{"kanji":"志","meaningWord":"意志","meaningEasy":"自分がこうしたいと思う強い気持ちや目標に関係する","meaningEn":"will; intention","meaningZh":"志；意志","meaningKo":"뜻; 의지","meaningPt":"vontade; intenção","meaningTh":"เจตนา; ปณิธาน","no":766,"words":[["意志","いし",{"en":"will; intention","zh":"意志","ko":"의지","pt":"vontade; intenção","th":"เจตนา"}]],"extra":[["志望","しぼう",{"en":"aspiration; preference","zh":"志愿；希望","ko":"지망","pt":"aspiração; preferência","th":"ความมุ่งหมาย"}],["志向","しこう",{"en":"orientation; inclination","zh":"志向；倾向","ko":"지향","pt":"orientação; tendência","th":"แนวโน้ม; การมุ่งไปทาง"}],["有志","ゆうし",{"en":"volunteers; interested members","zh":"有志者；志愿者","ko":"뜻있는 사람들; 자원자","pt":"voluntários; pessoas interessadas","th":"ผู้มีความตั้งใจ; อาสาสมัคร"}]],"special":[],"simp":"志","trad":"志"},{"kanji":"司","meaningWord":"司会","meaningEasy":"仕事や行事を取りしきることに関係する","meaningEn":"administer; preside","meaningZh":"司；主持","meaningKo":"사; 주관","meaningPt":"administrar; presidir","meaningTh":"ดำเนินการ; เป็นพิธีกร","no":767,"words":[["司会","しかい",{"en":"master of ceremonies; chair","zh":"司仪；主持","ko":"사회; 사회자","pt":"mestre de cerimônias","th":"พิธีกร"}]],"extra":[["上司","じょうし",{"en":"superior; boss","zh":"上司","ko":"상사","pt":"superior; chefe","th":"หัวหน้า"}],["司書","ししょ",{"en":"librarian","zh":"图书管理员","ko":"사서","pt":"bibliotecário","th":"บรรณารักษ์"}],["司法","しほう",{"en":"judiciary; judicial system","zh":"司法","ko":"사법","pt":"poder judiciário; sistema judicial","th":"ตุลาการ; ระบบยุติธรรม"}]],"special":[],"simp":"司","trad":"司"},{"kanji":"資","meaningWord":"資料・資源","meaningEasy":"仕事や活動に使う材料・お金・能力などに関係する","meaningEn":"resources; capital","meaningZh":"资；资源","meaningKo":"자원; 자본","meaningPt":"recursos; capital","meaningTh":"ทรัพยากร; ทุน","no":768,"words":[["資料","しりょう",{"en":"materials; data","zh":"资料","ko":"자료","pt":"material; dados","th":"เอกสาร; ข้อมูล"}],["資源","しげん",{"en":"resources","zh":"资源","ko":"자원","pt":"recursos","th":"ทรัพยากร"}]],"extra":[["資格","しかく",{"en":"qualification","zh":"资格","ko":"자격","pt":"qualificação","th":"คุณสมบัติ"}],["資金","しきん",{"en":"funds; capital","zh":"资金","ko":"자금","pt":"fundos; capital","th":"เงินทุน"}],["資産","しさん",{"en":"assets; property","zh":"资产","ko":"자산","pt":"ativos; patrimônio","th":"สินทรัพย์"}]],"special":[],"simp":"资","trad":"資"},{"kanji":"省","meaningWord":"～省・省エネ・反省する","meaningEasy":"自分を振り返ること、または不要なものを減らすことに関係する","meaningEn":"reflect; omit; ministry","meaningZh":"省；反省；省略","meaningKo":"성찰; 생략; 성","meaningPt":"refletir; omitir; ministério","meaningTh":"ทบทวนตนเอง; ละ; กระทรวง","no":769,"words":[["～省","しょう",{"en":"Ministry of ...","zh":"…省；…部","ko":"~성","pt":"Ministério de ...","th":"กระทรวง…"}],["省エネ","しょうエネ",{"en":"energy saving","zh":"节能","ko":"에너지 절약","pt":"economia de energia","th":"ประหยัดพลังงาน"}],["反省する","はんせいする",{"en":"to reflect on oneself","zh":"反省","ko":"반성하다","pt":"refletir sobre si mesmo","th":"ทบทวนตนเอง"}],["省く","はぶく",{"en":"to omit; leave out","zh":"省略；省去","ko":"생략하다","pt":"omitir","th":"ละ; ตัดออก"}]],"extra":[["帰省する","きせいする",{"en":"to return home","zh":"回乡","ko":"귀성하다","pt":"voltar à terra natal","th":"กลับบ้านเกิด"}],["省力化","しょうりょくか",{"en":"labor saving; labor reduction","zh":"省力化；节省人力","ko":"노동 절감; 인력 절감","pt":"redução de mão de obra; economia de trabalho","th":"การลดแรงงาน; การประหยัดแรงงาน"}],["内省する","ないせいする",{"en":"to reflect on oneself; introspect","zh":"内省；自我反思","ko":"내성하다; 자기 성찰하다","pt":"introspectar; refletir sobre si mesmo","th":"ใคร่ครวญตนเอง; สะท้อนตนเอง"}],["猛省する","もうせいする",{"en":"to reflect deeply; repent seriously","zh":"深刻反省","ko":"깊이 반성하다","pt":"refletir profundamente; arrepender-se seriamente","th":"สำนึกอย่างมาก; ทบทวนตนเองอย่างจริงจัง"}],["省資源","しょうしげん",{"en":"resource conservation","zh":"节省资源；省资源","ko":"자원 절약","pt":"economia de recursos","th":"การประหยัดทรัพยากร"}],["環境省","かんきょうしょう",{"en":"Ministry of the Environment","zh":"环境省","ko":"환경성","pt":"Ministério do Meio Ambiente","th":"กระทรวงสิ่งแวดล้อมของญี่ปุ่น"}],["厚労省","こうろうしょう",{"en":"Ministry of Health, Labour and Welfare","zh":"厚生劳动省","ko":"후생노동성","pt":"Ministério da Saúde, Trabalho e Bem-Estar","th":"กระทรวงสาธารณสุข แรงงาน และสวัสดิการของญี่ปุ่น"}],["文科省","もんかしょう",{"en":"Ministry of Education, Culture, Sports, Science and Technology","zh":"文部科学省","ko":"문부과학성","pt":"Ministério da Educação, Cultura, Esportes, Ciência e Tecnologia","th":"กระทรวงศึกษาธิการ วัฒนธรรม กีฬา วิทยาศาสตร์และเทคโนโลยีของญี่ปุ่น"}]],"special":[],"simp":"省","trad":"省"},{"kanji":"略","meaningWord":"略す／する・省略する","meaningEasy":"短くしたり、一部を省いたりすることに関係する","meaningEn":"abbreviate; omit","meaningZh":"略；省略","meaningKo":"략; 생략","meaningPt":"abreviar; omitir","meaningTh":"ย่อ; ละ","no":770,"words":[["略す","りゃくす",{"en":"to abbreviate; omit","zh":"略；省略","ko":"생략하다","pt":"abreviar; omitir","th":"ย่อ; ละ"}],["略する","りゃくする",{"en":"to abbreviate; omit","zh":"略；省略","ko":"생략하다","pt":"abreviar; omitir","th":"ย่อ; ละ"}],["省略する","しょうりゃくする",{"en":"to omit; abbreviate","zh":"省略","ko":"생략하다","pt":"omitir; abreviar","th":"ละ; ย่อ"}]],"extra":[["略語","りゃくご",{"en":"abbreviation","zh":"略语","ko":"약어","pt":"abreviação","th":"คำย่อ"}],["略称","りゃくしょう",{"en":"abbreviation; shortened name","zh":"简称","ko":"약칭","pt":"abreviação; nome abreviado","th":"ชื่อย่อ"}],["略歴","りゃくれき",{"en":"brief biography","zh":"简历；略历","ko":"약력","pt":"breve biografia","th":"ประวัติโดยย่อ"}]],"special":[["略図","りゃくず","図表・デザイン",{"en":"schematic drawing","zh":"略图","ko":"약도; 개략도","pt":"esquema; croqui","th":"ภาพร่างโดยย่อ"}]],"simp":"略","trad":"略"},{"kanji":"命","meaningWord":"生命・命令する・寿命","meaningEasy":"命や寿命、命令などに関係する","meaningEn":"life; order","meaningZh":"命；生命；命令","meaningKo":"명; 생명; 명령","meaningPt":"vida; ordem","meaningTh":"ชีวิต; คำสั่ง","no":771,"words":[["生命","せいめい",{"en":"life","zh":"生命","ko":"생명","pt":"vida","th":"ชีวิต"}],["命令する","めいれいする",{"en":"to order; command","zh":"命令","ko":"명령하다","pt":"ordenar","th":"สั่ง"}],["寿命","じゅみょう",{"en":"life span","zh":"寿命","ko":"수명","pt":"duração de vida","th":"อายุขัย"}],["命","いのち",{"en":"life","zh":"生命；命","ko":"목숨; 생명","pt":"vida","th":"ชีวิต"}]],"extra":[["運命","うんめい",{"en":"fate; destiny","zh":"命运","ko":"운명","pt":"destino","th":"ชะตากรรม"}],["使命","しめい",{"en":"mission","zh":"使命","ko":"사명","pt":"missão","th":"ภารกิจ"}],["命名する","めいめいする",{"en":"to name; give a name","zh":"命名","ko":"명명하다","pt":"nomear; dar um nome","th":"ตั้งชื่อ"}]],"special":[],"simp":"命","trad":"命"},{"kanji":"共","meaningWord":"共通の・共同の・共に","meaningEasy":"二つ以上のものがいっしょであることに関係する","meaningEn":"together; common","meaningZh":"共；共同","meaningKo":"공; 함께","meaningPt":"junto; comum","meaningTh":"ร่วมกัน; เหมือนกัน","no":772,"words":[["共通の","きょうつうの",{"en":"common","zh":"共同的；共通的","ko":"공통의","pt":"comum","th":"ร่วมกัน; เหมือนกัน"}],["共同の","きょうどうの",{"en":"joint; shared","zh":"共同的","ko":"공동의","pt":"conjunto; compartilhado","th":"ร่วมกัน"}],["共に","ともに",{"en":"together; both","zh":"共同；一起","ko":"함께","pt":"juntos; ambos","th":"ร่วมกัน; ทั้งคู่"}]],"extra":[["共感する","きょうかんする",{"en":"to empathize","zh":"共鸣；同感","ko":"공감하다","pt":"empatizar","th":"เห็นอกเห็นใจ"}],["公共","こうきょう",{"en":"public","zh":"公共","ko":"공공","pt":"público","th":"สาธารณะ"}],["共存する","きょうそんする",{"en":"to coexist","zh":"共存","ko":"공존하다","pt":"coexistir","th":"อยู่ร่วมกัน"}]],"special":[["共同制作","きょうどうせいさく","美術・制作",{"en":"collaborative production","zh":"共同创作","ko":"공동 제작","pt":"produção colaborativa","th":"การสร้างผลงานร่วมกัน"}]],"simp":"共","trad":"共"},{"kanji":"調","meaningWord":"強調する・調整する・調べる","meaningEasy":"調べること、整えること、強さや調子を変えることに関係する","meaningEn":"investigate; adjust; tone","meaningZh":"调；调查；调整","meaningKo":"조사; 조정; 어조","meaningPt":"investigar; ajustar; tom","meaningTh":"ตรวจสอบ; ปรับ; น้ำเสียง","no":773,"words":[["強調する","きょうちょうする",{"en":"to emphasize","zh":"强调","ko":"강조하다","pt":"enfatizar","th":"เน้น"}],["調整する","ちょうせいする",{"en":"to adjust","zh":"调整","ko":"조정하다","pt":"ajustar","th":"ปรับ"}],["調べる","しらべる",{"en":"to investigate; check","zh":"调查；检查","ko":"조사하다","pt":"investigar; verificar","th":"ตรวจสอบ"}]],"extra":[["調査","ちょうさ",{"en":"investigation; survey","zh":"调查","ko":"조사","pt":"investigação; pesquisa","th":"การสำรวจ; การตรวจสอบ"}],["調子","ちょうし",{"en":"condition; tone","zh":"状态；语调","ko":"상태; 어조","pt":"condição; tom","th":"สภาพ; จังหวะ"}],["体調","たいちょう",{"en":"physical condition; health condition","zh":"身体状况","ko":"몸 상태","pt":"condição física; estado de saúde","th":"สภาพร่างกาย; สุขภาพ"}]],"special":[["色調","しきちょう","色彩・デザイン",{"en":"color tone","zh":"色调","ko":"색조","pt":"tom de cor","th":"โทนสี"}]],"simp":"调","trad":"調"},{"kanji":"報","meaningWord":"予報・情報","meaningEasy":"知らせること、または知らせや情報に関係する","meaningEn":"report; inform","meaningZh":"报；报告","meaningKo":"보; 보고","meaningPt":"relatar; informar","meaningTh":"รายงาน; แจ้ง","no":774,"words":[["予報","よほう",{"en":"forecast","zh":"预报","ko":"예보","pt":"previsão","th":"พยากรณ์"}],["情報","じょうほう",{"en":"information","zh":"信息","ko":"정보","pt":"informação","th":"ข้อมูล"}]],"extra":[["報道","ほうどう",{"en":"news reporting","zh":"报道","ko":"보도","pt":"noticiário; reportagem","th":"การรายงานข่าว"}],["速報","そくほう",{"en":"breaking news; quick report","zh":"快讯；速報","ko":"속보","pt":"notícia urgente; boletim rápido","th":"ข่าวด่วน"}],["報酬","ほうしゅう",{"en":"remuneration; reward","zh":"报酬","ko":"보수; 보상","pt":"remuneração; recompensa","th":"ค่าตอบแทน; รางวัล"}]],"special":[["報道写真","ほうどうしゃしん","写真・メディア",{"en":"news photograph","zh":"新闻照片","ko":"보도 사진","pt":"fotografia jornalística","th":"ภาพข่าว"}]],"simp":"报","trad":"報"},{"kanji":"告","meaningWord":"報告する・広告","meaningEasy":"相手に知らせたり、報告したりすることに関係する","meaningEn":"notify; tell","meaningZh":"告；告知","meaningKo":"고; 알리다","meaningPt":"avisar; informar","meaningTh":"แจ้ง; บอก","no":775,"words":[["報告する","ほうこくする",{"en":"to report","zh":"报告","ko":"보고하다","pt":"relatar","th":"รายงาน"}],["広告","こうこく",{"en":"advertisement","zh":"广告","ko":"광고","pt":"anúncio","th":"โฆษณา"}]],"extra":[["告知する","こくちする",{"en":"to announce; notify","zh":"告知","ko":"고지하다","pt":"notificar; anunciar","th":"ประกาศ; แจ้ง"}],["警告","けいこく",{"en":"warning","zh":"警告","ko":"경고","pt":"aviso; advertência","th":"คำเตือน"}],["告白する","こくはくする",{"en":"to confess; reveal one’s feelings","zh":"告白；坦白","ko":"고백하다","pt":"confessar; declarar sentimentos","th":"สารภาพ; บอกความรู้สึก"}]],"special":[["広告デザイン","こうこくでざいん","グラフィックデザイン",{"en":"advertising design","zh":"广告设计","ko":"광고 디자인","pt":"design publicitário","th":"การออกแบบโฆษณา"}]],"simp":"告","trad":"告"},{"kanji":"実","meaningWord":"事実・実験・実","meaningEasy":"本当のこと、実際に行うこと、植物の実などに関係する","meaningEn":"real; fact; fruit","meaningZh":"实；事实；果实","meaningKo":"실; 사실; 열매","meaningPt":"real; fato; fruto","meaningTh":"จริง; ข้อเท็จจริง; ผล","no":776,"words":[["事実","じじつ",{"en":"fact","zh":"事实","ko":"사실","pt":"fato","th":"ข้อเท็จจริง"}],["実験","じっけん",{"en":"experiment","zh":"实验","ko":"실험","pt":"experimento","th":"การทดลอง"}],["実","み",{"en":"fruit; nut; berry","zh":"果实；籽","ko":"열매","pt":"fruto; semente","th":"ผล; เมล็ด"}],["実る","みのる",{"en":"to bear fruit","zh":"结果实","ko":"열매를 맺다","pt":"dar fruto","th":"ออกผล"}]],"extra":[["実際","じっさい",{"en":"actual; in fact","zh":"实际","ko":"실제","pt":"real; de fato","th":"จริง; ในความเป็นจริง"}],["実施する","じっしする",{"en":"to implement; carry out","zh":"实施","ko":"실시하다","pt":"implementar; realizar","th":"ดำเนินการ; ปฏิบัติ"}],["実現する","じつげんする",{"en":"to realize; achieve","zh":"实现","ko":"실현하다","pt":"realizar; concretizar","th":"ทำให้เป็นจริง; บรรลุ"}]],"special":[["実物大","じつぶつだい","模型・デザイン",{"en":"full scale; life-size","zh":"实物大小","ko":"실물 크기","pt":"tamanho real","th":"ขนาดเท่าของจริง"}]],"simp":"实","trad":"實"},{"kanji":"構","meaningWord":"結構な・構成する・構わない","meaningEasy":"組み立てること、構成、姿勢などに関係する","meaningEn":"construct; structure; mind","meaningZh":"构；结构","meaningKo":"구; 구성","meaningPt":"construir; estrutura","meaningTh":"ประกอบ; โครงสร้าง","no":777,"words":[["結構な","けっこうな",{"en":"fine; sufficient","zh":"很好；足够","ko":"괜찮은; 충분한","pt":"bom; suficiente","th":"ดี; เพียงพอ"}],["構成する","こうせいする",{"en":"to compose; organize","zh":"构成","ko":"구성하다","pt":"compor; organizar","th":"จัดองค์ประกอบ"}],["構わない","かまわない",{"en":"not mind; it is all right","zh":"没关系","ko":"상관없다","pt":"não se importar; tudo bem","th":"ไม่เป็นไร"}]],"extra":[["構造","こうぞう",{"en":"structure","zh":"结构","ko":"구조","pt":"estrutura","th":"โครงสร้าง"}],["構築する","こうちくする",{"en":"to build; construct","zh":"构建；建立","ko":"구축하다","pt":"construir; estabelecer","th":"สร้าง; จัดสร้าง"}],["構想","こうそう",{"en":"concept; plan; vision","zh":"构想；设想","ko":"구상","pt":"concepção; plano","th":"แนวคิด; แผนการ"}]],"special":[["構図","こうず","美術・写真",{"en":"composition","zh":"构图","ko":"구도","pt":"composição","th":"องค์ประกอบภาพ"}]],"simp":"构","trad":"構"},{"kanji":"処","meaningWord":"処理する","meaningEasy":"物事を扱い、適切に片づけることに関係する","meaningEn":"handle; deal with","meaningZh":"处；处理","meaningKo":"처; 처리","meaningPt":"tratar; lidar","meaningTh":"จัดการ","no":778,"words":[["処理する","しょりする",{"en":"to process; handle","zh":"处理","ko":"처리하다","pt":"processar; tratar","th":"ประมวลผล; จัดการ"}]],"extra":[["処分する","しょぶんする",{"en":"to dispose of; punish","zh":"处分；处理","ko":"처분하다","pt":"dispor; punir","th":"กำจัด; ลงโทษ"}],["対処する","たいしょする",{"en":"to cope with; deal with","zh":"应对；处理","ko":"대처하다","pt":"lidar com","th":"รับมือ"}],["処置する","しょちする",{"en":"to take measures; treat","zh":"处置；处理","ko":"처치하다; 조치하다","pt":"tomar medidas; tratar","th":"จัดการ; ดำเนินมาตรการ"}]],"special":[["画像処理","がぞうしょり","デジタル・映像",{"en":"image processing","zh":"图像处理","ko":"영상 처리","pt":"processamento de imagem","th":"การประมวลผลภาพ"}]],"simp":"处","trad":"處"},{"kanji":"肯","meaningWord":"肯定する","meaningEasy":"認めること、よいと判断することに関係する","meaningEn":"affirm; approve","meaningZh":"肯；肯定","meaningKo":"긍정; 인정","meaningPt":"afirmar; aprovar","meaningTh":"ยืนยัน; เห็นด้วย","no":779,"words":[["肯定する","こうていする",{"en":"to affirm","zh":"肯定","ko":"긍정하다","pt":"afirmar","th":"ยืนยัน; เห็นด้วย"}]],"extra":[["肯定的な","こうていてきな",{"en":"affirmative; positive","zh":"肯定的","ko":"긍정적인","pt":"afirmativo; positivo","th":"เชิงบวก"}],["肯定文","こうていぶん",{"en":"affirmative sentence","zh":"肯定句","ko":"긍정문","pt":"frase afirmativa","th":"ประโยคบอกเล่าเชิงยืนยัน"}],["自己肯定感","じここうていかん",{"en":"self-esteem; self-acceptance","zh":"自我肯定感","ko":"자기 긍정감","pt":"autoaceitação; autoestima","th":"การยอมรับตนเอง"}]],"special":[],"simp":"肯","trad":"肯"},{"kanji":"否","meaningWord":"否定する","meaningEasy":"認めないこと、よくないと判断することに関係する","meaningEn":"deny; no","meaningZh":"否；否定","meaningKo":"부정; 아니오","meaningPt":"negar; não","meaningTh":"ปฏิเสธ; ไม่","no":780,"words":[["否定する","ひていする",{"en":"to deny","zh":"否定","ko":"부정하다","pt":"negar","th":"ปฏิเสธ"}]],"extra":[["可否","かひ",{"en":"whether acceptable; yes or no","zh":"可否","ko":"가부","pt":"sim ou não; viabilidade","th":"ได้หรือไม่ได้"}],["拒否する","きょひする",{"en":"to refuse; reject","zh":"拒绝","ko":"거부하다","pt":"recusar; rejeitar","th":"ปฏิเสธ"}],["否決する","ひけつする",{"en":"to reject; vote down","zh":"否决","ko":"부결하다","pt":"rejeitar; votar contra","th":"ลงมติไม่รับ; ปฏิเสธ"}]],"special":[],"simp":"否","trad":"否"},{"kanji":"令","meaningWord":"命令する","meaningEasy":"命令や法令など、人に従わせる決まりに関係する","meaningEn":"order; command","meaningZh":"令；命令","meaningKo":"령; 명령","meaningPt":"ordem; comando","meaningTh":"คำสั่ง","no":781,"words":[["命令する","めいれいする",{"en":"to order; command","zh":"命令","ko":"명령하다","pt":"ordenar","th":"สั่ง"}]],"extra":[["法令","ほうれい",{"en":"laws and ordinances","zh":"法令","ko":"법령","pt":"leis e regulamentos","th":"กฎหมายและระเบียบ"}],["指令","しれい",{"en":"directive; command","zh":"指令","ko":"지령","pt":"diretriz; comando","th":"คำสั่ง; คำสั่งการ"}],["号令","ごうれい",{"en":"command; order","zh":"号令；口令","ko":"호령; 구령","pt":"ordem; comando","th":"คำสั่ง; คำสั่งพร้อมเพรียง"}]],"special":[],"simp":"令","trad":"令"},{"kanji":"基","meaningWord":"基本・基礎・基","meaningEasy":"物事の土台、基本となるものに関係する","meaningEn":"base; foundation","meaningZh":"基；基础","meaningKo":"기; 기초","meaningPt":"base; fundamento","meaningTh":"พื้นฐาน","no":782,"words":[["基本","きほん",{"en":"basis; fundamental","zh":"基本","ko":"기본","pt":"base; fundamental","th":"พื้นฐาน"}],["基礎","きそ",{"en":"foundation; basis","zh":"基础","ko":"기초","pt":"base; fundamento","th":"พื้นฐาน"}],["基","もと",{"en":"basis; foundation","zh":"基础；根基","ko":"기초; 바탕","pt":"base; fundamento","th":"พื้นฐาน"}]],"extra":[["基準","きじゅん",{"en":"standard; criterion","zh":"标准","ko":"기준","pt":"padrão; critério","th":"มาตรฐาน"}],["基盤","きばん",{"en":"foundation; base; infrastructure","zh":"基础；基盘","ko":"기반","pt":"base; fundamento; infraestrutura","th":"รากฐาน; พื้นฐาน"}],["基づく","もとづく",{"en":"to be based on","zh":"基于；依据","ko":"근거하다; 바탕으로 하다","pt":"basear-se em","th":"อ้างอิงจาก; มีพื้นฐานจาก"}]],"special":[],"simp":"基","trad":"基"},{"kanji":"則","meaningWord":"法則","meaningEasy":"決まりや法則など、守るべきルールに関係する","meaningEn":"rule; law","meaningZh":"则；规则","meaningKo":"칙; 법칙","meaningPt":"regra; lei","meaningTh":"กฎ; หลัก","no":783,"words":[["法則","ほうそく",{"en":"law; rule","zh":"法则","ko":"법칙","pt":"lei; regra","th":"กฎ"}]],"extra":[["原則","げんそく",{"en":"principle","zh":"原则","ko":"원칙","pt":"princípio","th":"หลักการ"}],["反則","はんそく",{"en":"foul; rule violation","zh":"犯规","ko":"반칙","pt":"falta; infração às regras","th":"การทำผิดกติกา"}],["校則","こうそく",{"en":"school rules","zh":"校规","ko":"교칙","pt":"regras escolares","th":"กฎของโรงเรียน"}]],"special":[],"simp":"则","trad":"則"},{"kanji":"規","meaningWord":"規則","meaningEasy":"決まり、基準、ものさしなどに関係する","meaningEn":"rule; standard","meaningZh":"规；规则","meaningKo":"규; 규칙","meaningPt":"regra; padrão","meaningTh":"กฎ; มาตรฐาน","no":784,"words":[["規則","きそく",{"en":"rule; regulation","zh":"规则","ko":"규칙","pt":"regra; regulamento","th":"กฎระเบียบ"}]],"extra":[["規定","きてい",{"en":"provision; regulation","zh":"规定","ko":"규정","pt":"regulamento; disposição","th":"ข้อกำหนด"}],["規模","きぼ",{"en":"scale; size","zh":"规模","ko":"규모","pt":"escala; tamanho","th":"ขนาด"}],["規制","きせい",{"en":"regulation; restriction","zh":"规制；限制","ko":"규제","pt":"regulamentação; restrição","th":"กฎควบคุม; ข้อจำกัด"}]],"special":[["規格","きかく","デザイン・製品",{"en":"standard; specification","zh":"规格","ko":"규격","pt":"norma; especificação","th":"มาตรฐาน; ข้อกำหนด"}]],"simp":"规","trad":"規"}];
 DATA.forEach(d=>{
   const r=MASTER.READING_MASTER[d.kanji];
   if(!r) throw new Error(`READING_MASTER に ${d.kanji} がありません`);
@@ -1564,9 +1565,11 @@ function vocabTranslation(vocab, lang){
   if(!tr || typeof tr!=="object" || Array.isArray(tr)) return "";
   return tr[lang] || "";
 }
-const SPECIAL_READING_WORDS=new Set(DATA.flatMap(d=>d.words.map(w=>w[0])).filter(vocab=>Object.entries(MASTER.SPECIAL_READING_MASTER).some(([special,x])=>x.sourceLesson===MASTER.COURSE_MASTER[DATA[0].kanji]?.lesson && vocab.includes(special))));
-function specialReadingTag(word){
-  return SPECIAL_READING_WORDS.has(word)
+const SPECIAL_READING_KEYS=new Set(Object.entries(MASTER.SPECIAL_READING_MASTER)
+  .filter(([word,x])=>x.sourceLesson===CURRENT_LESSON)
+  .map(([word,x])=>word+"\u0000"+x.reading));
+function specialReadingTag(word,reading){
+  return SPECIAL_READING_KEYS.has(word+"\u0000"+reading)
     ? ' <span class="special-reading-tag"><ruby>特別<rt>とくべつ</rt></ruby>な<ruby>読<rt>よ</rt></ruby>み</span>'
     : "";
 }
@@ -1576,11 +1579,11 @@ function renderFlashVocab(){
   const d=currentFlashData;
   fWords.innerHTML=d.words.map(w=>{
     const tr=vocabTranslation(w,lang);
-    return `<span class="pill">${w[0]}（${w[1]}）${specialReadingTag(w[0])}${tr ? `<small class="vocab-tr"> ${tr}</small>` : ""}</span>`;
+    return `<span class="pill">${w[0]}（${w[1]}）${specialReadingTag(w[0],w[1])}${tr ? `<small class="vocab-tr"> ${tr}</small>` : ""}</span>`;
   }).join("");
   fExtra.innerHTML=(d.extra||[]).map(w=>{
     const tr=vocabTranslation(w,lang);
-    return `<span class="pill">${w[0]}（${w[1]}）${specialReadingTag(w[0])}${tr ? `<small class="vocab-tr"> ${tr}</small>` : ""}</span>`;
+    return `<span class="pill">${w[0]}（${w[1]}）${specialReadingTag(w[0],w[1])}${tr ? `<small class="vocab-tr"> ${tr}</small>` : ""}</span>`;
   }).join("");
   if((d.special||[]).length){
     fSpecialBox.classList.remove("hidden");
@@ -1598,7 +1601,7 @@ function renderFlashVocab(){
 function renderIjiDokun(){
   if(!currentFlashData) return;
   const lang=meaningLang?.value||"ja";
-  const groups=Object.keys(MASTER.IJI_DOKUN_MASTER).map(r=>MASTER.resolveIjiDokun(r,11)).filter(g=>g && g.entries.some(e=>e.kanji===currentFlashData.kanji));
+  const groups=Object.keys(MASTER.IJI_DOKUN_MASTER).map(r=>MASTER.resolveIjiDokun(r,CURRENT_LESSON)).filter(g=>g && g.entries.some(e=>e.kanji===currentFlashData.kanji));
   if(!groups.length){
     fIjiBox.classList.add("hidden");
     fIjiText.textContent="";
@@ -1721,10 +1724,15 @@ DATA.forEach(d=>{
       const match=findVocabForReadingExample(word,reading);
       const vocab=match.vocab;
       const vt=vocab && vocab[vocab.length-1] && typeof vocab[vocab.length-1]==="object" ? vocab[vocab.length-1] : {};
+      const masterGloss=(e.gloss && typeof e.gloss==="object" && !Array.isArray(e.gloss)) ? e.gloss : {};
+      const hasMasterGloss=Object.keys(masterGloss).length>0;
+      const gt=hasMasterGloss ? masterGloss : (vocab ? vt : {});
       READING_EXAMPLE_GLOSS[`${d.kanji}|${type}|${x.reading}`]={
-        en:vt.en||"",zh:vt.zh||"",ko:vt.ko||"",pt:vt.pt||"",th:vt.th||"",
+        ja:word,en:gt.en||"",zh:gt.zh||"",ko:gt.ko||"",pt:gt.pt||"",th:gt.th||"",
         exampleWord:word,exampleReading:reading,
-        sourceWord:vocab?.[0]||"",sourceReading:vocab?.[1]||"",matchKind:match.kind
+        sourceWord:hasMasterGloss?word:(vocab?.[0]||""),
+        sourceReading:hasMasterGloss?reading:(vocab?.[1]||""),
+        matchKind:hasMasterGloss?"master-gloss":match.kind
       };
       if(type==="kun") KUN_PARTS[x.reading]=[x.stem??x.reading,x.okuri??""];
     });
@@ -1745,8 +1753,6 @@ function renderReadingExamples(d){
   const langAttr = lang==="zh" ? "zh-CN" : lang==="ko" ? "ko" : lang==="pt" ? "pt-BR" : lang==="th" ? "th" : lang==="en" ? "en" : "ja";
 
   const makeRow=(type,r,word)=>{
-    // やさしい日本語では音読み・訓読みの例語に訳を重ねない。
-    // 他言語では、例語の意味確認用として翻訳を表示する。
     const gloss=lang==="ja" ? "" : (READING_EXAMPLE_GLOSS[d.kanji+"|"+type+"|"+r]?.[lang]||"");
     const isReference=word.endsWith("［参考］");
     const displayWord=isReference ? word.slice(0,-4) : word;
@@ -1799,6 +1805,18 @@ function answerMatches(input,reading){
   return a!=="" && a===norm(reading);
 }
 
+const READ_ACCEPTED_ALIASES = {};
+const READ_DISPLAY_ANSWERS = {};
+function readAnswerMatches(input,item){
+  if(answerMatches(input,item.reading)) return true;
+  const key=(item.sourceWord||item.word)+"\u0000"+(item.sourceReading||item.reading);
+  return (READ_ACCEPTED_ALIASES[key]||[]).some(r=>answerMatches(input,r));
+}
+function readAnswerDisplay(item){
+  const key=(item.sourceWord||item.word)+"\u0000"+(item.sourceReading||item.reading);
+  return READ_DISPLAY_ANSWERS[key]||item.reading;
+}
+
 // 読みクイズ専用の出題形。
 // する動詞は「する」を、な形容詞は語末の「な」を外す。
 // それ以外の送り仮名（速い・遅れる等）は残す。
@@ -1833,13 +1851,22 @@ function safeStorageRemove(key){
   delete memoryStorage[key];
   try{ localStorage.removeItem(key); }catch(e){}
 }
+const STORAGE_PREFIX=`kanjiL${CURRENT_LESSON}`;
+const STATS_KEY=`${STORAGE_PREFIX}StatsV1`;
+const PROGRESS_KEY=`${STORAGE_PREFIX}ProgressV2`;
+const LEGACY_PROGRESS_KEY=`${STORAGE_PREFIX}ProgressV1`;
+const SELECTED_KEY=`${STORAGE_PREFIX}SelectedV1`;
+const CARD_RESUME_KEY=`${STORAGE_PREFIX}CardResumeV1`;
+const READ_RESUME_KEY=`${STORAGE_PREFIX}ReadResumeV1`;
+const WRITE_RESUME_KEY=`${STORAGE_PREFIX}WriteResumeV1`;
+
 function defaultStats(){
   return {answered:0,correct:0,writeGood:0,writeBad:0,items:{}};
 }
 function statsLoad(){
   let s;
   try{
-    const raw=safeStorageGet("kanjiL11StatsV1");
+    const raw=safeStorageGet(STATS_KEY);
     s=raw ? JSON.parse(raw) : defaultStats();
   }catch(e){
     s=defaultStats();
@@ -1852,11 +1879,11 @@ function statsLoad(){
   if(!s.items || typeof s.items!=="object" || Array.isArray(s.items)) s.items={};
   return s;
 }
-function statsSave(s){safeStorageSet("kanjiL11StatsV1",JSON.stringify(s));}
+function statsSave(s){safeStorageSet(STATS_KEY,JSON.stringify(s));}
 
 // ---- 第1〜8課 学習記録パイロット v2：進捗と「実際に学習した日時」を分けて保存 ----
-const PROGRESS_KEY="kanjiL11ProgressV2";
-const LEGACY_PROGRESS_KEY="kanjiL11ProgressV1";
+
+
 
 function defaultProgress(){
   return {cards:{},read:{},write:{},status:"",lastActivity:0,legacyOnly:false};
@@ -1958,7 +1985,7 @@ function escapeHtml(s){
 }
 // 書き練習の答えを、学習段階で見分ける。
 const BEGINNER_300=new Set(MASTER.BEGINNER_300);
-const CURRENT_LESSON=11;
+
 const CURRENT_LESSON_KANJI=new Set(DATA.map(d=>d.kanji));
 const HAN_RE=/\p{Script=Han}/u;
 
@@ -1967,7 +1994,7 @@ function highlightTargets(word){
     const safe=escapeHtml(ch);
     if(!HAN_RE.test(ch)) return safe;
     const stage=MASTER.studyStageForKanji(ch,CURRENT_LESSON);
-    if(stage.relation==="current") return `<span class="target-kanji" title="第11課">${safe}</span>`;
+    if(stage.relation==="current") return `<span class="target-kanji" title="第14課">${safe}</span>`;
     if(stage.relation==="beginner" || stage.relation==="past"){
       const title=stage.relation==="beginner" ? "初級" : `第${stage.lesson}課で学習`;
       return `<span class="known-kanji" title="${title}">${safe}</span>`;
@@ -1985,10 +2012,10 @@ function showSelectMsg(text){
   selectMsgTimer=setTimeout(()=>selectMsg.classList.add("hidden"),5000);
 }
 
-const SELECTED_KEY="kanjiL11SelectedV1";
-const CARD_RESUME_KEY="kanjiL11CardResumeV1";
-const READ_RESUME_KEY="kanjiL11ReadResumeV1";
-const WRITE_RESUME_KEY="kanjiL11WriteResumeV1";
+
+
+
+
 
 function selectionSignature(){
   return DATA.filter(d=>selected.has(d.kanji)).map(d=>d.kanji).join("\u0001");
@@ -2103,7 +2130,9 @@ function restoreWriteResume(){
   const universe=buildWriteWords();
   const byKey=new Map(universe.map(x=>[quizItemKey(x),x]));
   const deck=s.keys.map(k=>byKey.get(k)).filter(Boolean);
-  if(deck.length!==s.keys.length){
+  // 問題セットが更新された場合は、旧版の途中デッキを復元しない。
+  // （例：一度除外した教科書語彙を復活させた場合）
+  if(deck.length!==s.keys.length || deck.length!==universe.length){
     clearWriteResume();
     return false;
   }
@@ -2232,12 +2261,8 @@ cardOrder.onchange=()=>{
   if(flashPool.length) showFlash();
 };
 
-// 「粉」は、意味説明ではなく実際の語の形に近い文脈で読み分ける。
-// ヒント内は答えの漢字を繰り返さず、既知語をひらがなで示す。
-const READ_CONTEXTS = {
-  "粉\u0000こ":"（こむぎ）粉",
-  "粉\u0000こな":"（こむぎの）粉"
-};
+const READ_CONTEXTS = {"命\u0000いのち":"（たいせつな）命","実\u0000み":"（きの）実","～省\u0000しょう":"（かんきょう）～省"};
+const READ_EXCLUDE_KEYS = new Set();
 
 // 読み：「漢字を選ぶ」で選んだ漢字の教科書語彙。同じ語・同じ読みは1回だけ。
 function buildReadingWords(){
@@ -2246,6 +2271,7 @@ function buildReadingWords(){
     d.words.forEach(w=>{
       const sourceWord=w[0];
       const sourceReading=w[1];
+      if(READ_EXCLUDE_KEYS.has(sourceWord+"\u0000"+sourceReading)) return;
       const quiz=toReadingQuizForm(sourceWord,sourceReading);
       const key=quiz.word+"\u0000"+quiz.reading;
       const tr=w[w.length-1];
@@ -2352,7 +2378,7 @@ function newRead(){
 checkRead.onclick=()=>{
   if(readLocked)return;
   recordUniqueProgress("read",currentRead.word+"\u0000"+currentRead.reading);
-  const ok=answerMatches(rInput.value,currentRead.reading);
+  const ok=readAnswerMatches(rInput.value,currentRead);
   const s=statsLoad(); s.answered++;
   if(ok){
     s.correct++;
@@ -2370,7 +2396,7 @@ checkRead.onclick=()=>{
       s.items[k].review=true;
     });
     rFeedback.className="feedback reading-feedback-inline ng";
-    rFeedback.innerHTML=`❌ ちがいます<span class="mobile-break"><br></span><span class="desktop-gap">　</span><span class="answer-unit"><ruby>正解<rt>せいかい</rt></ruby>：<b>${currentRead.reading}</b></span>`;
+    rFeedback.innerHTML=`❌ ちがいます<span class="mobile-break"><br></span><span class="desktop-gap">　</span><span class="answer-unit"><ruby>正解<rt>せいかい</rt></ruby>：<b>${escapeHtml(readAnswerDisplay(currentRead))}</b></span>`;
   }
   statsSave(s); renderStats();
   // 解答済みなら、再訪時は次の問題から再開する。
@@ -2408,7 +2434,9 @@ document.addEventListener("keydown",e=>{
 });
 readOrder.onchange=()=>{ clearReadResume(); resetReadDeck(); newRead(); };
 
-const WRITE_CONTEXTS = {"～個\u0000こ":"こ（ものを　かぞえる）","粉\u0000こ":"（こむぎ）こ","粉\u0000こな":"（こむぎの）こな","固い\u0000かたい":"かたい（かたちが　かわりにくい）","厚い\u0000あつい":"あつい（ものの　あつみ）","薄い\u0000うすい":"うすい（ものの　あつみが　すくない）","量る\u0000はかる":"はかる（おもさ・りょう）","軟らかい\u0000やわらかい":"やわらかい（かたくない）","混じる\u0000まじる":"まじる（ちがう　ものが　はいりあう）","混ざる\u0000まざる":"まざる（ちがう　ものが　いっしょに　なる）","混ぜる\u0000まぜる":"まぜる（いくつかの　ものを　いっしょにする）","丸い\u0000まるい":"まるい（きゅう・わのような　かたち）","玉\u0000たま":"（けいとの）たま","～杯\u0000はい":"（コーヒー 2）はい","量\u0000りょう":"（みずの）りょう","～等\u0000とう":"（ほん・ノート）とう","～巻\u0000かん":"（マンガの 1）かん"};
+const WRITE_CONTEXTS = {"敬語\u0000けいご":"（ていねいな ことばの）けいご","尊重する\u0000そんちょうする":"（いけんを）そんちょうする","名詞\u0000めいし":"（ことばの）めいし","動詞\u0000どうし":"（ことばの）どうし","副詞\u0000ふくし":"（ことばの）ふくし","意志\u0000いし":"（じぶんの）いし","司会\u0000しかい":"（イベントの）しかい","資料\u0000しりょう":"（はっぴょうの）しりょう","資源\u0000しげん":"（きちょうな）しげん","～省\u0000しょう":"（かんきょう）～しょう","生命\u0000せいめい":"（いきものの）せいめい","共同の\u0000きょうどうの":"（みんなで）きょうどうの","強調する\u0000きょうちょうする":"（ポイントを）きょうちょうする","調整する\u0000ちょうせいする":"（スケジュールを）ちょうせいする","広告\u0000こうこく":"（テレビの）こうこく","実\u0000み":"（きの）み","構成する\u0000こうせいする":"（はっぴょうの）こうせいする","肯定する\u0000こうていする":"（いけんを）こうていする","基礎\u0000きそ":"（がくしゅうの）きそ","基\u0000もと":"（このデータを）もとに","副～\u0000ふく":"ふく～（キャプテン・しゃちょう）"};
+const WRITE_EXCLUDE_KEYS = new Set();
+const WRITE_MERGED_KEYS = new Set();
 
 // 書き：一巡するまで重複なし
 function buildWriteWords(){
@@ -2416,6 +2444,7 @@ function buildWriteWords(){
   DATA.filter(d=>selected.has(d.kanji)).forEach(d=>{
     d.words.forEach(w=>{
       const key=w[0]+"\u0000"+w[1];
+      if(WRITE_EXCLUDE_KEYS.has(key) || WRITE_MERGED_KEYS.has(key)) return;
       const tr=w[w.length-1];
       const translations=(tr && typeof tr==="object" && !Array.isArray(tr)) ? tr : {};
       if(!unique.has(key)){
@@ -2593,8 +2622,8 @@ function renderZh(){
   const rows = zhDiffOnly ? DATA.filter(hasStudyValue) : DATA;
   const diffCount = DATA.filter(hasStudyValue).length;
   zhCount.innerHTML = zhDiffOnly
-    ? `<ruby>字体<rt>じたい</rt></ruby>に<ruby>差<rt>さ</rt></ruby>がある<ruby>字<rt>じ</rt></ruby>：${diffCount}<ruby>字<rt>じ</rt></ruby> / 20<ruby>字<rt>じ</rt></ruby>`
-    : `<ruby>全<rt>ぜん</rt></ruby>20<ruby>字<rt>じ</rt></ruby>（うち<ruby>字体<rt>じたい</rt></ruby>に<ruby>差<rt>さ</rt></ruby>がある<ruby>字<rt>じ</rt></ruby>：${diffCount}<ruby>字<rt>じ</rt></ruby>）`;
+    ? `<ruby>字体<rt>じたい</rt></ruby>に<ruby>差<rt>さ</rt></ruby>がある<ruby>字<rt>じ</rt></ruby>：${diffCount}<ruby>字<rt>じ</rt></ruby> / ${DATA.length}<ruby>字<rt>じ</rt></ruby>`
+    : `<ruby>全<rt>ぜん</rt></ruby>${DATA.length}<ruby>字<rt>じ</rt></ruby>（うち<ruby>字体<rt>じたい</rt></ruby>に<ruby>差<rt>さ</rt></ruby>がある<ruby>字<rt>じ</rt></ruby>：${diffCount}<ruby>字<rt>じ</rt></ruby>）`;
   zhBody.innerHTML = rows.map(d=>`<tr>
       <td style="font-size:.85rem;font-weight:700">${d.no}</td>
       <td class="jp-kanji" lang="ja" style="font-size:2rem">${d.kanji}</td>
@@ -2715,7 +2744,7 @@ function resetAllStatsNow(btn){
 
   clearTimeout(resetAllTimer);
   resetAllArmed=false;
-  safeStorageRemove("kanjiL11StatsV1");
+  safeStorageRemove(STATS_KEY);
   safeStorageRemove(PROGRESS_KEY);
   safeStorageRemove(LEGACY_PROGRESS_KEY);
   clearAllResume();
@@ -2766,6 +2795,13 @@ document.querySelectorAll(".tabs button").forEach(b=>b.onclick=()=>{
 // 起動時に機械的に照合して、問題があれば console に出す。?check=1 なら画面にも出す。
 function runDataCheck(){
   const problems=[];
+  const storageKeys={STATS_KEY,PROGRESS_KEY,LEGACY_PROGRESS_KEY,SELECTED_KEY,CARD_RESUME_KEY,READ_RESUME_KEY,WRITE_RESUME_KEY};
+  Object.entries(storageKeys).forEach(([name,key])=>{
+    const expected=`kanjiL${CURRENT_LESSON}`;
+    if(!String(key).startsWith(expected)){
+      problems.push(`保存キー ${name}=${key} が CURRENT_LESSON=${CURRENT_LESSON} と一致していません`);
+    }
+  });
   const masterCheck=MASTER.validateMaster();
   masterCheck.errors.forEach(x=>problems.push("共通マスター："+x));
   const wordKeys=new Set();
@@ -2788,6 +2824,10 @@ function runDataCheck(){
         if(!g){
           problems.push(`${d.kanji}（${type==="on"?"音":"訓"}「${r}」）：意味データがありません`);
         }else{
+          const missingGlossLangs=["en","zh","ko","pt","th"].filter(lang=>!String(g[lang]||"").trim());
+          if(missingGlossLangs.length){
+            problems.push(`${d.kanji}（${type==="on"?"音":"訓"}「${r}」）：代表例の訳が不足しています（${missingGlossLangs.join("・")}）`);
+          }
           const foreignHasGloss=["en","zh","ko","pt","th"].some(lang=>String(g[lang]||"").trim());
           if(foreignHasGloss && !g.sourceWord){
             problems.push(`${d.kanji}（${type==="on"?"音":"訓"}「${r}」）：代表例の外国語訳に出典語彙がありません`);
@@ -2821,6 +2861,8 @@ function runDataCheck(){
   // 読みが同じで答えが違う語は、書き練習で判別できないので文脈ヒントが要る。
   const byReading=new Map();
   DATA.forEach(d=>d.words.forEach(w=>{
+    const key=w[0]+"\u0000"+w[1];
+    if(WRITE_EXCLUDE_KEYS.has(key) || WRITE_MERGED_KEYS.has(key)) return;
     if(!byReading.has(w[1])) byReading.set(w[1],new Set());
     byReading.get(w[1]).add(w[0]);
   }));
