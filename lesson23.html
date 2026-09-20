@@ -574,7 +574,7 @@ button ruby{
   justify-content:center;
 }
 
-/* v40: 書き練習の答えを「初級・既習 / 第14課 / 未習」で見分ける */
+/* v40: 書き練習の答えを「初級・既習 / 第23課 / 未習」で見分ける */
 .target-kanji{
   color:var(--accent);
   border-bottom:3px solid #8fa8ee;
@@ -1013,6 +1013,10 @@ button:focus-visible,
 .empty-rt::before{
   content:"";
 }
+.lesson-topic .empty-rt::before{
+  content:"あ";
+  visibility:hidden;
+}
 @media(max-width:760px){
   .empty-rt::before{
     content:"あ";
@@ -1044,9 +1048,9 @@ button:focus-visible,
       <p>761〜784｜24字</p>
     </div>
     <nav class="lesson-header-nav" aria-label="課の移動">
-      <a class="lesson-neighbor-link" href="lesson22.html?v=2.3" aria-label="第22課へ移動">← 第22課</a>
-      <a class="top-link" href="index.html" aria-label="TOPページへ戻る">TOP</a>
-      <a class="lesson-neighbor-link" href="lesson24.html?v=2.3" aria-label="第24課へ移動">第24課 →</a>
+      <a class="lesson-neighbor-link" href="lesson22.html?v=2.4" aria-label="第22課へ移動">← 第22課</a>
+      <a class="top-link" href="index.html?v=2.4#lesson23" aria-label="TOPページへ戻る">TOP</a>
+      <a class="lesson-neighbor-link" href="lesson24.html?v=2.4" aria-label="第24課へ移動">第24課 →</a>
     </nav>
   </div>
 </header>
@@ -1246,7 +1250,7 @@ button:focus-visible,
       <div id="writeQuizArea">
         <div class="label"><ruby>読<rt>よ</rt></ruby>みと、<ruby>必要<rt>ひつよう</rt></ruby>なときは<ruby>短<rt>みじか</rt></ruby>い<ruby>文脈<rt>ぶんみゃく</rt></ruby>ヒントを<ruby>見<rt>み</rt></ruby>て、<ruby>紙<rt>かみ</rt></ruby>やノートに<ruby>漢字<rt>かんじ</rt></ruby>で<ruby>書<rt>か</rt></ruby>いてください。</div>
         <div class="write-kanji-legend" aria-label="答えの漢字の分類">
-          <span class="write-legend-item"><span class="write-legend-line target" aria-hidden="true"></span><span><ruby>第<rt>だい</rt></ruby>12<ruby>課<rt>か</rt></ruby></span></span>
+          <span class="write-legend-item"><span class="write-legend-line target" aria-hidden="true"></span><span><ruby>第<rt>だい</rt></ruby>23<ruby>課<rt>か</rt></ruby></span></span>
           <span class="write-legend-item"><span class="write-legend-line" aria-hidden="true"></span><span><ruby>初級<rt>しょきゅう</rt></ruby>・<ruby>既習<rt>きしゅう</rt></ruby></span></span>
           <span class="write-legend-item"><span class="write-legend-line unlearned" aria-hidden="true"></span><span><ruby>未習<rt>みしゅう</rt></ruby></span></span>
         </div>
@@ -2081,7 +2085,7 @@ function highlightTargets(word){
     const safe=escapeHtml(ch);
     if(!HAN_RE.test(ch)) return safe;
     const stage=MASTER.studyStageForKanji(ch,CURRENT_LESSON);
-    if(stage.relation==="current") return `<span class="target-kanji" title="第14課">${safe}</span>`;
+    if(stage.relation==="current") return `<span class="target-kanji" title="第23課">${safe}</span>`;
     if(stage.relation==="beginner" || stage.relation==="past"){
       const title=stage.relation==="beginner" ? "初級" : `第${stage.lesson}課で学習`;
       return `<span class="known-kanji" title="${title}">${safe}</span>`;
