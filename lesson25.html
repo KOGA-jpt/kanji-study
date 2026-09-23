@@ -144,6 +144,7 @@ main{max-width:980px;margin:0 auto;padding:18px}
 .secondary{background:#e9edf6;color:#172033}
 .good{background:#e7f6ee;color:var(--ok)}
 .bad{background:#fdebea;color:var(--bad)}
+#writeGood,#writeBad{flex:0 0 auto;min-width:140px}
 .question{font-size:2.2rem;text-align:center;margin:28px 0 18px}
 .reading-input{width:100%;max-width:440px;display:block;margin:0 auto;padding:12px 14px;border:2px solid var(--line);border-radius:10px;font-size:1.2rem}
 .feedback{min-height:4rem;text-align:center;font-weight:700;margin:12px 0;padding:8px}
@@ -1258,8 +1259,8 @@ button:focus-visible,
         <div id="wAnswer" class="question jp-kanji hidden"></div>
         <div class="actions" style="justify-content:center">
           <button class="primary" id="showWrite"><ruby>答<rt>こた</rt></ruby>えを<ruby>見<rt>み</rt></ruby>る</button>
-          <button class="bad hidden" id="writeBad"><ruby>書<rt>か</rt></ruby>けなかった</button>
           <button class="good hidden" id="writeGood"><ruby>書<rt>か</rt></ruby>けた</button>
+          <button class="bad hidden" id="writeBad"><ruby>書<rt>か</rt></ruby>けなかった</button>
         </div>
         <div class="write-kanji-legend" aria-label="答えの漢字の分類">
           <span class="write-legend-item"><span class="write-legend-line target" aria-hidden="true"></span><span><ruby>第<rt>だい</rt></ruby>25<ruby>課<rt>か</rt></ruby></span></span>
