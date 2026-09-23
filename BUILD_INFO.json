@@ -1,0 +1,19 @@
+{
+  "package": "kanji-study_lessons01-32_PUBLIC_CANDIDATE_v3.6",
+  "candidate_version": "v3.6",
+  "created": "2026-09-23",
+  "master_build": "2026-09-23-v4.6-l11-32-refine",
+  "lessons": "1-32",
+  "kanjiRange": "301-1000",
+  "kanjiTotal": 700,
+  "iji_groups": 106,
+  "glyph_l08_diff": 5,
+  "based_on": "v3.5",
+  "changes": [
+    "lesson01-10: define MASTER=window.KANJI_MASTER before RESEARCH_GLYPH_DIFFS and other shared-master references",
+    "all lesson/index navigation cache-busting query updated from v3.1 to v3.6",
+    "BUILD_INFO normalized to candidate v3.6 / master v4.6",
+    "IJI_DOKUN audit note restored: 咲く is excluded from さく because it is a different verb; さく usage group is 割く/裂く",
+    "full ZIP regenerated and CRC-tested"
+  ]
+}
