@@ -1239,7 +1239,7 @@ button:focus-visible,
             <option value="random">ランダム</option>
           </select>
         </label>
-        <label><ruby>外国語<rt>がいこくご</rt></ruby>ヒント：
+        <label>ヒント<ruby>言語<rt>げんご</rt></ruby>：
           <select id="writeHintLang" style="padding:7px 9px;border:1px solid var(--line);border-radius:8px">
             <option value="en">English</option>
             <option value="ko">한국어</option>
@@ -1249,17 +1249,12 @@ button:focus-visible,
         </label>
       </div>
       <div id="writeQuizArea">
-        <div class="label"><ruby>読<rt>よ</rt></ruby>みと、<ruby>必要<rt>ひつよう</rt></ruby>なときは<ruby>短<rt>みじか</rt></ruby>い<ruby>文脈<rt>ぶんみゃく</rt></ruby>ヒントを<ruby>見<rt>み</rt></ruby>て、<ruby>紙<rt>かみ</rt></ruby>やノートに<ruby>漢字<rt>かんじ</rt></ruby>で<ruby>書<rt>か</rt></ruby>いてください。</div>
-        <div class="write-kanji-legend" aria-label="答えの漢字の分類">
-          <span class="write-legend-item"><span class="write-legend-line target" aria-hidden="true"></span><span><ruby>第<rt>だい</rt></ruby>8<ruby>課<rt>か</rt></ruby></span></span>
-          <span class="write-legend-item"><span class="write-legend-line" aria-hidden="true"></span><span><ruby>初級<rt>しょきゅう</rt></ruby>・<ruby>既習<rt>きしゅう</rt></ruby></span></span>
-          <span class="write-legend-item"><span class="write-legend-line unlearned" aria-hidden="true"></span><span><ruby>未習<rt>みしゅう</rt></ruby></span></span>
-        </div>
+        <div class="label">ひらがなの<ruby>言葉<rt>ことば</rt></ruby>を、<ruby>紙<rt>かみ</rt></ruby>やノートに<ruby>漢字<rt>かんじ</rt></ruby>で<ruby>書<rt>か</rt></ruby>いてください。</div>
         <div class="progress" id="writeProgress"></div>
         <div id="wNo" class="label" style="text-align:center;font-size:.9rem;font-weight:700"></div>
         <div class="question" id="wReading"></div>
         <div class="actions write-hint-actions">
-          <button type="button" class="secondary" id="showWriteHint"><ruby>外国語<rt>がいこくご</rt></ruby>ヒントを<ruby>見<rt>み</rt></ruby>る</button>
+          <button type="button" class="secondary" id="showWriteHint">ヒントを<ruby>見<rt>み</rt></ruby>る</button>
         </div>
         <div id="wHint" class="note hidden" style="text-align:center;font-size:1rem;margin-top:-6px"></div>
         <div id="wAnswer" class="question jp-kanji hidden"></div>
@@ -1268,10 +1263,10 @@ button:focus-visible,
           <button class="bad hidden" id="writeBad"><ruby>書<rt>か</rt></ruby>けなかった</button>
           <button class="good hidden" id="writeGood"><ruby>書<rt>か</rt></ruby>けた</button>
         </div>
-        <div class="write-quiet-notes">
-          <div class="note">※ <ruby>中国語<rt>ちゅうごくご</rt></ruby>の<ruby>訳<rt>やく</rt></ruby>は<ruby>答<rt>こた</rt></ruby>えの<ruby>漢字<rt>かんじ</rt></ruby>そのものになることが<ruby>多<rt>おお</rt></ruby>いので、ここでは<ruby>選<rt>えら</rt></ruby>べません。</div>
-          <div class="note">※「<ruby>初級<rt>しょきゅう</rt></ruby>・<ruby>既習<rt>きしゅう</rt></ruby>」には、<ruby>初級<rt>しょきゅう</rt></ruby>レベルの<ruby>漢字<rt>かんじ</rt></ruby>300<ruby>字<rt>じ</rt></ruby>と、この<ruby>授業<rt>じゅぎょう</rt></ruby>でこれまでに<ruby>学習<rt>がくしゅう</rt></ruby>した<ruby>漢字<rt>かんじ</rt></ruby>を<ruby>含<rt>ふく</rt></ruby>みます。<ruby>初級<rt>しょきゅう</rt></ruby>300<ruby>字<rt>じ</rt></ruby>は、この<ruby>授業<rt>じゅぎょう</rt></ruby>で<ruby>扱<rt>あつか</rt></ruby>った<ruby>漢字<rt>かんじ</rt></ruby>とは<ruby>限<rt>かぎ</rt></ruby>りません。</div>
-          <div class="note">※ 「<ruby>漢字<rt>かんじ</rt></ruby>を<ruby>選<rt>えら</rt></ruby>ぶ」で<ruby>選<rt>えら</rt></ruby>んだ<ruby>漢字<rt>かんじ</rt></ruby>の<ruby>教科書語彙<rt>きょうかしょごい</rt></ruby>だけを<ruby>出題<rt>しゅつだい</rt></ruby>します。<ruby>書<rt>か</rt></ruby>き<ruby>分<rt>わ</rt></ruby>けが<ruby>必要<rt>ひつよう</rt></ruby>な<ruby>語<rt>ご</rt></ruby>には<ruby>短<rt>みじか</rt></ruby>い<ruby>日本語<rt>にほんご</rt></ruby>の<ruby>文脈<rt>ぶんみゃく</rt></ruby>を<ruby>付<rt>つ</rt></ruby>けています。<ruby>分<rt>わ</rt></ruby>からないときは<ruby>外国語<rt>がいこくご</rt></ruby>ヒントも<ruby>使<rt>つか</rt></ruby>えます。</div>
+        <div class="write-kanji-legend" aria-label="答えの漢字の分類">
+          <span class="write-legend-item"><span class="write-legend-line target" aria-hidden="true"></span><span><ruby>第<rt>だい</rt></ruby>8<ruby>課<rt>か</rt></ruby></span></span>
+          <span class="write-legend-item"><span class="write-legend-line" aria-hidden="true"></span><span><ruby>初級<rt>しょきゅう</rt></ruby>・<ruby>既習<rt>きしゅう</rt></ruby></span></span>
+          <span class="write-legend-item"><span class="write-legend-line unlearned" aria-hidden="true"></span><span><ruby>未習<rt>みしゅう</rt></ruby></span></span>
         </div>
       </div>
 
@@ -1292,6 +1287,10 @@ button:focus-visible,
           <div class="stat"><b id="sWriteBad">0</b>書けなかった</div>
         </div>
         <div class="actions"><button type="button" class="secondary" id="resetWriteStats" onclick="resetWriteStatsNow(this)"><ruby>書<rt>か</rt></ruby>きの<ruby>成績<rt>せいせき</rt></ruby>をリセット</button></div>
+        <div class="write-quiet-notes">
+          <div class="note">※ <ruby>中国語<rt>ちゅうごくご</rt></ruby>の<ruby>訳<rt>やく</rt></ruby>は<ruby>答<rt>こた</rt></ruby>えの<ruby>漢字<rt>かんじ</rt></ruby>そのものになることが<ruby>多<rt>おお</rt></ruby>いので、ここでは<ruby>選<rt>えら</rt></ruby>べません。</div>
+          <div class="note">※「<ruby>初級<rt>しょきゅう</rt></ruby>・<ruby>既習<rt>きしゅう</rt></ruby>」には、<ruby>初級<rt>しょきゅう</rt></ruby>レベルの<ruby>漢字<rt>かんじ</rt></ruby>300<ruby>字<rt>じ</rt></ruby>と、この<ruby>授業<rt>じゅぎょう</rt></ruby>でこれまでに<ruby>学習<rt>がくしゅう</rt></ruby>した<ruby>漢字<rt>かんじ</rt></ruby>を<ruby>含<rt>ふく</rt></ruby>みます。<ruby>初級<rt>しょきゅう</rt></ruby>300<ruby>字<rt>じ</rt></ruby>は、この<ruby>授業<rt>じゅぎょう</rt></ruby>で<ruby>扱<rt>あつか</rt></ruby>った<ruby>漢字<rt>かんじ</rt></ruby>とは<ruby>限<rt>かぎ</rt></ruby>りません。</div>
+        </div>
       </div>
     </div>
   </section>
