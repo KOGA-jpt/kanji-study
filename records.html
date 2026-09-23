@@ -1,5 +1,5 @@
 <!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>学習記録｜漢字自習ツール</title><style>
-:root{--bg:#f5f8fc;--card:#fff;--text:#1f2937;--muted:#667085;--line:#d9e2ec;--primary:#1769d2;--green:#dff4e7;--green-border:#70b98a;--pink:#f9e1e8;--pink-border:#d7869d;--gray:#cbd3dd}
+:root{--bg:#f5f8fc;--card:#fff;--text:#1f2937;--muted:#667085;--line:#d9e2ec;--primary:#1769d2;--green:#dff4e7;--green-border:#70b98a;--pink:#f9e1e8;--pink-border:#d7869d;--gray:#cbd3dd;--band1:#6d9af2;--band2:#3fbf7f;--band3:#e4a051;--band4:#e668a0}
 *{box-sizing:border-box} ruby{ruby-position:over} rt{font-size:.52em;color:var(--muted)}
 /* v5: 短いUI文言の高さ合わせ。かな・カタカナには見えないルビ領域だけを確保 */
 .ui-ruby-blank rt{visibility:hidden}
@@ -21,7 +21,7 @@ a{color:inherit}.top-head{display:flex;align-items:flex-start;justify-content:sp
 .status-dot:not(.small).done::before{background:var(--pink);border-color:var(--pink-border)}
 .status-dot:not(.small).done{color:#a33d5d}
 .status-dot:not(.small):disabled{cursor:default;opacity:1}
-.group{border:1px solid var(--line);border-radius:16px;background:#fff;margin:12px 0;overflow:hidden}.group>summary{list-style:none;cursor:pointer;padding:16px 18px;font-weight:800;display:flex;align-items:center;justify-content:space-between;gap:12px}.group>summary::-webkit-details-marker{display:none}.group>summary::before{content:"▶";font-size:.8rem;color:var(--muted);transition:transform .15s}.group[open]>summary::before{transform:rotate(90deg)}.group-title{display:flex;align-items:center;gap:10px;flex:1}.group-note{font-size:.82rem;color:var(--muted);font-weight:600}
+.group{border:1px solid var(--line);border-top:4px solid var(--band,var(--line));border-radius:16px;background:#fff;margin:12px 0;overflow:hidden}.group:nth-of-type(1){--band:var(--band1)}.group:nth-of-type(2){--band:var(--band2)}.group:nth-of-type(3){--band:var(--band3)}.group:nth-of-type(4){--band:var(--band4)}.group>summary{list-style:none;cursor:pointer;padding:16px 18px;font-weight:800;display:flex;align-items:center;justify-content:space-between;gap:12px}.group>summary::-webkit-details-marker{display:none}.group>summary::before{content:"▶";font-size:.8rem;color:var(--muted);transition:transform .15s}.group[open]>summary::before{transform:rotate(90deg)}.group-title{display:flex;align-items:center;gap:10px;flex:1}.group-title::before{content:"";width:10px;height:10px;border-radius:3px;background:var(--band,var(--line));flex:0 0 auto}.group-note{font-size:.82rem;color:var(--muted);font-weight:600}
 .lesson-list{border-top:1px solid var(--line)}.lesson-row{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:14px;padding:15px 18px;border-bottom:1px solid #edf1f5}.lesson-row:last-child{border-bottom:0}.lesson-main{min-width:0}.lesson-title{font-weight:800;font-size:1.03rem}.lesson-range{margin-top:3px;color:var(--muted);font-size:.82rem}.start-btn{display:inline-flex;align-items:center;justify-content:center;min-height:42px;padding:9px 13px;border-radius:10px;background:var(--primary);color:#fff;text-decoration:none;font-weight:800;white-space:nowrap}.helper{padding:12px 18px;border-top:1px solid var(--line);color:var(--muted);font-size:.84rem;line-height:1.65;background:#fbfcfe}.placeholder{padding:12px 18px 18px;color:var(--muted);border-top:1px solid var(--line)}
 @media(max-width:620px){main{padding-top:24px}.top-head{display:block}.record-link,.back-link{margin-top:14px}.lesson-row{grid-template-columns:auto minmax(0,1fr);gap:10px 12px}.start-btn{grid-column:2;width:100%;margin-top:1px}.group>summary{padding:15px 14px}.lesson-row{padding:14px}.helper{padding:11px 14px}}
 
@@ -33,7 +33,7 @@ a{color:inherit}.top-head{display:flex;align-items:flex-start;justify-content:sp
 .records-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;align-items:start;padding:12px;border-top:1px solid var(--line);background:#fbfcfe}
 .record-group{margin:12px 0}
 .record-group .placeholder{background:#fbfcfe}
-.record-card{background:#fff;border:1px solid var(--line);border-left:4px solid #8fa8ee;border-radius:14px;overflow:hidden}
+.record-card{background:#fff;border:1px solid var(--line);border-left:4px solid var(--band,#8fa8ee);border-radius:14px;overflow:hidden}
 .record-head{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:10px 11px;align-items:start;padding:14px 14px 10px}
 .record-head .status-dot{margin-top:2px}
 .record-head .lesson-main{min-width:0}
