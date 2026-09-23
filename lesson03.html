@@ -1114,7 +1114,7 @@ button:focus-visible,
       <div class="actions flash-card-nav" style="margin:4px 0 12px">
         <button class="secondary" id="prevFlash">← <ruby>戻<rt>もど</rt></ruby>る</button>
         <button class="primary" id="revealBtn"><ruby>読<rt>よ</rt></ruby>み・<ruby>語彙<rt>ごい</rt></ruby>を<ruby>見<rt>み</rt></ruby>る</button>
-        <button class="bad hidden" id="hardBtn">★ <ruby>復習<rt>ふくしゅう</rt></ruby>する</button>
+        <button class="bad hidden" id="hardBtn">★ あとで<ruby>復習<rt>ふくしゅう</rt></ruby>する</button>
         <button class="secondary" id="nextFlash"><ruby>次<rt>つぎ</rt></ruby>へ →</button>
       </div>
 
@@ -1314,7 +1314,7 @@ button:focus-visible,
   <section id="stats" class="panel" role="tabpanel" aria-labelledby="tab-stats">
     <div class="card">
       <h2 style="margin-top:0;font-size:1.05rem">★ <ruby>復習<rt>ふくしゅう</rt></ruby>する<ruby>漢字<rt>かんじ</rt></ruby></h2>
-      <p class="note">カードで「★ <ruby>復習<rt>ふくしゅう</rt></ruby>する」を<ruby>押<rt>お</rt></ruby>した<ruby>字<rt>じ</rt></ruby>、<ruby>読<rt>よ</rt></ruby>みを<ruby>間違<rt>まちが</rt></ruby>えた<ruby>字<rt>じ</rt></ruby>、<ruby>書<rt>か</rt></ruby>けなかった<ruby>字<rt>じ</rt></ruby>が<ruby>入<rt>はい</rt></ruby>ります。もう<ruby>大丈夫<rt>だいじょうぶ</rt></ruby>な<ruby>字<rt>じ</rt></ruby>は「<ruby>復習<rt>ふくしゅう</rt></ruby>リストから<ruby>外<rt>はず</rt></ruby>す」で<ruby>削除<rt>さくじょ</rt></ruby>できます。</p>
+      <p class="note">カードで「★ あとで<ruby>復習<rt>ふくしゅう</rt></ruby>する」を<ruby>押<rt>お</rt></ruby>した<ruby>字<rt>じ</rt></ruby>、<ruby>読<rt>よ</rt></ruby>みを<ruby>間違<rt>まちが</rt></ruby>えた<ruby>字<rt>じ</rt></ruby>、<ruby>書<rt>か</rt></ruby>けなかった<ruby>字<rt>じ</rt></ruby>が<ruby>入<rt>はい</rt></ruby>ります。もう<ruby>大丈夫<rt>だいじょうぶ</rt></ruby>な<ruby>字<rt>じ</rt></ruby>は「<ruby>復習<rt>ふくしゅう</rt></ruby>リストから<ruby>外<rt>はず</rt></ruby>す」で<ruby>削除<rt>さくじょ</rt></ruby>できます。</p>
       <div class="stat" style="max-width:180px;margin-bottom:12px"><b id="sHard">0</b><ruby>復習<rt>ふくしゅう</rt></ruby>する<ruby>漢字<rt>かんじ</rt></ruby></div>
       <div class="table-scroll">
         <table class="list">
@@ -2206,7 +2206,7 @@ function showFlash(){
     hardBtn.innerHTML='★ <ruby>登録済<rt>とうろくず</rt></ruby>み';
     hardBtn.disabled=true;
   }else{
-    hardBtn.innerHTML='★ <ruby>復習<rt>ふくしゅう</rt></ruby>する';
+    hardBtn.innerHTML='★ あとで<ruby>復習<rt>ふくしゅう</rt></ruby>する';
     hardBtn.disabled=false;
   }
   flashProgress.textContent=`${flashIndex+1} / ${flashPool.length}`;
