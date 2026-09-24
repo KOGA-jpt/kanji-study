@@ -2175,7 +2175,7 @@ function showReadSummary(){
     readSummaryNote.innerHTML='<span class="jp-kanji">'+wrong.map(x=>escapeHtml(x.word)).join("・")+"</span>";
   }else{
     retryWrongRead.classList.add("hidden");
-    readSummaryNote.textContent="ぜんぶ正解です。";
+    readSummaryNote.innerHTML="ぜんぶ<ruby>正解<rt>せいかい</rt></ruby>です。";
   }
 }
 retryWrongRead.onclick=()=>{
@@ -2239,7 +2239,7 @@ checkRead.onclick=()=>{
     s.correct++;
     readRound.correct++;
     rFeedback.className="feedback reading-feedback-inline ok";
-    rFeedback.textContent="⭕ 正解";
+    rFeedback.innerHTML="⭕ <ruby>正解<rt>せいかい</rt></ruby>";
   } else {
     if(!readRound.wrong.some(x=>x.word===currentRead.word && x.reading===currentRead.reading)){
       readRound.wrong.push(currentRead);
