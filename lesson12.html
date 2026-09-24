@@ -2539,7 +2539,7 @@ function showWriteSummary(){
     writeSummaryNote.innerHTML='<span class="jp-kanji">'+bad.map(x=>escapeHtml(x.word)).join("・")+"</span>";
   }else{
     retryWrongWrite.classList.add("hidden");
-    writeSummaryNote.textContent="ぜんぶ書けました。";
+    writeSummaryNote.innerHTML="ぜんぶ<ruby>書<rt>か</rt></ruby>けました。";
   }
 }
 retryWrongWrite.onclick=()=>{
