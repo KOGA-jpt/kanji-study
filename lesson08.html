@@ -1806,10 +1806,17 @@ function answerMatches(input,reading){
   return a!=="" && a===norm(reading);
 }
 
+// 読みクイズ専用の表示だけ短くする例外。教科書語彙そのものは変更しない。
+const READING_QUIZ_FORM_OVERRIDES = {
+  "公共の\u0000こうきょうの":{word:"公共",reading:"こうきょう"}
+};
+
 // 読みクイズ専用の出題形。
 // する動詞は「する」を、な形容詞は語末の「な」を外す。
 // それ以外の送り仮名（速い・遅れる等）は残す。
 function toReadingQuizForm(word,reading){
+  const override=READING_QUIZ_FORM_OVERRIDES[String(word??"")+"\u0000"+String(reading??"")];
+  if(override) return {word:override.word,reading:override.reading};
   let qWord=String(word??"");
   let qReading=String(reading??"");
   if(qWord.endsWith("する") && qReading.endsWith("する")){
