@@ -31,8 +31,23 @@ a{color:inherit}.top-head{display:block;margin-bottom:20px}.top-head h1{margin:0
 .lesson-progress{grid-column:2 / 4;height:6px;border-radius:999px;background:#eef1f5;overflow:hidden}.lesson-progress-fill{height:100%;width:0;border-radius:999px;background:var(--band,var(--primary));transition:width .2s}
 .lesson-list{border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;padding:14px}.lesson-row{display:grid;grid-template-columns:auto minmax(0,1fr) 24px;align-items:start;gap:10px 12px;padding:15px;border:1px solid #e4e9f0;border-radius:14px;background:#fff}.lesson-row:last-child{border-bottom:1px solid #e4e9f0}.lesson-main{min-width:0;padding-top:1px}.lesson-title{font-weight:800;font-size:1.03rem}.lesson-range{margin-top:3px;color:var(--muted);font-size:.82rem}.lesson-full-mark{grid-column:3;grid-row:1;display:none;align-items:center;justify-content:center;width:24px;height:24px;color:#c58b00;font-size:1.05rem;font-weight:900;line-height:1;align-self:center}.lesson-full-mark.show{display:inline-flex}.start-btn{grid-column:2 / 4;display:inline-flex;align-items:center;justify-content:center;min-height:42px;padding:9px 13px;border-radius:10px;background:var(--primary);color:#fff;text-decoration:none;font-weight:800;white-space:nowrap;margin-top:2px}.helper{padding:12px 18px;border-top:1px solid var(--line);color:var(--muted);font-size:.84rem;line-height:1.65;background:#fbfcfe}.placeholder{padding:12px 18px 18px;color:var(--muted);border-top:1px solid var(--line)}
 @media(max-width:720px){main{padding-top:24px}.top-head{display:block}.record-link,.back-link{margin-top:14px}.lesson-list{grid-template-columns:1fr;padding:10px}.lesson-row{grid-template-columns:auto minmax(0,1fr) 24px;gap:10px 12px;padding:14px}.start-btn{grid-column:2 / 4;width:100%;margin-top:1px}.group>summary{padding:15px 14px}.helper{padding:11px 14px}}
+
+.search-box{margin:14px 0 0;padding:12px 14px;border:1px solid var(--line);background:#fff;border-radius:13px}
+.search-box label{display:block;font-weight:800;font-size:.92rem;margin-bottom:8px}
+.search-box input{width:100%;max-width:420px;padding:11px 13px;border:2px solid var(--line);border-radius:10px;font-size:1.1rem;font-family:inherit}
+.search-box input:focus{outline:none;border-color:var(--primary)}
+.search-results{margin-top:10px;display:grid;gap:8px}
+.sr-row{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:12px;padding:10px 12px;border:1px solid #e4e9f0;border-radius:12px;background:#fbfcfe}
+.sr-kanji{font-size:2rem;line-height:1.1;font-weight:700;min-width:2.2rem;text-align:center}
+.sr-info{min-width:0;font-weight:800}
+.sr-info small{display:block;margin-top:3px;color:var(--muted);font-weight:600;font-size:.82rem}
+.sr-go{display:inline-flex;align-items:center;justify-content:center;min-height:40px;padding:8px 12px;border-radius:10px;background:var(--primary);color:#fff;text-decoration:none;font-weight:800;white-space:nowrap}
+.sr-go rt{color:rgba(255,255,255,.92)}
+.sr-none .sr-info{font-weight:700;color:var(--muted)}
+.sr-hint{color:var(--muted);font-size:.84rem}
 </style></head><body><main>
 <header class="top-head"><div class="top-main"><h1><ruby>漢字<rt>かんじ</rt></ruby><ruby>自習<rt>じしゅう</rt></ruby>ツール</h1><div class="top-actions"><a class="record-link" href="records.html"><span class="ui-ruby-line"><ruby>学習<rt>がくしゅう</rt></ruby><ruby class="ui-ruby-blank">の<rt aria-hidden="true">&nbsp;</rt></ruby><ruby>記録<rt>きろく</rt></ruby><ruby class="ui-ruby-blank">を<rt aria-hidden="true">&nbsp;</rt></ruby><ruby>見<rt>み</rt></ruby><ruby class="ui-ruby-blank">る<rt aria-hidden="true">&nbsp;</rt></ruby></span></a><div class="bonus-stars" id="bonusStars" aria-label="フル学習ボーナス：まだ星はありません" title="カード・読み・書きを全部1回以上取り組んだ課を3課達成すると★が1つ増えます"><span aria-hidden="true">☆☆☆☆☆☆☆☆☆☆</span></div></div></div></header>
+<div class="search-box"><label for="kanjiSearch"><ruby>漢字<rt>かんじ</rt></ruby>をさがす</label><input id="kanjiSearch" type="search" inputmode="text" autocomplete="off" placeholder="かんじを いれる (れい: 初)"><div class="search-results" id="searchResults" aria-live="polite"></div></div>
 <div class="status-legend"><span class="legend-item"><span class="status-dot small"></span><ruby>未習<rt>みしゅう</rt></ruby></span><span class="legend-item"><span class="status-dot small learning"></span><ruby>学習中<rt>がくしゅうちゅう</rt></ruby></span><span class="legend-item"><span class="status-dot small done">✓</span><ruby>済<rt>す</rt></ruby><ruby class="ui-ruby-blank">み<rt aria-hidden="true">&nbsp;</rt></ruby></span></div>
 <details class="group" open><summary><span class="group-title"><ruby>第<rt>だい</rt></ruby>1〜8<ruby>課<rt>か</rt></ruby></span></summary><div class="lesson-list"><div class="lesson-row" data-lesson="1">
       <button class="status-dot" type="button" data-status-for="1" aria-label="第1課の学習状態を変更"></button>
@@ -296,4 +311,31 @@ renderLessonFullMarks();
 renderLessonProgress();
 renderBonusStars();
 restoreLessonGroupFromHash();
+
+(function(){
+  const input=document.getElementById("kanjiSearch"), out=document.getElementById("searchResults");
+  let loading=null;
+  function loadMaster(){
+    if(window.KANJI_MASTER) return Promise.resolve();
+    if(loading) return loading;
+    loading=new Promise((ok,ng)=>{const s=document.createElement("script");s.src="kanji-master.js?v=3.6";s.onload=ok;s.onerror=ng;document.head.appendChild(s);});
+    return loading;
+  }
+  function titleHtml(n){const el=document.querySelector('.lesson-row[data-lesson="'+n+'"] .lesson-title');return el?el.innerHTML:"第"+n+"課";}
+  function render(){
+    const M=window.KANJI_MASTER;
+    const chars=[...new Set((input.value.match(/[\u3400-\u9FFF]/g)||[]))].slice(0,12);
+    if(!chars.length){out.innerHTML=input.value.trim()?'<div class="sr-hint">かんじを いれてください。</div>':"";return;}
+    out.innerHTML=chars.map(ch=>{
+      const info=M.lessonInfoForKanji(ch);
+      if(info) return '<div class="sr-row"><span class="sr-kanji">'+ch+'</span><span class="sr-info">'+titleHtml(info.lesson)+'<small>No.'+info.no+'</small></span><a class="sr-go" href="'+info.href+'?v=3.6"><ruby>この課<rt>か</rt></ruby>へ</a></div>';
+      const beg=M.isBeginnerKanji(ch);
+      const head=beg?'<ruby>初級<rt>しょきゅう</rt></ruby>300<ruby>字<rt>じ</rt></ruby>の<ruby>漢字<rt>かんじ</rt></ruby>です':'この<ruby>教材<rt>きょうざい</rt></ruby>には ありません';
+      const sub=beg?'この教材(301〜1000)にはありません':'301〜1000番の中には見つかりません';
+      return '<div class="sr-row sr-none"><span class="sr-kanji">'+ch+'</span><span class="sr-info">'+head+'<small>'+sub+'</small></span></div>';
+    }).join("");
+  }
+  input.addEventListener("focus",()=>{loadMaster().catch(()=>{});},{once:true});
+  input.addEventListener("input",()=>{loadMaster().then(render).catch(()=>{out.innerHTML='<div class="sr-hint">けんさくデータを よみこめませんでした。</div>';});});
+})();
 </script></body></html>
